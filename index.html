@@ -3,13 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#f7f7fb">
+<meta name="theme-color" content="#f6f7fb">
 <title>NOVA — v6</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-
 <style>
 *{
   box-sizing:border-box;
@@ -17,130 +15,108 @@
   padding:0;
   -webkit-tap-highlight-color:transparent;
 }
-
 :root{
   --bg:#f6f7fb;
-  --card:#ffffff;
+  --card:#fff;
   --text:#101116;
   --muted:#8b8f99;
   --line:#eceef2;
   --purple:#6258f5;
-  --purple2:#786eff;
   --green:#16a36c;
   --red:#e15d67;
   --orange:#ef9c3c;
-  --shadow:0 18px 45px rgba(31,34,50,.08);
 }
-
 html,body{
-  width:100%;
   min-height:100%;
   background:var(--bg);
   color:var(--text);
   font-family:"DM Sans",sans-serif;
 }
-
 body{
   overflow-x:hidden;
 }
-
+button,input{
+  font:inherit;
+}
 button{
   border:0;
   background:none;
-  font:inherit;
   color:inherit;
   cursor:pointer;
 }
-
 .app{
   width:100%;
   max-width:520px;
   min-height:100vh;
   margin:auto;
-  padding-bottom:100px;
+  padding-bottom:105px;
 }
-
 /* HEADER */
-
 .header{
   padding:25px 20px 12px;
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
 }
-
 .user{
   display:flex;
   align-items:center;
   gap:12px;
 }
-
 .avatar{
   width:44px;
   height:44px;
   border-radius:15px;
   display:grid;
   place-items:center;
-  color:white;
+  color:#fff;
+  background:linear-gradient(145deg,#17181d,#565861);
   font-family:"Space Grotesk";
   font-weight:700;
-  font-size:17px;
-  background:linear-gradient(145deg,#17181d,#565861);
-  box-shadow:0 8px 20px rgba(0,0,0,.13);
 }
-
 .greeting{
-  font-size:13px;
   color:var(--muted);
-  margin-bottom:2px;
+  font-size:13px;
 }
-
 .name{
+  margin-top:2px;
   font-size:17px;
   font-weight:700;
 }
-
 .header-actions{
   display:flex;
   gap:8px;
 }
-
 .icon-btn{
   width:42px;
   height:42px;
   border-radius:14px;
-  background:white;
+  background:#fff;
   border:1px solid var(--line);
   display:grid;
   place-items:center;
   position:relative;
-  box-shadow:0 5px 15px rgba(20,20,30,.035);
 }
-
 .icon-btn svg{
   width:20px;
-  height:20px;
 }
-
 .badge{
   position:absolute;
   top:7px;
   right:7px;
   width:7px;
   height:7px;
-  background:#e95461;
-  border:2px solid white;
   border-radius:50%;
+  background:#e95461;
+  border:2px solid #fff;
 }
-
-/* BALANCE HERO */
-
+/* BALANCE */
 .balance-card{
   margin:10px 18px 0;
   min-height:245px;
-  border-radius:30px;
   padding:25px;
-  color:white;
+  border-radius:30px;
+  color:#fff;
   position:relative;
   overflow:hidden;
   background:
@@ -149,42 +125,26 @@ button{
     linear-gradient(140deg,#171820,#292a38 55%,#4b43a2);
   box-shadow:0 24px 55px rgba(55,49,130,.24);
 }
-
 .balance-card:before{
   content:"";
   position:absolute;
   width:190px;
   height:190px;
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:50%;
   right:-80px;
   bottom:-80px;
-}
-
-.balance-card:after{
-  content:"";
-  position:absolute;
-  width:125px;
-  height:125px;
-  border:1px solid rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.1);
   border-radius:50%;
-  right:8px;
-  bottom:-65px;
 }
-
 .balance-top{
   display:flex;
-  align-items:center;
   justify-content:space-between;
   position:relative;
   z-index:2;
 }
-
 .balance-label{
   font-size:13px;
   color:rgba(255,255,255,.65);
 }
-
 .eye{
   width:35px;
   height:35px;
@@ -193,11 +153,9 @@ button{
   display:grid;
   place-items:center;
 }
-
 .eye svg{
   width:18px;
 }
-
 .balance{
   margin-top:13px;
   font-family:"Space Grotesk";
@@ -207,18 +165,13 @@ button{
   position:relative;
   z-index:2;
 }
-
 .balance-change{
   margin-top:8px;
   display:flex;
-  align-items:center;
   gap:7px;
-  font-size:12px;
   color:#b9f0d6;
-  position:relative;
-  z-index:2;
+  font-size:12px;
 }
-
 .balance-bottom{
   position:absolute;
   left:25px;
@@ -229,18 +182,16 @@ button{
   align-items:end;
   z-index:2;
 }
-
 .account{
-  font-size:12px;
   color:rgba(255,255,255,.55);
+  font-size:12px;
 }
-
 .card-number{
-  font-size:14px;
   margin-top:4px;
+  color:#fff;
+  font-size:14px;
   letter-spacing:1px;
 }
-
 .card-mark{
   width:47px;
   height:32px;
@@ -250,141 +201,111 @@ button{
   place-items:center;
   font-family:"Space Grotesk";
   font-size:12px;
-  letter-spacing:1px;
 }
-
-/* QUICK ACTIONS */
-
+/* QUICK */
 .quick{
   padding:21px 20px 7px;
 }
-
 .quick-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:10px;
 }
-
 .quick-item{
   display:flex;
   flex-direction:column;
   align-items:center;
   gap:8px;
 }
-
 .quick-icon{
   width:58px;
   height:58px;
   border-radius:19px;
+  background:#fff;
+  border:1px solid var(--line);
   display:grid;
   place-items:center;
-  background:white;
-  border:1px solid var(--line);
   box-shadow:0 8px 20px rgba(30,32,45,.045);
-  transition:.18s ease;
+  transition:.18s;
 }
-
 .quick-item:active .quick-icon{
   transform:scale(.92);
 }
-
 .quick-icon.primary{
-  color:white;
+  color:#fff;
   background:var(--purple);
   border-color:transparent;
-  box-shadow:0 10px 24px rgba(98,88,245,.25);
 }
-
 .quick-icon svg{
   width:21px;
-  height:21px;
 }
-
 .quick-label{
+  color:#5f636c;
   font-size:11px;
   font-weight:600;
-  color:#5f636c;
 }
-
-/* SECTION */
-
+/* SECTIONS */
 .section{
   padding:22px 20px 0;
 }
-
 .section-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
   margin-bottom:13px;
 }
-
 .section-title{
   font-family:"Space Grotesk";
   font-size:18px;
   font-weight:700;
 }
-
 .section-link{
+  color:var(--purple);
   font-size:12px;
   font-weight:700;
-  color:var(--purple);
 }
-
-/* SPENDING CARD */
-
+/* SPENDING */
 .spending{
-  background:white;
+  padding:19px;
+  background:#fff;
   border:1px solid var(--line);
   border-radius:24px;
-  padding:19px;
-  box-shadow:0 8px 24px rgba(25,27,40,.035);
 }
-
 .spending-top{
   display:flex;
-  align-items:flex-start;
   justify-content:space-between;
 }
-
 .spending-label{
-  font-size:12px;
   color:var(--muted);
+  font-size:12px;
 }
-
 .spending-value{
+  margin-top:4px;
   font-family:"Space Grotesk";
   font-size:25px;
   font-weight:700;
-  margin-top:4px;
 }
-
 .spending-note{
-  font-size:11px;
-  color:var(--green);
   margin-top:3px;
-}
-
-.period{
+  color:var(--green);
   font-size:11px;
-  font-weight:600;
+}
+.period{
+  height:max-content;
   padding:7px 10px;
   border-radius:10px;
   background:#f5f5f8;
+  font-size:11px;
+  font-weight:600;
 }
-
 .chart{
   height:78px;
   margin-top:18px;
-  position:relative;
 }
-
 .chart svg{
   width:100%;
   height:100%;
-  overflow:visible;
 }
-
 .chart-line{
   fill:none;
   stroke:var(--purple);
@@ -393,136 +314,432 @@ button{
   stroke-linejoin:round;
   stroke-dasharray:500;
   stroke-dashoffset:500;
-  animation:draw 1.6s ease forwards;
+  animation:draw 1.5s ease forwards;
 }
-
 .chart-area{
   opacity:.1;
 }
-
 @keyframes draw{
   to{stroke-dashoffset:0}
 }
-
 /* INSIGHT */
-
 .insight{
-  border-radius:24px;
-  padding:19px;
-  background:linear-gradient(135deg,#eeeaff,#f8f7ff);
-  border:1px solid #e5e1ff;
   display:flex;
   gap:14px;
-  align-items:flex-start;
+  padding:19px;
+  border-radius:24px;
+  background:linear-gradient(135deg,#eeeaff,#f8f7ff);
+  border:1px solid #e5e1ff;
 }
-
 .insight-icon{
   width:40px;
   height:40px;
   flex:none;
-  border-radius:13px;
   display:grid;
   place-items:center;
-  background:white;
+  border-radius:13px;
+  background:#fff;
   color:var(--purple);
 }
-
 .insight-icon svg{
   width:20px;
 }
-
 .insight small{
-  font-size:11px;
   color:#8079aa;
+  font-size:11px;
   font-weight:700;
 }
-
 .insight h3{
-  font-size:14px;
   margin-top:4px;
+  font-size:14px;
   line-height:1.4;
 }
-
 .insight p{
+  margin-top:5px;
   color:#7d7b89;
   font-size:11px;
   line-height:1.5;
-  margin-top:5px;
 }
-
-/* ACTIVITY */
-
+/* TRANSACTIONS */
 .activity{
-  background:white;
+  overflow:hidden;
+  background:#fff;
   border:1px solid var(--line);
   border-radius:24px;
-  overflow:hidden;
 }
-
 .transaction{
+  width:100%;
   display:flex;
   align-items:center;
-  padding:15px 17px;
   gap:12px;
+  padding:15px 17px;
+  text-align:left;
   border-bottom:1px solid var(--line);
-  transition:.18s ease;
+  transition:.18s;
 }
-
 .transaction:last-child{
   border-bottom:0;
 }
-
 .transaction:active{
   background:#fafafd;
 }
-
 .tx-icon{
   width:43px;
   height:43px;
   flex:none;
-  border-radius:14px;
   display:grid;
   place-items:center;
+  border-radius:14px;
   background:#f3f3f7;
 }
-
 .tx-icon svg{
   width:19px;
 }
-
 .tx-info{
   flex:1;
   min-width:0;
 }
-
 .tx-name{
   font-size:13px;
   font-weight:700;
 }
-
 .tx-meta{
-  font-size:10px;
-  color:var(--muted);
   margin-top:3px;
+  color:var(--muted);
+  font-size:10px;
 }
-
 .tx-amount{
-  text-align:right;
   font-family:"Space Grotesk";
   font-size:13px;
   font-weight:700;
 }
-
 .positive{
   color:var(--green);
 }
-
 .negative{
   color:var(--text);
 }
-
+/* SCREENS */
+.screen{
+  display:none;
+  animation:screenIn .3s ease;
+}
+.screen.active{
+  display:block;
+}
+@keyframes screenIn{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+/* ACTIVITY SCREEN */
+.activity-header{
+  padding:27px 20px 10px;
+}
+.activity-title{
+  font-family:"Space Grotesk";
+  font-size:29px;
+  font-weight:700;
+  letter-spacing:-1px;
+}
+.activity-subtitle{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:12px;
+}
+.search-box{
+  margin:15px 20px 0;
+  height:48px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:0 15px;
+  border-radius:16px;
+  background:#fff;
+  border:1px solid var(--line);
+}
+.search-box svg{
+  width:18px;
+  color:#999da5;
+  flex:none;
+}
+.search-box input{
+  width:100%;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:var(--text);
+  font-size:13px;
+}
+.filters{
+  display:flex;
+  gap:8px;
+  padding:14px 20px 4px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.filters::-webkit-scrollbar{
+  display:none;
+}
+.filter{
+  flex:none;
+  padding:9px 14px;
+  border-radius:12px;
+  background:#fff;
+  border:1px solid var(--line);
+  color:#777b84;
+  font-size:11px;
+  font-weight:700;
+}
+.filter.active{
+  background:#17181d;
+  color:#fff;
+  border-color:#17181d;
+}
+.activity-list{
+  padding:18px 20px 20px;
+}
+.day-label{
+  margin:8px 2px 9px;
+  color:#92959d;
+  font-size:11px;
+  font-weight:700;
+}
+.feed-card{
+  overflow:hidden;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:21px;
+  margin-bottom:15px;
+}
+.feed-card .transaction{
+  border-bottom:0;
+}
+.status-row{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:0 17px 13px 72px;
+  margin-top:-4px;
+}
+.status-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--green);
+}
+.status{
+  color:#858991;
+  font-size:9px;
+  font-weight:600;
+}
+.feed-card.new{
+  animation:feedIn .5s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes feedIn{
+  from{
+    opacity:0;
+    transform:translateY(18px) scale(.97);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+/* EMPTY */
+.empty{
+  padding:55px 20px;
+  text-align:center;
+  display:none;
+}
+.empty-icon{
+  width:58px;
+  height:58px;
+  margin:auto;
+  border-radius:19px;
+  display:grid;
+  place-items:center;
+  background:#fff;
+  border:1px solid var(--line);
+}
+.empty-icon svg{
+  width:23px;
+  color:#999da5;
+}
+.empty h3{
+  margin-top:14px;
+  font-size:15px;
+}
+.empty p{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:11px;
+}
+/* PLACEHOLDER SCREENS */
+.placeholder{
+  padding:70px 25px;
+  text-align:center;
+}
+.placeholder-icon{
+  width:68px;
+  height:68px;
+  margin:auto;
+  border-radius:23px;
+  background:#eeeaff;
+  color:var(--purple);
+  display:grid;
+  place-items:center;
+}
+.placeholder-icon svg{
+  width:28px;
+}
+.placeholder h2{
+  margin-top:17px;
+  font-family:"Space Grotesk";
+}
+.placeholder p{
+  margin:8px auto 0;
+  max-width:290px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
+}
+/* DETAIL OVERLAY */
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:rgba(11,12,17,.42);
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+}
+.overlay.open{
+  opacity:1;
+  pointer-events:auto;
+}
+.detail-sheet{
+  position:absolute;
+  left:50%;
+  bottom:0;
+  width:min(520px,100%);
+  max-height:88vh;
+  overflow:auto;
+  transform:translate(-50%,100%);
+  background:#fff;
+  border-radius:29px 29px 0 0;
+  transition:.38s cubic-bezier(.2,.8,.2,1);
+  padding:10px 20px 30px;
+}
+.overlay.open .detail-sheet{
+  transform:translate(-50%,0);
+}
+.sheet-handle{
+  width:42px;
+  height:4px;
+  margin:2px auto 20px;
+  border-radius:99px;
+  background:#dedfe4;
+}
+.detail-top{
+  text-align:center;
+}
+.detail-icon{
+  width:64px;
+  height:64px;
+  margin:auto;
+  border-radius:21px;
+  display:grid;
+  place-items:center;
+  background:#f2f1ff;
+  color:var(--purple);
+}
+.detail-icon svg{
+  width:27px;
+}
+.detail-name{
+  margin-top:13px;
+  font-family:"Space Grotesk";
+  font-size:21px;
+  font-weight:700;
+}
+.detail-amount{
+  margin-top:5px;
+  font-family:"Space Grotesk";
+  font-size:29px;
+  font-weight:700;
+}
+.detail-status{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-top:9px;
+  padding:6px 10px;
+  border-radius:10px;
+  background:#edf9f4;
+  color:var(--green);
+  font-size:10px;
+  font-weight:700;
+}
+.details{
+  margin-top:23px;
+  border-top:1px solid var(--line);
+}
+.detail-row{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
+}
+.detail-row span:first-child{
+  color:var(--muted);
+  font-size:11px;
+}
+.detail-row span:last-child{
+  font-size:11px;
+  font-weight:700;
+  text-align:right;
+}
+.close-sheet{
+  width:100%;
+  height:48px;
+  margin-top:20px;
+  border-radius:15px;
+  background:#17181d;
+  color:#fff;
+  font-size:12px;
+  font-weight:700;
+}
+/* TOAST */
+.toast{
+  position:fixed;
+  z-index:200;
+  left:50%;
+  bottom:96px;
+  transform:translate(-50%,20px);
+  opacity:0;
+  pointer-events:none;
+  padding:12px 17px;
+  border-radius:15px;
+  background:#17181d;
+  color:#fff;
+  font-size:12px;
+  box-shadow:0 15px 35px rgba(0,0,0,.2);
+  transition:.3s;
+}
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
 /* NAV */
-
 .bottom-nav{
   position:fixed;
   z-index:50;
@@ -532,70 +749,41 @@ button{
   width:min(480px,calc(100% - 28px));
   height:67px;
   padding:7px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-radius:23px;
   background:rgba(255,255,255,.92);
   backdrop-filter:blur(22px);
   -webkit-backdrop-filter:blur(22px);
   border:1px solid rgba(220,222,230,.9);
-  border-radius:23px;
   box-shadow:0 15px 45px rgba(25,27,40,.13);
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
 }
-
 .nav-item{
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
   gap:4px;
-  color:#989ba3;
   border-radius:17px;
+  color:#989ba3;
   transition:.2s;
 }
-
 .nav-item.active{
   color:var(--purple);
   background:#f1efff;
 }
-
 .nav-item svg{
   width:19px;
   height:19px;
 }
-
 .nav-item span{
   font-size:9px;
   font-weight:700;
 }
-
-/* TOAST */
-
-.toast{
-  position:fixed;
-  z-index:100;
-  left:50%;
-  bottom:95px;
-  transform:translate(-50%,20px);
-  opacity:0;
-  pointer-events:none;
-  background:#17181d;
-  color:white;
-  padding:12px 17px;
-  border-radius:15px;
-  font-size:12px;
-  box-shadow:0 15px 35px rgba(0,0,0,.2);
-  transition:.3s ease;
-}
-
-.toast.show{
-  transform:translate(-50%,0);
-  opacity:1;
-}
-
 /* RIPPLE */
-
 .ripple{
   position:fixed;
+  z-index:300;
   pointer-events:none;
   width:10px;
   height:10px;
@@ -604,19 +792,16 @@ button{
   transform:scale(0);
   animation:ripple .5s ease-out forwards;
 }
-
 @keyframes ripple{
   to{
     transform:scale(25);
     opacity:0;
   }
 }
-
 @media(max-width:360px){
   .balance{
     font-size:34px;
   }
-
   .quick-icon{
     width:53px;
     height:53px;
@@ -624,223 +809,234 @@ button{
 }
 </style>
 </head>
-
 <body>
-
 <div class="app">
-
-  <!-- HEADER -->
-  <header class="header">
-
-    <div class="user">
-      <div class="avatar">J</div>
-
+<!-- ================= HOME ================= -->
+<div id="homeScreen" class="screen active">
+<header class="header">
+  <div class="user">
+    <div class="avatar">J</div>
+    <div>
+      <div class="greeting">Good evening</div>
+      <div class="name">Jack</div>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="icon-btn" onclick="notify('Search is coming next')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="11" cy="11" r="6.5"/>
+        <path d="m16 16 5 5"/>
+      </svg>
+    </button>
+    <button class="icon-btn" onclick="notify('You have 3 new notifications')">
+      <span class="badge"></span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+        <path d="M10 21h4"/>
+      </svg>
+    </button>
+  </div>
+</header>
+<section class="balance-card">
+  <div class="balance-top">
+    <div class="balance-label">Available balance</div>
+    <button class="eye" onclick="toggleBalance()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/>
+        <circle cx="12" cy="12" r="2.5"/>
+      </svg>
+    </button>
+  </div>
+  <div id="balance" class="balance">$24,860.40</div>
+  <div class="balance-change">
+    <span>↗</span>
+    <span>+8.4% this month</span>
+  </div>
+  <div class="balance-bottom">
+    <div class="account">
+      <div>Primary account</div>
+      <div class="card-number">•••• 4821</div>
+    </div>
+    <div class="card-mark">NOVA</div>
+  </div>
+</section>
+<section class="quick">
+  <div class="quick-grid">
+    <button class="quick-item" onclick="notify('Send Money is coming next')">
+      <div class="quick-icon primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h13"/>
+          <path d="m13 6 6 6-6 6"/>
+        </svg>
+      </div>
+      <span class="quick-label">Send</span>
+    </button>
+    <button class="quick-item" onclick="notify('Request Money is coming next')">
+      <div class="quick-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M12 5v14"/>
+          <path d="M5 12h14"/>
+        </svg>
+      </div>
+      <span class="quick-label">Request</span>
+    </button>
+    <button class="quick-item" onclick="notify('NOVA Pay is coming next')">
+      <div class="quick-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="4" y="5" width="16" height="14" rx="2"/>
+          <path d="M7 9h10"/>
+          <path d="M7 14h5"/>
+        </svg>
+      </div>
+      <span class="quick-label">Pay</span>
+    </button>
+    <button class="quick-item" onclick="notify('Add Money is coming next')">
+      <div class="quick-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M12 4v16"/>
+          <path d="M4 12h16"/>
+          <circle cx="12" cy="12" r="9"/>
+        </svg>
+      </div>
+      <span class="quick-label">Add</span>
+    </button>
+  </div>
+</section>
+<section class="section">
+  <div class="section-head">
+    <div class="section-title">Money pulse</div>
+    <button class="section-link" onclick="notify('Monthly overview')">View</button>
+  </div>
+  <div class="spending">
+    <div class="spending-top">
       <div>
-        <div class="greeting">Good evening</div>
-        <div class="name">Jack</div>
+        <div class="spending-label">Spent this month</div>
+        <div class="spending-value">$2,418</div>
+        <div class="spending-note">12% less than August</div>
       </div>
+      <div class="period">SEP 2026</div>
     </div>
-
-    <div class="header-actions">
-
-      <button class="icon-btn" onclick="notify('Search coming soon')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <circle cx="11" cy="11" r="6.5"/>
-          <path d="m16 16 5 5"/>
-        </svg>
-      </button>
-
-      <button class="icon-btn" onclick="notify('You have 3 new notifications')">
-        <span class="badge"></span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
-          <path d="M10 21h4"/>
-        </svg>
-      </button>
-
+    <div class="chart">
+      <svg viewBox="0 0 400 80" preserveAspectRatio="none">
+        <path
+          class="chart-area"
+          d="M0 62 C35 55 55 65 80 49 C105 34 120 45 145 39 C175 30 188 48 215 35 C240 22 260 31 285 25 C315 18 340 30 365 14 L400 10 L400 80 L0 80 Z"
+          fill="#6258f5"
+        />
+        <path
+          class="chart-line"
+          d="M0 62 C35 55 55 65 80 49 C105 34 120 45 145 39 C175 30 188 48 215 35 C240 22 260 31 285 25 C315 18 340 30 365 14 L400 10"
+        />
+      </svg>
     </div>
-
-  </header>
-
-
-  <!-- BALANCE -->
-  <section class="balance-card">
-
-    <div class="balance-top">
-      <div class="balance-label">Available balance</div>
-
-      <button class="eye" onclick="toggleBalance()">
-        <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/>
-          <circle cx="12" cy="12" r="2.5"/>
-        </svg>
-      </button>
+  </div>
+</section>
+<section class="section">
+  <div class="section-head">
+    <div class="section-title">Nova insight</div>
+  </div>
+  <div class="insight">
+    <div class="insight-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M9 18h6"/>
+        <path d="M10 22h4"/>
+        <path d="M8.5 15.5C7 14.3 6 12.5 6 10.5a6 6 0 0 1 12 0c0 2-1 3.8-2.5 5"/>
+        <path d="M12 3v1"/>
+      </svg>
     </div>
-
-    <div id="balance" class="balance">$24,860.40</div>
-
-    <div class="balance-change">
-      <span>↗</span>
-      <span>+8.4% this month</span>
+    <div>
+      <small>SMART OBSERVATION</small>
+      <h3>Your spending is moving in the right direction.</h3>
+      <p>You spent 12% less this month while keeping your savings pace steady.</p>
     </div>
-
-    <div class="balance-bottom">
-
-      <div class="account">
-        <div>Primary account</div>
-        <div class="card-number">•••• 4821</div>
-      </div>
-
-      <div class="card-mark">NOVA</div>
-
-    </div>
-
-  </section>
-
-
-  <!-- QUICK ACTIONS -->
-  <section class="quick">
-
-    <div class="quick-grid">
-
-      <button class="quick-item" onclick="sendMoney()">
-        <div class="quick-icon primary">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h13"/>
-            <path d="m13 6 6 6-6 6"/>
-          </svg>
-        </div>
-        <span class="quick-label">Send</span>
-      </button>
-
-      <button class="quick-item" onclick="notify('Request Money opened')">
-        <div class="quick-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M12 5v14"/>
-            <path d="M5 12h14"/>
-          </svg>
-        </div>
-        <span class="quick-label">Request</span>
-      </button>
-
-      <button class="quick-item" onclick="notify('NOVA Pay ready')">
-        <div class="quick-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <rect x="4" y="5" width="16" height="14" rx="2"/>
-            <path d="M7 9h10"/>
-            <path d="M7 14h5"/>
-          </svg>
-        </div>
-        <span class="quick-label">Pay</span>
-      </button>
-
-      <button class="quick-item" onclick="notify('Add money opened')">
-        <div class="quick-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M12 4v16"/>
-            <path d="M4 12h16"/>
-            <circle cx="12" cy="12" r="9"/>
-          </svg>
-        </div>
-        <span class="quick-label">Add</span>
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- MONEY PULSE -->
-  <section class="section">
-
-    <div class="section-head">
-      <div class="section-title">Money pulse</div>
-      <button class="section-link" onclick="notify('Monthly overview')">View</button>
-    </div>
-
-    <div class="spending">
-
-      <div class="spending-top">
-
-        <div>
-          <div class="spending-label">Spent this month</div>
-          <div class="spending-value">$2,418</div>
-          <div class="spending-note">12% less than August</div>
-        </div>
-
-        <div class="period">SEP 2026</div>
-
-      </div>
-
-      <div class="chart">
-
-        <svg viewBox="0 0 400 80" preserveAspectRatio="none">
-
-          <path
-            class="chart-area"
-            d="M0 62 C35 55 55 65 80 49 C105 34 120 45 145 39 C175 30 188 48 215 35 C240 22 260 31 285 25 C315 18 340 30 365 14 L400 10 L400 80 L0 80 Z"
-            fill="#6258f5"
-          />
-
-          <path
-            class="chart-line"
-            d="M0 62 C35 55 55 65 80 49 C105 34 120 45 145 39 C175 30 188 48 215 35 C240 22 260 31 285 25 C315 18 340 30 365 14 L400 10"
-          />
-
-        </svg>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- INSIGHT -->
-  <section class="section">
-
-    <div class="section-head">
-      <div class="section-title">Nova insight</div>
-    </div>
-
-    <div class="insight">
-
-      <div class="insight-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M9 18h6"/>
-          <path d="M10 22h4"/>
-          <path d="M8.5 15.5C7 14.3 6 12.5 6 10.5a6 6 0 0 1 12 0c0 2-1 3.8-2.5 5"/>
-          <path d="M12 3v1"/>
+  </div>
+</section>
+<section class="section">
+  <div class="section-head">
+    <div class="section-title">Recent activity</div>
+    <button class="section-link" onclick="showScreen('activity')">
+      See all
+    </button>
+  </div>
+  <div class="activity">
+    <button class="transaction" onclick="openTransaction('Blue Bottle Coffee','-$8.40','Food','Today · 6:42 PM','Card •••• 4821','#TX-849201','Completed','$24,860.40')">
+      <div class="tx-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M6 8h12v7a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/>
+          <path d="M8 5h8"/>
+          <path d="M9 3h6"/>
         </svg>
       </div>
-
-      <div>
-        <small>SMART OBSERVATION</small>
-        <h3>Your spending is moving in the right direction.</h3>
-        <p>
-          You spent 12% less this month while keeping your savings pace steady.
-        </p>
+      <div class="tx-info">
+        <div class="tx-name">Blue Bottle Coffee</div>
+        <div class="tx-meta">Food · Today</div>
       </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- RECENT ACTIVITY -->
-  <section class="section">
-
-    <div class="section-head">
-      <div class="section-title">Recent activity</div>
-      <button class="section-link" onclick="notify('Activity screen coming next')">
-        See all
-      </button>
-    </div>
-
-    <div class="activity">
-
-      <button class="transaction" onclick="transaction('Blue Bottle Coffee','-$8.40','Today · 6:42 PM')">
-
+      <div class="tx-amount negative">−$8.40</div>
+    </button>
+    <button class="transaction" onclick="openTransaction('Salary deposit','+$4,280.00','Income','Today · 9:15 AM','Primary account •••• 4821','#TX-720114','Completed','$24,868.80')">
+      <div class="tx-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M4 17h16"/>
+          <path d="M6 17V9l6-4 6 4v8"/>
+          <path d="M9 13h6"/>
+        </svg>
+      </div>
+      <div class="tx-info">
+        <div class="tx-name">Salary deposit</div>
+        <div class="tx-meta">Income · Today</div>
+      </div>
+      <div class="tx-amount positive">+$4,280</div>
+    </button>
+    <button class="transaction" onclick="openTransaction('Apartment rent','-$1,420.00','Housing','Yesterday · 10:03 AM','Primary account •••• 4821','#TX-553820','Completed','$20,588.80')">
+      <div class="tx-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="m4 10 8-6 8 6"/>
+          <path d="M6 9v10h12V9"/>
+          <path d="M10 19v-5h4v5"/>
+        </svg>
+      </div>
+      <div class="tx-info">
+        <div class="tx-name">Apartment rent</div>
+        <div class="tx-meta">Housing · Yesterday</div>
+      </div>
+      <div class="tx-amount negative">−$1,420</div>
+    </button>
+  </div>
+</section>
+</div>
+<!-- ================= ACTIVITY ================= -->
+<div id="activityScreen" class="screen">
+  <div class="activity-header">
+    <div class="activity-title">Activity</div>
+    <div class="activity-subtitle">Every movement, all in one place.</div>
+  </div>
+  <div class="search-box">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <circle cx="11" cy="11" r="6.5"/>
+      <path d="m16 16 5 5"/>
+    </svg>
+    <input
+      id="activitySearch"
+      type="search"
+      placeholder="Search transactions"
+      oninput="filterActivity()"
+    >
+  </div>
+  <div class="filters">
+    <button class="filter active" data-filter="All" onclick="setFilter('All',this)">All</button>
+    <button class="filter" data-filter="Payments" onclick="setFilter('Payments',this)">Payments</button>
+    <button class="filter" data-filter="Income" onclick="setFilter('Income',this)">Income</button>
+    <button class="filter" data-filter="Spaces" onclick="setFilter('Spaces',this)">Spaces</button>
+  </div>
+  <div id="activityList" class="activity-list">
+    <div class="day-label">TODAY</div>
+    <div
+      class="feed-card transaction-card"
+      data-category="Payments"
+      data-search="blue bottle coffee food card"
+      onclick="openTransaction('Blue Bottle Coffee','-$8.40','Food','Today · 6:42 PM','Card •••• 4821','#TX-849201','Completed','$24,860.40')"
+    >
+      <div class="transaction">
         <div class="tx-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
             <path d="M6 8h12v7a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/>
@@ -848,19 +1044,24 @@ button{
             <path d="M9 3h6"/>
           </svg>
         </div>
-
         <div class="tx-info">
           <div class="tx-name">Blue Bottle Coffee</div>
-          <div class="tx-meta">Food · Today</div>
+          <div class="tx-meta">Food · Today · 6:42 PM</div>
         </div>
-
         <div class="tx-amount negative">−$8.40</div>
-
-      </button>
-
-
-      <button class="transaction" onclick="transaction('Salary deposit','+$4,280.00','Today · 9:15 AM')">
-
+      </div>
+      <div class="status-row">
+        <span class="status-dot"></span>
+        <span class="status">Completed</span>
+      </div>
+    </div>
+    <div
+      class="feed-card transaction-card"
+      data-category="Income"
+      data-search="salary deposit income primary account"
+      onclick="openTransaction('Salary deposit','+$4,280.00','Income','Today · 9:15 AM','Primary account •••• 4821','#TX-720114','Completed','$24,868.80')"
+    >
+      <div class="transaction">
         <div class="tx-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
             <path d="M4 17h16"/>
@@ -868,19 +1069,25 @@ button{
             <path d="M9 13h6"/>
           </svg>
         </div>
-
         <div class="tx-info">
           <div class="tx-name">Salary deposit</div>
-          <div class="tx-meta">Income · Today</div>
+          <div class="tx-meta">Income · Today · 9:15 AM</div>
         </div>
-
         <div class="tx-amount positive">+$4,280</div>
-
-      </button>
-
-
-      <button class="transaction" onclick="transaction('Apartment rent','-$1,420.00','Yesterday · 10:03 AM')">
-
+      </div>
+      <div class="status-row">
+        <span class="status-dot"></span>
+        <span class="status">Completed</span>
+      </div>
+    </div>
+    <div class="day-label">YESTERDAY</div>
+    <div
+      class="feed-card transaction-card"
+      data-category="Payments"
+      data-search="apartment rent housing"
+      onclick="openTransaction('Apartment rent','-$1,420.00','Housing','Yesterday · 10:03 AM','Primary account •••• 4821','#TX-553820','Completed','$20,588.80')"
+    >
+      <div class="transaction">
         <div class="tx-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
             <path d="m4 10 8-6 8 6"/>
@@ -888,28 +1095,131 @@ button{
             <path d="M10 19v-5h4v5"/>
           </svg>
         </div>
-
         <div class="tx-info">
           <div class="tx-name">Apartment rent</div>
-          <div class="tx-meta">Housing · Yesterday</div>
+          <div class="tx-meta">Housing · Yesterday · 10:03 AM</div>
         </div>
-
         <div class="tx-amount negative">−$1,420</div>
-
-      </button>
-
+      </div>
+      <div class="status-row">
+        <span class="status-dot"></span>
+        <span class="status">Completed</span>
+      </div>
     </div>
-
-  </section>
-
+    <div class="day-label">EARLIER</div>
+    <div
+      class="feed-card transaction-card"
+      data-category="Spaces"
+      data-search="travel space savings japan"
+      onclick="openTransaction('Travel Space','+$250.00','Money Space','Aug 30 · 4:18 PM','Travel Space','#TX-441920','Completed','$21,998.80')"
+    >
+      <div class="transaction">
+        <div class="tx-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <circle cx="12" cy="12" r="8"/>
+            <path d="M8 15l8-6"/>
+            <path d="M9 9h.01"/>
+            <path d="M15 15h.01"/>
+          </svg>
+        </div>
+        <div class="tx-info">
+          <div class="tx-name">Travel Space</div>
+          <div class="tx-meta">Money Space · Aug 30</div>
+        </div>
+        <div class="tx-amount negative">−$250</div>
+      </div>
+      <div class="status-row">
+        <span class="status-dot"></span>
+        <span class="status">Moved to Space</span>
+      </div>
+    </div>
+    <div id="emptyState" class="empty">
+      <div class="empty-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <circle cx="11" cy="11" r="6"/>
+          <path d="m16 16 4 4"/>
+        </svg>
+      </div>
+      <h3>No transactions found</h3>
+      <p>Try another search or choose a different filter.</p>
+    </div>
+  </div>
 </div>
-
-
-<!-- NAVIGATION -->
-
+<!-- ================= SPACES ================= -->
+<div id="spacesScreen" class="screen">
+  <div class="placeholder">
+    <div class="placeholder-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="4" y="4" width="7" height="7" rx="1.5"/>
+        <rect x="13" y="4" width="7" height="7" rx="1.5"/>
+        <rect x="4" y="13" width="7" height="7" rx="1.5"/>
+        <rect x="13" y="13" width="7" height="7" rx="1.5"/>
+      </svg>
+    </div>
+    <h2>Money Spaces</h2>
+    <p>Your dedicated goals and savings spaces will become the next NOVA v6 upgrade.</p>
+  </div>
+</div>
+<!-- ================= PROFILE ================= -->
+<div id="profileScreen" class="screen">
+  <div class="placeholder">
+    <div class="placeholder-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="8" r="3.5"/>
+        <path d="M5 20c.8-4 3.2-6 7-6s6.2 2 7 6"/>
+      </svg>
+    </div>
+    <h2>NOVA Profile</h2>
+    <p>Your identity, security and account controls will be added in the next v6 stage.</p>
+  </div>
+</div>
+</div>
+<!-- DETAIL SHEET -->
+<div id="overlay" class="overlay" onclick="closeSheet(event)">
+  <div class="detail-sheet" id="detailSheet">
+    <div class="sheet-handle"></div>
+    <div class="detail-top">
+      <div class="detail-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <circle cx="12" cy="12" r="8"/>
+          <path d="M8 15l8-6"/>
+        </svg>
+      </div>
+      <div id="detailName" class="detail-name">Transaction</div>
+      <div id="detailAmount" class="detail-amount">-$0.00</div>
+      <div class="detail-status">
+        <span>●</span>
+        <span id="detailStatus">Completed</span>
+      </div>
+    </div>
+    <div class="details">
+      <div class="detail-row">
+        <span>Category</span>
+        <span id="detailCategory">—</span>
+      </div>
+      <div class="detail-row">
+        <span>Date</span>
+        <span id="detailDate">—</span>
+      </div>
+      <div class="detail-row">
+        <span>Payment method</span>
+        <span id="detailMethod">—</span>
+      </div>
+      <div class="detail-row">
+        <span>Transaction ID</span>
+        <span id="detailId">—</span>
+      </div>
+      <div class="detail-row">
+        <span>Balance after</span>
+        <span id="detailBalance">—</span>
+      </div>
+    </div>
+    <button class="close-sheet" onclick="closeSheet()">Done</button>
+  </div>
+</div>
+<!-- NAV -->
 <nav class="bottom-nav">
-
-  <button class="nav-item active" onclick="nav('Home',this)">
+  <button class="nav-item active" data-screen="home" onclick="showScreen('home')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
       <path d="m4 11 8-7 8 7"/>
       <path d="M6 10v10h12V10"/>
@@ -917,8 +1227,7 @@ button{
     </svg>
     <span>Home</span>
   </button>
-
-  <button class="nav-item" onclick="nav('Spaces',this)">
+  <button class="nav-item" data-screen="spaces" onclick="showScreen('spaces')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
       <rect x="4" y="4" width="7" height="7" rx="1.5"/>
       <rect x="13" y="4" width="7" height="7" rx="1.5"/>
@@ -927,148 +1236,194 @@ button{
     </svg>
     <span>Spaces</span>
   </button>
-
-  <button class="nav-item" onclick="nav('Activity',this)">
+  <button class="nav-item" data-screen="activity" onclick="showScreen('activity')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
       <path d="M5 12h3l2-7 4 14 2-7h3"/>
     </svg>
     <span>Activity</span>
   </button>
-
-  <button class="nav-item" onclick="nav('Profile',this)">
+  <button class="nav-item" data-screen="profile" onclick="showScreen('profile')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
       <circle cx="12" cy="8" r="3.5"/>
       <path d="M5 20c.8-4 3.2-6 7-6s6.2 2 7 6"/>
     </svg>
     <span>Profile</span>
   </button>
-
 </nav>
-
-
 <div id="toast" class="toast"></div>
-
-
 <script>
-
 let balanceVisible=true;
 let balanceAmount=24860.40;
-
-function toggleBalance(){
-
-  const el=document.getElementById("balance");
-
-  balanceVisible=!balanceVisible;
-
-  el.textContent=balanceVisible
-    ? "$"+balanceAmount.toLocaleString("en-US",{minimumFractionDigits:2})
-    : "••••••••";
-
+let activeFilter="All";
+/* SCREEN NAVIGATION */
+function showScreen(screen){
+  document.querySelectorAll(".screen").forEach(s=>{
+    s.classList.remove("active");
+  });
+  const target=document.getElementById(screen+"Screen");
+  if(target){
+    target.classList.add("active");
+  }
+  document.querySelectorAll(".nav-item").forEach(item=>{
+    item.classList.toggle(
+      "active",
+      item.dataset.screen===screen
+    );
+  });
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 }
-
-
+/* BALANCE */
+function toggleBalance(){
+  const el=document.getElementById("balance");
+  balanceVisible=!balanceVisible;
+  el.textContent=balanceVisible
+    ? "$"+balanceAmount.toLocaleString("en-US",{
+        minimumFractionDigits:2
+      })
+    : "••••••••";
+}
+/* TOAST */
 function notify(message){
-
   const toast=document.getElementById("toast");
-
   toast.textContent=message;
   toast.classList.add("show");
-
-  setTimeout(()=>{
+  clearTimeout(window.toastTimer);
+  window.toastTimer=setTimeout(()=>{
     toast.classList.remove("show");
   },2200);
-
 }
-
-
-function transaction(name,amount,time){
-
-  notify(name+" · "+amount);
-
+/* TRANSACTION DETAIL */
+function openTransaction(
+  name,
+  amount,
+  category,
+  date,
+  method,
+  id,
+  status,
+  after
+){
+  document.getElementById("detailName").textContent=name;
+  document.getElementById("detailAmount").textContent=amount;
+  document.getElementById("detailCategory").textContent=category;
+  document.getElementById("detailDate").textContent=date;
+  document.getElementById("detailMethod").textContent=method;
+  document.getElementById("detailId").textContent=id;
+  document.getElementById("detailStatus").textContent=status;
+  document.getElementById("detailBalance").textContent=after;
+  document.getElementById("overlay").classList.add("open");
+  document.body.style.overflow="hidden";
 }
-
-
-function sendMoney(){
-
-  notify("Send Money is ready — v6 flow next");
-
+/* CLOSE DETAIL */
+function closeSheet(event){
+  if(
+    event &&
+    event.target !== document.getElementById("overlay")
+  ){
+    return;
+  }
+  document.getElementById("overlay").classList.remove("open");
+  document.body.style.overflow="";
 }
-
-
-function nav(name,element){
-
-  document.querySelectorAll(".nav-item").forEach(item=>{
+/* FILTER */
+function setFilter(filter,button){
+  activeFilter=filter;
+  document.querySelectorAll(".filter").forEach(item=>{
     item.classList.remove("active");
   });
-
-  element.classList.add("active");
-
-  if(name!=="Home"){
-    notify(name+" screen — coming next");
-  }
-
+  button.classList.add("active");
+  filterActivity();
 }
-
-
-/* subtle button ripple */
-
+/* SEARCH + FILTER */
+function filterActivity(){
+  const query=document
+    .getElementById("activitySearch")
+    .value
+    .toLowerCase()
+    .trim();
+  const cards=document.querySelectorAll(".transaction-card");
+  let visible=0;
+  cards.forEach(card=>{
+    const category=card.dataset.category;
+    const search=card.dataset.search;
+    const filterMatch=
+      activeFilter==="All" ||
+      category===activeFilter;
+    const searchMatch=
+      !query ||
+      search.includes(query);
+    const show=filterMatch && searchMatch;
+    card.style.display=show ? "" : "none";
+    if(show) visible++;
+  });
+  document.getElementById("emptyState").style.display=
+    visible===0 ? "block" : "none";
+}
+/* RIPPLE */
 document.addEventListener("click",e=>{
-
   const button=e.target.closest("button");
-
   if(!button)return;
-
   const rect=button.getBoundingClientRect();
-
   const ripple=document.createElement("span");
-
   ripple.className="ripple";
-
-  ripple.style.left=(rect.left+rect.width/2)+"px";
-  ripple.style.top=(rect.top+rect.height/2)+"px";
-
+  ripple.style.left=
+    (rect.left+rect.width/2)+"px";
+  ripple.style.top=
+    (rect.top+rect.height/2)+"px";
   document.body.appendChild(ripple);
-
-  setTimeout(()=>ripple.remove(),550);
-
+  setTimeout(()=>{
+    ripple.remove();
+  },550);
 });
-
-
-/* balance count-in */
-
+/* BALANCE COUNT-IN */
 window.addEventListener("load",()=>{
-
   const el=document.getElementById("balance");
-
-  let start=0;
   const end=balanceAmount;
   const duration=900;
   const startTime=performance.now();
-
   function animate(now){
-
-    const progress=Math.min((now-startTime)/duration,1);
-
-    const eased=1-Math.pow(1-progress,3);
-
-    const value=start+(end-start)*eased;
-
+    const progress=Math.min(
+      (now-startTime)/duration,
+      1
+    );
+    const eased=
+      1-Math.pow(1-progress,3);
+    const value=end*eased;
     el.textContent="$"+value.toLocaleString("en-US",{
       minimumFractionDigits:2,
       maximumFractionDigits:2
     });
-
     if(progress<1){
       requestAnimationFrame(animate);
     }
-
   }
-
   requestAnimationFrame(animate);
-
 });
-
+/* ESCAPE KEY */
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    document.getElementById("overlay").classList.remove("open");
+    document.body.style.overflow="";
+  }
+});
+/* SWIPE DOWN TO CLOSE */
+let touchStartY=0;
+document
+  .getElementById("detailSheet")
+  .addEventListener("touchstart",e=>{
+    touchStartY=e.touches[0].clientY;
+  });
+document
+  .getElementById("detailSheet")
+  .addEventListener("touchend",e=>{
+    const endY=e.changedTouches[0].clientY;
+    if(endY-touchStartY>90){
+      closeSheet();
+    }
+  });
 </script>
-
 </body>
 </html>
