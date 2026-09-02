@@ -5,1425 +5,937 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#f6f7fb">
 <title>NOVA — v6</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  -webkit-tap-highlight-color:transparent;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f6f7fb;
-  --card:#fff;
-  --text:#101116;
-  --muted:#8b8f99;
-  --line:#eceef2;
-  --purple:#6258f5;
-  --green:#16a36c;
-  --red:#e15d67;
-  --orange:#ef9c3c;
+ --bg:#f6f7fb;
+ --card:#fff;
+ --text:#101116;
+ --muted:#8b8f99;
+ --line:#eceef2;
+ --purple:#6258f5;
+ --purple2:#786eff;
+ --green:#16a36c;
+ --red:#e15d67;
+ --orange:#ef9c3c;
+ --shadow:0 18px 45px rgba(31,34,50,.08);
 }
-html,body{
-  min-height:100%;
-  background:var(--bg);
-  color:var(--text);
-  font-family:"DM Sans",sans-serif;
-}
+html,body{min-height:100%;background:var(--bg)}
 body{
-  overflow-x:hidden;
+ font-family:"DM Sans",sans-serif;
+ color:var(--text);
+ overflow-x:hidden;
 }
-button,input{
-  font:inherit;
+button{font:inherit;border:0;cursor:pointer}
+.app{width:100%;max-width:520px;margin:auto;padding-bottom:100px}
+header{
+ display:flex;align-items:center;justify-content:space-between;
+ padding:24px 20px 14px;
 }
-button{
-  border:0;
-  background:none;
-  color:inherit;
-  cursor:pointer;
-}
-.app{
-  width:100%;
-  max-width:520px;
-  min-height:100vh;
-  margin:auto;
-  padding-bottom:105px;
-}
-/* HEADER */
-.header{
-  padding:25px 20px 12px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.user{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
+.user{display:flex;align-items:center;gap:11px}
 .avatar{
-  width:44px;
-  height:44px;
-  border-radius:15px;
-  display:grid;
-  place-items:center;
-  color:#fff;
-  background:linear-gradient(145deg,#17181d,#565861);
-  font-family:"Space Grotesk";
-  font-weight:700;
+ width:43px;height:43px;border-radius:15px;
+ background:#111;color:white;display:grid;place-items:center;
+ font-weight:700;
 }
-.greeting{
-  color:var(--muted);
-  font-size:13px;
+.greeting{font-size:12px;color:var(--muted)}
+.username{font-family:"Space Grotesk";font-weight:700;font-size:16px;margin-top:2px}
+.headActions{display:flex;gap:9px}
+.iconBtn{
+ width:43px;height:43px;border-radius:14px;background:white;
+ display:grid;place-items:center;box-shadow:0 8px 25px rgba(0,0,0,.05);
+ position:relative;
 }
-.name{
-  margin-top:2px;
-  font-size:17px;
-  font-weight:700;
-}
-.header-actions{
-  display:flex;
-  gap:8px;
-}
-.icon-btn{
-  width:42px;
-  height:42px;
-  border-radius:14px;
-  background:#fff;
-  border:1px solid var(--line);
-  display:grid;
-  place-items:center;
-  position:relative;
-}
-.icon-btn svg{
-  width:20px;
-}
+.iconBtn svg{width:20px;height:20px}
 .badge{
-  position:absolute;
-  top:7px;
-  right:7px;
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:#e95461;
-  border:2px solid #fff;
+ position:absolute;right:4px;top:4px;width:9px;height:9px;
+ border-radius:50%;background:#ed5361;border:2px solid white;
 }
-/* BALANCE */
-.balance-card{
-  margin:10px 18px 0;
-  min-height:245px;
-  padding:25px;
-  border-radius:30px;
-  color:#fff;
-  position:relative;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 85% 10%,rgba(255,255,255,.18),transparent 30%),
-    radial-gradient(circle at 10% 100%,rgba(145,132,255,.35),transparent 40%),
-    linear-gradient(140deg,#171820,#292a38 55%,#4b43a2);
-  box-shadow:0 24px 55px rgba(55,49,130,.24);
+
+main{padding:0 16px}
+.screen{display:none;animation:screenIn .35s ease}
+.screen.active{display:block}
+@keyframes screenIn{
+ from{opacity:0;transform:translateY(8px)}
+ to{opacity:1;transform:none}
 }
-.balance-card:before{
-  content:"";
-  position:absolute;
-  width:190px;
-  height:190px;
-  right:-80px;
-  bottom:-80px;
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:50%;
+
+.balanceCard{
+ position:relative;overflow:hidden;color:white;border-radius:28px;
+ min-height:235px;padding:24px;margin-top:8px;
+ background:
+ radial-gradient(circle at 90% 15%,rgba(120,110,255,.6),transparent 28%),
+ radial-gradient(circle at 10% 100%,rgba(98,88,245,.55),transparent 35%),
+ linear-gradient(140deg,#16161c,#292832);
+ box-shadow:0 25px 55px rgba(22,22,30,.2);
 }
-.balance-top{
-  display:flex;
-  justify-content:space-between;
-  position:relative;
-  z-index:2;
+.balanceCard:after{
+ content:"";position:absolute;width:170px;height:170px;border:1px solid rgba(255,255,255,.08);
+ border-radius:50%;right:-55px;bottom:-60px;
 }
-.balance-label{
-  font-size:13px;
-  color:rgba(255,255,255,.65);
-}
+.balanceTop{display:flex;justify-content:space-between;align-items:center}
+.balanceLabel{font-size:12px;color:#b8b8c0}
 .eye{
-  width:35px;
-  height:35px;
-  border-radius:12px;
-  background:rgba(255,255,255,.1);
-  display:grid;
-  place-items:center;
-}
-.eye svg{
-  width:18px;
+ width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.1);
+ color:white;display:grid;place-items:center;
 }
 .balance{
-  margin-top:13px;
-  font-family:"Space Grotesk";
-  font-size:40px;
-  letter-spacing:-1.7px;
-  font-weight:700;
-  position:relative;
-  z-index:2;
+ font-family:"Space Grotesk";font-size:36px;font-weight:700;
+ letter-spacing:-1.5px;margin-top:13px;
 }
-.balance-change{
-  margin-top:8px;
-  display:flex;
-  gap:7px;
-  color:#b9f0d6;
-  font-size:12px;
+.change{margin-top:6px;font-size:12px;color:#71e0b2}
+.cardBottom{
+ position:absolute;bottom:22px;left:24px;right:24px;
+ display:flex;justify-content:space-between;align-items:end;
 }
-.balance-bottom{
-  position:absolute;
-  left:25px;
-  right:25px;
-  bottom:22px;
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  z-index:2;
+.account{font-size:12px;color:#aaa}
+.cardMark{font-family:"Space Grotesk";font-size:20px;font-weight:700;letter-spacing:2px}
+
+.sectionHead{
+ display:flex;align-items:center;justify-content:space-between;
+ margin:27px 3px 13px;
 }
-.account{
-  color:rgba(255,255,255,.55);
-  font-size:12px;
-}
-.card-number{
-  margin-top:4px;
-  color:#fff;
-  font-size:14px;
-  letter-spacing:1px;
-}
-.card-mark{
-  width:47px;
-  height:32px;
-  border:1px solid rgba(255,255,255,.2);
-  border-radius:9px;
-  display:grid;
-  place-items:center;
-  font-family:"Space Grotesk";
-  font-size:12px;
-}
-/* QUICK */
+.sectionHead h2{font-family:"Space Grotesk";font-size:18px}
+.sectionHead span{font-size:12px;color:var(--purple);font-weight:700}
+
 .quick{
-  padding:21px 20px 7px;
+ display:grid;grid-template-columns:repeat(4,1fr);gap:9px;
 }
-.quick-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
+.quick button{
+ background:white;border-radius:18px;padding:14px 4px;
+ box-shadow:0 9px 25px rgba(30,32,45,.045);
+ transition:.2s;
 }
-.quick-item{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
+.quick button:active{transform:scale(.94)}
+.qIcon{
+ width:38px;height:38px;border-radius:13px;margin:auto;
+ display:grid;place-items:center;background:#f0efff;color:var(--purple);
 }
-.quick-icon{
-  width:58px;
-  height:58px;
-  border-radius:19px;
-  background:#fff;
-  border:1px solid var(--line);
-  display:grid;
-  place-items:center;
-  box-shadow:0 8px 20px rgba(30,32,45,.045);
-  transition:.18s;
+.qIcon svg{width:18px}
+.quick b{display:block;font-size:11px;margin-top:9px}
+
+.pulse{
+ background:white;border-radius:23px;padding:19px;
+ box-shadow:var(--shadow);
 }
-.quick-item:active .quick-icon{
-  transform:scale(.92);
+.pulseTop{display:flex;justify-content:space-between}
+.pulseLabel{font-size:12px;color:var(--muted)}
+.pulseAmount{font-family:"Space Grotesk";font-size:24px;font-weight:700;margin-top:4px}
+.pulsePercent{font-size:11px;color:var(--green);margin-top:3px}
+.chart{height:95px;margin-top:12px}
+.chart svg{width:100%;height:100%;overflow:visible}
+.chartPath{
+ fill:none;stroke:var(--purple);stroke-width:3;
+ stroke-linecap:round;stroke-linejoin:round;
+ stroke-dasharray:500;stroke-dashoffset:500;
+ animation:draw 1.5s ease forwards;
 }
-.quick-icon.primary{
-  color:#fff;
-  background:var(--purple);
-  border-color:transparent;
-}
-.quick-icon svg{
-  width:21px;
-}
-.quick-label{
-  color:#5f636c;
-  font-size:11px;
-  font-weight:600;
-}
-/* SECTIONS */
-.section{
-  padding:22px 20px 0;
-}
-.section-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:13px;
-}
-.section-title{
-  font-family:"Space Grotesk";
-  font-size:18px;
-  font-weight:700;
-}
-.section-link{
-  color:var(--purple);
-  font-size:12px;
-  font-weight:700;
-}
-/* SPENDING */
-.spending{
-  padding:19px;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:24px;
-}
-.spending-top{
-  display:flex;
-  justify-content:space-between;
-}
-.spending-label{
-  color:var(--muted);
-  font-size:12px;
-}
-.spending-value{
-  margin-top:4px;
-  font-family:"Space Grotesk";
-  font-size:25px;
-  font-weight:700;
-}
-.spending-note{
-  margin-top:3px;
-  color:var(--green);
-  font-size:11px;
-}
-.period{
-  height:max-content;
-  padding:7px 10px;
-  border-radius:10px;
-  background:#f5f5f8;
-  font-size:11px;
-  font-weight:600;
-}
-.chart{
-  height:78px;
-  margin-top:18px;
-}
-.chart svg{
-  width:100%;
-  height:100%;
-}
-.chart-line{
-  fill:none;
-  stroke:var(--purple);
-  stroke-width:3;
-  stroke-linecap:round;
-  stroke-linejoin:round;
-  stroke-dasharray:500;
-  stroke-dashoffset:500;
-  animation:draw 1.5s ease forwards;
-}
-.chart-area{
-  opacity:.1;
-}
-@keyframes draw{
-  to{stroke-dashoffset:0}
-}
-/* INSIGHT */
+@keyframes draw{to{stroke-dashoffset:0}}
+
 .insight{
-  display:flex;
-  gap:14px;
-  padding:19px;
-  border-radius:24px;
-  background:linear-gradient(135deg,#eeeaff,#f8f7ff);
-  border:1px solid #e5e1ff;
+ margin-top:13px;background:#efefff;border-radius:20px;padding:17px;
+ display:flex;gap:13px;
 }
-.insight-icon{
-  width:40px;
-  height:40px;
-  flex:none;
-  display:grid;
-  place-items:center;
-  border-radius:13px;
-  background:#fff;
-  color:var(--purple);
+.insightIcon{
+ width:39px;height:39px;flex:none;border-radius:13px;background:white;
+ display:grid;place-items:center;color:var(--purple);
 }
-.insight-icon svg{
-  width:20px;
+.insight h3{font-size:13px}
+.insight p{font-size:11px;line-height:1.5;color:#737782;margin-top:4px}
+
+.activityList{display:grid;gap:9px}
+.tx{
+ background:white;border-radius:19px;padding:14px;
+ display:flex;align-items:center;gap:12px;
+ animation:txIn .35s ease;
 }
-.insight small{
-  color:#8079aa;
-  font-size:11px;
-  font-weight:700;
+@keyframes txIn{
+ from{opacity:0;transform:translateY(-12px) scale(.98)}
+ to{opacity:1;transform:none}
 }
-.insight h3{
-  margin-top:4px;
-  font-size:14px;
-  line-height:1.4;
+.txIcon{
+ width:43px;height:43px;border-radius:14px;
+ background:#f2f2f6;display:grid;place-items:center;font-size:18px;
 }
-.insight p{
-  margin-top:5px;
-  color:#7d7b89;
-  font-size:11px;
-  line-height:1.5;
+.txMain{flex:1;min-width:0}
+.txName{font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.txMeta{font-size:10px;color:var(--muted);margin-top:4px}
+.txAmount{font-family:"Space Grotesk";font-size:13px;font-weight:700}
+.plus{color:var(--green)}
+.minus{color:var(--text)}
+
+.nav{
+ position:fixed;z-index:30;bottom:13px;left:50%;
+ transform:translateX(-50%);
+ width:min(488px,calc(100% - 24px));
+ background:rgba(255,255,255,.92);
+ backdrop-filter:blur(18px);
+ border:1px solid rgba(230,230,235,.9);
+ box-shadow:0 15px 40px rgba(0,0,0,.12);
+ border-radius:24px;padding:8px;
+ display:grid;grid-template-columns:repeat(4,1fr);
 }
-/* TRANSACTIONS */
-.activity{
-  overflow:hidden;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:24px;
+.nav button{
+ background:transparent;color:#999;padding:7px 3px;border-radius:17px;
+ font-size:9px;font-weight:700;
 }
-.transaction{
-  width:100%;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:15px 17px;
-  text-align:left;
-  border-bottom:1px solid var(--line);
-  transition:.18s;
+.nav button svg{display:block;margin:auto auto 4px;width:19px;height:19px}
+.nav button.active{background:#f0efff;color:var(--purple)}
+
+.pageTitle{padding:14px 3px 5px}
+.pageTitle h1{font-family:"Space Grotesk";font-size:28px}
+.pageTitle p{font-size:12px;color:var(--muted);margin-top:5px}
+
+.filters{display:flex;gap:7px;overflow:auto;margin:18px 0 13px}
+.filters button{
+ white-space:nowrap;padding:9px 14px;border-radius:13px;
+ background:white;color:#888;font-size:11px;font-weight:700;
 }
-.transaction:last-child{
-  border-bottom:0;
-}
-.transaction:active{
-  background:#fafafd;
-}
-.tx-icon{
-  width:43px;
-  height:43px;
-  flex:none;
-  display:grid;
-  place-items:center;
-  border-radius:14px;
-  background:#f3f3f7;
-}
-.tx-icon svg{
-  width:19px;
-}
-.tx-info{
-  flex:1;
-  min-width:0;
-}
-.tx-name{
-  font-size:13px;
-  font-weight:700;
-}
-.tx-meta{
-  margin-top:3px;
-  color:var(--muted);
-  font-size:10px;
-}
-.tx-amount{
-  font-family:"Space Grotesk";
-  font-size:13px;
-  font-weight:700;
-}
-.positive{
-  color:var(--green);
-}
-.negative{
-  color:var(--text);
-}
-/* SCREENS */
-.screen{
-  display:none;
-  animation:screenIn .3s ease;
-}
-.screen.active{
-  display:block;
-}
-@keyframes screenIn{
-  from{
-    opacity:0;
-    transform:translateY(8px);
-  }
-  to{
-    opacity:1;
-    transform:none;
-  }
-}
-/* ACTIVITY SCREEN */
-.activity-header{
-  padding:27px 20px 10px;
-}
-.activity-title{
-  font-family:"Space Grotesk";
-  font-size:29px;
-  font-weight:700;
-  letter-spacing:-1px;
-}
-.activity-subtitle{
-  margin-top:5px;
-  color:var(--muted);
-  font-size:12px;
-}
-.search-box{
-  margin:15px 20px 0;
-  height:48px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:0 15px;
-  border-radius:16px;
-  background:#fff;
-  border:1px solid var(--line);
-}
-.search-box svg{
-  width:18px;
-  color:#999da5;
-  flex:none;
-}
-.search-box input{
-  width:100%;
-  border:0;
-  outline:0;
-  background:transparent;
-  color:var(--text);
-  font-size:13px;
-}
-.filters{
-  display:flex;
-  gap:8px;
-  padding:14px 20px 4px;
-  overflow-x:auto;
-  scrollbar-width:none;
-}
-.filters::-webkit-scrollbar{
-  display:none;
-}
-.filter{
-  flex:none;
-  padding:9px 14px;
-  border-radius:12px;
-  background:#fff;
-  border:1px solid var(--line);
-  color:#777b84;
-  font-size:11px;
-  font-weight:700;
-}
-.filter.active{
-  background:#17181d;
-  color:#fff;
-  border-color:#17181d;
-}
-.activity-list{
-  padding:18px 20px 20px;
-}
-.day-label{
-  margin:8px 2px 9px;
-  color:#92959d;
-  font-size:11px;
-  font-weight:700;
-}
-.feed-card{
-  overflow:hidden;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:21px;
-  margin-bottom:15px;
-}
-.feed-card .transaction{
-  border-bottom:0;
-}
-.status-row{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  padding:0 17px 13px 72px;
-  margin-top:-4px;
-}
-.status-dot{
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:var(--green);
-}
-.status{
-  color:#858991;
-  font-size:9px;
-  font-weight:600;
-}
-.feed-card.new{
-  animation:feedIn .5s cubic-bezier(.2,.8,.2,1);
-}
-@keyframes feedIn{
-  from{
-    opacity:0;
-    transform:translateY(18px) scale(.97);
-  }
-  to{
-    opacity:1;
-    transform:none;
-  }
-}
-/* EMPTY */
+.filters button.active{background:#111;color:white}
+
 .empty{
-  padding:55px 20px;
-  text-align:center;
-  display:none;
+ text-align:center;background:white;border-radius:23px;padding:45px 20px;
+ color:var(--muted);
 }
-.empty-icon{
-  width:58px;
-  height:58px;
-  margin:auto;
-  border-radius:19px;
-  display:grid;
-  place-items:center;
-  background:#fff;
-  border:1px solid var(--line);
+.emptyIcon{
+ width:55px;height:55px;border-radius:18px;background:#f1f0ff;
+ color:var(--purple);display:grid;place-items:center;margin:0 auto 12px;
 }
-.empty-icon svg{
-  width:23px;
-  color:#999da5;
+.empty h3{color:var(--text);font-size:15px}
+.empty p{font-size:11px;margin-top:5px}
+
+.spaceGrid{display:grid;gap:12px}
+.spaceCard{
+ background:white;border-radius:23px;padding:18px;
+ box-shadow:0 10px 30px rgba(30,32,45,.05);
 }
-.empty h3{
-  margin-top:14px;
-  font-size:15px;
+.spaceTop{display:flex;align-items:center;gap:12px}
+.spaceEmoji{
+ width:45px;height:45px;border-radius:15px;background:#f4f3ff;
+ display:grid;place-items:center;font-size:21px;
 }
-.empty p{
-  margin-top:5px;
-  color:var(--muted);
-  font-size:11px;
+.spaceInfo{flex:1}
+.spaceName{font-family:"Space Grotesk";font-weight:700}
+.spaceGoal{font-size:10px;color:var(--muted);margin-top:3px}
+.spaceMoney{text-align:right;font-family:"Space Grotesk";font-weight:700;font-size:13px}
+.progress{height:7px;border-radius:20px;background:#eeeef2;margin-top:16px;overflow:hidden}
+.progress i{
+ display:block;height:100%;border-radius:20px;background:var(--purple);
+ width:0;transition:1s ease;
 }
-/* PLACEHOLDER SCREENS */
-.placeholder{
-  padding:70px 25px;
-  text-align:center;
+.spaceBottom{
+ display:flex;justify-content:space-between;margin-top:8px;
+ font-size:10px;color:var(--muted);
 }
-.placeholder-icon{
-  width:68px;
-  height:68px;
-  margin:auto;
-  border-radius:23px;
-  background:#eeeaff;
-  color:var(--purple);
-  display:grid;
-  place-items:center;
+.spaceActions{display:flex;gap:8px;margin-top:13px}
+.smallBtn{
+ flex:1;padding:10px;border-radius:12px;background:#f4f4f7;
+ font-size:10px;font-weight:700;
 }
-.placeholder-icon svg{
-  width:28px;
+.smallBtn.primary{background:#111;color:white}
+
+.profileHero{
+ background:linear-gradient(145deg,#17171d,#302d43);
+ color:white;border-radius:25px;padding:22px;margin-top:10px;
 }
-.placeholder h2{
-  margin-top:17px;
-  font-family:"Space Grotesk";
+.profileAvatar{
+ width:60px;height:60px;border-radius:20px;background:#6258f5;
+ display:grid;place-items:center;font-family:"Space Grotesk";font-size:22px;font-weight:700;
 }
-.placeholder p{
-  margin:8px auto 0;
-  max-width:290px;
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.5;
+.profileHero h2{font-family:"Space Grotesk";margin-top:15px}
+.verified{font-size:10px;color:#8ee6bd;margin-top:4px}
+.profileRows{background:white;border-radius:23px;margin-top:13px;overflow:hidden}
+.profileRow{
+ display:flex;align-items:center;gap:13px;padding:16px;border-bottom:1px solid var(--line);
 }
-/* DETAIL OVERLAY */
+.profileRow:last-child{border:0}
+.rowIcon{
+ width:38px;height:38px;border-radius:12px;background:#f2f1ff;color:var(--purple);
+ display:grid;place-items:center;
+}
+.profileRow div:nth-child(2){flex:1}
+.profileRow b{font-size:12px}
+.profileRow span{display:block;font-size:10px;color:var(--muted);margin-top:3px}
+.chev{color:#aaa}
+
 .overlay{
-  position:fixed;
-  inset:0;
-  z-index:100;
-  background:rgba(11,12,17,.42);
-  backdrop-filter:blur(5px);
-  -webkit-backdrop-filter:blur(5px);
-  opacity:0;
-  pointer-events:none;
-  transition:.25s;
+ position:fixed;inset:0;background:rgba(10,10,15,.45);
+ backdrop-filter:blur(7px);z-index:50;
+ display:none;align-items:end;
 }
-.overlay.open{
-  opacity:1;
-  pointer-events:auto;
+.overlay.show{display:flex}
+.sheet{
+ width:100%;max-width:520px;margin:auto auto 0;
+ background:#fff;border-radius:28px 28px 0 0;
+ padding:22px 19px 30px;
+ max-height:90vh;overflow:auto;
+ animation:sheetUp .32s cubic-bezier(.2,.8,.2,1);
 }
-.detail-sheet{
-  position:absolute;
-  left:50%;
-  bottom:0;
-  width:min(520px,100%);
-  max-height:88vh;
-  overflow:auto;
-  transform:translate(-50%,100%);
-  background:#fff;
-  border-radius:29px 29px 0 0;
-  transition:.38s cubic-bezier(.2,.8,.2,1);
-  padding:10px 20px 30px;
+@keyframes sheetUp{
+ from{transform:translateY(100%)}
+ to{transform:none}
 }
-.overlay.open .detail-sheet{
-  transform:translate(-50%,0);
+.sheetHandle{width:38px;height:4px;background:#ddd;border-radius:9px;margin:0 auto 20px}
+.sheetHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.sheetHead h2{font-family:"Space Grotesk";font-size:21px}
+.close{
+ width:33px;height:33px;border-radius:11px;background:#f1f1f4;
+ display:grid;place-items:center;
 }
-.sheet-handle{
-  width:42px;
-  height:4px;
-  margin:2px auto 20px;
-  border-radius:99px;
-  background:#dedfe4;
+.field{margin-top:14px}
+.field label{display:block;font-size:10px;color:#777;margin-bottom:7px;font-weight:700}
+.input{
+ width:100%;border:1px solid var(--line);outline:0;
+ background:#fafafd;border-radius:15px;padding:14px;font-size:14px;
+ transition:.2s;
 }
-.detail-top{
-  text-align:center;
+.input:focus{border-color:var(--purple);background:white}
+.primaryBtn{
+ width:100%;padding:15px;border-radius:16px;
+ background:#111;color:white;font-weight:700;margin-top:18px;
+ transition:.2s;
 }
-.detail-icon{
-  width:64px;
-  height:64px;
-  margin:auto;
-  border-radius:21px;
-  display:grid;
-  place-items:center;
-  background:#f2f1ff;
-  color:var(--purple);
+.primaryBtn:active{transform:scale(.98)}
+.secondaryBtn{
+ width:100%;padding:14px;border-radius:16px;
+ background:#f1f0ff;color:var(--purple);font-weight:700;margin-top:9px;
 }
-.detail-icon svg{
-  width:27px;
+
+.recipient{
+ display:flex;align-items:center;gap:12px;background:#f8f8fa;
+ padding:13px;border-radius:15px;margin-top:8px;
 }
-.detail-name{
-  margin-top:13px;
-  font-family:"Space Grotesk";
-  font-size:21px;
-  font-weight:700;
+.recAvatar{
+ width:38px;height:38px;border-radius:12px;background:#111;color:white;
+ display:grid;place-items:center;font-weight:700;
 }
-.detail-amount{
-  margin-top:5px;
-  font-family:"Space Grotesk";
-  font-size:29px;
-  font-weight:700;
+.review{
+ background:#f7f7f9;border-radius:20px;padding:18px;margin-top:12px;
 }
-.detail-status{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  margin-top:9px;
-  padding:6px 10px;
-  border-radius:10px;
-  background:#edf9f4;
-  color:var(--green);
-  font-size:10px;
-  font-weight:700;
+.reviewRow{display:flex;justify-content:space-between;padding:8px 0;font-size:12px}
+.reviewRow span{color:#888}
+.reviewTotal{
+ border-top:1px solid #ddd;margin-top:8px;padding-top:14px;
+ font-family:"Space Grotesk";font-weight:700;font-size:22px;
 }
-.details{
-  margin-top:23px;
-  border-top:1px solid var(--line);
+
+.success{text-align:center;padding:15px 5px 10px}
+.successCircle{
+ width:75px;height:75px;border-radius:50%;background:#e7f8f0;color:var(--green);
+ display:grid;place-items:center;margin:10px auto 18px;
+ animation:pop .5s ease;
 }
-.detail-row{
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-  padding:14px 0;
-  border-bottom:1px solid var(--line);
+@keyframes pop{
+ 0%{transform:scale(.3);opacity:0}
+ 70%{transform:scale(1.12)}
+ 100%{transform:scale(1);opacity:1}
 }
-.detail-row span:first-child{
-  color:var(--muted);
-  font-size:11px;
-}
-.detail-row span:last-child{
-  font-size:11px;
-  font-weight:700;
-  text-align:right;
-}
-.close-sheet{
-  width:100%;
-  height:48px;
-  margin-top:20px;
-  border-radius:15px;
-  background:#17181d;
-  color:#fff;
-  font-size:12px;
-  font-weight:700;
-}
-/* TOAST */
+.success h2{font-family:"Space Grotesk"}
+.success p{font-size:12px;color:#888;margin-top:7px}
+
 .toast{
-  position:fixed;
-  z-index:200;
-  left:50%;
-  bottom:96px;
-  transform:translate(-50%,20px);
-  opacity:0;
-  pointer-events:none;
-  padding:12px 17px;
-  border-radius:15px;
-  background:#17181d;
-  color:#fff;
-  font-size:12px;
-  box-shadow:0 15px 35px rgba(0,0,0,.2);
-  transition:.3s;
+ position:fixed;z-index:100;left:50%;bottom:90px;
+ transform:translate(-50%,20px);opacity:0;pointer-events:none;
+ background:#111;color:white;border-radius:14px;padding:12px 16px;
+ font-size:11px;font-weight:600;transition:.3s;
+ white-space:nowrap;
 }
-.toast.show{
-  opacity:1;
-  transform:translate(-50%,0);
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.detailAmount{
+ text-align:center;font-family:"Space Grotesk";font-size:31px;font-weight:700;
+ margin:5px 0 22px;
 }
-/* NAV */
-.bottom-nav{
-  position:fixed;
-  z-index:50;
-  bottom:14px;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(480px,calc(100% - 28px));
-  height:67px;
-  padding:7px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  border-radius:23px;
-  background:rgba(255,255,255,.92);
-  backdrop-filter:blur(22px);
-  -webkit-backdrop-filter:blur(22px);
-  border:1px solid rgba(220,222,230,.9);
-  box-shadow:0 15px 45px rgba(25,27,40,.13);
+.detailIcon{
+ width:57px;height:57px;border-radius:18px;background:#f1f0ff;
+ display:grid;place-items:center;font-size:24px;margin:0 auto 9px;
 }
-.nav-item{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:4px;
-  border-radius:17px;
-  color:#989ba3;
-  transition:.2s;
-}
-.nav-item.active{
-  color:var(--purple);
-  background:#f1efff;
-}
-.nav-item svg{
-  width:19px;
-  height:19px;
-}
-.nav-item span{
-  font-size:9px;
-  font-weight:700;
-}
-/* RIPPLE */
-.ripple{
-  position:fixed;
-  z-index:300;
-  pointer-events:none;
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  background:rgba(98,88,245,.15);
-  transform:scale(0);
-  animation:ripple .5s ease-out forwards;
-}
-@keyframes ripple{
-  to{
-    transform:scale(25);
-    opacity:0;
-  }
-}
-@media(max-width:360px){
-  .balance{
-    font-size:34px;
-  }
-  .quick-icon{
-    width:53px;
-    height:53px;
-  }
-}
+.detailRows{background:#f8f8fa;border-radius:18px;padding:8px 15px}
+.detailRow{display:flex;justify-content:space-between;padding:11px 0;font-size:11px}
+.detailRow span:first-child{color:#8a8d95}
+.status{color:var(--green);font-weight:700}
 </style>
 </head>
+
 <body>
 <div class="app">
-<!-- ================= HOME ================= -->
-<div id="homeScreen" class="screen active">
-<header class="header">
-  <div class="user">
-    <div class="avatar">J</div>
-    <div>
-      <div class="greeting">Good evening</div>
-      <div class="name">Jack</div>
-    </div>
+
+<header>
+ <div class="user">
+  <div class="avatar">J</div>
+  <div>
+   <div class="greeting">Good evening</div>
+   <div class="username">Jack</div>
   </div>
-  <div class="header-actions">
-    <button class="icon-btn" onclick="notify('Search is coming next')">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-        <circle cx="11" cy="11" r="6.5"/>
-        <path d="m16 16 5 5"/>
-      </svg>
-    </button>
-    <button class="icon-btn" onclick="notify('You have 3 new notifications')">
-      <span class="badge"></span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-        <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
-        <path d="M10 21h4"/>
-      </svg>
-    </button>
-  </div>
+ </div>
+ <div class="headActions">
+  <button class="iconBtn" onclick="openSearch()" aria-label="Search">
+   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>
+   </svg>
+  </button>
+  <button class="iconBtn" onclick="openNotifications()" aria-label="Notifications">
+   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+    <path d="M10 21h4"/>
+   </svg>
+   <i class="badge" id="notifBadge"></i>
+  </button>
+ </div>
 </header>
-<section class="balance-card">
-  <div class="balance-top">
-    <div class="balance-label">Available balance</div>
-    <button class="eye" onclick="toggleBalance()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-        <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/>
-        <circle cx="12" cy="12" r="2.5"/>
-      </svg>
-    </button>
-  </div>
-  <div id="balance" class="balance">$24,860.40</div>
-  <div class="balance-change">
-    <span>↗</span>
-    <span>+8.4% this month</span>
-  </div>
-  <div class="balance-bottom">
-    <div class="account">
-      <div>Primary account</div>
-      <div class="card-number">•••• 4821</div>
-    </div>
-    <div class="card-mark">NOVA</div>
-  </div>
-</section>
-<section class="quick">
-  <div class="quick-grid">
-    <button class="quick-item" onclick="notify('Send Money is coming next')">
-      <div class="quick-icon primary">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M5 12h13"/>
-          <path d="m13 6 6 6-6 6"/>
-        </svg>
-      </div>
-      <span class="quick-label">Send</span>
-    </button>
-    <button class="quick-item" onclick="notify('Request Money is coming next')">
-      <div class="quick-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M12 5v14"/>
-          <path d="M5 12h14"/>
-        </svg>
-      </div>
-      <span class="quick-label">Request</span>
-    </button>
-    <button class="quick-item" onclick="notify('NOVA Pay is coming next')">
-      <div class="quick-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <rect x="4" y="5" width="16" height="14" rx="2"/>
-          <path d="M7 9h10"/>
-          <path d="M7 14h5"/>
-        </svg>
-      </div>
-      <span class="quick-label">Pay</span>
-    </button>
-    <button class="quick-item" onclick="notify('Add Money is coming next')">
-      <div class="quick-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <path d="M12 4v16"/>
-          <path d="M4 12h16"/>
-          <circle cx="12" cy="12" r="9"/>
-        </svg>
-      </div>
-      <span class="quick-label">Add</span>
-    </button>
-  </div>
-</section>
-<section class="section">
-  <div class="section-head">
-    <div class="section-title">Money pulse</div>
-    <button class="section-link" onclick="notify('Monthly overview')">View</button>
-  </div>
-  <div class="spending">
-    <div class="spending-top">
-      <div>
-        <div class="spending-label">Spent this month</div>
-        <div class="spending-value">$2,418</div>
-        <div class="spending-note">12% less than August</div>
-      </div>
-      <div class="period">SEP 2026</div>
-    </div>
-    <div class="chart">
-      <svg viewBox="0 0 400 80" preserveAspectRatio="none">
-        <path
-          class="chart-area"
-          d="M0 62 C35 55 55 65 80 49 C105 34 120 45 145 39 C175 30 188 48 215 35 C240 22 260 31 285 25 C315 18 340 30 365 14 L400 10 L400 80 L0 80 Z"
-          fill="#6258f5"
-        />
-        <path
-          class="chart-line"
-          d="M0 62 C35 55 55 65 80 49 C105 34 120 45 145 39 C175 30 188 48 215 35 C240 22 260 31 285 25 C315 18 340 30 365 14 L400 10"
-        />
-      </svg>
-    </div>
-  </div>
-</section>
-<section class="section">
-  <div class="section-head">
-    <div class="section-title">Nova insight</div>
-  </div>
-  <div class="insight">
-    <div class="insight-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-        <path d="M9 18h6"/>
-        <path d="M10 22h4"/>
-        <path d="M8.5 15.5C7 14.3 6 12.5 6 10.5a6 6 0 0 1 12 0c0 2-1 3.8-2.5 5"/>
-        <path d="M12 3v1"/>
-      </svg>
-    </div>
-    <div>
-      <small>SMART OBSERVATION</small>
-      <h3>Your spending is moving in the right direction.</h3>
-      <p>You spent 12% less this month while keeping your savings pace steady.</p>
-    </div>
-  </div>
-</section>
-<section class="section">
-  <div class="section-head">
-    <div class="section-title">Recent activity</div>
-    <button class="section-link" onclick="showScreen('activity')">
-      See all
-    </button>
-  </div>
-  <div class="activity">
-    <button class="transaction" onclick="openTransaction('Blue Bottle Coffee','-$8.40','Food','Today · 6:42 PM','Card •••• 4821','#TX-849201','Completed','$24,860.40')">
-      <div class="tx-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <path d="M6 8h12v7a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/>
-          <path d="M8 5h8"/>
-          <path d="M9 3h6"/>
-        </svg>
-      </div>
-      <div class="tx-info">
-        <div class="tx-name">Blue Bottle Coffee</div>
-        <div class="tx-meta">Food · Today</div>
-      </div>
-      <div class="tx-amount negative">−$8.40</div>
-    </button>
-    <button class="transaction" onclick="openTransaction('Salary deposit','+$4,280.00','Income','Today · 9:15 AM','Primary account •••• 4821','#TX-720114','Completed','$24,868.80')">
-      <div class="tx-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <path d="M4 17h16"/>
-          <path d="M6 17V9l6-4 6 4v8"/>
-          <path d="M9 13h6"/>
-        </svg>
-      </div>
-      <div class="tx-info">
-        <div class="tx-name">Salary deposit</div>
-        <div class="tx-meta">Income · Today</div>
-      </div>
-      <div class="tx-amount positive">+$4,280</div>
-    </button>
-    <button class="transaction" onclick="openTransaction('Apartment rent','-$1,420.00','Housing','Yesterday · 10:03 AM','Primary account •••• 4821','#TX-553820','Completed','$20,588.80')">
-      <div class="tx-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <path d="m4 10 8-6 8 6"/>
-          <path d="M6 9v10h12V9"/>
-          <path d="M10 19v-5h4v5"/>
-        </svg>
-      </div>
-      <div class="tx-info">
-        <div class="tx-name">Apartment rent</div>
-        <div class="tx-meta">Housing · Yesterday</div>
-      </div>
-      <div class="tx-amount negative">−$1,420</div>
-    </button>
-  </div>
-</section>
-</div>
-<!-- ================= ACTIVITY ================= -->
-<div id="activityScreen" class="screen">
-  <div class="activity-header">
-    <div class="activity-title">Activity</div>
-    <div class="activity-subtitle">Every movement, all in one place.</div>
-  </div>
-  <div class="search-box">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-      <circle cx="11" cy="11" r="6.5"/>
-      <path d="m16 16 5 5"/>
+
+<main>
+
+<!-- HOME -->
+<section id="home" class="screen active">
+
+ <div class="balanceCard">
+  <div class="balanceTop">
+   <span class="balanceLabel">Available balance</span>
+   <button class="eye" onclick="toggleBalance()">
+    <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+     <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
+     <circle cx="12" cy="12" r="3"/>
     </svg>
-    <input
-      id="activitySearch"
-      type="search"
-      placeholder="Search transactions"
-      oninput="filterActivity()"
-    >
+   </button>
   </div>
-  <div class="filters">
-    <button class="filter active" data-filter="All" onclick="setFilter('All',this)">All</button>
-    <button class="filter" data-filter="Payments" onclick="setFilter('Payments',this)">Payments</button>
-    <button class="filter" data-filter="Income" onclick="setFilter('Income',this)">Income</button>
-    <button class="filter" data-filter="Spaces" onclick="setFilter('Spaces',this)">Spaces</button>
+  <div class="balance" id="balance">$24,860.40</div>
+  <div class="change">↗ 8.4% this month</div>
+  <div class="cardBottom">
+   <div class="account">Primary account · •••• 4821</div>
+   <div class="cardMark">NOVA</div>
   </div>
-  <div id="activityList" class="activity-list">
-    <div class="day-label">TODAY</div>
-    <div
-      class="feed-card transaction-card"
-      data-category="Payments"
-      data-search="blue bottle coffee food card"
-      onclick="openTransaction('Blue Bottle Coffee','-$8.40','Food','Today · 6:42 PM','Card •••• 4821','#TX-849201','Completed','$24,860.40')"
-    >
-      <div class="transaction">
-        <div class="tx-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-            <path d="M6 8h12v7a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/>
-            <path d="M8 5h8"/>
-            <path d="M9 3h6"/>
-          </svg>
-        </div>
-        <div class="tx-info">
-          <div class="tx-name">Blue Bottle Coffee</div>
-          <div class="tx-meta">Food · Today · 6:42 PM</div>
-        </div>
-        <div class="tx-amount negative">−$8.40</div>
-      </div>
-      <div class="status-row">
-        <span class="status-dot"></span>
-        <span class="status">Completed</span>
-      </div>
-    </div>
-    <div
-      class="feed-card transaction-card"
-      data-category="Income"
-      data-search="salary deposit income primary account"
-      onclick="openTransaction('Salary deposit','+$4,280.00','Income','Today · 9:15 AM','Primary account •••• 4821','#TX-720114','Completed','$24,868.80')"
-    >
-      <div class="transaction">
-        <div class="tx-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-            <path d="M4 17h16"/>
-            <path d="M6 17V9l6-4 6 4v8"/>
-            <path d="M9 13h6"/>
-          </svg>
-        </div>
-        <div class="tx-info">
-          <div class="tx-name">Salary deposit</div>
-          <div class="tx-meta">Income · Today · 9:15 AM</div>
-        </div>
-        <div class="tx-amount positive">+$4,280</div>
-      </div>
-      <div class="status-row">
-        <span class="status-dot"></span>
-        <span class="status">Completed</span>
-      </div>
-    </div>
-    <div class="day-label">YESTERDAY</div>
-    <div
-      class="feed-card transaction-card"
-      data-category="Payments"
-      data-search="apartment rent housing"
-      onclick="openTransaction('Apartment rent','-$1,420.00','Housing','Yesterday · 10:03 AM','Primary account •••• 4821','#TX-553820','Completed','$20,588.80')"
-    >
-      <div class="transaction">
-        <div class="tx-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-            <path d="m4 10 8-6 8 6"/>
-            <path d="M6 9v10h12V9"/>
-            <path d="M10 19v-5h4v5"/>
-          </svg>
-        </div>
-        <div class="tx-info">
-          <div class="tx-name">Apartment rent</div>
-          <div class="tx-meta">Housing · Yesterday · 10:03 AM</div>
-        </div>
-        <div class="tx-amount negative">−$1,420</div>
-      </div>
-      <div class="status-row">
-        <span class="status-dot"></span>
-        <span class="status">Completed</span>
-      </div>
-    </div>
-    <div class="day-label">EARLIER</div>
-    <div
-      class="feed-card transaction-card"
-      data-category="Spaces"
-      data-search="travel space savings japan"
-      onclick="openTransaction('Travel Space','+$250.00','Money Space','Aug 30 · 4:18 PM','Travel Space','#TX-441920','Completed','$21,998.80')"
-    >
-      <div class="transaction">
-        <div class="tx-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-            <circle cx="12" cy="12" r="8"/>
-            <path d="M8 15l8-6"/>
-            <path d="M9 9h.01"/>
-            <path d="M15 15h.01"/>
-          </svg>
-        </div>
-        <div class="tx-info">
-          <div class="tx-name">Travel Space</div>
-          <div class="tx-meta">Money Space · Aug 30</div>
-        </div>
-        <div class="tx-amount negative">−$250</div>
-      </div>
-      <div class="status-row">
-        <span class="status-dot"></span>
-        <span class="status">Moved to Space</span>
-      </div>
-    </div>
-    <div id="emptyState" class="empty">
-      <div class="empty-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <circle cx="11" cy="11" r="6"/>
-          <path d="m16 16 4 4"/>
-        </svg>
-      </div>
-      <h3>No transactions found</h3>
-      <p>Try another search or choose a different filter.</p>
-    </div>
+ </div>
+
+ <div class="sectionHead"><h2>Quick actions</h2></div>
+
+ <div class="quick">
+  <button onclick="openSend()"><div class="qIcon">
+   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 14-7-4 14-3-6-7-1Z"/></svg>
+  </div><b>Send</b></button>
+
+  <button onclick="openRequest()"><div class="qIcon">
+   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+  </div><b>Request</b></button>
+
+  <button onclick="openPay()"><div class="qIcon">
+   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></svg>
+  </div><b>Pay</b></button>
+
+  <button onclick="openAdd()"><div class="qIcon">
+   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+  </div><b>Add</b></button>
+ </div>
+
+ <div class="sectionHead"><h2>Money pulse</h2><span>SEP 2026</span></div>
+ <div class="pulse">
+  <div class="pulseTop">
+   <div>
+    <div class="pulseLabel">Spent this month</div>
+    <div class="pulseAmount">$2,418</div>
+    <div class="pulsePercent">↓ 12% less than August</div>
+   </div>
   </div>
-</div>
-<!-- ================= SPACES ================= -->
-<div id="spacesScreen" class="screen">
-  <div class="placeholder">
-    <div class="placeholder-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-        <rect x="4" y="4" width="7" height="7" rx="1.5"/>
-        <rect x="13" y="4" width="7" height="7" rx="1.5"/>
-        <rect x="4" y="13" width="7" height="7" rx="1.5"/>
-        <rect x="13" y="13" width="7" height="7" rx="1.5"/>
-      </svg>
-    </div>
-    <h2>Money Spaces</h2>
-    <p>Your dedicated goals and savings spaces will become the next NOVA v6 upgrade.</p>
+  <div class="chart">
+   <svg viewBox="0 0 460 100" preserveAspectRatio="none">
+    <path class="chartPath" d="M0 75 C35 69 45 78 70 64 S108 57 130 67 S166 48 188 55 S220 36 245 46 S280 57 302 42 S340 28 360 38 S390 23 410 30 S440 16 460 22"/>
+   </svg>
   </div>
-</div>
-<!-- ================= PROFILE ================= -->
-<div id="profileScreen" class="screen">
-  <div class="placeholder">
-    <div class="placeholder-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-        <circle cx="12" cy="8" r="3.5"/>
-        <path d="M5 20c.8-4 3.2-6 7-6s6.2 2 7 6"/>
-      </svg>
-    </div>
-    <h2>NOVA Profile</h2>
-    <p>Your identity, security and account controls will be added in the next v6 stage.</p>
+ </div>
+
+ <div class="insight">
+  <div class="insightIcon">✦</div>
+  <div>
+   <h3>NOVA Insight</h3>
+   <p>Your spending is moving in the right direction. You spent 12% less this month while keeping your savings pace steady.</p>
   </div>
-</div>
-</div>
-<!-- DETAIL SHEET -->
-<div id="overlay" class="overlay" onclick="closeSheet(event)">
-  <div class="detail-sheet" id="detailSheet">
-    <div class="sheet-handle"></div>
-    <div class="detail-top">
-      <div class="detail-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <circle cx="12" cy="12" r="8"/>
-          <path d="M8 15l8-6"/>
-        </svg>
-      </div>
-      <div id="detailName" class="detail-name">Transaction</div>
-      <div id="detailAmount" class="detail-amount">-$0.00</div>
-      <div class="detail-status">
-        <span>●</span>
-        <span id="detailStatus">Completed</span>
-      </div>
-    </div>
-    <div class="details">
-      <div class="detail-row">
-        <span>Category</span>
-        <span id="detailCategory">—</span>
-      </div>
-      <div class="detail-row">
-        <span>Date</span>
-        <span id="detailDate">—</span>
-      </div>
-      <div class="detail-row">
-        <span>Payment method</span>
-        <span id="detailMethod">—</span>
-      </div>
-      <div class="detail-row">
-        <span>Transaction ID</span>
-        <span id="detailId">—</span>
-      </div>
-      <div class="detail-row">
-        <span>Balance after</span>
-        <span id="detailBalance">—</span>
-      </div>
-    </div>
-    <button class="close-sheet" onclick="closeSheet()">Done</button>
+ </div>
+
+ <div class="sectionHead"><h2>Recent activity</h2><span onclick="showScreen('activity')">See all</span></div>
+ <div class="activityList" id="homeActivity"></div>
+
+</section>
+
+<!-- SPACES -->
+<section id="spaces" class="screen">
+ <div class="pageTitle">
+  <h1>Money Spaces</h1>
+  <p>Give every goal its own place.</p>
+ </div>
+
+ <div class="spaceGrid" id="spaceGrid"></div>
+
+ <button class="primaryBtn" onclick="openCreateSpace()">＋ Create a new space</button>
+</section>
+
+<!-- ACTIVITY -->
+<section id="activity" class="screen">
+ <div class="pageTitle">
+  <h1>Activity</h1>
+  <p>Your money, in motion.</p>
+ </div>
+
+ <div class="filters">
+  <button class="active" onclick="filterActivity('all',this)">All</button>
+  <button onclick="filterActivity('payment',this)">Payments</button>
+  <button onclick="filterActivity('income',this)">Income</button>
+  <button onclick="filterActivity('space',this)">Spaces</button>
+ </div>
+
+ <div class="activityList" id="activityList"></div>
+</section>
+
+<!-- PROFILE -->
+<section id="profile" class="screen">
+ <div class="pageTitle">
+  <h1>Profile</h1>
+  <p>Your NOVA identity.</p>
+ </div>
+
+ <div class="profileHero">
+  <div class="profileAvatar">J</div>
+  <h2>Jack</h2>
+  <div class="verified">● Identity verified · NOVA member since 2026</div>
+ </div>
+
+ <div class="profileRows">
+  <div class="profileRow">
+   <div class="rowIcon">♙</div>
+   <div><b>Personal details</b><span>Name, email and phone</span></div>
+   <div class="chev">›</div>
   </div>
-</div>
-<!-- NAV -->
-<nav class="bottom-nav">
-  <button class="nav-item active" data-screen="home" onclick="showScreen('home')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-      <path d="m4 11 8-7 8 7"/>
-      <path d="M6 10v10h12V10"/>
-      <path d="M10 20v-6h4v6"/>
-    </svg>
-    <span>Home</span>
-  </button>
-  <button class="nav-item" data-screen="spaces" onclick="showScreen('spaces')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-      <rect x="4" y="4" width="7" height="7" rx="1.5"/>
-      <rect x="13" y="4" width="7" height="7" rx="1.5"/>
-      <rect x="4" y="13" width="7" height="7" rx="1.5"/>
-      <rect x="13" y="13" width="7" height="7" rx="1.5"/>
-    </svg>
-    <span>Spaces</span>
-  </button>
-  <button class="nav-item" data-screen="activity" onclick="showScreen('activity')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-      <path d="M5 12h3l2-7 4 14 2-7h3"/>
-    </svg>
-    <span>Activity</span>
-  </button>
-  <button class="nav-item" data-screen="profile" onclick="showScreen('profile')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-      <circle cx="12" cy="8" r="3.5"/>
-      <path d="M5 20c.8-4 3.2-6 7-6s6.2 2 7 6"/>
-    </svg>
-    <span>Profile</span>
-  </button>
+  <div class="profileRow">
+   <div class="rowIcon">⌕</div>
+   <div><b>Security</b><span>Passcode, Face ID and devices</span></div>
+   <div class="chev">›</div>
+  </div>
+  <div class="profileRow">
+   <div class="rowIcon">⌁</div>
+   <div><b>Preferences</b><span>Notifications and appearance</span></div>
+   <div class="chev">›</div>
+  </div>
+  <div class="profileRow" onclick="notify('NOVA Help Center opened')">
+   <div class="rowIcon">?</div>
+   <div><b>Help & support</b><span>We are here when you need us</span></div>
+   <div class="chev">›</div>
+  </div>
+ </div>
+</section>
+
+</main>
+
+<nav class="nav">
+ <button class="active" onclick="showScreen('home',this)">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"/><path d="M9 21v-6h6v6"/></svg>
+  Home
+ </button>
+ <button onclick="showScreen('spaces',this)">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 9h8M8 13h5"/></svg>
+  Spaces
+ </button>
+ <button onclick="showScreen('activity',this)">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 5-7"/></svg>
+  Activity
+ </button>
+ <button onclick="showScreen('profile',this)">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c.7-4 3.2-6 8-6s7.3 2 8 6"/></svg>
+  Profile
+ </button>
 </nav>
-<div id="toast" class="toast"></div>
+</div>
+
+<!-- SEND -->
+<div class="overlay" id="sendModal">
+ <div class="sheet">
+  <div class="sheetHandle"></div>
+  <div class="sheetHead"><h2 id="sendTitle">Send money</h2><button class="close" onclick="closeModal('sendModal')">×</button></div>
+  <div id="sendBody"></div>
+ </div>
+</div>
+
+<!-- REQUEST -->
+<div class="overlay" id="requestModal">
+ <div class="sheet">
+  <div class="sheetHandle"></div>
+  <div class="sheetHead"><h2>Request money</h2><button class="close" onclick="closeModal('requestModal')">×</button></div>
+  <div class="field"><label>FROM</label><input class="input" id="requestFrom" placeholder="Name or phone number"></div>
+  <div class="field"><label>AMOUNT</label><input class="input" id="requestAmount" type="number" placeholder="0.00"></div>
+  <div class="field"><label>NOTE</label><input class="input" id="requestNote" placeholder="What's this for?"></div>
+  <button class="primaryBtn" onclick="submitRequest()">Request money</button>
+ </div>
+</div>
+
+<!-- PAY -->
+<div class="overlay" id="payModal">
+ <div class="sheet">
+  <div class="sheetHandle"></div>
+  <div class="sheetHead"><h2>NOVA Pay</h2><button class="close" onclick="closeModal('payModal')">×</button></div>
+  <div class="field"><label>MERCHANT</label><input class="input" id="merchant" placeholder="Merchant name"></div>
+  <div class="field"><label>AMOUNT</label><input class="input" id="payAmount" type="number" placeholder="0.00"></div>
+  <div class="field"><label>CATEGORY</label><select class="input" id="payCategory"><option>Food</option><option>Shopping</option><option>Transport</option><option>Entertainment</option><option>Other</option></select></div>
+  <button class="primaryBtn" onclick="submitPay()">Pay now</button>
+ </div>
+</div>
+
+<!-- ADD -->
+<div class="overlay" id="addModal">
+ <div class="sheet">
+  <div class="sheetHandle"></div>
+  <div class="sheetHead"><h2>Add money</h2><button class="close" onclick="closeModal('addModal')">×</button></div>
+  <div class="field"><label>AMOUNT</label><input class="input" id="addAmount" type="number" placeholder="0.00"></div>
+  <div class="field"><label>FUNDING SOURCE</label><select class="input"><option>Linked bank account</option><option>Debit card</option></select></div>
+  <button class="primaryBtn" onclick="submitAdd()">Add to NOVA</button>
+ </div>
+</div>
+
+<!-- NOTIFICATIONS -->
+<div class="overlay" id="notifModal">
+ <div class="sheet">
+  <div class="sheetHandle"></div>
+  <div class="sheetHead"><h2>Notifications</h2><button class="close" onclick="closeModal('notifModal')">×</button></div>
+  <div id="notifList"></div>
+  <button class="secondaryBtn" onclick="markRead()">Mark all as read</button>
+ </div>
+</div>
+
+<!-- SEARCH -->
+<div class="overlay" id="searchModal">
+ <div class="sheet">
+  <div class="sheetHandle"></div>
+  <div class="sheetHead"><h2>Search NOVA</h2><button class="close" onclick="closeModal('searchModal')">×</button></div>
+  <input class="input" id="searchInput" oninput="searchEverything()" placeholder="Search transactions, spaces...">
+  <div id="searchResults" style="margin-top:12px"></div>
+ </div>
+</div>
+
+<!-- DETAIL -->
+<div class="overlay" id="detailModal">
+ <div class="sheet">
+  <div class="sheetHandle"></div>
+  <div class="sheetHead"><h2>Transaction</h2><button class="close" onclick="closeModal('detailModal')">×</button></div>
+  <div id="detailBody"></div>
+ </div>
+</div>
+
+<!-- CREATE SPACE -->
+<div class="overlay" id="spaceModal">
+ <div class="sheet">
+  <div class="sheetHandle"></div>
+  <div class="sheetHead"><h2>Create Space</h2><button class="close" onclick="closeModal('spaceModal')">×</button></div>
+  <div class="field"><label>SPACE NAME</label><input class="input" id="spaceName" placeholder="e.g. New apartment"></div>
+  <div class="field"><label>GOAL</label><input class="input" id="spaceGoal" type="number" placeholder="5000"></div>
+  <div class="field"><label>ICON</label><select class="input" id="spaceEmoji"><option>🏠</option><option>✈️</option><option>💼</option><option>🎓</option><option>🚗</option><option>💎</option></select></div>
+  <button class="primaryBtn" onclick="createSpace()">Create Space</button>
+ </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
-let balanceVisible=true;
+const $=id=>document.getElementById(id);
+
 let balanceAmount=24860.40;
-let activeFilter="All";
-/* SCREEN NAVIGATION */
-function showScreen(screen){
-  document.querySelectorAll(".screen").forEach(s=>{
-    s.classList.remove("active");
-  });
-  const target=document.getElementById(screen+"Screen");
-  if(target){
-    target.classList.add("active");
-  }
-  document.querySelectorAll(".nav-item").forEach(item=>{
-    item.classList.toggle(
-      "active",
-      item.dataset.screen===screen
-    );
-  });
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+let balanceVisible=true;
+
+let transactions=[
+ {id:"NX-849231",name:"Blue Bottle Coffee",amount:-8.40,category:"Food",time:"Today · 6:42 PM",icon:"☕",type:"payment",status:"Completed",method:"NOVA Card",location:"Downtown"},
+ {id:"NX-849184",name:"Salary deposit",amount:4280,category:"Income",time:"Today · 9:15 AM",icon:"↗",type:"income",status:"Completed",method:"Bank transfer",location:"—"},
+ {id:"NX-848921",name:"Apartment rent",amount:-1420,category:"Housing",time:"Yesterday · 10:03 AM",icon:"🏠",type:"payment",status:"Completed",method:"Bank transfer",location:"Home"},
+ {id:"NX-848731",name:"NOVA Travel",amount:-250,category:"Spaces",time:"Aug 31 · 4:12 PM",icon:"✈️",type:"space",status:"Completed",method:"Space transfer",location:"NOVA"},
+ {id:"NX-848412",name:"Uber",amount:-22.60,category:"Transport",time:"Aug 30 · 8:20 PM",icon:"🚗",type:"payment",status:"Completed",method:"NOVA Card",location:"Downtown"}
+];
+
+let spaces=[
+ {name:"Rent",emoji:"🏠",balance:2800,goal:4000},
+ {name:"Travel",emoji:"✈️",balance:1220,goal:3000},
+ {name:"Business",emoji:"💼",balance:740,goal:5000}
+];
+
+let notifications=[
+ {title:"Salary received",text:"$4,280 was added to your NOVA account.",time:"Today · 9:15 AM",unread:true,icon:"↗"},
+ {title:"Spending insight",text:"You're spending 12% less than last month.",time:"Today",unread:true,icon:"✦"},
+ {title:"New sign-in",text:"Your NOVA account was accessed from this device.",time:"Yesterday",unread:false,icon:"⌕"}
+];
+
+function money(n){
+ return (n<0?"−":"+")+"$"+Math.abs(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
 }
-/* BALANCE */
+function moneyPositive(n){
+ return "$"+Number(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+
+function renderHome(){
+ $("homeActivity").innerHTML=transactions.slice(0,3).map(tx=>txHTML(tx)).join("");
+ $("activityList").innerHTML=transactions.map(tx=>txHTML(tx)).join("");
+}
+function txHTML(tx){
+ return `<div class="tx" onclick="openDetail('${tx.id}')">
+  <div class="txIcon">${tx.icon}</div>
+  <div class="txMain">
+   <div class="txName">${tx.name}</div>
+   <div class="txMeta">${tx.category} · ${tx.time}</div>
+  </div>
+  <div class="txAmount ${tx.amount>0?'plus':'minus'}">${money(tx.amount)}</div>
+ </div>`;
+}
+
+function renderSpaces(){
+ $("spaceGrid").innerHTML=spaces.map((s,i)=>{
+  let p=Math.min(100,(s.balance/s.goal)*100);
+  return `<div class="spaceCard">
+   <div class="spaceTop">
+    <div class="spaceEmoji">${s.emoji}</div>
+    <div class="spaceInfo"><div class="spaceName">${s.name}</div><div class="spaceGoal">Goal · ${moneyPositive(s.goal)}</div></div>
+    <div class="spaceMoney">${moneyPositive(s.balance)}</div>
+   </div>
+   <div class="progress"><i style="width:${p}%"></i></div>
+   <div class="spaceBottom"><span>${Math.round(p)}% funded</span><span>${moneyPositive(Math.max(0,s.goal-s.balance))} to go</span></div>
+   <div class="spaceActions">
+    <button class="smallBtn primary" onclick="addToSpace(${i})">Add money</button>
+    <button class="smallBtn" onclick="notify('${s.name} Space opened')">View</button>
+   </div>
+  </div>`;
+ }).join("");
+}
+
 function toggleBalance(){
-  const el=document.getElementById("balance");
-  balanceVisible=!balanceVisible;
-  el.textContent=balanceVisible
-    ? "$"+balanceAmount.toLocaleString("en-US",{
-        minimumFractionDigits:2
-      })
-    : "••••••••";
+ balanceVisible=!balanceVisible;
+ $("balance").textContent=balanceVisible?moneyPositive(balanceAmount):"••••••";
 }
-/* TOAST */
-function notify(message){
-  const toast=document.getElementById("toast");
-  toast.textContent=message;
-  toast.classList.add("show");
-  clearTimeout(window.toastTimer);
-  window.toastTimer=setTimeout(()=>{
-    toast.classList.remove("show");
-  },2200);
+
+function showScreen(id,btn){
+ document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));
+ $(id).classList.add("active");
+ document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
+ if(btn)btn.classList.add("active");
+ window.scrollTo({top:0,behavior:"smooth"});
 }
-/* TRANSACTION DETAIL */
-function openTransaction(
-  name,
-  amount,
-  category,
-  date,
-  method,
-  id,
-  status,
-  after
-){
-  document.getElementById("detailName").textContent=name;
-  document.getElementById("detailAmount").textContent=amount;
-  document.getElementById("detailCategory").textContent=category;
-  document.getElementById("detailDate").textContent=date;
-  document.getElementById("detailMethod").textContent=method;
-  document.getElementById("detailId").textContent=id;
-  document.getElementById("detailStatus").textContent=status;
-  document.getElementById("detailBalance").textContent=after;
-  document.getElementById("overlay").classList.add("open");
-  document.body.style.overflow="hidden";
+
+function notify(msg){
+ const t=$("toast");
+ t.textContent=msg;t.classList.add("show");
+ clearTimeout(window.toastTimer);
+ window.toastTimer=setTimeout(()=>t.classList.remove("show"),2400);
 }
-/* CLOSE DETAIL */
-function closeSheet(event){
-  if(
-    event &&
-    event.target !== document.getElementById("overlay")
-  ){
-    return;
-  }
-  document.getElementById("overlay").classList.remove("open");
-  document.body.style.overflow="";
+
+function openModal(id){$(id).classList.add("show")}
+function closeModal(id){$(id).classList.remove("show")}
+
+function openSend(){
+ $("sendTitle").textContent="Send money";
+ $("sendBody").innerHTML=`
+  <div class="field"><label>RECIPIENT</label>
+   <input class="input" id="recipientInput" placeholder="Name, phone or NOVA ID">
+  </div>
+  <div class="recipient">
+   <div class="recAvatar">?</div>
+   <div><b style="font-size:12px">Who are you sending to?</b><div style="font-size:10px;color:#888;margin-top:3px">Enter a recipient above</div></div>
+  </div>
+  <div class="field"><label>AMOUNT</label>
+   <input class="input" id="sendAmount" type="number" placeholder="0.00">
+  </div>
+  <div class="field"><label>NOTE</label>
+   <input class="input" id="sendNote" placeholder="What's this for?">
+  </div>
+  <button class="primaryBtn" onclick="reviewSend()">Review transfer</button>`;
+ openModal("sendModal");
 }
-/* FILTER */
-function setFilter(filter,button){
-  activeFilter=filter;
-  document.querySelectorAll(".filter").forEach(item=>{
-    item.classList.remove("active");
-  });
-  button.classList.add("active");
-  filterActivity();
+
+function reviewSend(){
+ const person=$("recipientInput").value.trim();
+ const amount=Number($("sendAmount").value);
+ if(!person||!amount||amount<=0)return notify("Enter a recipient and amount");
+ if(amount>balanceAmount)return notify("Not enough available balance");
+
+ $("sendTitle").textContent="Review transfer";
+ $("sendBody").innerHTML=`
+  <div class="detailIcon">↗</div>
+  <div style="text-align:center;font-size:11px;color:#888">Sending to</div>
+  <div style="text-align:center;font-family:Space Grotesk;font-weight:700;margin-top:4px">${person}</div>
+  <div class="review">
+   <div class="reviewRow"><span>Amount</span><b>${moneyPositive(amount)}</b></div>
+   <div class="reviewRow"><span>Fee</span><b>$0.00</b></div>
+   <div class="reviewRow"><span>From</span><b>•••• 4821</b></div>
+   <div class="reviewRow"><span>Arrives</span><b>Instantly</b></div>
+   <div class="reviewTotal"><span>Total</span> ${moneyPositive(amount)}</div>
+  </div>
+  <button class="primaryBtn" onclick="confirmSend('${encodeURIComponent(person)}',${amount})">Confirm & send</button>
+  <button class="secondaryBtn" onclick="openSend()">Edit transfer</button>`;
 }
-/* SEARCH + FILTER */
-function filterActivity(){
-  const query=document
-    .getElementById("activitySearch")
-    .value
-    .toLowerCase()
-    .trim();
-  const cards=document.querySelectorAll(".transaction-card");
-  let visible=0;
-  cards.forEach(card=>{
-    const category=card.dataset.category;
-    const search=card.dataset.search;
-    const filterMatch=
-      activeFilter==="All" ||
-      category===activeFilter;
-    const searchMatch=
-      !query ||
-      search.includes(query);
-    const show=filterMatch && searchMatch;
-    card.style.display=show ? "" : "none";
-    if(show) visible++;
-  });
-  document.getElementById("emptyState").style.display=
-    visible===0 ? "block" : "none";
+
+function confirmSend(encoded,amount){
+ const person=decodeURIComponent(encoded);
+ balanceAmount-=amount;
+ transactions.unshift({
+  id:"NX-"+Math.floor(100000+Math.random()*899999),
+  name:person,amount:-amount,category:"Transfer",
+  time:"Just now",icon:"↗",type:"payment",status:"Completed",
+  method:"NOVA account",location:"NOVA"
+ });
+ notifications.unshift({
+  title:"Transfer sent",
+  text:`${moneyPositive(amount)} was sent to ${person}.`,
+  time:"Just now",unread:true,icon:"↗"
+ });
+ renderAll();
+ $("sendTitle").textContent="Transfer complete";
+ $("sendBody").innerHTML=`
+  <div class="success">
+   <div class="successCircle">✓</div>
+   <h2>Money sent</h2>
+   <p>${moneyPositive(amount)} was successfully sent to ${person}.</p>
+   <button class="primaryBtn" onclick="closeModal('sendModal')">Done</button>
+  </div>`;
+ notify("Transfer completed");
 }
-/* RIPPLE */
-document.addEventListener("click",e=>{
-  const button=e.target.closest("button");
-  if(!button)return;
-  const rect=button.getBoundingClientRect();
-  const ripple=document.createElement("span");
-  ripple.className="ripple";
-  ripple.style.left=
-    (rect.left+rect.width/2)+"px";
-  ripple.style.top=
-    (rect.top+rect.height/2)+"px";
-  document.body.appendChild(ripple);
-  setTimeout(()=>{
-    ripple.remove();
-  },550);
+
+function openRequest(){openModal("requestModal")}
+function submitRequest(){
+ const person=$("requestFrom").value.trim();
+ const amount=Number($("requestAmount").value);
+ if(!person||!amount)return notify("Complete the request details");
+ closeModal("requestModal");
+ notifications.unshift({title:"Request created",text:`You requested ${moneyPositive(amount)} from ${person}.`,time:"Just now",unread:true,icon:"＋"});
+ renderAll();notify("Money request sent");
+}
+
+function openPay(){openModal("payModal")}
+function submitPay(){
+ const merchant=$("merchant").value.trim();
+ const amount=Number($("payAmount").value);
+ const category=$("payCategory").value;
+ if(!merchant||!amount)return notify("Enter a merchant and amount");
+ if(amount>balanceAmount)return notify("Not enough available balance");
+
+ balanceAmount-=amount;
+ transactions.unshift({
+  id:"NX-"+Math.floor(100000+Math.random()*899999),
+  name:merchant,amount:-amount,category,time:"Just now",
+  icon:category==="Food"?"☕":"◉",type:"payment",status:"Completed",
+  method:"NOVA Pay",location:"Merchant"
+ });
+ notifications.unshift({title:"Payment completed",text:`${moneyPositive(amount)} paid to ${merchant}.`,time:"Just now",unread:true,icon:"✓"});
+ closeModal("payModal");renderAll();notify("Payment completed");
+}
+
+function openAdd(){openModal("addModal")}
+function submitAdd(){
+ const amount=Number($("addAmount").value);
+ if(!amount||amount<=0)return notify("Enter an amount");
+ balanceAmount+=amount;
+ transactions.unshift({
+  id:"NX-"+Math.floor(100000+Math.random()*899999),
+  name:"Added money",amount,category:"Income",time:"Just now",
+  icon:"＋",type:"income",status:"Completed",method:"Linked bank",location:"NOVA"
+ });
+ notifications.unshift({title:"Money added",text:`${moneyPositive(amount)} was added to your account.`,time:"Just now",unread:true,icon:"＋"});
+ closeModal("addModal");renderAll();notify(`${moneyPositive(amount)} added`);
+}
+
+function filterActivity(type,btn){
+ document.querySelectorAll(".filters button").forEach(x=>x.classList.remove("active"));
+ btn.classList.add("active");
+ const list=type==="all"?transactions:transactions.filter(x=>x.type===type);
+ $("activityList").innerHTML=list.length?list.map(tx=>txHTML(tx)).join(""):`<div class="empty">No activity here yet.</div>`;
+}
+
+function openDetail(id){
+ const tx=transactions.find(x=>x.id===id);if(!tx)return;
+ $("detailBody").innerHTML=`
+  <div class="detailIcon">${tx.icon}</div>
+  <div style="text-align:center;font-weight:700">${tx.name}</div>
+  <div class="detailAmount ${tx.amount>0?'plus':''}">${money(tx.amount)}</div>
+  <div class="detailRows">
+   <div class="detailRow"><span>Status</span><b class="status">${tx.status}</b></div>
+   <div class="detailRow"><span>Transaction ID</span><b>${tx.id}</b></div>
+   <div class="detailRow"><span>Date</span><b>${tx.time}</b></div>
+   <div class="detailRow"><span>Payment method</span><b>${tx.method}</b></div>
+   <div class="detailRow"><span>Category</span><b>${tx.category}</b></div>
+   <div class="detailRow"><span>Location</span><b>${tx.location}</b></div>
+  </div>
+  <button class="secondaryBtn" onclick="notify('Receipt prepared');closeModal('detailModal')">View receipt</button>
+  <button class="primaryBtn" onclick="notify('Report feature opened');">Report a problem</button>`;
+ openModal("detailModal");
+}
+
+function openNotifications(){
+ renderNotifications();openModal("notifModal");
+}
+function renderNotifications(){
+ $("notifList").innerHTML=notifications.map((n,i)=>`
+  <div class="tx" style="${n.unread?'background:#f4f3ff':''}" onclick="notifications[${i}].unread=false;renderNotifications();updateBadge()">
+   <div class="txIcon">${n.icon}</div>
+   <div class="txMain">
+    <div class="txName">${n.title}${n.unread?' <span style="color:#6258f5">●</span>':''}</div>
+    <div class="txMeta">${n.text}</div>
+    <div class="txMeta">${n.time}</div>
+   </div>
+  </div>`).join("");
+}
+function markRead(){
+ notifications.forEach(n=>n.unread=false);
+ renderNotifications();updateBadge();notify("Notifications marked as read");
+}
+function updateBadge(){
+ $("notifBadge").style.display=notifications.some(n=>n.unread)?"block":"none";
+}
+
+function openSearch(){
+ $("searchInput").value="";
+ $("searchResults").innerHTML='<div style="padding:20px;text-align:center;color:#999;font-size:11px">Search your NOVA activity</div>';
+ openModal("searchModal");
+ setTimeout(()=>$("searchInput").focus(),200);
+}
+function searchEverything(){
+ const q=$("searchInput").value.toLowerCase();
+ if(!q){$("searchResults").innerHTML="";return}
+ const matches=transactions.filter(t=>
+  t.name.toLowerCase().includes(q)||t.category.toLowerCase().includes(q)
+ );
+ $("searchResults").innerHTML=matches.length?matches.map(tx=>txHTML(tx)).join(""):'<div class="empty">Nothing found</div>';
+}
+
+function openCreateSpace(){openModal("spaceModal")}
+function createSpace(){
+ const name=$("spaceName").value.trim();
+ const goal=Number($("spaceGoal").value);
+ const emoji=$("spaceEmoji").value;
+ if(!name||!goal)return notify("Give your Space a name and goal");
+ spaces.push({name,emoji,balance:0,goal});
+ closeModal("spaceModal");renderSpaces();notify(`${name} Space created`);
+}
+function addToSpace(index){
+ const amount=Number(prompt("Amount to move into "+spaces[index].name+" Space"));
+ if(!amount||amount<=0)return;
+ if(amount>balanceAmount)return notify("Not enough available balance");
+ balanceAmount-=amount;
+ spaces[index].balance+=amount;
+ transactions.unshift({
+  id:"NX-"+Math.floor(100000+Math.random()*899999),
+  name:"Moved to "+spaces[index].name,amount:-amount,
+  category:"Spaces",time:"Just now",icon:spaces[index].emoji,
+  type:"space",status:"Completed",method:"Space transfer",location:"NOVA"
+ });
+ renderAll();notify(`${moneyPositive(amount)} moved to ${spaces[index].name}`);
+}
+
+function renderAll(){
+ $("balance").textContent=balanceVisible?moneyPositive(balanceAmount):"••••••";
+ renderHome();renderSpaces();updateBadge();
+}
+
+document.querySelectorAll(".overlay").forEach(o=>{
+ o.addEventListener("click",e=>{
+  if(e.target===o)o.classList.remove("show");
+ });
 });
-/* BALANCE COUNT-IN */
-window.addEventListener("load",()=>{
-  const el=document.getElementById("balance");
-  const end=balanceAmount;
-  const duration=900;
-  const startTime=performance.now();
-  function animate(now){
-    const progress=Math.min(
-      (now-startTime)/duration,
-      1
-    );
-    const eased=
-      1-Math.pow(1-progress,3);
-    const value=end*eased;
-    el.textContent="$"+value.toLocaleString("en-US",{
-      minimumFractionDigits:2,
-      maximumFractionDigits:2
-    });
-    if(progress<1){
-      requestAnimationFrame(animate);
-    }
-  }
-  requestAnimationFrame(animate);
-});
-/* ESCAPE KEY */
-document.addEventListener("keydown",e=>{
-  if(e.key==="Escape"){
-    document.getElementById("overlay").classList.remove("open");
-    document.body.style.overflow="";
-  }
-});
-/* SWIPE DOWN TO CLOSE */
-let touchStartY=0;
-document
-  .getElementById("detailSheet")
-  .addEventListener("touchstart",e=>{
-    touchStartY=e.touches[0].clientY;
-  });
-document
-  .getElementById("detailSheet")
-  .addEventListener("touchend",e=>{
-    const endY=e.changedTouches[0].clientY;
-    if(endY-touchStartY>90){
-      closeSheet();
-    }
-  });
+
+renderAll();
 </script>
 </body>
 </html>
