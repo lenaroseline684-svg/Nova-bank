@@ -1,19 +1,26 @@
-<!-- NOVA v3
+<!– NOVA v3
      Full dashboard + Send Money + Pay/QR prototype
      Replace your current index.html with this file.
 -->
 
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang=“en”>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta charset=“UTF-8”>
+<meta name=“viewport” content=“width=device-width,initial-scale=1,viewport-fit=cover”>
 <title>NOVA — Money, reimagined.</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url(’https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap’);
 
-*{box-sizing:border-box;margin:0;padding:0}
+*,
+*::before,
+*::after{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 :root{
   --bg:#f5f7fa;
@@ -24,37 +31,54 @@
   --accent:#635bff;
   --green:#18a66d;
   --red:#df5656;
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+
+html{
+  min-width:320px;
+  overflow-x:hidden;
 }
 
 body{
+  min-width:320px;
   min-height:100vh;
-  background:var(--bg);
-  color:var(--text);
-  font-family:"DM Sans",sans-serif;
+  overflow-x:hidden;
+  background:var(–bg);
+  color:var(–text);
+  font-family:“DM Sans”,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
 }
 
-button,input{
+button,
+input{
   font:inherit;
 }
 
 button{
   border:0;
   cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+button:focus-visible,
+input:focus-visible{
+  outline:3px solid #635bff55;
+  outline-offset:2px;
 }
 
 .app{
   width:min(1180px,100%);
   margin:auto;
   min-height:100vh;
-  padding:24px 24px 100px;
+  padding:24px 24px calc(100px + var(–safe-bottom));
 }
-
-/* HEADER */
 
 header{
   display:flex;
   align-items:center;
   justify-content:space-between;
+  gap:16px;
   margin-bottom:30px;
 }
 
@@ -62,6 +86,7 @@ header{
   display:flex;
   align-items:center;
   gap:11px;
+  min-width:0;
 }
 
 .logo{
@@ -69,18 +94,21 @@ header{
   height:42px;
   display:grid;
   place-items:center;
+  flex:none;
   border-radius:13px;
   color:white;
   background:#111318;
-  font-family:"Space Grotesk";
+  font-family:“Space Grotesk”;
   font-weight:700;
   box-shadow:0 9px 24px #0002;
 }
 
 .brand-name{
-  font-family:"Space Grotesk";
+  overflow:hidden;
+  font-family:“Space Grotesk”;
   font-size:21px;
   font-weight:700;
+  text-overflow:ellipsis;
 }
 
 .profile{
@@ -88,31 +116,32 @@ header{
   height:43px;
   display:grid;
   place-items:center;
+  flex:none;
   border-radius:50%;
   color:white;
   font-weight:700;
   background:linear-gradient(135deg,#d9dce2,#969da8);
 }
 
-/* GREETING */
-
 .greeting{
   margin-bottom:22px;
 }
 
 .greeting p{
-  color:var(--muted);
+  color:var(–muted);
   font-size:14px;
+  line-height:1.4;
   margin-bottom:5px;
 }
 
 .greeting h1{
-  font-family:"Space Grotesk";
-  font-size:30px;
+  max-width:100%;
+  overflow-wrap:anywhere;
+  font-family:“Space Grotesk”;
+  font-size:clamp(24px,3vw,30px);
+  line-height:1.15;
   letter-spacing:-1.3px;
 }
-
-/* BALANCE */
 
 .balance-card{
   position:relative;
@@ -137,18 +166,27 @@ header{
   display:flex;
   align-items:center;
   gap:12px;
+  min-width:0;
   margin-top:8px;
 }
 
 .balance{
-  font-family:"Space Grotesk";
-  font-size:39px;
+  min-width:0;
+  overflow:hidden;
+  font-family:“Space Grotesk”;
+  font-size:clamp(29px,5vw,39px);
+  line-height:1.1;
   letter-spacing:-1.8px;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 .eye{
   width:35px;
   height:35px;
+  display:grid;
+  place-items:center;
+  flex:none;
   border-radius:50%;
   color:white;
   background:#ffffff18;
@@ -156,12 +194,15 @@ header{
 
 .balance-bottom{
   display:flex;
-  align-items:end;
+  align-items:flex-end;
   justify-content:space-between;
+  gap:20px;
   margin-top:43px;
 }
 
-.account,.income{
+.account,
+.income{
+  min-width:0;
   color:#ffffff91;
   font-size:12px;
 }
@@ -169,26 +210,31 @@ header{
 .account strong,
 .income strong{
   display:block;
+  overflow-wrap:anywhere;
   margin-top:4px;
   color:white;
   font-size:14px;
 }
 
-.income{text-align:right}
-.income strong{color:#7dffbe}
+.income{
+  text-align:right;
+}
 
-/* ACTIONS */
+.income strong{
+  color:#7dffbe;
+}
 
 .actions{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(4,minmax(0,1fr));
   gap:12px;
   margin:18px 0;
 }
 
 .action{
+  min-width:0;
   padding:17px 8px;
-  border:1px solid var(--line);
+  border:1px solid var(–line);
   border-radius:20px;
   background:white;
   text-align:center;
@@ -207,27 +253,29 @@ header{
   place-items:center;
   margin:0 auto 9px;
   border-radius:14px;
-  color:var(--accent);
+  color:var(–accent);
   background:#f0efff;
   font-size:18px;
 }
 
 .action span{
+  display:block;
+  overflow:hidden;
   font-size:12px;
   font-weight:700;
+  text-overflow:ellipsis;
 }
-
-/* CONTENT */
 
 .main-grid{
   display:grid;
-  grid-template-columns:1.35fr .85fr;
+  grid-template-columns:minmax(0,1.35fr) minmax(0,.85fr);
   gap:18px;
 }
 
 .card{
+  min-width:0;
   padding:22px;
-  border:1px solid var(--line);
+  border:1px solid var(–line);
   border-radius:25px;
   background:white;
 }
@@ -236,61 +284,69 @@ header{
   display:flex;
   align-items:center;
   justify-content:space-between;
+  gap:14px;
+  min-width:0;
   margin-bottom:20px;
 }
 
 .card-title{
-  font-family:"Space Grotesk";
+  min-width:0;
+  overflow-wrap:anywhere;
+  font-family:“Space Grotesk”;
   font-size:17px;
   font-weight:700;
 }
 
 .card-link{
-  color:var(--accent);
+  flex:none;
+  color:var(–accent);
   font-size:12px;
   font-weight:700;
   cursor:pointer;
+  white-space:nowrap;
 }
 
-/* CHART */
-
 .pulse-number{
-  font-family:"Space Grotesk";
+  font-family:“Space Grotesk”;
   font-size:27px;
+  line-height:1.15;
 }
 
 .pulse-sub{
   margin-top:3px;
-  color:var(--muted);
+  color:var(–muted);
   font-size:12px;
+  line-height:1.45;
 }
 
 .chart{
   height:125px;
   display:flex;
-  align-items:end;
+  align-items:flex-end;
   gap:9px;
   margin-top:22px;
 }
 
 .bar{
-  flex:1;
+  flex:1 1 0;
+  min-width:0;
   min-height:18px;
   border-radius:8px 8px 4px 4px;
   background:#e9e7ff;
 }
 
-.bar.active{background:var(--accent)}
+.bar.active{
+  background:var(–accent);
+}
 
 .days{
   display:flex;
   justify-content:space-between;
+  gap:8px;
   margin-top:8px;
   color:#a1a6af;
   font-size:10px;
 }
-
-/* SPACES */
 
 .spaces{
   display:grid;
@@ -301,6 +357,7 @@ header{
   display:flex;
   align-items:center;
   gap:12px;
+  min-width:0;
   padding:12px;
   border-radius:17px;
   background:#f7f8fa;
@@ -311,26 +368,35 @@ header{
   height:38px;
   display:grid;
   place-items:center;
+  flex:none;
   border-radius:12px;
   background:white;
 }
 
-.space-info{flex:1}
+.space-info{
+  min-width:0;
+  flex:1;
+}
 
 .space-name{
+  overflow:hidden;
   font-size:13px;
   font-weight:700;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 .space-value{
+  overflow-wrap:anywhere;
   margin-top:3px;
-  color:var(--muted);
+  color:var(–muted);
   font-size:11px;
 }
 
 .space-bar{
   width:60px;
   height:5px;
+  flex:none;
   overflow:hidden;
   border-radius:10px;
   background:#e4e6ea;
@@ -339,10 +405,8 @@ header{
 .space-fill{
   height:100%;
   border-radius:10px;
-  background:var(--accent);
+  background:var(–accent);
 }
-
-/* TRANSACTIONS */
 
 .transactions{
   margin-top:18px;
@@ -351,44 +415,62 @@ header{
 .transaction{
   display:flex;
   align-items:center;
+  gap:12px;
+  min-width:0;
   padding:14px 0;
   border-bottom:1px solid #f0f1f3;
 }
 
-.transaction:last-child{border:0}
+.transaction:last-child{
+  border:0;
+}
 
 .tx-icon{
   width:42px;
   height:42px;
   display:grid;
   place-items:center;
-  margin-right:12px;
+  flex:none;
   border-radius:14px;
   background:#f3f4f6;
 }
 
-.tx-info{flex:1}
+.tx-info{
+  min-width:0;
+  flex:1;
+}
 
 .tx-name{
+  overflow:hidden;
   font-size:13px;
   font-weight:700;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 .tx-date{
+  overflow:hidden;
   margin-top:3px;
   color:#999fa8;
   font-size:11px;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 .tx-amount{
+  flex:none;
   font-size:13px;
   font-weight:700;
+  white-space:nowrap;
 }
 
-.negative{color:var(--red)}
-.positive{color:var(--green)}
+.negative{
+  color:var(–red);
+}
 
-/* INSIGHT */
+.positive{
+  color:var(–green);
+}
 
 .insight{
   margin-top:18px;
@@ -410,12 +492,13 @@ header{
   height:29px;
   display:grid;
   place-items:center;
+  flex:none;
   border-radius:9px;
   background:#ffffff15;
 }
 
 .insight h3{
-  font-family:"Space Grotesk";
+  font-family:“Space Grotesk”;
   font-size:16px;
 }
 
@@ -425,24 +508,23 @@ header{
   line-height:1.6;
 }
 
-/* NAV */
-
 .bottom-nav{
   display:none;
 }
-
-/* TOAST */
 
 .toast{
   position:fixed;
   z-index:100;
   left:50%;
   bottom:25px;
+  max-width:min(90vw,420px);
   padding:13px 18px;
   border-radius:14px;
   color:white;
   background:#111318;
   font-size:13px;
+  line-height:1.35;
+  text-align:center;
   opacity:0;
   pointer-events:none;
   transform:translate(-50%,20px);
@@ -454,8 +536,6 @@ header{
   transform:translate(-50%,0);
 }
 
-/* MODALS */
-
 .modal{
   position:fixed;
   z-index:50;
@@ -463,6 +543,7 @@ header{
   display:flex;
   align-items:flex-end;
   justify-content:center;
+  overflow:hidden;
   padding:15px;
   background:#05060980;
   backdrop-filter:blur(9px);
@@ -478,13 +559,16 @@ header{
 
 .sheet{
   width:min(520px,100%);
-  max-height:92vh;
-  overflow:auto;
+  max-height:min(92vh,760px);
+  overflow-x:hidden;
+  overflow-y:auto;
+  overscroll-behavior:contain;
   padding:24px;
   border-radius:30px 30px 22px 22px;
   background:white;
   transform:translateY(35px);
   transition:.3s;
+  -webkit-overflow-scrolling:touch;
 }
 
 .modal.open .sheet{
@@ -495,23 +579,31 @@ header{
   display:flex;
   align-items:center;
   justify-content:space-between;
+  gap:16px;
+  min-width:0;
   margin-bottom:24px;
 }
 
 .sheet-title{
-  font-family:"Space Grotesk";
+  min-width:0;
+  overflow-wrap:anywhere;
+  font-family:“Space Grotesk”;
   font-size:22px;
+  line-height:1.15;
   font-weight:700;
 }
 
 .close{
   width:36px;
   height:36px;
+  display:grid;
+  place-items:center;
+  flex:none;
   border-radius:50%;
   background:#f1f2f4;
+  font-size:20px;
+  line-height:1;
 }
-
-/* SEND */
 
 .field-label{
   display:block;
@@ -525,9 +617,10 @@ header{
   display:flex;
   align-items:center;
   gap:7px;
+  min-width:0;
   padding:18px;
   margin-bottom:20px;
-  border:1px solid var(--line);
+  border:1px solid var(–line);
   border-radius:18px;
 }
 
@@ -538,11 +631,12 @@ header{
 
 .amount-input{
   width:100%;
+  min-width:0;
   border:0;
   outline:0;
-  color:var(--text);
-  font-family:"Space Grotesk";
-  font-size:30px;
+  color:var(–text);
+  font-family:“Space Grotesk”;
+  font-size:clamp(25px,7vw,30px);
   font-weight:700;
 }
 
@@ -557,6 +651,7 @@ header{
   align-items:center;
   gap:12px;
   width:100%;
+  min-width:0;
   padding:12px;
   border:1px solid transparent;
   border-radius:17px;
@@ -581,30 +676,43 @@ header{
   font-weight:700;
 }
 
-.recipient-info{flex:1}
+.recipient-info{
+  min-width:0;
+  flex:1;
+}
 
 .recipient-name{
+  overflow:hidden;
   font-size:13px;
   font-weight:700;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 .recipient-tag{
+  overflow:hidden;
   margin-top:2px;
   color:#969ba4;
   font-size:11px;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 .check{
   display:none;
-  color:var(--accent);
+  flex:none;
+  color:var(–accent);
   font-weight:700;
 }
 
-.recipient.selected .check{display:block}
+.recipient.selected .check{
+  display:block;
+}
 
 .primary{
   width:100%;
-  padding:16px;
+  min-height:50px;
+  padding:15px 16px;
   border-radius:17px;
   color:white;
   background:#111318;
@@ -616,10 +724,22 @@ header{
   cursor:not-allowed;
 }
 
-/* CONFIRM */
+.primary:disabled:hover{
+  transform:none;
+}
 
-.confirm{display:none}
-.confirm.show{display:block}
+.primary.is-loading{
+  opacity:.65;
+  cursor:wait;
+}
+
+.confirm{
+  display:none;
+}
+
+.confirm.show{
+  display:block;
+}
 
 .confirm-icon{
   width:68px;
@@ -635,15 +755,18 @@ header{
 
 .confirm-title{
   text-align:center;
-  font-family:"Space Grotesk";
+  font-family:“Space Grotesk”;
   font-size:24px;
+  line-height:1.2;
 }
 
 .confirm-sub{
   margin:8px 0 24px;
-  color:var(--muted);
+  color:var(–muted);
   text-align:center;
   font-size:13px;
+  line-height:1.5;
+  overflow-wrap:anywhere;
 }
 
 .summary{
@@ -656,14 +779,22 @@ header{
 .summary-row{
   display:flex;
   justify-content:space-between;
+  gap:18px;
   padding:8px 0;
   color:#737984;
   font-size:12px;
 }
 
-.summary-row strong{color:var(--text)}
+.summary-row span,
+.summary-row strong{
+  min-width:0;
+  overflow-wrap:anywhere;
+}
 
-/* PAY */
+.summary-row strong{
+  color:var(–text);
+  text-align:right;
+}
 
 .pay-intro{
   padding:18px;
@@ -679,21 +810,22 @@ header{
 }
 
 .pay-intro h3{
+  overflow-wrap:anywhere;
   margin-top:5px;
-  font-family:"Space Grotesk";
+  font-family:“Space Grotesk”;
   font-size:20px;
 }
 
 .qr-card{
   padding:22px;
-  border:1px solid var(--line);
+  border:1px solid var(–line);
   border-radius:23px;
   text-align:center;
 }
 
 .qr{
-  width:190px;
-  height:190px;
+  width:min(190px,70vw);
+  aspect-ratio:1;
   display:grid;
   place-items:center;
   margin:8px auto 17px;
@@ -709,21 +841,13 @@ header{
   position:relative;
   overflow:hidden;
   background:
-    repeating-linear-gradient(
-      90deg,
-      #111 0 7px,
-      transparent 7px 13px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      #111 0 7px,
-      transparent 7px 13px
-    );
+    repeating-linear-gradient(90deg,#111 0 7px,transparent 7px 13px),
+    repeating-linear-gradient(0deg,#111 0 7px,transparent 7px 13px);
 }
 
-.qr-pattern:before,
-.qr-pattern:after{
-  content:"";
+.qr-pattern::before,
+.qr-pattern::after{
+  content:””;
   position:absolute;
   width:43px;
   height:43px;
@@ -732,12 +856,12 @@ header{
   background:white;
 }
 
-.qr-pattern:before{
+.qr-pattern::before{
   top:10px;
   left:10px;
 }
 
-.qr-pattern:after{
+.qr-pattern::after{
   right:10px;
   bottom:10px;
 }
@@ -755,24 +879,27 @@ header{
   border-radius:11px;
   color:white;
   background:#111318;
-  font-family:"Space Grotesk";
+  font-family:“Space Grotesk”;
   font-weight:700;
 }
 
 .qr-title{
-  font-family:"Space Grotesk";
+  font-family:“Space Grotesk”;
   font-size:18px;
+  line-height:1.25;
 }
 
 .qr-sub{
   margin-top:5px;
-  color:var(--muted);
+  color:var(–muted);
   font-size:12px;
+  line-height:1.45;
 }
 
 .scan-btn{
   width:100%;
-  padding:15px;
+  min-height:48px;
+  padding:14px 15px;
   margin-top:13px;
   border-radius:17px;
   color:white;
@@ -787,21 +914,24 @@ header{
   margin:19px 0;
   color:#a0a5ad;
   font-size:11px;
+  text-align:center;
 }
 
-.pay-divider:before,
-.pay-divider:after{
-  content:"";
+.pay-divider::before,
+.pay-divider::after{
+  content:””;
   height:1px;
   flex:1;
-  background:var(--line);
+  background:var(–line);
 }
 
 .pay-input{
   width:100%;
-  padding:15px;
+  min-width:0;
+  min-height:48px;
+  padding:14px 15px;
   margin-bottom:10px;
-  border:1px solid var(--line);
+  border:1px solid var(–line);
   outline:none;
   border-radius:16px;
 }
@@ -817,17 +947,59 @@ header{
   line-height:1.5;
 }
 
-/* MOBILE */
-
-@media(max-width:760px){
-
+/* Tablet */
+@media (min-width:761px) and (max-width:1020px){
   .app{
-    padding:17px 15px 95px;
+    padding:22px 20px calc(72px + var(–safe-bottom));
   }
 
-  header{margin-bottom:25px}
+  header{
+    margin-bottom:26px;
+  }
 
-  .greeting h1{font-size:26px}
+  .main-grid{
+    grid-template-columns:minmax(0,1fr) minmax(280px,.82fr);
+    gap:16px;
+  }
+
+  .card{
+    padding:20px;
+  }
+
+  .chart{
+    gap:7px;
+  }
+
+  .space{
+    gap:9px;
+  }
+
+  .space-bar{
+    width:48px;
+  }
+}
+
+/* Mobile */
+@media (max-width:760px){
+  .app{
+    padding:17px 15px calc(95px + var(–safe-bottom));
+  }
+
+  header{
+    margin-bottom:25px;
+  }
+
+  .greeting{
+    margin-bottom:18px;
+  }
+
+  .greeting p{
+    font-size:13px;
+  }
+
+  .greeting h1{
+    font-size:26px;
+  }
 
   .balance-card{
     min-height:225px;
@@ -835,9 +1007,34 @@ header{
     border-radius:24px;
   }
 
-  .balance{font-size:34px}
+  .balance-row{
+    gap:9px;
+  }
 
-  .actions{gap:8px}
+  .balance{
+    font-size:clamp(28px,9vw,34px);
+    letter-spacing:-1.4px;
+  }
+
+  .balance-bottom{
+    gap:14px;
+    margin-top:38px;
+  }
+
+  .account,
+  .income{
+    font-size:10px;
+  }
+
+  .account strong,
+  .income strong{
+    font-size:12px;
+  }
+
+  .actions{
+    gap:8px;
+    margin:14px 0;
+  }
 
   .action{
     padding:14px 5px;
@@ -847,11 +1044,81 @@ header{
   .action-icon{
     width:39px;
     height:39px;
+    margin-bottom:8px;
   }
 
-  .main-grid{grid-template-columns:1fr}
+  .action span{
+    font-size:11px;
+  }
+
+  .main-grid{
+    grid-template-columns:1fr;
+    gap:14px;
+  }
 
   .card{
+    padding:19px;
+    border-radius:22px;
+  }
+
+  .card-head{
+    margin-bottom:17px;
+  }
+
+  .card-title{
+    font-size:16px;
+  }
+
+  .pulse-number{
+    font-size:25px;
+  }
+
+  .chart{
+    height:112px;
+    gap:6px;
+    margin-top:18px;
+  }
+
+  .space{
+    gap:9px;
+    padding:10px;
+  }
+
+  .space-icon{
+    width:36px;
+    height:36px;
+  }
+
+  .space-bar{
+    width:48px;
+  }
+
+  .transactions{
+    margin-top:14px;
+  }
+
+  .transaction{
+    gap:9px;
+    padding:12px 0;
+  }
+
+  .tx-icon{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+  }
+
+  .tx-name{
+    font-size:12px;
+  }
+
+  .tx-date,
+  .tx-amount{
+    font-size:10px;
+  }
+
+  .insight{
+    margin-top:14px;
     padding:19px;
     border-radius:22px;
   }
@@ -862,7 +1129,7 @@ header{
     display:flex;
     left:12px;
     right:12px;
-    bottom:12px;
+    bottom:calc(12px + var(–safe-bottom));
     height:67px;
     padding:7px;
     border-radius:22px;
@@ -877,6 +1144,7 @@ header{
     align-items:center;
     justify-content:center;
     gap:3px;
+    min-width:0;
     border-radius:17px;
     color:#858992;
     background:transparent;
@@ -888,157 +1156,278 @@ header{
     background:#ffffff12;
   }
 
-  .nav-item b{font-size:18px}
+  .nav-item b{
+    font-size:18px;
+  }
 
-  .modal{padding:0}
+  .modal{
+    align-items:flex-end;
+    padding:0;
+  }
 
   .sheet{
-    border-radius:30px 30px 0 0;
-    padding:22px 18px 28px;
+    width:100%;
+    max-height:calc(100dvh - var(–safe-bottom));
+    padding:20px 18px calc(24px + var(–safe-bottom));
+    border-radius:28px 28px 0 0;
+  }
+
+  .sheet-head{
+    margin-bottom:20px;
+  }
+
+  .sheet-title{
+    font-size:20px;
+  }
+
+  .close{
+    width:40px;
+    height:40px;
+  }
+
+  .amount-box{
+    padding:15px;
+  }
+
+  .recipient{
+    min-height:62px;
+  }
+
+  .qr-card{
+    padding:17px;
   }
 
   .qr{
-    width:175px;
-    height:175px;
+    width:min(175px,62vw);
+    margin-top:4px;
+  }
+
+  .qr-pattern::before,
+  .qr-pattern::after{
+    width:38px;
+    height:38px;
+    border-width:8px;
+    outline-width:8px;
+  }
+
+  .qr-center{
+    width:36px;
+    height:36px;
+  }
+
+  .toast{
+    bottom:calc(91px + var(–safe-bottom));
+  }
+}
+
+/* Very narrow phones */
+@media (max-width:380px){
+  .app{
+    padding-left:12px;
+    padding-right:12px;
+  }
+
+  .balance-card{
+    padding:20px;
+  }
+
+  .balance{
+    font-size:27px;
+  }
+
+  .balance-bottom{
+    gap:8px;
+  }
+
+  .account,
+  .income{
+    font-size:9px;
+  }
+
+  .account strong,
+  .income strong{
+    font-size:11px;
+  }
+
+  .action{
+    padding-left:3px;
+    padding-right:3px;
+  }
+
+  .action-icon{
+    width:36px;
+    height:36px;
+  }
+
+  .card{
+    padding:16px;
+  }
+
+  .space-bar{
+    width:38px;
+  }
+
+  .tx-amount{
+    font-size:9px;
+  }
+
+  .sheet{
+    padding-left:15px;
+    padding-right:15px;
+  }
+
+  .summary-row{
+    gap:10px;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto!important;
+    transition-duration:.01ms!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
   }
 }
 </style>
+
 </head>
 
 <body>
 
-<div class="app">
+<div class=“app”>
 
 <header>
-  <div class="brand">
-    <div class="logo">N</div>
-    <div class="brand-name">NOVA</div>
+  <div class=“brand”>
+    <div class=“logo”>N</div>
+    <div class=“brand-name”>NOVA</div>
   </div>
-  <div class="profile">J</div>
+  <div class=“profile”>J</div>
 </header>
 
-<section class="greeting">
+<section class=“greeting”>
   <p>Wednesday, September 2</p>
   <h1>Good afternoon, Jack.</h1>
 </section>
 
-<section class="balance-card">
+<section class=“balance-card”>
 
-  <div class="balance-label">Available balance</div>
+  <div class=“balance-label”>Available balance</div>
 
-  <div class="balance-row">
-    <div class="balance" id="balance">$24,860.40</div>
-    <button class="eye" onclick="toggleBalance()">◉</button>
+  <div class=“balance-row”>
+    <div class=“balance” id=“balance”>$24,860.40</div>
+    <button class=“eye” onclick=“toggleBalance()”>◉</button>
   </div>
 
-  <div class="balance-bottom">
-    <div class="account">
+  <div class=“balance-bottom”>
+    <div class=“account”>
       NOVA ACCOUNT
       <strong>•••• 4821</strong>
     </div>
 
-    <div class="income">
-      THIS MONTH
-      <strong>+$4,280.00</strong>
-    </div>
+<div class="income">
+  THIS MONTH
+  <strong>+$4,280.00</strong>
+</div>
+
   </div>
 
 </section>
 
-<div class="actions">
+<div class=“actions”>
 
-  <button class="action" onclick="openSend()">
-    <div class="action-icon">↑</div>
+  <button class=“action” onclick=“openSend()”>
+    <div class=“action-icon”>↑</div>
     <span>Send</span>
   </button>
 
-  <button class="action" onclick="notify('Request Money is coming next')">
-    <div class="action-icon">↓</div>
+  <button class=“action” onclick=“notify(‘Request Money is coming next’)”>
+    <div class=“action-icon”>↓</div>
     <span>Request</span>
   </button>
 
-  <button class="action" onclick="openPay()">
-    <div class="action-icon">⌁</div>
+  <button class=“action” onclick=“openPay()”>
+    <div class=“action-icon”>⌁</div>
     <span>Pay</span>
   </button>
 
-  <button class="action" onclick="notify('Add Money is coming next')">
-    <div class="action-icon">＋</div>
+  <button class=“action” onclick=“notify(‘Add Money is coming next’)”>
+    <div class=“action-icon”>＋</div>
     <span>Add</span>
   </button>
 
 </div>
 
-<div class="main-grid">
+<div class=“main-grid”>
 
-<section class="card">
+<section class=“card”>
 
-  <div class="card-head">
-    <div class="card-title">Money Pulse</div>
-    <div class="card-link">This week</div>
+  <div class=“card-head”>
+    <div class=“card-title”>Money Pulse</div>
+    <div class=“card-link”>This week</div>
   </div>
 
-  <div class="pulse-number">$1,284.20</div>
-  <div class="pulse-sub">spent this week · 12% less than last week</div>
+  <div class=“pulse-number”>$1,284.20</div>
+  <div class=“pulse-sub”>spent this week · 12% less than last week</div>
 
-  <div class="chart">
-    <div class="bar" style="height:38%"></div>
-    <div class="bar" style="height:62%"></div>
-    <div class="bar active" style="height:48%"></div>
-    <div class="bar" style="height:77%"></div>
-    <div class="bar" style="height:55%"></div>
-    <div class="bar" style="height:90%"></div>
-    <div class="bar active" style="height:43%"></div>
+  <div class=“chart”>
+    <div class=“bar” style=“height:38%”></div>
+    <div class=“bar” style=“height:62%”></div>
+    <div class=“bar active” style=“height:48%”></div>
+    <div class=“bar” style=“height:77%”></div>
+    <div class=“bar” style=“height:55%”></div>
+    <div class=“bar” style=“height:90%”></div>
+    <div class=“bar active” style=“height:43%”></div>
   </div>
 
-  <div class="days">
+  <div class=“days”>
     <span>M</span><span>T</span><span>W</span><span>T</span>
     <span>F</span><span>S</span><span>S</span>
   </div>
 
 </section>
 
-<section class="card">
+<section class=“card”>
 
-  <div class="card-head">
-    <div class="card-title">Money Spaces</div>
-    <div class="card-link" onclick="notify('New Space coming next')">＋ New</div>
+  <div class=“card-head”>
+    <div class=“card-title”>Money Spaces</div>
+    <div class=“card-link” onclick=“notify(‘New Space coming next’)”>＋ New</div>
   </div>
 
-  <div class="spaces">
+  <div class=“spaces”>
 
-    <div class="space">
-      <div class="space-icon">⌂</div>
-      <div class="space-info">
-        <div class="space-name">Rent</div>
-        <div class="space-value">$1,420 / $1,800</div>
-      </div>
-      <div class="space-bar">
-        <div class="space-fill" style="width:79%"></div>
-      </div>
-    </div>
-
-    <div class="space">
-      <div class="space-icon">◉</div>
-      <div class="space-info">
-        <div class="space-name">Travel</div>
-        <div class="space-value">$860 / $2,000</div>
-      </div>
-      <div class="space-bar">
-        <div class="space-fill" style="width:43%"></div>
-      </div>
-    </div>
-
-    <div class="space">
-      <div class="space-icon">◇</div>
-      <div class="space-info">
-        <div class="space-name">Business</div>
-        <div class="space-value">$3,240 saved</div>
-      </div>
-      <div class="space-bar">
-        <div class="space-fill" style="width:65%"></div>
-      </div>
-    </div>
+<div class="space">
+  <div class="space-icon">⌂</div>
+  <div class="space-info">
+    <div class="space-name">Rent</div>
+    <div class="space-value">$1,420 / $1,800</div>
+  </div>
+  <div class="space-bar">
+    <div class="space-fill" style="width:79%"></div>
+  </div>
+</div>
+<div class="space">
+  <div class="space-icon">◉</div>
+  <div class="space-info">
+    <div class="space-name">Travel</div>
+    <div class="space-value">$860 / $2,000</div>
+  </div>
+  <div class="space-bar">
+    <div class="space-fill" style="width:43%"></div>
+  </div>
+</div>
+<div class="space">
+  <div class="space-icon">◇</div>
+  <div class="space-info">
+    <div class="space-name">Business</div>
+    <div class="space-value">$3,240 saved</div>
+  </div>
+  <div class="space-bar">
+    <div class="space-fill" style="width:65%"></div>
+  </div>
+</div>
 
   </div>
 
@@ -1046,187 +1435,183 @@ header{
 
 </div>
 
-<section class="card transactions">
+<section class=“card transactions”>
 
-  <div class="card-head">
-    <div class="card-title">Recent activity</div>
-    <div class="card-link" onclick="notify('All activity coming next')">
+  <div class=“card-head”>
+    <div class=“card-title”>Recent activity</div>
+    <div class=“card-link” onclick=“notify(‘All activity coming next’)”>
       View all
     </div>
   </div>
 
-  <div class="transaction">
-    <div class="tx-icon">☕</div>
-    <div class="tx-info">
-      <div class="tx-name">Blue Bottle Coffee</div>
-      <div class="tx-date">Today · 9:42 AM</div>
+  <div class=“transaction”>
+    <div class=“tx-icon”>☕</div>
+    <div class=“tx-info”>
+      <div class=“tx-name”>Blue Bottle Coffee</div>
+      <div class=“tx-date”>Today · 9:42 AM</div>
     </div>
-    <div class="tx-amount negative">−$8.40</div>
+    <div class=“tx-amount negative”>−$8.40</div>
   </div>
 
-  <div class="transaction">
-    <div class="tx-icon">↗</div>
-    <div class="tx-info">
-      <div class="tx-name">Salary deposit</div>
-      <div class="tx-date">Yesterday · 8:00 AM</div>
+  <div class=“transaction”>
+    <div class=“tx-icon”>↗</div>
+    <div class=“tx-info”>
+      <div class=“tx-name”>Salary deposit</div>
+      <div class=“tx-date”>Yesterday · 8:00 AM</div>
     </div>
-    <div class="tx-amount positive">+$4,280.00</div>
+    <div class=“tx-amount positive”>+$4,280.00</div>
   </div>
 
-  <div class="transaction">
-    <div class="tx-icon">⌂</div>
-    <div class="tx-info">
-      <div class="tx-name">Apartment rent</div>
-      <div class="tx-date">Aug 30 · 10:12 AM</div>
+  <div class=“transaction”>
+    <div class=“tx-icon”>⌂</div>
+    <div class=“tx-info”>
+      <div class=“tx-name”>Apartment rent</div>
+      <div class=“tx-date”>Aug 30 · 10:12 AM</div>
     </div>
-    <div class="tx-amount negative">−$1,420.00</div>
+    <div class=“tx-amount negative”>−$1,420.00</div>
   </div>
 
 </section>
 
-<section class="insight">
+<section class=“insight”>
 
-  <div class="insight-top">
-    <div class="spark">✦</div>
+  <div class=“insight-top”>
+    <div class=“spark”>✦</div>
     <h3>Nova Insight</h3>
   </div>
 
   <p>
     Your spending is trending lower this week.
-    You're currently <strong>12% below</strong> your usual weekly spending.
-    At this pace, you'll keep an extra $310 this month.
+    You’re currently <strong>12% below</strong> your usual weekly spending.
+    At this pace, you’ll keep an extra $310 this month.
   </p>
 
 </section>
 
 </div>
 
-<!-- BOTTOM NAV -->
+<nav class=“bottom-nav”>
 
-<nav class="bottom-nav">
-
-  <button class="nav-item active" onclick="setNav(this)">
+  <button class=“nav-item active” onclick=“setNav(this)”>
     <b>⌂</b>Home
   </button>
 
-  <button class="nav-item" onclick="setNav(this)">
+  <button class=“nav-item” onclick=“setNav(this)”>
     <b>◫</b>Spaces
   </button>
 
-  <button class="nav-item" onclick="setNav(this)">
+  <button class=“nav-item” onclick=“setNav(this)”>
     <b>↕</b>Activity
   </button>
 
-  <button class="nav-item" onclick="setNav(this)">
+  <button class=“nav-item” onclick=“setNav(this)”>
     <b>◯</b>Profile
   </button>
 
 </nav>
 
-<!-- SEND MONEY MODAL -->
+<div class=“modal” id=“sendModal” onclick=“outsideClose(event,‘sendModal’)”>
 
-<div class="modal" id="sendModal" onclick="outsideClose(event,'sendModal')">
+<div class=“sheet”>
 
-<div class="sheet">
+<div id=“sendForm”>
 
-<div id="sendForm">
-
-<div class="sheet-head">
-  <div class="sheet-title">Send money</div>
-  <button class="close" onclick="closeModal('sendModal')">×</button>
+<div class=“sheet-head”>
+  <div class=“sheet-title”>Send money</div>
+  <button class=“close” onclick=“closeModal(‘sendModal’)”>×</button>
 </div>
 
-<label class="field-label">Amount</label>
+<label class=“field-label”>Amount</label>
 
-<div class="amount-box">
+<div class=“amount-box”>
   <span>$</span>
   <input
-    class="amount-input"
-    id="amount"
-    type="number"
-    min="1"
-    placeholder="0.00"
-    oninput="validateSend()"
+    class=“amount-input”
+    id=“amount”
+    type=“number”
+    min=“1”
+    placeholder=“0.00”
+    oninput=“validateSend()”
   >
 </div>
 
-<label class="field-label">Choose recipient</label>
+<label class=“field-label”>Choose recipient</label>
 
-<div class="recipient-list">
+<div class=“recipient-list”>
 
-<button class="recipient" onclick="selectRecipient(this,'Alex Morgan')">
-  <div class="avatar">A</div>
-  <div class="recipient-info">
-    <div class="recipient-name">Alex Morgan</div>
-    <div class="recipient-tag">@alexm</div>
+<button class=“recipient” onclick=“selectRecipient(this,‘Alex Morgan’)”>
+  <div class=“avatar”>A</div>
+  <div class=“recipient-info”>
+    <div class=“recipient-name”>Alex Morgan</div>
+    <div class=“recipient-tag”>@alexm</div>
   </div>
-  <div class="check">✓</div>
+  <div class=“check”>✓</div>
 </button>
 
-<button class="recipient" onclick="selectRecipient(this,'Sarah Williams')">
-  <div class="avatar">S</div>
-  <div class="recipient-info">
-    <div class="recipient-name">Sarah Williams</div>
-    <div class="recipient-tag">@sarahw</div>
+<button class=“recipient” onclick=“selectRecipient(this,‘Sarah Williams’)”>
+  <div class=“avatar”>S</div>
+  <div class=“recipient-info”>
+    <div class=“recipient-name”>Sarah Williams</div>
+    <div class=“recipient-tag”>@sarahw</div>
   </div>
-  <div class="check">✓</div>
+  <div class=“check”>✓</div>
 </button>
 
-<button class="recipient" onclick="selectRecipient(this,'Daniel Carter')">
-  <div class="avatar">D</div>
-  <div class="recipient-info">
-    <div class="recipient-name">Daniel Carter</div>
-    <div class="recipient-tag">@danielc</div>
+<button class=“recipient” onclick=“selectRecipient(this,‘Daniel Carter’)”>
+  <div class=“avatar”>D</div>
+  <div class=“recipient-info”>
+    <div class=“recipient-name”>Daniel Carter</div>
+    <div class=“recipient-tag”>@danielc</div>
   </div>
-  <div class="check">✓</div>
+  <div class=“check”>✓</div>
 </button>
 
 </div>
 
-<button class="primary" id="continueBtn" disabled onclick="showConfirmation()">
+<button class=“primary” id=“continueBtn” disabled onclick=“showConfirmation()”>
   Continue
 </button>
 
 </div>
 
-<div class="confirm" id="confirmation">
+<div class=“confirm” id=“confirmation”>
 
-<div class="confirm-icon">✓</div>
+<div class=“confirm-icon”>✓</div>
 
-<div class="confirm-title">Review transfer</div>
+<div class=“confirm-title”>Review transfer</div>
 
-<div class="confirm-sub">
+<div class=“confirm-sub”>
   Check everything before sending.
 </div>
 
-<div class="summary">
+<div class=“summary”>
 
-<div class="summary-row">
+<div class=“summary-row”>
   <span>Recipient</span>
-  <strong id="confirmName">—</strong>
+  <strong id=“confirmName”>—</strong>
 </div>
 
-<div class="summary-row">
+<div class=“summary-row”>
   <span>Amount</span>
-  <strong id="confirmAmount">$0.00</strong>
+  <strong id=“confirmAmount”>$0.00</strong>
 </div>
 
-<div class="summary-row">
+<div class=“summary-row”>
   <span>Fee</span>
   <strong>$0.00</strong>
 </div>
 
 </div>
 
-<button class="primary" onclick="completeTransfer()">
+<button class=“primary” id=“sendMoneyBtn” onclick=“completeTransfer()”>
   Send money
 </button>
 
 <button
-  class="primary"
-  style="margin-top:9px;background:#f1f2f4;color:#111318"
-  onclick="backToForm()">
-  Go back
+class=“primary”
+style=“margin-top:9px;background:#f1f2f4;color:#111318”
+onclick=“backToForm()”>
+Go back
 </button>
 
 </div>
@@ -1234,70 +1619,67 @@ header{
 </div>
 </div>
 
-<!-- PAY MODAL -->
+<div class=“modal” id=“payModal” onclick=“outsideClose(event,‘payModal’)”>
 
-<div class="modal" id="payModal" onclick="outsideClose(event,'payModal')">
+<div class=“sheet”>
 
-<div class="sheet">
-
-<div class="sheet-head">
-  <div class="sheet-title">NOVA Pay</div>
-  <button class="close" onclick="closeModal('payModal')">×</button>
+<div class=“sheet-head”>
+  <div class=“sheet-title”>NOVA Pay</div>
+  <button class=“close” onclick=“closeModal(‘payModal’)”>×</button>
 </div>
 
-<div class="pay-intro">
+<div class=“pay-intro”>
   <small>YOUR NOVA PAYMENT ID</small>
   <h3>@jacknova</h3>
 </div>
 
-<div class="qr-card">
+<div class=“qr-card”>
 
-<div class="qr">
+<div class=“qr”>
 
-  <div class="qr-pattern">
-    <div class="qr-center">N</div>
+  <div class=“qr-pattern”>
+    <div class=“qr-center”>N</div>
   </div>
 
 </div>
 
-<div class="qr-title">Scan to pay me</div>
+<div class=“qr-title”>Scan to pay me</div>
 
-<div class="qr-sub">
+<div class=“qr-sub”>
   Show this code to another NOVA user.
 </div>
 
-<button class="scan-btn" onclick="notify('Camera scanner would open here')">
+<button class=“scan-btn” onclick=“notify(‘Camera scanner would open here’)”>
   Scan a QR code
 </button>
 
 </div>
 
-<div class="pay-divider">
+<div class=“pay-divider”>
   or pay someone directly
 </div>
 
 <input
-  class="pay-input"
-  id="payPerson"
-  placeholder="@username or payment ID"
->
+class=“pay-input”
+id=“payPerson”
+placeholder=”@username or payment ID”
 
 <input
-  class="pay-input"
-  id="payAmount"
-  type="number"
-  min="1"
-  placeholder="Amount"
+class=“pay-input”
+id=“payAmount”
+type=“number”
+min=“1”
+placeholder=“Amount”
 />
 
 <button
-  class="primary"
-  style="margin-top:5px"
-  onclick="startPay()">
-  Continue
+class=“primary”
+style=“margin-top:5px”
+onclick=“startPay()”>
+Continue
 </button>
 
-<div class="pay-note">
+<div class=“pay-note”>
   NOVA Pay shown here is a front-end prototype. It does not connect
   to a bank, payment network, or real-money account.
 </div>
@@ -1305,31 +1687,49 @@ header{
 </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<div class=“toast” id=“toast”></div>
 
 <script>
 
 let visible=true;
-let selectedRecipient="";
+let selectedRecipient=””;
 let currentAmount=0;
+let currentBalance=24860.40;
+let transferInProgress=false;
+let transferCompleted=false;
 
-/* GENERAL */
+const currencyFormatter=new Intl.NumberFormat(“en-US”,{
+  minimumFractionDigits:2,
+  maximumFractionDigits:2
+});
+
+function formatCurrency(value){
+  return “$”+currencyFormatter.format(value);
+}
 
 function notify(message){
 
-  const toast=document.getElementById("toast");
+  const toast=document.getElementById(“toast”);
 
   toast.textContent=message;
-  toast.classList.add("show");
+  toast.classList.add(“show”);
 
   setTimeout(()=>{
-    toast.classList.remove("show");
+    toast.classList.remove(“show”);
   },1800);
 
 }
 
 function closeModal(id){
-  document.getElementById(id).classList.remove("open");
+
+  const modal=document.getElementById(id);
+
+  modal.classList.remove(“open”);
+
+  if(id===“sendModal”){
+    resetSendFlow();
+  }
+
 }
 
 function outsideClose(event,id){
@@ -1342,27 +1742,88 @@ function outsideClose(event,id){
 
 function toggleBalance(){
 
-  const balance=document.getElementById("balance");
+  const balance=document.getElementById(“balance”);
 
   visible=!visible;
 
   balance.textContent=
-    visible ? "$24,860.40" : "••••••••";
+    visible ? formatCurrency(currentBalance) : “••••••••”;
 
 }
 
-/* SEND */
+function renderBalance(){
+
+  const balance=document.getElementById(“balance”);
+
+  balance.textContent=
+    visible ? formatCurrency(currentBalance) : “••••••••”;
+
+}
+
+function resetSendFlow(){
+
+  selectedRecipient=””;
+  currentAmount=0;
+  transferInProgress=false;
+  transferCompleted=false;
+
+  const amountInput=document.getElementById(“amount”);
+  const continueButton=document.getElementById(“continueBtn”);
+  const sendButton=document.getElementById(“sendMoneyBtn”);
+  const sendForm=document.getElementById(“sendForm”);
+  const confirmation=document.getElementById(“confirmation”);
+
+  if(amountInput){
+    amountInput.value=””;
+  }
+
+  document.querySelectorAll(”.recipient”)
+    .forEach(item=>item.classList.remove(“selected”));
+
+  if(continueButton){
+    continueButton.disabled=true;
+    continueButton.classList.remove(“is-loading”);
+    continueButton.textContent=“Continue”;
+  }
+
+  if(sendButton){
+    sendButton.disabled=false;
+    sendButton.classList.remove(“is-loading”);
+    sendButton.textContent=“Send money”;
+  }
+
+  if(sendForm){
+    sendForm.style.display=“block”;
+  }
+
+  if(confirmation){
+    confirmation.classList.remove(“show”);
+  }
+
+}
 
 function openSend(){
-  document.getElementById("sendModal").classList.add("open");
+
+  resetSendFlow();
+
+  document.getElementById(“sendModal”).classList.add(“open”);
+
+  setTimeout(()=>{
+    document.getElementById(“amount”).focus();
+  },100);
+
 }
 
 function selectRecipient(button,name){
 
-  document.querySelectorAll(".recipient")
-    .forEach(item=>item.classList.remove("selected"));
+  if(transferInProgress){
+    return;
+  }
 
-  button.classList.add("selected");
+  document.querySelectorAll(”.recipient”)
+    .forEach(item=>item.classList.remove(“selected”));
+
+  button.classList.add(“selected”);
 
   selectedRecipient=name;
 
@@ -1372,125 +1833,170 @@ function selectRecipient(button,name){
 
 function validateSend(){
 
-  const amount=
-    parseFloat(document.getElementById("amount").value);
+  if(transferInProgress){
+    return;
+  }
 
-  document.getElementById("continueBtn").disabled=
+  const amount=
+    parseFloat(document.getElementById(“amount”).value);
+
+  document.getElementById(“continueBtn”).disabled=
     !(amount>0 && selectedRecipient);
 
 }
 
 function showConfirmation(){
 
-  currentAmount=
-    parseFloat(document.getElementById("amount").value);
+  if(transferInProgress || transferCompleted){
+    return;
+  }
 
-  document.getElementById("confirmName").textContent=
+  const amount=
+    parseFloat(document.getElementById(“amount”).value);
+
+  if(!(amount>0) || !selectedRecipient){
+    validateSend();
+    return;
+  }
+
+  if(amount>currentBalance){
+    notify(“Amount exceeds your current balance”);
+    return;
+  }
+
+  currentAmount=amount;
+
+  document.getElementById(“confirmName”).textContent=
     selectedRecipient;
 
-  document.getElementById("confirmAmount").textContent=
-    "$"+currentAmount.toLocaleString(
-      "en-US",
-      {minimumFractionDigits:2}
-    );
+  document.getElementById(“confirmAmount”).textContent=
+    formatCurrency(currentAmount);
 
-  document.getElementById("sendForm").style.display="none";
-  document.getElementById("confirmation").classList.add("show");
+  document.getElementById(“sendForm”).style.display=“none”;
+  document.getElementById(“confirmation”).classList.add(“show”);
 
 }
 
 function backToForm(){
 
-  document.getElementById("confirmation").classList.remove("show");
-  document.getElementById("sendForm").style.display="block";
+  if(transferInProgress){
+    return;
+  }
+
+  document.getElementById(“confirmation”).classList.remove(“show”);
+  document.getElementById(“sendForm”).style.display=“block”;
+
+  validateSend();
 
 }
 
 function completeTransfer(){
 
-  const balance=document.getElementById("balance");
+  if(transferInProgress || transferCompleted){
+    return;
+  }
 
-  const newBalance=
-    Math.max(0,24860.40-currentAmount);
+  const amount=
+    Number.isFinite(currentAmount) && currentAmount>0
+      ? currentAmount
+      : parseFloat(document.getElementById(“amount”).value);
 
-  balance.textContent=
-    "$"+newBalance.toLocaleString(
-      "en-US",
-      {minimumFractionDigits:2}
-    );
+  if(!(amount>0) || !selectedRecipient){
+    notify(“Complete the transfer details first”);
+    backToForm();
+    return;
+  }
 
-  document.getElementById("confirmation").innerHTML=`
+  if(amount>currentBalance){
+    notify(“Amount exceeds your current balance”);
+    backToForm();
+    return;
+  }
 
-    <div class="confirm-icon">✓</div>
+  transferInProgress=true;
+  currentAmount=amount;
 
-    <div class="confirm-title">
-      Money sent
-    </div>
+  const sendButton=document.getElementById(“sendMoneyBtn”);
 
-    <div class="confirm-sub">
-      $${currentAmount.toLocaleString(
-        "en-US",
-        {minimumFractionDigits:2}
-      )}
-      was sent to ${selectedRecipient}.
-    </div>
+  sendButton.disabled=true;
+  sendButton.classList.add(“is-loading”);
+  sendButton.textContent=“Sending…”;
 
-    <button class="primary" onclick="closeModal('sendModal')">
-      Done
-    </button>
+  setTimeout(()=>{
 
-  `;
+    currentBalance-=amount;
+    renderBalance();
+
+    transferCompleted=true;
+    transferInProgress=false;
+
+    document.getElementById(“confirmation”).innerHTML=`
+
+      <div class=“confirm-icon”>✓</div>
+
+      <div class=“confirm-title”>
+        Money sent
+      </div>
+
+      <div class=“confirm-sub”>
+        ${formatCurrency(amount)}
+        was sent to ${selectedRecipient}.
+      </div>
+
+      <button class=“primary” onclick=“closeModal(‘sendModal’)”>
+        Done
+      </button>
+
+    `;
+
+  },500);
 
 }
 
-/* PAY */
-
 function openPay(){
 
-  document.getElementById("payModal").classList.add("open");
+  document.getElementById(“payModal”).classList.add(“open”);
 
 }
 
 function startPay(){
 
   const person=
-    document.getElementById("payPerson").value.trim();
+    document.getElementById(“payPerson”).value.trim();
 
   const amount=
-    parseFloat(document.getElementById("payAmount").value);
+    parseFloat(document.getElementById(“payAmount”).value);
 
   if(!person){
-    notify("Enter a payment ID");
+    notify(“Enter a payment ID”);
     return;
   }
 
   if(!amount || amount<=0){
-    notify("Enter a valid amount");
+    notify(“Enter a valid amount”);
     return;
   }
 
-  notify("Payment ready for "+person);
+  notify(“Payment ready for “+person);
 
   setTimeout(()=>{
 
-    document.getElementById("payPerson").value="";
-    document.getElementById("payAmount").value="";
-    closeModal("payModal");
+    document.getElementById(“payPerson”).value=””;
+    document.getElementById(“payAmount”).value=””;
+    closeModal(“payModal”);
 
   },1100);
 
 }
 
-/* NAV */
-
 function setNav(element){
 
-  document.querySelectorAll(".nav-item")
-    .forEach(item=>item.classList.remove("active"));
+  document.querySelectorAll(”.nav-item”)
+    .forEach(item=>item.classList.remove(“active”));
 
-  element.classList.add("active");
+  element.classList.add(“active”);
 
-  notify(element.textContent.trim()+" selected");
+  notify(element.textContent.trim()+” selected”);
 
 }
 
