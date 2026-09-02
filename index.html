@@ -3,14 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#f7f7fb">
-<title>NOVA — Personal Finance</title>
+<meta name="theme-color" content="#f6f7fb">
+<title>NOVA — Modern Money</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
+:root{
+  --bg:#f5f6fa;
+  --surface:#fff;
+  --surface2:#f0f1f6;
+  --text:#15151a;
+  --muted:#777b87;
+  --line:#e8e9ef;
+  --purple:#7657ff;
+  --purple2:#9a84ff;
+  --green:#19a974;
+  --red:#e65c68;
+  --orange:#ef9a45;
+  --blue:#4c88ff;
+  --shadow:0 12px 35px rgba(24,24,38,.07);
+  --shadow2:0 20px 55px rgba(20,20,35,.13);
+  --radius:24px;
+}
+
+body.dark{
+  --bg:#0e0f13;
+  --surface:#17181e;
+  --surface2:#22232b;
+  --text:#f7f7fa;
+  --muted:#999ca8;
+  --line:#2b2d35;
+  --shadow:0 15px 40px rgba(0,0,0,.25);
+  --shadow2:0 20px 60px rgba(0,0,0,.45);
+}
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -18,30 +47,12 @@
   -webkit-tap-highlight-color:transparent;
 }
 
-:root{
-  --bg:#f6f6f9;
-  --card:#ffffff;
-  --ink:#111116;
-  --muted:#85858e;
-  --line:#e9e9ee;
-  --purple:#7257ff;
-  --purple2:#9b87ff;
-  --green:#19a974;
-  --red:#e45353;
-  --dark:#17171c;
-  --shadow:0 18px 45px rgba(25,25,35,.08);
-}
-
 html,body{
   width:100%;
   min-height:100%;
-  background:var(--bg);
-  color:var(--ink);
   font-family:"DM Sans",sans-serif;
-}
-
-body{
-  overflow-x:hidden;
+  background:var(--bg);
+  color:var(--text);
 }
 
 button,input{
@@ -58,12 +69,103 @@ button{
   max-width:540px;
   min-height:100vh;
   margin:auto;
-  padding-bottom:105px;
+  position:relative;
+  overflow-x:hidden;
+  padding-bottom:92px;
 }
+
+/* TOP */
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:22px 20px 10px;
+}
+
+.userbox{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.avatar{
+  width:42px;
+  height:42px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  background:#17171d;
+  color:white;
+  font-weight:700;
+  font-size:15px;
+  box-shadow:0 7px 18px rgba(0,0,0,.15);
+}
+
+body.dark .avatar{
+  background:#fff;
+  color:#111;
+}
+
+.greeting small{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:2px;
+}
+
+.greeting strong{
+  font-family:"Space Grotesk";
+  font-size:16px;
+}
+
+.top-actions{
+  display:flex;
+  gap:8px;
+}
+
+.icon-btn{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:var(--surface);
+  color:var(--text);
+  display:grid;
+  place-items:center;
+  box-shadow:0 7px 20px rgba(20,20,30,.05);
+  border:1px solid var(--line);
+  transition:.18s;
+}
+
+.icon-btn:active{
+  transform:scale(.92);
+}
+
+.icon-btn svg{
+  width:19px;
+  height:19px;
+}
+
+.notification-wrap{
+  position:relative;
+}
+
+.notification-dot{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:#ff5265;
+  border:2px solid var(--surface);
+  border-radius:50%;
+  right:7px;
+  top:6px;
+}
+
+/* SCREENS */
 
 .screen{
   display:none;
-  padding:22px 18px 20px;
+  padding:10px 20px 25px;
   animation:screenIn .3s ease;
 }
 
@@ -72,103 +174,8 @@ button{
 }
 
 @keyframes screenIn{
-  from{opacity:0;transform:translateY(7px)}
-  to{opacity:1;transform:translateY(0)}
-}
-
-/* TOP */
-
-.topbar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:22px;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:9px;
-}
-
-.logo{
-  width:35px;
-  height:35px;
-  border-radius:11px;
-  background:var(--dark);
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-family:"Space Grotesk";
-  font-weight:700;
-  font-size:15px;
-  box-shadow:0 7px 20px rgba(0,0,0,.14);
-}
-
-.brand-name{
-  font-family:"Space Grotesk";
-  font-size:18px;
-  font-weight:700;
-  letter-spacing:-.5px;
-}
-
-.top-actions{
-  display:flex;
-  gap:9px;
-}
-
-.icon-btn{
-  width:40px;
-  height:40px;
-  border-radius:13px;
-  background:#fff;
-  border:1px solid var(--line);
-  display:grid;
-  place-items:center;
-  position:relative;
-  transition:.2s;
-}
-
-.icon-btn:active{
-  transform:scale(.93);
-}
-
-.icon-btn svg{
-  width:19px;
-  height:19px;
-  stroke:var(--ink);
-  fill:none;
-  stroke-width:1.8;
-}
-
-.notification-dot{
-  position:absolute;
-  width:8px;
-  height:8px;
-  background:#ff5252;
-  border:2px solid white;
-  border-radius:50%;
-  top:7px;
-  right:7px;
-}
-
-/* GREETING */
-
-.greeting{
-  margin-bottom:17px;
-}
-
-.greeting small{
-  display:block;
-  color:var(--muted);
-  font-size:13px;
-  margin-bottom:4px;
-}
-
-.greeting h1{
-  font-family:"Space Grotesk";
-  font-size:27px;
-  letter-spacing:-1px;
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:none}
 }
 
 /* BALANCE */
@@ -176,27 +183,25 @@ button{
 .balance-card{
   position:relative;
   overflow:hidden;
-  min-height:205px;
-  border-radius:27px;
-  padding:24px;
-  color:#fff;
   background:
-    radial-gradient(circle at 90% 10%,rgba(143,117,255,.65),transparent 32%),
-    radial-gradient(circle at 10% 100%,rgba(96,70,210,.5),transparent 35%),
-    linear-gradient(135deg,#17171d,#24232c);
-  box-shadow:0 24px 45px rgba(20,20,30,.2);
+    radial-gradient(circle at 88% 10%,rgba(154,132,255,.35),transparent 30%),
+    linear-gradient(135deg,#17171d,#292833);
+  color:white;
+  min-height:210px;
+  border-radius:30px;
+  padding:25px;
+  box-shadow:var(--shadow2);
 }
 
 .balance-card:after{
   content:"";
   position:absolute;
-  width:180px;
-  height:180px;
+  width:190px;
+  height:190px;
   border:1px solid rgba(255,255,255,.09);
   border-radius:50%;
-  right:-70px;
+  right:-75px;
   bottom:-100px;
-  box-shadow:0 0 0 35px rgba(255,255,255,.025);
 }
 
 .balance-top{
@@ -205,73 +210,60 @@ button{
   align-items:center;
 }
 
-.balance-label{
-  color:rgba(255,255,255,.6);
+.label{
+  color:rgba(255,255,255,.58);
   font-size:12px;
 }
 
-.visibility{
-  width:34px;
-  height:34px;
-  border-radius:11px;
+.eye{
   background:rgba(255,255,255,.09);
+  color:white;
+  width:35px;
+  height:35px;
+  border-radius:12px;
   display:grid;
   place-items:center;
-  color:#fff;
-}
-
-.visibility svg{
-  width:17px;
-  stroke:#fff;
-  fill:none;
 }
 
 .balance{
-  margin-top:10px;
   font-family:"Space Grotesk";
-  font-size:38px;
+  font-size:37px;
+  letter-spacing:-1.7px;
+  margin-top:22px;
   font-weight:700;
-  letter-spacing:-1.8px;
 }
 
-.balance-meta{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-top:7px;
-  color:rgba(255,255,255,.56);
-  font-size:12px;
+.balance span{
+  font-size:20px;
+  vertical-align:middle;
+  margin-right:3px;
+  opacity:.8;
 }
 
-.balance-chip{
-  padding:4px 7px;
-  border-radius:7px;
-  background:rgba(42,203,138,.12);
-  color:#56d8a0;
-}
-
-.card-bottom{
-  position:absolute;
-  left:24px;
-  right:24px;
-  bottom:21px;
+.balance-bottom{
   display:flex;
   justify-content:space-between;
-  align-items:flex-end;
+  align-items:end;
+  position:absolute;
+  left:25px;
+  right:25px;
+  bottom:22px;
 }
 
 .account-number{
-  font-family:"Space Grotesk";
-  font-size:13px;
-  letter-spacing:2px;
-  color:rgba(255,255,255,.48);
+  font-size:12px;
+  color:rgba(255,255,255,.58);
 }
 
-.nova-mark{
-  font-family:"Space Grotesk";
-  font-weight:700;
-  font-size:16px;
+.account-number b{
+  color:white;
   letter-spacing:2px;
+}
+
+.change{
+  color:#8df0c8;
+  font-size:12px;
+  font-weight:600;
 }
 
 /* QUICK ACTIONS */
@@ -279,47 +271,48 @@ button{
 .quick-actions{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:10px;
+  gap:9px;
   margin:18px 0 25px;
 }
 
 .quick{
-  background:#fff;
+  background:var(--surface);
   border:1px solid var(--line);
   border-radius:19px;
-  min-height:82px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  gap:8px;
-  transition:.2s;
+  padding:14px 5px 12px;
+  color:var(--text);
+  box-shadow:0 7px 22px rgba(30,30,45,.035);
+  transition:.18s;
 }
 
 .quick:active{
-  transform:scale(.96);
+  transform:scale(.95);
 }
 
 .quick-icon{
-  width:34px;
-  height:34px;
-  border-radius:11px;
-  background:#f1efff;
-  color:var(--purple);
+  width:37px;
+  height:37px;
+  margin:auto;
+  border-radius:13px;
   display:grid;
   place-items:center;
+  background:#eeeaff;
+  color:var(--purple);
+}
+
+body.dark .quick-icon{
+  background:#2b263f;
 }
 
 .quick-icon svg{
-  width:17px;
-  stroke:currentColor;
-  fill:none;
-  stroke-width:1.9;
+  width:18px;
 }
 
 .quick span{
+  display:block;
   font-size:11px;
   font-weight:600;
+  margin-top:8px;
 }
 
 /* SECTION */
@@ -328,7 +321,7 @@ button{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin:26px 0 13px;
+  margin:24px 0 12px;
 }
 
 .section-head h2{
@@ -340,137 +333,354 @@ button{
   background:none;
   color:var(--purple);
   font-size:12px;
-  font-weight:600;
-}
-
-/* PULSE */
-
-.pulse{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:18px;
-}
-
-.pulse-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-}
-
-.pulse-head strong{
-  font-family:"Space Grotesk";
-  font-size:18px;
-}
-
-.pulse-head span{
-  display:block;
-  color:var(--muted);
-  font-size:11px;
-  margin-top:4px;
-}
-
-.pulse-change{
-  padding:6px 9px;
-  background:#eaf9f2;
-  color:var(--green);
-  border-radius:9px;
-  font-size:11px;
   font-weight:700;
 }
 
-.chart{
+/* RECIPIENTS */
+
+.recipients{
+  display:flex;
+  gap:15px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  padding:3px 1px 7px;
+}
+
+.recipients::-webkit-scrollbar{
+  display:none;
+}
+
+.person{
+  min-width:60px;
+  text-align:center;
+  background:none;
+  color:var(--text);
+}
+
+.person-avatar{
+  width:52px;
+  height:52px;
+  margin:auto;
+  border-radius:18px;
+  display:grid;
+  place-items:center;
+  color:white;
+  font-weight:700;
+  font-size:14px;
+  background:linear-gradient(145deg,#7d61ff,#4d35cf);
+}
+
+.person.add .person-avatar{
+  background:var(--surface);
+  color:var(--purple);
+  border:1px dashed var(--purple);
+  font-size:22px;
+}
+
+.person-name{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:7px;
+  white-space:nowrap;
+}
+
+/* CARDS */
+
+.card-scroll{
+  display:flex;
+  gap:15px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scrollbar-width:none;
+  padding:4px 1px 15px;
+}
+
+.card-scroll::-webkit-scrollbar{
+  display:none;
+}
+
+.nova-card{
+  min-width:calc(100% - 26px);
+  height:218px;
+  scroll-snap-align:center;
+  perspective:1000px;
+}
+
+.card-inner{
+  width:100%;
+  height:100%;
+  position:relative;
+  transition:transform .6s;
+  transform-style:preserve-3d;
+}
+
+.nova-card.flipped .card-inner{
+  transform:rotateY(180deg);
+}
+
+.card-face{
+  position:absolute;
+  inset:0;
+  border-radius:27px;
+  padding:24px;
+  color:white;
+  backface-visibility:hidden;
+  overflow:hidden;
+  box-shadow:var(--shadow2);
+}
+
+.card-face:before{
+  content:"";
+  position:absolute;
+  width:220px;
+  height:220px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:50%;
+  right:-75px;
+  top:-85px;
+}
+
+.card-front{
+  background:
+    radial-gradient(circle at 80% 20%,rgba(151,127,255,.4),transparent 30%),
+    linear-gradient(135deg,#17171c,#363341);
+}
+
+.card-front.blue{
+  background:
+    radial-gradient(circle at 90% 15%,rgba(82,143,255,.55),transparent 30%),
+    linear-gradient(135deg,#101923,#263a55);
+}
+
+.card-front.gold{
+  background:
+    radial-gradient(circle at 85% 15%,rgba(238,176,77,.45),transparent 32%),
+    linear-gradient(135deg,#201b13,#403523);
+}
+
+.card-back{
+  transform:rotateY(180deg);
+  background:#24242b;
+}
+
+.card-logo{
+  font-family:"Space Grotesk";
+  font-size:18px;
+  font-weight:700;
+  letter-spacing:1px;
+}
+
+.card-type{
+  position:absolute;
+  right:24px;
+  top:25px;
+  font-size:11px;
+  opacity:.65;
+}
+
+.chip{
+  width:43px;
+  height:32px;
+  border-radius:8px;
+  background:linear-gradient(135deg,#e8d49a,#a78645);
+  margin-top:35px;
+  position:relative;
+}
+
+.chip:after{
+  content:"";
+  position:absolute;
+  inset:7px 11px;
+  border:1px solid rgba(50,40,20,.4);
+  border-radius:4px;
+}
+
+.card-number{
+  font-family:"Space Grotesk";
+  letter-spacing:2px;
+  font-size:18px;
+  margin-top:19px;
+}
+
+.card-meta{
+  display:flex;
+  justify-content:space-between;
+  position:absolute;
+  bottom:23px;
+  left:24px;
+  right:24px;
+  font-size:9px;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.58);
+}
+
+.card-meta strong{
+  display:block;
+  color:white;
+  font-size:11px;
+  margin-top:3px;
+}
+
+.card-back .magnetic{
+  height:38px;
+  background:#08080a;
+  margin:5px -24px 25px;
+}
+
+.cvv{
+  background:#fff;
+  color:#111;
+  padding:8px;
+  text-align:right;
+  border-radius:5px;
+  font-size:12px;
+}
+
+.card-back p{
+  color:rgba(255,255,255,.45);
+  font-size:10px;
+  margin-top:20px;
+}
+
+.card-controls{
+  display:flex;
+  gap:8px;
+}
+
+.card-control{
+  flex:1;
+  padding:12px 8px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:15px;
+  color:var(--text);
+  font-size:11px;
+  font-weight:600;
+}
+
+/* ANALYTICS */
+
+.analytics{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:25px;
+  padding:19px;
+  box-shadow:var(--shadow);
+}
+
+.pulse-chart{
   height:105px;
   display:flex;
-  align-items:flex-end;
-  gap:7px;
-  margin-top:18px;
+  align-items:end;
+  gap:9px;
+  margin-top:16px;
 }
 
 .bar{
   flex:1;
-  border-radius:8px 8px 3px 3px;
-  background:linear-gradient(to top,#745cff,#b1a4ff);
-  opacity:.9;
-  min-height:14px;
-  animation:grow .65s ease both;
-}
-
-@keyframes grow{
-  from{height:0!important}
+  border-radius:7px 7px 3px 3px;
+  background:linear-gradient(to top,var(--purple),#b4a5ff);
+  min-height:8px;
+  transition:height .5s ease;
 }
 
 .chart-labels{
   display:flex;
-  justify-content:space-between;
-  color:#aaa;
+  gap:9px;
+  margin-top:7px;
+}
+
+.chart-labels span{
+  flex:1;
+  text-align:center;
   font-size:9px;
-  margin-top:8px;
+  color:var(--muted);
+}
+
+.analytics-summary{
+  display:flex;
+  justify-content:space-between;
+  margin-top:16px;
+  padding-top:15px;
+  border-top:1px solid var(--line);
+}
+
+.analytics-summary small{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+}
+
+.analytics-summary strong{
+  font-family:"Space Grotesk";
+  font-size:14px;
+  display:block;
+  margin-top:3px;
 }
 
 /* INSIGHT */
 
 .insight{
-  margin-top:13px;
+  background:linear-gradient(135deg,#eeeaff,#f7f5ff);
+  border:1px solid #e1dcff;
+  border-radius:23px;
   padding:17px;
-  border-radius:21px;
-  background:#f0edff;
-  border:1px solid #e3ddff;
+  margin-top:15px;
+}
+
+body.dark .insight{
+  background:#211e30;
+  border-color:#342f4c;
 }
 
 .insight-title{
   display:flex;
   gap:9px;
   align-items:center;
-  font-weight:700;
-  font-size:13px;
-}
-
-.insight-star{
-  width:28px;
-  height:28px;
-  border-radius:9px;
-  background:#fff;
-  display:grid;
-  place-items:center;
   color:var(--purple);
+  font-weight:700;
+  font-size:12px;
 }
 
 .insight p{
-  color:#686474;
-  line-height:1.55;
+  color:var(--text);
   font-size:12px;
-  margin-top:9px;
+  line-height:1.55;
+  margin-top:8px;
 }
 
 /* TRANSACTIONS */
 
+.transaction-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
 .transaction{
+  width:100%;
   display:flex;
   align-items:center;
   gap:12px;
-  background:#fff;
-  border:1px solid var(--line);
-  padding:13px;
-  border-radius:18px;
-  margin-bottom:9px;
-  transition:.2s;
-}
-
-.transaction:active{
-  transform:scale(.985);
+  padding:12px 5px;
+  background:none;
+  color:var(--text);
+  text-align:left;
 }
 
 .tx-icon{
-  width:43px;
-  height:43px;
-  border-radius:14px;
-  background:#f2f2f5;
+  width:44px;
+  height:44px;
+  border-radius:15px;
   display:grid;
   place-items:center;
-  font-weight:700;
-  font-size:13px;
-  flex:none;
+  background:var(--surface);
+  border:1px solid var(--line);
+  flex-shrink:0;
+}
+
+.tx-icon svg{
+  width:18px;
 }
 
 .tx-info{
@@ -486,923 +696,876 @@ button{
   text-overflow:ellipsis;
 }
 
-.tx-info span{
+.tx-info small{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
+}
+
+.tx-amount{
+  text-align:right;
+  font-family:"Space Grotesk";
+  font-weight:600;
+  font-size:12px;
+}
+
+.tx-amount.out{
+  color:var(--text);
+}
+
+.tx-amount.in{
+  color:var(--green);
+}
+
+.status{
+  font-family:"DM Sans";
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  margin-top:3px;
+}
+
+/* ACTIVITY */
+
+.activity-top{
+  margin:6px 0 17px;
+}
+
+.page-title{
+  font-family:"Space Grotesk";
+  font-size:25px;
+}
+
+.search-box{
+  margin-top:16px;
+  height:48px;
+  border-radius:16px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  padding:0 15px;
+  gap:9px;
+}
+
+.search-box svg{
+  width:18px;
+  color:var(--muted);
+}
+
+.search-box input{
+  border:0;
+  outline:0;
+  background:none;
+  color:var(--text);
+  width:100%;
+  font-size:13px;
+}
+
+.filters{
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  margin:14px 0 17px;
+}
+
+.filters::-webkit-scrollbar{
+  display:none;
+}
+
+.filter{
+  white-space:nowrap;
+  padding:9px 14px;
+  border-radius:12px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  color:var(--muted);
+  font-size:11px;
+  font-weight:600;
+}
+
+.filter.active{
+  background:var(--text);
+  color:var(--surface);
+  border-color:var(--text);
+}
+
+/* SPENDING */
+
+.spending-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:25px;
+  padding:20px;
+  box-shadow:var(--shadow);
+}
+
+.donut-wrap{
+  display:flex;
+  justify-content:center;
+  margin:10px 0 22px;
+}
+
+.donut{
+  width:154px;
+  height:154px;
+  border-radius:50%;
+  background:
+    conic-gradient(
+      var(--purple) 0 30%,
+      var(--blue) 30% 51%,
+      var(--orange) 51% 69%,
+      var(--green) 69% 84%,
+      #c4c7d0 84% 100%
+    );
+  position:relative;
+  display:grid;
+  place-items:center;
+}
+
+.donut:after{
+  content:"";
+  position:absolute;
+  width:101px;
+  height:101px;
+  border-radius:50%;
+  background:var(--surface);
+}
+
+.donut-center{
+  position:relative;
+  z-index:1;
+  text-align:center;
+}
+
+.donut-center small{
+  color:var(--muted);
+  font-size:9px;
+}
+
+.donut-center strong{
+  display:block;
+  font-family:"Space Grotesk";
+  font-size:17px;
+  margin-top:2px;
+}
+
+.category{
+  margin-top:14px;
+}
+
+.category-row{
+  display:flex;
+  justify-content:space-between;
+  font-size:11px;
+  margin-bottom:6px;
+}
+
+.category-row span:first-child{
+  color:var(--muted);
+}
+
+.progress{
+  height:6px;
+  background:var(--surface2);
+  border-radius:8px;
+  overflow:hidden;
+}
+
+.progress i{
+  display:block;
+  height:100%;
+  border-radius:8px;
+  background:var(--purple);
+}
+
+/* INCOME */
+
+.income-chart{
+  height:190px;
+  display:flex;
+  align-items:end;
+  gap:13px;
+  margin-top:20px;
+  padding-bottom:22px;
+  border-bottom:1px solid var(--line);
+}
+
+.month{
+  flex:1;
+  height:100%;
+  display:flex;
+  align-items:end;
+  gap:4px;
+  position:relative;
+}
+
+.month i{
+  flex:1;
+  border-radius:6px 6px 2px 2px;
+  min-height:5px;
+}
+
+.month i.income{
+  background:var(--green);
+}
+
+.month i.spent{
+  background:#b9adff;
+}
+
+.month span{
+  position:absolute;
+  bottom:-18px;
+  width:100%;
+  text-align:center;
+  color:var(--muted);
+  font-size:9px;
+}
+
+/* SPACES */
+
+.space-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:17px;
+  margin-bottom:10px;
+}
+
+.space-head{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.space-icon{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:#eeeaff;
+  color:var(--purple);
+  display:grid;
+  place-items:center;
+}
+
+body.dark .space-icon{
+  background:#2a2540;
+}
+
+.space-head strong{
+  font-size:13px;
+}
+
+.space-head small{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
+}
+
+.space-amount{
+  margin-left:auto;
+  text-align:right;
+}
+
+.space-amount strong{
+  font-family:"Space Grotesk";
+  font-size:13px;
+}
+
+.space-amount small{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.space-progress{
+  height:7px;
+  background:var(--surface2);
+  border-radius:10px;
+  overflow:hidden;
+  margin:15px 0 8px;
+}
+
+.space-progress i{
+  display:block;
+  height:100%;
+  background:var(--purple);
+  border-radius:10px;
+}
+
+.space-actions{
+  display:flex;
+  gap:7px;
+}
+
+.small-action{
+  flex:1;
+  padding:9px;
+  border-radius:12px;
+  background:var(--surface2);
+  color:var(--text);
+  font-size:10px;
+  font-weight:600;
+}
+
+/* PROFILE */
+
+.profile-hero{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:25px;
+  padding:20px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  box-shadow:var(--shadow);
+}
+
+.profile-big{
+  width:59px;
+  height:59px;
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  background:#18181e;
+  color:#fff;
+  font-family:"Space Grotesk";
+  font-weight:700;
+}
+
+body.dark .profile-big{
+  background:#fff;
+  color:#111;
+}
+
+.profile-hero strong{
+  font-family:"Space Grotesk";
+  font-size:17px;
+}
+
+.profile-hero small{
   color:var(--muted);
   font-size:10px;
   display:block;
   margin-top:4px;
 }
 
-.tx-amount{
-  font-family:"Space Grotesk";
-  font-weight:600;
-  font-size:13px;
+.profile-section{
+  margin-top:22px;
 }
 
-.positive{
-  color:var(--green);
-}
-
-/* RECIPIENTS */
-
-.recipient-row{
-  display:flex;
-  gap:11px;
-  overflow-x:auto;
-  padding-bottom:3px;
-  scrollbar-width:none;
-}
-
-.recipient-row::-webkit-scrollbar{
-  display:none;
-}
-
-.recipient{
-  flex:none;
-  width:67px;
-  text-align:center;
-  background:none;
-}
-
-.avatar{
-  width:50px;
-  height:50px;
-  margin:auto;
-  border-radius:17px;
-  display:grid;
-  place-items:center;
-  background:#e9e5ff;
-  color:#5842db;
-  font-family:"Space Grotesk";
-  font-weight:700;
-  font-size:13px;
-}
-
-.recipient span{
-  display:block;
+.profile-section h3{
+  color:var(--muted);
   font-size:10px;
-  margin-top:7px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-/* ACTIVITY */
-
-.page-title{
-  font-family:"Space Grotesk";
-  font-size:27px;
-  letter-spacing:-1px;
-  margin-bottom:19px;
-}
-
-.filters{
-  display:flex;
-  gap:8px;
-  overflow:auto;
-  margin-bottom:17px;
-  scrollbar-width:none;
-}
-
-.filter{
-  flex:none;
-  padding:9px 14px;
-  border-radius:12px;
-  background:#fff;
-  border:1px solid var(--line);
-  font-size:11px;
-  color:#777;
-}
-
-.filter.active{
-  background:var(--dark);
-  color:#fff;
-  border-color:var(--dark);
-}
-
-/* CARDS */
-
-.cards-hero{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:24px;
-  padding:17px;
-  margin-bottom:16px;
-}
-
-.card-stage{
-  perspective:1100px;
-}
-
-.nova-card{
-  height:205px;
-  position:relative;
-  cursor:pointer;
-}
-
-.card-inner{
-  width:100%;
-  height:100%;
-  position:relative;
-  transition:transform .65s cubic-bezier(.2,.8,.2,1);
-  transform-style:preserve-3d;
-}
-
-.nova-card.flipped .card-inner{
-  transform:rotateY(180deg);
-}
-
-.card-face{
-  position:absolute;
-  inset:0;
-  border-radius:23px;
-  padding:22px;
-  color:#fff;
-  overflow:hidden;
-  backface-visibility:hidden;
-  background:
-    radial-gradient(circle at 90% 10%,rgba(153,132,255,.6),transparent 28%),
-    linear-gradient(135deg,#141419,#292735);
-  box-shadow:0 20px 40px rgba(20,20,25,.2);
-}
-
-.card-face:before{
-  content:"";
-  position:absolute;
-  width:180px;
-  height:180px;
-  border-radius:50%;
-  border:1px solid rgba(255,255,255,.08);
-  right:-45px;
-  top:-80px;
-  box-shadow:0 0 0 35px rgba(255,255,255,.025);
-}
-
-.card-back{
-  transform:rotateY(180deg);
-}
-
-.card-brand{
-  display:flex;
-  justify-content:space-between;
-  font-family:"Space Grotesk";
-  font-size:16px;
-  letter-spacing:1.5px;
-}
-
-.card-type{
-  color:rgba(255,255,255,.55);
-  font-size:9px;
-  letter-spacing:1px;
-}
-
-.chip{
-  width:38px;
-  height:29px;
-  border-radius:7px;
-  margin-top:43px;
-  background:linear-gradient(135deg,#ded8c7,#918a78);
-  position:relative;
-}
-
-.chip:after{
-  content:"";
-  position:absolute;
-  inset:6px 10px;
-  border:1px solid rgba(0,0,0,.3);
-  border-radius:3px;
-}
-
-.card-number{
-  margin-top:18px;
-  font-family:"Space Grotesk";
-  font-size:17px;
-  letter-spacing:2.3px;
-}
-
-.card-details{
-  display:flex;
-  gap:30px;
-  margin-top:11px;
-}
-
-.card-details small{
-  color:rgba(255,255,255,.43);
-  font-size:7px;
-  display:block;
-  letter-spacing:1px;
-}
-
-.card-details span{
-  font-size:10px;
-  margin-top:3px;
-  display:block;
-}
-
-.card-name{
-  position:absolute;
-  bottom:20px;
-  left:22px;
-  font-size:9px;
-  letter-spacing:1.4px;
-}
-
-.visa{
-  position:absolute;
-  bottom:18px;
-  right:22px;
-  font-family:"Space Grotesk";
-  font-weight:700;
-  font-size:20px;
-  font-style:italic;
-}
-
-.magnetic{
-  height:38px;
-  background:#050507;
-  margin:20px -22px 17px;
-}
-
-.signature{
-  height:30px;
-  background:#e6e6e8;
-  margin-right:45px;
-  border-radius:3px;
-}
-
-.cvv{
-  position:absolute;
-  right:22px;
-  top:99px;
-  font-size:10px;
-}
-
-.back-note{
-  position:absolute;
-  bottom:19px;
-  left:22px;
-  right:22px;
-  color:rgba(255,255,255,.45);
-  font-size:7px;
-  line-height:1.5;
-}
-
-.flip-note{
-  text-align:center;
-  color:#999;
-  font-size:10px;
-  margin-top:11px;
-}
-
-.card-controls{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
-  margin-top:14px;
-}
-
-.card-control{
-  background:#f7f7f9;
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:13px;
-  text-align:left;
-}
-
-.card-control strong{
-  display:block;
-  font-size:11px;
-}
-
-.card-control span{
-  display:block;
-  color:#999;
-  font-size:9px;
-  margin-top:4px;
-}
-
-.card-control.freeze.active{
-  background:#fff0f0;
-  border-color:#ffd5d5;
-  color:#d84444;
-}
-
-.limit-card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:21px;
-  padding:17px;
-}
-
-.limit-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.limit-top strong{
-  font-family:"Space Grotesk";
-  font-size:15px;
-}
-
-.limit-top span{
-  font-size:11px;
-  color:#888;
-}
-
-.limit-line{
-  height:8px;
-  background:#eeeeF2;
-  border-radius:10px;
-  overflow:hidden;
-  margin:14px 0 8px;
-}
-
-.limit-fill{
-  height:100%;
-  width:42%;
-  background:var(--purple);
-  border-radius:inherit;
-}
-
-.limit-foot{
-  display:flex;
-  justify-content:space-between;
-  color:#888;
-  font-size:9px;
-}
-
-/* SPACES */
-
-.space{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:21px;
-  padding:17px;
-  margin-bottom:11px;
-}
-
-.space-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.space-name{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.space-icon{
-  width:38px;
-  height:38px;
-  border-radius:12px;
-  background:#f0edff;
-  display:grid;
-  place-items:center;
-  font-size:16px;
-}
-
-.space-name strong{
-  font-size:13px;
-}
-
-.space-name span{
-  display:block;
-  color:#999;
-  font-size:9px;
-  margin-top:3px;
-}
-
-.space-total{
-  font-family:"Space Grotesk";
-  font-size:12px;
-}
-
-.progress{
-  height:8px;
-  background:#eeeef2;
-  border-radius:10px;
-  margin:15px 0 8px;
-  overflow:hidden;
-}
-
-.progress-fill{
-  height:100%;
-  background:var(--purple);
-  border-radius:inherit;
-}
-
-.space-foot{
-  display:flex;
-  justify-content:space-between;
-  color:#999;
-  font-size:9px;
-}
-
-.space-buttons{
-  display:flex;
-  gap:8px;
-  margin-top:13px;
-}
-
-.small-btn{
-  flex:1;
-  padding:10px;
-  border-radius:12px;
-  background:#f5f5f7;
-  font-size:10px;
-  font-weight:600;
-}
-
-.small-btn.primary{
-  background:#efedff;
-  color:var(--purple);
-}
-
-/* PROFILE */
-
-.profile-card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:23px;
-  padding:18px;
-  display:flex;
-  align-items:center;
-  gap:13px;
-  margin-bottom:18px;
-}
-
-.profile-avatar{
-  width:53px;
-  height:53px;
-  border-radius:18px;
-  background:var(--dark);
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-family:"Space Grotesk";
-  font-weight:700;
-}
-
-.profile-card strong{
-  font-family:"Space Grotesk";
-  font-size:15px;
-}
-
-.profile-card span{
-  display:block;
-  color:#999;
-  font-size:10px;
-  margin-top:4px;
-}
-
-.menu{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:21px;
-  overflow:hidden;
-  margin-bottom:12px;
-}
-
-.menu-title{
-  padding:15px 17px 7px;
-  color:#999;
-  font-size:10px;
-  font-weight:700;
   text-transform:uppercase;
-  letter-spacing:.7px;
+  letter-spacing:1px;
+  margin:0 4px 8px;
 }
 
-.menu-item{
+.profile-menu{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:21px;
+  overflow:hidden;
+}
+
+.profile-row{
   width:100%;
+  padding:15px;
+  background:none;
+  color:var(--text);
   display:flex;
   align-items:center;
   gap:12px;
-  padding:15px 17px;
-  background:#fff;
-  border-top:1px solid #f0f0f3;
   text-align:left;
+  border-bottom:1px solid var(--line);
 }
 
-.menu-icon{
-  width:32px;
-  height:32px;
-  border-radius:10px;
-  background:#f5f5f7;
-  display:grid;
-  place-items:center;
+.profile-row:last-child{
+  border-bottom:0;
 }
 
-.menu-icon svg{
-  width:16px;
-  stroke:#444;
-  fill:none;
+.profile-row svg{
+  width:18px;
+  color:var(--muted);
 }
 
-.menu-item div:nth-child(2){
+.profile-row span{
   flex:1;
-}
-
-.menu-item strong{
-  display:block;
   font-size:12px;
+  font-weight:600;
 }
 
-.menu-item span{
-  color:#999;
-  font-size:9px;
-  display:block;
-  margin-top:3px;
+.profile-row em{
+  color:var(--muted);
+  font-size:10px;
+  font-style:normal;
 }
 
-.chevron{
-  color:#aaa;
-}
-
-/* NAV */
+/* BOTTOM NAV */
 
 .bottom-nav{
   position:fixed;
-  z-index:20;
+  z-index:50;
+  bottom:13px;
   left:50%;
   transform:translateX(-50%);
-  bottom:12px;
-  width:calc(100% - 26px);
-  max-width:514px;
-  height:68px;
-  background:rgba(255,255,255,.94);
-  backdrop-filter:blur(20px);
-  border:1px solid #e8e8ec;
+  width:min(500px,calc(100% - 26px));
+  height:66px;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border:1px solid var(--line);
   border-radius:22px;
+  box-shadow:0 12px 35px rgba(20,20,30,.13);
   display:grid;
   grid-template-columns:repeat(5,1fr);
   padding:5px;
-  box-shadow:0 15px 40px rgba(20,20,30,.13);
+}
+
+body.dark .bottom-nav{
+  background:rgba(24,25,31,.9);
 }
 
 .nav-btn{
-  background:transparent;
+  background:none;
+  color:var(--muted);
   border-radius:17px;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   gap:4px;
-  color:#999;
+  font-size:9px;
+  font-weight:600;
   transition:.2s;
-}
-
-.nav-btn.active{
-  background:#f0edff;
-  color:var(--purple);
 }
 
 .nav-btn svg{
   width:18px;
   height:18px;
-  stroke:currentColor;
-  fill:none;
-  stroke-width:1.8;
 }
 
-.nav-btn span{
-  font-size:8px;
-  font-weight:600;
+.nav-btn.active{
+  background:var(--text);
+  color:var(--surface);
 }
 
 /* MODAL */
 
 .modal{
   position:fixed;
-  z-index:50;
   inset:0;
-  background:rgba(13,13,18,.5);
-  backdrop-filter:blur(8px);
+  z-index:100;
   display:none;
-  align-items:flex-end;
+  align-items:end;
   justify-content:center;
+  background:rgba(7,7,10,.55);
+  backdrop-filter:blur(6px);
 }
 
 .modal.show{
   display:flex;
-  animation:fadeIn .2s ease;
 }
 
-@keyframes fadeIn{
-  from{opacity:0}
-  to{opacity:1}
-}
-
-.sheet{
-  width:100%;
-  max-width:540px;
-  max-height:91vh;
+.modal-card{
+  width:min(540px,100%);
+  max-height:92vh;
   overflow:auto;
-  background:#fff;
+  background:var(--surface);
   border-radius:29px 29px 0 0;
-  padding:10px 18px 27px;
-  animation:sheetUp .3s cubic-bezier(.2,.8,.2,1);
+  padding:10px 20px 30px;
+  animation:modalUp .3s ease;
 }
 
-@keyframes sheetUp{
+@keyframes modalUp{
   from{transform:translateY(100%)}
-  to{transform:translateY(0)}
+  to{transform:none}
 }
 
-.handle{
-  width:38px;
+.grabber{
+  width:39px;
   height:4px;
-  border-radius:5px;
-  background:#ddd;
-  margin:3px auto 20px;
+  border-radius:10px;
+  background:var(--line);
+  margin:4px auto 20px;
 }
 
-.sheet h3{
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.modal-head h2{
   font-family:"Space Grotesk";
-  font-size:21px;
-  margin-bottom:17px;
+  font-size:20px;
 }
 
 .close{
-  float:right;
-  width:32px;
-  height:32px;
-  border-radius:10px;
-  background:#f5f5f7;
+  width:34px;
+  height:34px;
+  border-radius:12px;
+  background:var(--surface2);
+  color:var(--text);
   display:grid;
   place-items:center;
-  font-size:18px;
+  font-size:19px;
 }
 
-.field{
-  margin-bottom:13px;
-}
-
-.field label{
-  display:block;
+.form-label{
+  color:var(--muted);
   font-size:10px;
-  color:#888;
-  margin-bottom:6px;
+  display:block;
+  margin-bottom:7px;
 }
 
-.field input{
+.input{
   width:100%;
-  border:1px solid var(--line);
-  background:#f8f8fa;
-  border-radius:14px;
-  padding:13px;
-  outline:none;
-  font-size:13px;
-}
-
-.field input:focus{
-  border-color:#bdb4ff;
-  box-shadow:0 0 0 3px #efedff;
-}
-
-.primary-btn{
-  width:100%;
-  padding:14px;
+  height:52px;
+  background:var(--surface2);
+  border:1px solid transparent;
   border-radius:15px;
-  background:var(--dark);
-  color:#fff;
-  font-weight:700;
-  font-size:12px;
-  margin-top:5px;
-  transition:.2s;
+  padding:0 15px;
+  color:var(--text);
+  outline:none;
+  margin-bottom:14px;
 }
 
-.primary-btn:active{
+.input:focus{
+  border-color:var(--purple);
+}
+
+.primary{
+  width:100%;
+  height:52px;
+  background:var(--text);
+  color:var(--surface);
+  border-radius:16px;
+  font-weight:700;
+  transition:.18s;
+}
+
+.primary:active{
   transform:scale(.98);
 }
 
-.secondary-btn{
+.secondary{
   width:100%;
-  padding:13px;
+  height:48px;
+  background:var(--surface2);
+  color:var(--text);
   border-radius:15px;
-  background:#f4f4f6;
-  color:#333;
   font-weight:600;
-  font-size:12px;
   margin-top:8px;
 }
 
-.amount-input{
-  text-align:center;
-  border:0!important;
-  background:transparent!important;
-  font-family:"Space Grotesk";
-  font-size:35px!important;
-  font-weight:700;
-  box-shadow:none!important;
-}
+/* SEND */
 
-.recipient-preview{
-  padding:13px;
-  background:#f7f7f9;
-  border-radius:16px;
+.send-recipient{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:11px;
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:17px;
   margin-bottom:15px;
 }
 
-.recipient-preview .avatar{
-  width:39px;
-  height:39px;
-  border-radius:13px;
-  margin:0;
+.send-recipient .person-avatar{
+  width:42px;
+  height:42px;
+  border-radius:14px;
 }
 
-.recipient-preview strong{
+.send-recipient strong{
   font-size:12px;
 }
 
-.recipient-preview span{
+.send-recipient small{
   display:block;
-  color:#999;
+  color:var(--muted);
   font-size:9px;
-  margin-top:2px;
+  margin-top:3px;
 }
 
-/* DETAIL */
+/* RECEIPT */
 
-.detail-icon{
-  width:64px;
-  height:64px;
-  border-radius:20px;
-  background:#f0edff;
-  color:var(--purple);
-  display:grid;
-  place-items:center;
-  margin:0 auto 12px;
+.receipt{
+  background:var(--surface2);
+  border-radius:21px;
+  padding:20px;
+}
+
+.receipt-top{
+  text-align:center;
+  padding-bottom:18px;
+  border-bottom:1px dashed var(--muted);
+}
+
+.receipt-logo{
   font-family:"Space Grotesk";
   font-weight:700;
+  letter-spacing:1px;
 }
 
-.detail-amount{
-  text-align:center;
+.receipt-status{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  color:var(--green);
+  font-size:10px;
+  font-weight:700;
+  margin-top:12px;
+}
+
+.receipt-amount{
   font-family:"Space Grotesk";
   font-size:30px;
+  margin-top:9px;
 }
 
-.detail-status{
-  width:max-content;
-  margin:8px auto 20px;
-  padding:6px 10px;
-  background:#eaf9f2;
-  color:var(--green);
-  border-radius:9px;
-  font-size:9px;
-  font-weight:700;
-}
-
-.detail-list{
-  border-top:1px solid var(--line);
-}
-
-.detail-row{
+.receipt-row{
   display:flex;
   justify-content:space-between;
-  padding:14px 0;
+  gap:15px;
+  padding:12px 0;
   border-bottom:1px solid var(--line);
-}
-
-.detail-row span{
-  color:#999;
   font-size:10px;
 }
 
-.detail-row strong{
-  font-size:10px;
+.receipt-row span:first-child{
+  color:var(--muted);
+}
+
+.receipt-row span:last-child{
+  text-align:right;
+  font-weight:600;
 }
 
 /* NOTIFICATIONS */
 
 .notification{
-  padding:14px;
-  border-radius:17px;
-  background:#f8f8fa;
-  margin-bottom:9px;
   display:flex;
   gap:11px;
+  padding:15px 4px;
+  border-bottom:1px solid var(--line);
 }
 
-.notification.unread{
-  background:#f0edff;
+.notification:last-child{
+  border-bottom:0;
 }
 
 .n-icon{
-  width:35px;
-  height:35px;
-  border-radius:11px;
-  background:#fff;
+  width:40px;
+  height:40px;
+  flex-shrink:0;
+  border-radius:13px;
   display:grid;
   place-items:center;
+  background:#eeeaff;
   color:var(--purple);
-  flex:none;
+}
+
+body.dark .n-icon{
+  background:#2a2540;
 }
 
 .notification strong{
-  font-size:11px;
+  font-size:12px;
 }
 
 .notification p{
-  color:#777;
-  font-size:9px;
+  color:var(--muted);
+  font-size:10px;
   line-height:1.4;
-  margin-top:4px;
+  margin-top:3px;
+}
+
+.notification small{
+  display:block;
+  color:var(--muted);
+  font-size:8px;
+  margin-top:5px;
+}
+
+.notification.unread{
+  position:relative;
+}
+
+.notification.unread:after{
+  content:"";
+  position:absolute;
+  right:3px;
+  top:18px;
+  width:7px;
+  height:7px;
+  background:var(--purple);
+  border-radius:50%;
+}
+
+/* SUCCESS */
+
+.success{
+  text-align:center;
+  padding:25px 5px 10px;
+}
+
+.success-ring{
+  width:88px;
+  height:88px;
+  margin:auto;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#e6faf2;
+  color:var(--green);
+  animation:successPop .55s ease;
+}
+
+body.dark .success-ring{
+  background:#18352d;
+}
+
+.success-ring svg{
+  width:42px;
+}
+
+@keyframes successPop{
+  0%{transform:scale(.3);opacity:0}
+  70%{transform:scale(1.12)}
+  100%{transform:scale(1);opacity:1}
+}
+
+.success h2{
+  font-family:"Space Grotesk";
+  margin-top:18px;
+  font-size:23px;
+}
+
+.success p{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:7px;
+}
+
+.amount-large{
+  font-family:"Space Grotesk";
+  font-size:29px;
+  margin-top:10px;
+}
+
+/* EMPTY */
+
+.empty{
+  text-align:center;
+  padding:35px 10px;
+  color:var(--muted);
+}
+
+.empty-icon{
+  width:48px;
+  height:48px;
+  border-radius:16px;
+  margin:auto auto 12px;
+  display:grid;
+  place-items:center;
+  background:var(--surface2);
+}
+
+.empty p{
+  font-size:11px;
 }
 
 /* TOAST */
 
 .toast{
   position:fixed;
-  z-index:100;
+  z-index:300;
   left:50%;
-  bottom:94px;
-  transform:translateX(-50%) translateY(15px);
-  background:#17171c;
-  color:#fff;
-  padding:11px 15px;
-  border-radius:13px;
-  font-size:10px;
+  bottom:92px;
+  transform:translate(-50%,20px);
   opacity:0;
   pointer-events:none;
-  transition:.3s;
+  background:#17171c;
+  color:#fff;
+  padding:12px 17px;
+  border-radius:14px;
+  font-size:11px;
+  font-weight:600;
+  box-shadow:var(--shadow2);
+  transition:.25s;
   white-space:nowrap;
 }
 
 .toast.show{
   opacity:1;
-  transform:translateX(-50%) translateY(0);
+  transform:translate(-50%,0);
 }
 
-/* SEARCH */
+/* SWITCH */
 
-.search-box{
-  display:flex;
-  gap:8px;
-  margin-bottom:15px;
+.switch{
+  width:43px;
+  height:25px;
+  background:var(--surface2);
+  border-radius:20px;
+  position:relative;
 }
 
-.search-box input{
-  flex:1;
+.switch i{
+  position:absolute;
+  width:19px;
+  height:19px;
+  left:3px;
+  top:3px;
+  background:#fff;
+  border-radius:50%;
+  box-shadow:0 2px 6px rgba(0,0,0,.2);
+  transition:.2s;
 }
 
-/* LOADING */
-
-.loading{
-  position:fixed;
-  inset:0;
-  z-index:200;
-  background:#f6f6f9;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:.4s;
+.switch.on{
+  background:var(--purple);
 }
 
-.loading.hide{
-  opacity:0;
-  pointer-events:none;
+.switch.on i{
+  left:21px;
 }
 
-.loader-logo{
-  width:58px;
-  height:58px;
-  border-radius:18px;
-  background:#17171c;
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-family:"Space Grotesk";
-  font-weight:700;
-  animation:pulseLogo 1.1s infinite ease-in-out;
-}
+/* RESPONSIVE */
 
-@keyframes pulseLogo{
-  0%,100%{transform:scale(.92);opacity:.7}
-  50%{transform:scale(1);opacity:1}
-}
-
-.empty{
-  text-align:center;
-  padding:35px 15px;
-  color:#999;
-  font-size:11px;
-}
-
-@media(min-width:541px){
-  body{
-    background:#e9e9ee;
+@media(max-width:370px){
+  .screen{
+    padding-left:15px;
+    padding-right:15px;
   }
 
-  .app{
-    background:var(--bg);
-    box-shadow:0 0 50px rgba(0,0,0,.08);
+  .topbar{
+    padding-left:15px;
+    padding-right:15px;
+  }
+
+  .balance{
+    font-size:32px;
+  }
+
+  .quick-actions{
+    gap:6px;
+  }
+
+  .quick{
+    padding-left:2px;
+    padding-right:2px;
+  }
+
+  .nova-card{
+    min-width:calc(100% - 10px);
   }
 }
 </style>
@@ -1410,91 +1573,99 @@ button{
 
 <body>
 
-<div class="loading" id="loading">
-  <div class="loader-logo">N</div>
-</div>
-
 <div class="app">
 
+<header class="topbar">
+  <div class="userbox">
+    <div class="avatar">N</div>
+    <div class="greeting">
+      <small>Good afternoon</small>
+      <strong>Welcome back</strong>
+    </div>
+  </div>
+
+  <div class="top-actions">
+    <button class="icon-btn" data-action="search" aria-label="Search">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="m20 20-4-4"/>
+      </svg>
+    </button>
+
+    <div class="notification-wrap">
+      <button class="icon-btn" data-action="notifications" aria-label="Notifications">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+          <path d="M10 21h4"/>
+        </svg>
+      </button>
+      <i class="notification-dot" id="notificationDot"></i>
+    </div>
+  </div>
+</header>
+
 <!-- HOME -->
-<section class="screen active" id="homeScreen">
 
-  <div class="topbar">
-    <div class="brand">
-      <div class="logo">N</div>
-      <div class="brand-name">NOVA</div>
-    </div>
+<main id="home" class="screen active">
 
-    <div class="top-actions">
-      <button class="icon-btn" data-action="search">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/></svg>
-      </button>
-
-      <button class="icon-btn" data-action="notifications">
-        <svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
-        <i class="notification-dot" id="notificationDot"></i>
-      </button>
-    </div>
-  </div>
-
-  <div class="greeting">
-    <small>Good afternoon</small>
-    <h1>Welcome back 👋</h1>
-  </div>
-
-  <div class="balance-card">
-
+  <section class="balance-card">
     <div class="balance-top">
-      <span class="balance-label">Available balance</span>
-
-      <button class="visibility" data-action="toggle-balance">
-        <svg viewBox="0 0 24 24" id="eyeIcon">
-          <path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/>
-          <circle cx="12" cy="12" r="2.5"/>
+      <div class="label">Available balance</div>
+      <button class="eye" data-action="toggle-balance">
+        <svg id="eyeIcon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
+          <circle cx="12" cy="12" r="3"/>
         </svg>
       </button>
     </div>
 
-    <div class="balance" id="balanceValue">$24,860.40</div>
+    <div class="balance" id="balanceDisplay">₦24,860.40</div>
 
-    <div class="balance-meta">
-      <span class="balance-chip">+8.4%</span>
-      <span>vs last month</span>
+    <div class="balance-bottom">
+      <div class="account-number">
+        Account<br>
+        <b>•••• 2841</b>
+      </div>
+      <div class="change">+₦3,240 this month</div>
     </div>
-
-    <div class="card-bottom">
-      <span class="account-number">•••• 4821</span>
-      <span class="nova-mark">NOVA</span>
-    </div>
-
-  </div>
+  </section>
 
   <div class="quick-actions">
 
     <button class="quick" data-action="send">
       <div class="quick-icon">
-        <svg viewBox="0 0 24 24"><path d="M4 12h15"/><path d="m13 6 6 6-6 6"/></svg>
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M22 2 11 13"/>
+          <path d="m22 2-7 20-4-9-9-4Z"/>
+        </svg>
       </div>
       <span>Send</span>
     </button>
 
     <button class="quick" data-action="request">
       <div class="quick-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m6 13 6 6 6-6"/></svg>
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M12 3v18M5 10l7-7 7 7"/>
+        </svg>
       </div>
       <span>Request</span>
     </button>
 
     <button class="quick" data-action="pay">
       <div class="quick-icon">
-        <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg>
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="3" y="5" width="18" height="14" rx="3"/>
+          <path d="M3 10h18"/>
+        </svg>
       </div>
       <span>Pay</span>
     </button>
 
     <button class="quick" data-action="add">
       <div class="quick-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
       </div>
       <span>Add</span>
     </button>
@@ -1502,85 +1673,61 @@ button{
   </div>
 
   <div class="section-head">
-    <h2>Send to</h2>
-    <button data-action="send">View all</button>
+    <h2>Send again</h2>
+    <button data-action="contacts">View all</button>
   </div>
 
-  <div class="recipient-row">
-
-    <button class="recipient" data-recipient="Alex Morgan">
-      <div class="avatar">AM</div>
-      <span>Alex</span>
-    </button>
-
-    <button class="recipient" data-recipient="Jordan Lee">
-      <div class="avatar">JL</div>
-      <span>Jordan</span>
-    </button>
-
-    <button class="recipient" data-recipient="Maya Chen">
-      <div class="avatar">MC</div>
-      <span>Maya</span>
-    </button>
-
-    <button class="recipient" data-recipient="Noah Williams">
-      <div class="avatar">NW</div>
-      <span>Noah</span>
-    </button>
-
-    <button class="recipient" data-recipient="Sophia Reed">
-      <div class="avatar">SR</div>
-      <span>Sophia</span>
-    </button>
-
-  </div>
+  <div class="recipients" id="recentRecipients"></div>
 
   <div class="section-head">
     <h2>Money Pulse</h2>
-    <button>Last 7 days</button>
+    <button data-screen="activity">See all</button>
   </div>
 
-  <div class="pulse">
-
-    <div class="pulse-head">
+  <div class="analytics">
+    <div style="display:flex;justify-content:space-between;align-items:center">
       <div>
-        <strong>$6,842</strong>
-        <span>Total money movement</span>
+        <div style="font-size:11px;color:var(--muted)">This week</div>
+        <strong style="font-family:'Space Grotesk';font-size:18px">₦8,420.00 spent</strong>
       </div>
-      <div class="pulse-change">+12.8%</div>
+      <div style="color:var(--green);font-size:10px;font-weight:700">↓ 12.4%</div>
     </div>
 
-    <div class="chart">
-      <div class="bar" style="height:42%"></div>
-      <div class="bar" style="height:67%"></div>
-      <div class="bar" style="height:52%"></div>
-      <div class="bar" style="height:79%"></div>
-      <div class="bar" style="height:61%"></div>
-      <div class="bar" style="height:91%"></div>
-      <div class="bar" style="height:72%"></div>
+    <div class="pulse-chart">
+      <i class="bar" style="height:42%"></i>
+      <i class="bar" style="height:65%"></i>
+      <i class="bar" style="height:34%"></i>
+      <i class="bar" style="height:82%"></i>
+      <i class="bar" style="height:54%"></i>
+      <i class="bar" style="height:70%"></i>
+      <i class="bar" style="height:45%"></i>
     </div>
 
     <div class="chart-labels">
-      <span>Mon</span>
-      <span>Tue</span>
-      <span>Wed</span>
-      <span>Thu</span>
-      <span>Fri</span>
-      <span>Sat</span>
-      <span>Sun</span>
+      <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
     </div>
 
+    <div class="analytics-summary">
+      <div>
+        <small>Income</small>
+        <strong>₦31,500</strong>
+      </div>
+      <div>
+        <small>Spent</small>
+        <strong>₦8,420</strong>
+      </div>
+      <div>
+        <small>Saved</small>
+        <strong>₦6,200</strong>
+      </div>
+    </div>
   </div>
 
   <div class="insight">
     <div class="insight-title">
-      <div class="insight-star">✦</div>
-      NOVA Insight
+      ✦ NOVA INSIGHT
     </div>
-    <p>
-      Your spending is 8% lower than your usual weekly average.
-      You're on track to keep more money available this month.
-    </p>
+    <p>You spent 12% less this week. Food is currently your biggest spending category.</p>
   </div>
 
   <div class="section-head">
@@ -1588,122 +1735,58 @@ button{
     <button data-screen="activity">See all</button>
   </div>
 
-  <div id="homeTransactions"></div>
+  <div class="transaction-list" id="homeTransactions"></div>
 
-</section>
+</main>
 
 
 <!-- ACTIVITY -->
-<section class="screen" id="activityScreen">
 
-  <div class="topbar">
-    <div>
-      <div class="page-title">Activity</div>
+<main id="activity" class="screen">
+
+  <div class="activity-top">
+    <div class="page-title">Activity</div>
+
+    <div class="search-box">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="m20 20-4-4"/>
+      </svg>
+      <input id="activitySearch" placeholder="Search payments, people or amounts">
     </div>
 
-    <button class="icon-btn" data-action="search">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 5 5"/></svg>
-    </button>
+    <div class="filters">
+      <button class="filter active" data-filter="all">All</button>
+      <button class="filter" data-filter="payments">Payments</button>
+      <button class="filter" data-filter="income">Income</button>
+      <button class="filter" data-filter="spaces">Spaces</button>
+    </div>
   </div>
 
-  <div class="filters">
-    <button class="filter active" data-filter="all">All</button>
-    <button class="filter" data-filter="payments">Payments</button>
-    <button class="filter" data-filter="income">Income</button>
-    <button class="filter" data-filter="spaces">Spaces</button>
-  </div>
+  <div class="transaction-list" id="activityTransactions"></div>
 
-  <div id="activityTransactions"></div>
-
-</section>
+</main>
 
 
 <!-- CARDS -->
-<section class="screen" id="cardsScreen">
 
-  <div class="topbar">
-    <div class="page-title">Cards</div>
-    <button class="icon-btn" data-action="card-options">•••</button>
+<main id="cards" class="screen">
+
+  <div class="section-head" style="margin-top:5px">
+    <h2 style="font-size:25px">Your cards</h2>
+    <button data-action="add-card">＋ Add card</button>
   </div>
 
-  <div class="cards-hero">
+  <p style="font-size:11px;color:var(--muted);margin-bottom:13px">
+    Swipe to explore your NOVA cards
+  </p>
 
-    <div class="card-stage">
-      <div class="nova-card" id="novaCard" data-action="flip-card">
+  <div class="card-scroll" id="cardScroll"></div>
 
-        <div class="card-inner">
-
-          <div class="card-face">
-
-            <div class="card-brand">
-              <span>NOVA</span>
-              <span class="card-type">VIRTUAL</span>
-            </div>
-
-            <div class="chip"></div>
-
-            <div class="card-number" id="cardNumber">
-              •••• •••• •••• 4821
-            </div>
-
-            <div class="card-details">
-              <div>
-                <small>EXPIRES</small>
-                <span>09/29</span>
-              </div>
-
-              <div>
-                <small>CARDHOLDER</small>
-                <span>NOVA MEMBER</span>
-              </div>
-            </div>
-
-            <div class="card-name">NOVA MEMBER</div>
-            <div class="visa">VISA</div>
-
-          </div>
-
-          <div class="card-face card-back">
-
-            <div class="card-brand">
-              <span>NOVA</span>
-              <span class="card-type">DEBIT</span>
-            </div>
-
-            <div class="magnetic"></div>
-
-            <div class="signature"></div>
-
-            <div class="cvv">CVV •••</div>
-
-            <div class="back-note">
-              This card is issued for demonstration purposes only.
-              No real payment credentials are stored by this prototype.
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-    <div class="flip-note">Tap the card to flip it</div>
-
-    <div class="card-controls">
-
-      <button class="card-control freeze" id="freezeCard" data-action="freeze">
-        <strong>Freeze card</strong>
-        <span>Temporarily stop payments</span>
-      </button>
-
-      <button class="card-control" data-action="reveal">
-        <strong>Reveal details</strong>
-        <span>Show demo card number</span>
-      </button>
-
-    </div>
-
+  <div class="card-controls">
+    <button class="card-control" data-action="flip-card">↻ Flip card</button>
+    <button class="card-control" data-action="freeze-card" id="freezeBtn">❄ Freeze</button>
+    <button class="card-control" data-action="card-options">••• Options</button>
   </div>
 
   <div class="section-head">
@@ -1711,1977 +1794,1980 @@ button{
     <button data-action="edit-limit">Edit</button>
   </div>
 
-  <div class="limit-card">
-
-    <div class="limit-top">
-      <strong>$4,200 used</strong>
-      <span>$10,000 limit</span>
+  <div class="analytics">
+    <div style="display:flex;justify-content:space-between">
+      <span style="font-size:11px;color:var(--muted)">Monthly card spending</span>
+      <strong style="font-family:'Space Grotesk';font-size:13px">₦46,000 / ₦100,000</strong>
     </div>
 
-    <div class="limit-line">
-      <div class="limit-fill"></div>
+    <div class="progress" style="margin-top:13px;height:8px">
+      <i style="width:46%"></i>
     </div>
 
-    <div class="limit-foot">
-      <span>42% used</span>
-      <span>$5,800 remaining</span>
+    <div style="font-size:9px;color:var(--muted);margin-top:8px">
+      ₦54,000 remaining this month
     </div>
-
   </div>
 
   <div class="section-head">
     <h2>Card activity</h2>
   </div>
 
-  <div id="cardTransactions"></div>
+  <div class="transaction-list" id="cardTransactions"></div>
 
-</section>
+</main>
 
 
 <!-- SPACES -->
-<section class="screen" id="spacesScreen">
 
-  <div class="topbar">
-    <div>
-      <div class="page-title">Spaces</div>
-      <span style="color:#999;font-size:10px">Organize money around your goals</span>
-    </div>
+<main id="spaces" class="screen">
 
-    <button class="icon-btn" data-action="create-space">+</button>
+  <div class="section-head" style="margin-top:5px">
+    <h2 style="font-size:25px">Spaces</h2>
+    <button data-action="create-space">＋ Create</button>
   </div>
+
+  <p style="font-size:11px;color:var(--muted);margin-bottom:17px">
+    Put money aside for the things that matter.
+  </p>
 
   <div id="spacesList"></div>
 
-</section>
+</main>
 
 
 <!-- PROFILE -->
-<section class="screen" id="profileScreen">
 
-  <div class="page-title">Profile</div>
+<main id="profile" class="screen">
 
-  <div class="profile-card">
-    <div class="profile-avatar">NM</div>
+  <div class="profile-hero">
+    <div class="profile-big">N</div>
     <div>
       <strong>NOVA Member</strong>
-      <span>Personal account · Verified</span>
+      <small>Personal account · Active</small>
     </div>
   </div>
 
-  <div class="menu">
+  <div class="profile-section">
+    <h3>Account</h3>
 
-    <div class="menu-title">Account</div>
+    <div class="profile-menu">
 
-    <button class="menu-item" data-action="profile-personal">
-      <div class="menu-icon">◉</div>
-      <div>
-        <strong>Personal information</strong>
-        <span>Name, email and details</span>
-      </div>
-      <div class="chevron">›</div>
-    </button>
+      <button class="profile-row" data-action="personal">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 21c0-4 3-7 8-7s8 3 8 7"/>
+        </svg>
+        <span>Personal information</span>
+        <em>›</em>
+      </button>
 
-    <button class="menu-item" data-action="profile-security">
-      <div class="menu-icon">⌁</div>
-      <div>
-        <strong>Security</strong>
-        <span>Passcode and authentication</span>
-      </div>
-      <div class="chevron">›</div>
-    </button>
+      <button class="profile-row" data-action="security">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="5" y="10" width="14" height="10" rx="2"/>
+          <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+        </svg>
+        <span>Security</span>
+        <em>›</em>
+      </button>
 
-    <button class="menu-item" data-action="profile-preferences">
-      <div class="menu-icon">☼</div>
-      <div>
-        <strong>Preferences</strong>
-        <span>Notifications and appearance</span>
-      </div>
-      <div class="chevron">›</div>
-    </button>
-
+    </div>
   </div>
 
-  <div class="menu">
+  <div class="profile-section">
+    <h3>Preferences</h3>
 
-    <div class="menu-title">Support</div>
+    <div class="profile-menu">
 
-    <button class="menu-item" data-action="support">
-      <div class="menu-icon">?</div>
-      <div>
-        <strong>Help & support</strong>
-        <span>Get help with NOVA</span>
-      </div>
-      <div class="chevron">›</div>
-    </button>
+      <button class="profile-row" data-action="theme">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"/>
+        </svg>
+        <span>Dark appearance</span>
+        <i class="switch" id="themeSwitch"><i></i></i>
+      </button>
 
-    <button class="menu-item" data-action="about">
-      <div class="menu-icon">N</div>
-      <div>
-        <strong>About NOVA</strong>
-        <span>Version 12.0 · Prototype</span>
-      </div>
-      <div class="chevron">›</div>
-    </button>
+      <button class="profile-row" data-action="notifications-settings">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+          <path d="M10 21h4"/>
+        </svg>
+        <span>Notifications</span>
+        <em>On</em>
+      </button>
 
+    </div>
   </div>
 
-</section>
+  <div class="profile-section">
+    <h3>Support</h3>
 
+    <div class="profile-menu">
 
-<!-- NAV -->
-<nav class="bottom-nav">
+      <button class="profile-row" data-action="help">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M9.5 9a2.5 2.5 0 1 1 4.2 1.8c-1.1.8-1.7 1.2-1.7 2.7"/>
+          <path d="M12 17h.01"/>
+        </svg>
+        <span>Help & support</span>
+        <em>›</em>
+      </button>
 
-  <button class="nav-btn active" data-screen="home">
-    <svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9h13v-9"/><path d="M9.5 19v-5h5v5"/></svg>
-    <span>Home</span>
-  </button>
+      <button class="profile-row" data-action="about">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M12 11v5M12 8h.01"/>
+        </svg>
+        <span>About NOVA</span>
+        <em>v13.0</em>
+      </button>
 
-  <button class="nav-btn" data-screen="activity">
-    <svg viewBox="0 0 24 24"><path d="M5 19V9"/><path d="M12 19V5"/><path d="M19 19v-7"/></svg>
-    <span>Activity</span>
-  </button>
+    </div>
+  </div>
 
-  <button class="nav-btn" data-screen="cards">
-    <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
-    <span>Cards</span>
-  </button>
-
-  <button class="nav-btn" data-screen="spaces">
-    <svg viewBox="0 0 24 24"><path d="M4 7h16v12H4z"/><path d="M8 7V5h8v2"/><path d="M8 12h8"/></svg>
-    <span>Spaces</span>
-  </button>
-
-  <button class="nav-btn" data-screen="profile">
-    <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5 20c.8-3.6 3.1-5.5 7-5.5s6.2 1.9 7 5.5"/></svg>
-    <span>Profile</span>
-  </button>
-
-</nav>
+</main>
 
 </div>
 
 
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+  <button class="nav-btn active" data-screen="home">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M3 11.5 12 4l9 7.5"/>
+      <path d="M5 10v10h14V10"/>
+    </svg>
+    Home
+  </button>
+
+  <button class="nav-btn" data-screen="activity">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M5 12h14M5 6h14M5 18h9"/>
+    </svg>
+    Activity
+  </button>
+
+  <button class="nav-btn" data-screen="cards">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <rect x="3" y="5" width="18" height="14" rx="3"/>
+      <path d="M3 10h18"/>
+    </svg>
+    Cards
+  </button>
+
+  <button class="nav-btn" data-screen="spaces">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="8"/>
+      <path d="M12 8v8M8 12h8"/>
+    </svg>
+    Spaces
+  </button>
+
+  <button class="nav-btn" data-screen="profile">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M4 21c0-4 3-7 8-7s8 3 8 7"/>
+    </svg>
+    Profile
+  </button>
+
+</nav>
+
+
 <!-- MODAL -->
+
 <div class="modal" id="modal">
-
-  <div class="sheet" id="modalContent"></div>
-
+  <div class="modal-card" id="modalCard"></div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 
 <script>
+/* =========================================================
+   NOVA v13
+   Front-end prototype only.
+   No real banking/payment/security APIs are connected.
+========================================================= */
+
 const defaultState = {
   balance:24860.40,
   balanceVisible:true,
   frozen:false,
-  revealed:false,
+  dark:false,
   filter:"all",
+  search:"",
+  limit:100000,
 
-  transactions:[
+  cards:[
     {
-      id:"TX-902184",
-      merchant:"Blue Bottle Coffee",
-      amount:-8.40,
-      category:"Payment",
-      date:"Today · 10:42 AM",
-      method:"NOVA Card",
-      location:"Downtown",
-      icon:"BC"
+      id:1,
+      name:"NOVA Virtual",
+      type:"VIRTUAL",
+      number:"5398  ••••  ••••  2841",
+      full:"5398 4218 7631 2841",
+      expiry:"09/29",
+      cvv:"428",
+      color:""
     },
     {
-      id:"TX-902183",
-      merchant:"Salary deposit",
-      amount:4280,
-      category:"Income",
-      date:"Yesterday · 9:00 AM",
-      method:"Bank transfer",
-      location:"Direct deposit",
-      icon:"$"
+      id:2,
+      name:"NOVA Travel",
+      type:"TRAVEL",
+      number:"4421  ••••  ••••  7112",
+      full:"4421 8902 3176 7112",
+      expiry:"03/30",
+      cvv:"816",
+      color:"blue"
     },
     {
-      id:"TX-902182",
-      merchant:"Apartment rent",
-      amount:-1420,
-      category:"Payment",
-      date:"Aug 30 · 8:10 AM",
-      method:"Bank transfer",
-      location:"Monthly rent",
-      icon:"AR"
-    },
-    {
-      id:"TX-902181",
-      merchant:"NOVA Travel",
-      amount:-250,
-      category:"Spaces",
-      date:"Aug 28 · 4:21 PM",
-      method:"NOVA Space",
-      location:"Travel fund",
-      icon:"NT"
-    },
-    {
-      id:"TX-902180",
-      merchant:"Uber",
-      amount:-22.60,
-      category:"Payment",
-      date:"Aug 27 · 7:31 PM",
-      method:"NOVA Card",
-      location:"San Francisco",
-      icon:"U"
+      id:3,
+      name:"NOVA Reserve",
+      type:"RESERVE",
+      number:"3764  ••••  ••••  9018",
+      full:"3764 2189 6402 9018",
+      expiry:"11/30",
+      cvv:"237",
+      color:"gold"
     }
   ],
 
+  transactions:[
+    {
+      id:1,
+      title:"Uber",
+      category:"Transport",
+      date:"Today · 10:42 AM",
+      amount:-2450,
+      icon:"car",
+      method:"NOVA Virtual",
+      location:"Lagos",
+      status:"Completed"
+    },
+    {
+      id:2,
+      title:"Salary",
+      category:"Income",
+      date:"Yesterday · 9:10 AM",
+      amount:125000,
+      icon:"income",
+      method:"Bank transfer",
+      location:"NOVA",
+      status:"Completed"
+    },
+    {
+      id:3,
+      title:"Netflix",
+      category:"Entertainment",
+      date:"Aug 31 · 7:20 PM",
+      amount:-4400,
+      icon:"play",
+      method:"NOVA Virtual",
+      location:"Online",
+      status:"Completed"
+    },
+    {
+      id:4,
+      title:"Aisha Bello",
+      category:"Transfer",
+      date:"Aug 30 · 4:18 PM",
+      amount:-15000,
+      icon:"person",
+      method:"NOVA Transfer",
+      location:"Lagos",
+      status:"Completed"
+    },
+    {
+      id:5,
+      title:"Shoprite",
+      category:"Shopping",
+      date:"Aug 29 · 5:44 PM",
+      amount:-9200,
+      icon:"shop",
+      method:"NOVA Card",
+      location:"Lagos",
+      status:"Completed"
+    },
+    {
+      id:6,
+      title:"Electricity",
+      category:"Bills",
+      date:"Aug 28 · 2:11 PM",
+      amount:-6300,
+      icon:"bolt",
+      method:"NOVA Pay",
+      location:"Lagos",
+      status:"Completed"
+    }
+  ],
+
+  contacts:[
+    {id:1,name:"Aisha Bello",initials:"AB"},
+    {id:2,name:"David Cole",initials:"DC"},
+    {id:3,name:"Maya James",initials:"MJ"},
+    {id:4,name:"Tobi Ade",initials:"TA"},
+    {id:5,name:"Daniel O.",initials:"DO"}
+  ],
+
   spaces:[
-    {name:"Rent",emoji:"⌂",saved:2800,target:4000},
-    {name:"Travel",emoji:"✈",saved:1220,target:3000},
-    {name:"Business",emoji:"◈",saved:740,target:5000}
+    {
+      id:1,
+      name:"New MacBook",
+      target:250000,
+      saved:145000,
+      icon:"⌘"
+    },
+    {
+      id:2,
+      name:"Holiday",
+      target:180000,
+      saved:72000,
+      icon:"✦"
+    },
+    {
+      id:3,
+      name:"Emergency",
+      target:500000,
+      saved:220000,
+      icon:"◆"
+    }
   ],
 
   notifications:[
     {
-      title:"Salary received",
-      text:"$4,280 has been added to your account.",
+      id:1,
+      title:"Transfer completed",
+      text:"Your transfer to Aisha Bello was completed.",
+      time:"12 min ago",
       unread:true
     },
     {
-      title:"Spending insight",
-      text:"You're spending less than your weekly average.",
+      id:2,
+      title:"Card payment",
+      text:"₦2,450 was spent at Uber.",
+      time:"1 hr ago",
       unread:true
     },
     {
-      title:"New sign-in",
-      text:"A new device signed in to your NOVA prototype.",
+      id:3,
+      title:"NOVA Insight",
+      text:"Your spending is down 12% this week.",
+      time:"Yesterday",
+      unread:false
+    },
+    {
+      id:4,
+      title:"Welcome to NOVA",
+      text:"Your new financial dashboard is ready.",
+      time:"2 days ago",
       unread:false
     }
   ]
 };
 
 let state = loadState();
-let activeScreen = "home";
-let selectedRecipient = "";
-
+let selectedCard = 0;
+let currentSend = {};
+let currentSpace = null;
 
 function loadState(){
-
   try{
+    const v13 = localStorage.getItem("nova-v13-state");
+    if(v13) return {...defaultState,...JSON.parse(v13)};
 
-    const old = localStorage.getItem("nova-v12-state");
-
-    if(old){
-      return {...defaultState,...JSON.parse(old)};
-    }
-
-    const previous = localStorage.getItem("nova-v11-state");
-
-    if(previous){
-      const parsed = JSON.parse(previous);
-
-      const migrated = {
+    const v12 = localStorage.getItem("nova-v12-state");
+    if(v12){
+      const old = JSON.parse(v12);
+      return {
         ...defaultState,
-        ...parsed,
-        filter:"all"
+        ...old,
+        dark:false
       };
-
-      localStorage.setItem(
-        "nova-v12-state",
-        JSON.stringify(migrated)
-      );
-
-      return migrated;
     }
 
-  }catch(e){}
-
-  return structuredClone(defaultState);
+    return structuredClone(defaultState);
+  }catch(e){
+    return structuredClone(defaultState);
+  }
 }
 
-
-function saveState(){
-  localStorage.setItem(
-    "nova-v12-state",
-    JSON.stringify(state)
-  );
+function save(){
+  localStorage.setItem("nova-v13-state",JSON.stringify(state));
 }
 
-
-function money(value){
-
-  return new Intl.NumberFormat("en-US",{
+function money(n){
+  return new Intl.NumberFormat("en-NG",{
     style:"currency",
-    currency:"USD"
-  }).format(Math.abs(value));
+    currency:"NGN",
+    minimumFractionDigits:2
+  }).format(Math.abs(n)).replace("NGN","₦");
+}
 
+function icon(type){
+  const icons={
+    car:`<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 17h14l1-5-2-5H6l-2 5 1 5Z"/><circle cx="7" cy="17" r="1"/><circle cx="17" cy="17" r="1"/></svg>`,
+    income:`<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>`,
+    play:`<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="m10 8 6 4-6 4V8Z"/></svg>`,
+    person:`<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/></svg>`,
+    shop:`<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 10h16l-1-5H5l-1 5Z"/><path d="M5 10v9h14v-9M9 19v-5h6v5"/></svg>`,
+    bolt:`<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"/></svg>`,
+    search:`<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>`,
+    bell:`<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>`,
+    check:`<svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></svg>`
+  };
+
+  return icons[type] || icons.person;
 }
 
 
-function renderBalance(){
+/* SCREEN NAVIGATION */
 
-  const el = document.getElementById("balanceValue");
+function showScreen(name){
+  document.querySelectorAll(".screen").forEach(s=>{
+    s.classList.toggle("active",s.id===name);
+  });
 
-  if(!state.balanceVisible){
-    el.textContent = "$ ••••••";
-    return;
+  document.querySelectorAll(".nav-btn").forEach(b=>{
+    b.classList.toggle("active",b.dataset.screen===name);
+  });
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+
+/* RENDER */
+
+function renderAll(){
+
+  document.body.classList.toggle("dark",state.dark);
+
+  const balance=document.getElementById("balanceDisplay");
+
+  if(state.balanceVisible){
+    balance.textContent=money(state.balance);
+  }else{
+    balance.textContent="₦••••••";
   }
 
-  el.textContent = money(state.balance);
+  const switcher=document.getElementById("themeSwitch");
+  if(switcher) switcher.classList.toggle("on",state.dark);
 
+  renderRecipients();
+  renderTransactions();
+  renderCards();
+  renderSpaces();
+  renderNotificationDot();
+
+  document.querySelectorAll(".filter").forEach(b=>{
+    b.classList.toggle("active",b.dataset.filter===state.filter);
+  });
+
+  save();
 }
 
 
-function txHTML(tx){
+function renderRecipients(){
 
-  return `
-    <button class="transaction"
-      data-action="detail"
-      data-id="${tx.id}">
+  const box=document.getElementById("recentRecipients");
 
-      <div class="tx-icon">${tx.icon}</div>
-
-      <div class="tx-info">
-        <strong>${tx.merchant}</strong>
-        <span>${tx.category} · ${tx.date}</span>
-      </div>
-
-      <div class="tx-amount ${tx.amount > 0 ? "positive":""}">
-        ${tx.amount > 0 ? "+" : "-"}${money(tx.amount)}
-      </div>
-
+  let html=`
+    <button class="person add" data-action="contacts">
+      <div class="person-avatar">＋</div>
+      <div class="person-name">New</div>
     </button>
   `;
 
+  state.contacts.slice(0,5).forEach(c=>{
+    html+=`
+      <button class="person" data-contact="${c.id}">
+        <div class="person-avatar">${c.initials}</div>
+        <div class="person-name">${c.name.split(" ")[0]}</div>
+      </button>
+    `;
+  });
+
+  box.innerHTML=html;
+}
+
+
+function transactionHTML(t){
+
+  const sign=t.amount>=0?"+":"−";
+
+  return `
+    <button class="transaction" data-transaction="${t.id}">
+      <div class="tx-icon">${icon(t.icon)}</div>
+
+      <div class="tx-info">
+        <strong>${t.title}</strong>
+        <small>${t.category} · ${t.date}</small>
+      </div>
+
+      <div class="tx-amount ${t.amount>=0?"in":"out"}">
+        ${sign}${money(t.amount)}
+        <span class="status">${t.status}</span>
+      </div>
+    </button>
+  `;
+}
+
+
+function filteredTransactions(){
+
+  let list=[...state.transactions];
+
+  if(state.filter==="payments"){
+    list=list.filter(t=>t.amount<0);
+  }
+
+  if(state.filter==="income"){
+    list=list.filter(t=>t.amount>0);
+  }
+
+  if(state.filter==="spaces"){
+    list=list.filter(t=>t.category==="Space");
+  }
+
+  const q=state.search.trim().toLowerCase();
+
+  if(q){
+    list=list.filter(t=>
+      t.title.toLowerCase().includes(q) ||
+      t.category.toLowerCase().includes(q) ||
+      String(Math.abs(t.amount)).includes(q) ||
+      t.method.toLowerCase().includes(q)
+    );
+  }
+
+  return list;
 }
 
 
 function renderTransactions(){
 
-  const filtered = state.transactions.filter(tx=>{
+  const home=document.getElementById("homeTransactions");
+  const activity=document.getElementById("activityTransactions");
+  const card=document.getElementById("cardTransactions");
 
-    if(state.filter==="payments")
-      return tx.category==="Payment";
+  home.innerHTML=state.transactions.slice(0,4).map(transactionHTML).join("");
 
-    if(state.filter==="income")
-      return tx.category==="Income";
+  const list=filteredTransactions();
 
-    if(state.filter==="spaces")
-      return tx.category==="Spaces";
+  activity.innerHTML=list.length
+    ? list.map(transactionHTML).join("")
+    : `
+      <div class="empty">
+        <div class="empty-icon">${icon("search")}</div>
+        <p>No transactions found.</p>
+      </div>
+    `;
 
-    return true;
-
-  });
-
-  const html = filtered.map(txHTML).join("");
-
-  document.getElementById("homeTransactions").innerHTML =
-    state.transactions.slice(0,3).map(txHTML).join("");
-
-  document.getElementById("activityTransactions").innerHTML =
-    html || `<div class="empty">No transactions found.</div>`;
-
-  document.getElementById("cardTransactions").innerHTML =
-    state.transactions
-      .filter(x=>x.method==="NOVA Card")
-      .map(txHTML)
-      .join("");
-
+  card.innerHTML=state.transactions
+    .filter(t=>t.method.includes("Card") || t.method.includes("Virtual"))
+    .map(transactionHTML)
+    .join("");
 }
 
 
-function renderSpaces(){
+/* CARDS */
 
-  const container = document.getElementById("spacesList");
+function renderCards(){
 
-  container.innerHTML = state.spaces.map((space,index)=>{
+  const box=document.getElementById("cardScroll");
 
-    const percent =
-      Math.min(
-        100,
-        Math.round((space.saved / space.target)*100)
-      );
+  box.innerHTML=state.cards.map((c,i)=>{
+
+    const frozen=state.frozen && i===selectedCard;
 
     return `
-      <div class="space">
+      <div class="nova-card ${i===selectedCard?"selected":""}" data-card="${i}">
+        <div class="card-inner">
+
+          <div class="card-face card-front ${c.color}">
+
+            <div class="card-logo">NOVA</div>
+            <div class="card-type">${c.type}</div>
+
+            <div class="chip"></div>
+
+            <div class="card-number">
+              ${state.cards[i].revealed ? c.full : c.number}
+            </div>
+
+            <div class="card-meta">
+              <div>
+                CARDHOLDER
+                <strong>NOVA MEMBER</strong>
+              </div>
+              <div>
+                EXPIRES
+                <strong>${c.expiry}</strong>
+              </div>
+              <div>
+                STATUS
+                <strong>${frozen?"FROZEN":"ACTIVE"}</strong>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="card-face card-back">
+
+            <div class="card-logo">NOVA</div>
+
+            <div class="magnetic"></div>
+
+            <div class="cvv">CVV · ${state.cards[i].revealed?c.cvv:"•••"}</div>
+
+            <p>
+              This card is a NOVA prototype interface.
+              No real card number or payment credentials are active.
+            </p>
+
+          </div>
+
+        </div>
+      </div>
+    `;
+
+  }).join("");
+
+  const freeze=document.getElementById("freezeBtn");
+
+  if(freeze){
+    freeze.textContent=state.frozen?"🔓 Unfreeze":"❄ Freeze";
+  }
+}
+
+
+/* SPACES */
+
+function renderSpaces(){
+
+  const box=document.getElementById("spacesList");
+
+  box.innerHTML=state.spaces.map(s=>{
+
+    const percent=Math.min(100,(s.saved/s.target)*100);
+
+    return `
+      <div class="space-card">
 
         <div class="space-head">
 
-          <div class="space-name">
+          <div class="space-icon">${s.icon}</div>
 
-            <div class="space-icon">
-              ${space.emoji}
-            </div>
-
-            <div>
-              <strong>${space.name}</strong>
-              <span>Goal · ${percent}% complete</span>
-            </div>
-
+          <div>
+            <strong>${s.name}</strong>
+            <small>${Math.round(percent)}% of target</small>
           </div>
 
-          <div class="space-total">
-            ${money(space.saved)}
+          <div class="space-amount">
+            <strong>${money(s.saved)}</strong>
+            <small>of ${money(s.target)}</small>
           </div>
 
         </div>
 
-        <div class="progress">
-          <div class="progress-fill"
-            style="width:${percent}%"></div>
+        <div class="space-progress">
+          <i style="width:${percent}%"></i>
         </div>
 
-        <div class="space-foot">
-          <span>${money(space.saved)} saved</span>
-          <span>${money(space.target)} goal</span>
-        </div>
-
-        <div class="space-buttons">
-          <button
-            class="small-btn primary"
-            data-action="add-space"
-            data-index="${index}">
-            Add money
-          </button>
-
-          <button
-            class="small-btn"
-            data-action="space-detail"
-            data-index="${index}">
-            Details
-          </button>
+        <div class="space-actions">
+          <button class="small-action" data-space-add="${s.id}">＋ Add money</button>
+          <button class="small-action" data-space-detail="${s.id}">Details</button>
         </div>
 
       </div>
     `;
 
   }).join("");
-
 }
 
 
-function renderFilters(){
+function renderNotificationDot(){
 
-  document.querySelectorAll(".filter").forEach(btn=>{
-    btn.classList.toggle(
-      "active",
-      btn.dataset.filter===state.filter
-    );
-  });
+  const dot=document.getElementById("notificationDot");
 
+  const unread=state.notifications.some(n=>n.unread);
+
+  if(dot) dot.style.display=unread?"block":"none";
 }
 
 
-function renderNotifications(){
+/* MODALS */
 
-  const unread =
-    state.notifications.filter(n=>n.unread).length;
-
-  document.getElementById("notificationDot").style.display =
-    unread ? "block" : "none";
-
-}
-
-
-function renderAll(){
-
-  renderBalance();
-  renderTransactions();
-  renderSpaces();
-  renderFilters();
-  renderNotifications();
-
-  saveState();
-
-}
-
-
-function switchScreen(screen){
-
-  activeScreen = screen;
-
-  document.querySelectorAll(".screen").forEach(s=>{
-    s.classList.remove("active");
-  });
-
-  const target =
-    document.getElementById(screen+"Screen");
-
-  if(target){
-    target.classList.add("active");
-  }
-
-  document.querySelectorAll(".nav-btn").forEach(btn=>{
-    btn.classList.toggle(
-      "active",
-      btn.dataset.screen===screen
-    );
-  });
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
-
-function showToast(message){
-
-  const toast =
-    document.getElementById("toast");
-
-  toast.textContent = message;
-  toast.classList.add("show");
-
-  clearTimeout(window.toastTimer);
-
-  window.toastTimer =
-    setTimeout(()=>{
-      toast.classList.remove("show");
-    },2300);
-
-}
-
+const modal=document.getElementById("modal");
+const modalCard=document.getElementById("modalCard");
 
 function openModal(content){
 
-  document.getElementById("modalContent").innerHTML =
-    `<div class="handle"></div>${content}`;
+  modalCard.innerHTML=`
+    <div class="grabber"></div>
+    ${content}
+  `;
 
-  document.getElementById("modal").classList.add("show");
-
+  modal.classList.add("show");
+  document.body.style.overflow="hidden";
 }
-
 
 function closeModal(){
 
-  document.getElementById("modal").classList.remove("show");
+  modal.classList.remove("show");
+  document.body.style.overflow="";
+}
 
+function modalHeader(title){
+
+  return `
+    <div class="modal-head">
+      <h2>${title}</h2>
+      <button class="close" data-close>×</button>
+    </div>
+  `;
 }
 
 
-function openSend(recipient=""){
+/* SEND */
 
-  selectedRecipient = recipient;
+function openSend(contact=null){
+
+  currentSend={
+    contact:contact || null,
+    amount:"",
+    note:""
+  };
 
   openModal(`
-
-    <button class="close" data-action="close">×</button>
-
-    <h3>Send money</h3>
+    ${modalHeader("Send money")}
 
     ${
-      recipient
+      contact
       ?
-      `<div class="recipient-preview">
-        <div class="avatar">
-          ${recipient.split(" ").map(x=>x[0]).join("").slice(0,2)}
-        </div>
+      `
+      <div class="send-recipient">
+        <div class="person-avatar">${contact.initials}</div>
         <div>
-          <strong>${recipient}</strong>
-          <span>Recent recipient</span>
+          <strong>${contact.name}</strong>
+          <small>NOVA recipient</small>
         </div>
-      </div>`
-      :""
+      </div>
+      `
+      :
+      `
+      <label class="form-label">Recipient</label>
+      <input class="input" id="sendRecipient" placeholder="Name or account number">
+      `
     }
 
-    <div class="field">
-      <label>Recipient</label>
-      <input
-        id="sendRecipient"
-        value="${recipient}"
-        placeholder="Name or email">
-    </div>
+    <label class="form-label">Amount</label>
+    <input class="input" id="sendAmount" type="number" inputmode="decimal" placeholder="₦0.00">
 
-    <div class="field">
-      <label>Amount</label>
-      <input
-        id="sendAmount"
-        class="amount-input"
-        inputmode="decimal"
-        placeholder="$0.00">
-    </div>
+    <label class="form-label">Note</label>
+    <input class="input" id="sendNote" placeholder="What's this for?">
 
-    <div class="field">
-      <label>Note</label>
-      <input
-        id="sendNote"
-        placeholder="What's it for?">
-    </div>
-
-    <button class="primary-btn"
-      data-action="review-send">
-      Continue
-    </button>
-
+    <button class="primary" data-action="review-send">Review transfer</button>
   `);
-
 }
 
 
 function reviewSend(){
 
-  const recipient =
-    document.getElementById("sendRecipient").value.trim();
+  const amount=Number(document.getElementById("sendAmount")?.value||0);
+  const note=document.getElementById("sendNote")?.value||"";
 
-  const amount =
-    Number(document.getElementById("sendAmount").value);
-
-  const note =
-    document.getElementById("sendNote").value.trim();
-
-  if(!recipient){
-    showToast("Enter a recipient");
-    return;
-  }
+  let recipient=currentSend.contact?.name ||
+    document.getElementById("sendRecipient")?.value ||
+    "NOVA recipient";
 
   if(!amount || amount<=0){
-    showToast("Enter a valid amount");
+    toast("Enter an amount first");
     return;
   }
 
   if(amount>state.balance){
-    showToast("Not enough available balance");
+    toast("Insufficient demo balance");
     return;
   }
 
+  currentSend.amount=amount;
+  currentSend.note=note;
+  currentSend.recipient=recipient;
+
   openModal(`
+    ${modalHeader("Review transfer")}
 
-    <button class="close" data-action="send">×</button>
-
-    <h3>Review transfer</h3>
-
-    <div class="recipient-preview">
-
-      <div class="avatar">
-        ${recipient.split(" ").map(x=>x[0]).join("").slice(0,2)}
-      </div>
-
-      <div>
-        <strong>${recipient}</strong>
-        <span>${note || "Personal transfer"}</span>
-      </div>
-
+    <div style="text-align:center;padding:8px 0 22px">
+      <div style="color:var(--muted);font-size:11px">You're sending</div>
+      <div class="amount-large">${money(amount)}</div>
+      <div style="font-size:12px;font-weight:700;margin-top:5px">${recipient}</div>
     </div>
 
-    <div style="
-      text-align:center;
-      padding:10px 0 20px;
-    ">
-      <div style="
-        color:#999;
-        font-size:10px;
-      ">
-        You're sending
+    <div class="receipt">
+
+      <div class="receipt-row">
+        <span>Recipient</span>
+        <span>${recipient}</span>
       </div>
 
-      <div style="
-        font-family:'Space Grotesk';
-        font-size:32px;
-        font-weight:700;
-        margin-top:4px;
-      ">
-        ${money(amount)}
-      </div>
-    </div>
-
-    <div class="detail-list">
-
-      <div class="detail-row">
-        <span>From</span>
-        <strong>NOVA balance</strong>
+      <div class="receipt-row">
+        <span>Amount</span>
+        <span>${money(amount)}</span>
       </div>
 
-      <div class="detail-row">
+      <div class="receipt-row">
         <span>Fee</span>
-        <strong>$0.00</strong>
+        <span>₦0.00</span>
       </div>
 
-      <div class="detail-row">
-        <span>Total</span>
-        <strong>${money(amount)}</strong>
+      <div class="receipt-row">
+        <span>Note</span>
+        <span>${note||"—"}</span>
       </div>
 
     </div>
 
-    <button
-      class="primary-btn"
-      data-action="confirm-send"
-      data-recipient="${recipient}"
-      data-amount="${amount}">
+    <button class="primary" style="margin-top:15px" data-action="confirm-send">
       Confirm transfer
     </button>
 
+    <button class="secondary" data-action="send-back">
+      Go back
+    </button>
   `);
-
 }
 
 
-function confirmSend(recipient,amount){
+function confirmSend(){
 
-  state.balance -= amount;
+  const amount=currentSend.amount;
 
-  state.transactions.unshift({
+  state.balance-=amount;
 
-    id:"TX-"+Math.floor(100000+Math.random()*899999),
-
-    merchant:recipient,
-
-    amount:-amount,
-
-    category:"Payment",
-
+  const newTx={
+    id:Date.now(),
+    title:currentSend.recipient,
+    category:"Transfer",
     date:"Just now",
+    amount:-amount,
+    icon:"person",
+    method:"NOVA Transfer",
+    location:"NOVA",
+    status:"Completed"
+  };
 
-    method:"NOVA balance",
+  state.transactions.unshift(newTx);
 
-    location:"Personal transfer",
-
-    icon:recipient
-      .split(" ")
-      .map(x=>x[0])
-      .join("")
-      .slice(0,2)
-      .toUpperCase()
-
+  state.notifications.unshift({
+    id:Date.now()+1,
+    title:"Transfer completed",
+    text:`${money(amount)} was sent to ${currentSend.recipient}.`,
+    time:"Just now",
+    unread:true
   });
 
-  saveState();
+  save();
   renderAll();
 
   openModal(`
+    <div class="success">
 
-    <div style="
-      text-align:center;
-      padding:25px 5px 10px;
-    ">
-
-      <div style="
-        width:70px;
-        height:70px;
-        border-radius:24px;
-        background:#eaf9f2;
-        color:#18a873;
-        display:grid;
-        place-items:center;
-        margin:0 auto 16px;
-        font-size:28px;
-      ">
-        ✓
+      <div class="success-ring">
+        ${icon("check")}
       </div>
 
-      <h3 style="margin-bottom:7px">
-        Transfer complete
-      </h3>
+      <h2>Transfer complete</h2>
 
-      <p style="
-        color:#888;
-        font-size:11px;
-        line-height:1.5;
-      ">
-        ${money(amount)} was sent to ${recipient}.
-      </p>
+      <p>Your money has been sent successfully.</p>
 
-      <button
-        class="primary-btn"
-        data-action="close">
+      <div class="amount-large">${money(amount)}</div>
+
+      <p style="margin-top:4px">${currentSend.recipient}</p>
+
+      <button class="primary" style="margin-top:25px" data-close>
         Done
       </button>
 
     </div>
-
   `);
 
+  toast("Transfer completed");
 }
 
+
+/* CONTACTS */
+
+function openContacts(){
+
+  openModal(`
+    ${modalHeader("Contacts")}
+
+    <div class="search-box" style="margin:0 0 13px">
+      ${icon("search")}
+      <input id="contactSearch" placeholder="Search contacts">
+    </div>
+
+    <div id="contactList">
+      ${contactsHTML(state.contacts)}
+    </div>
+  `);
+
+  setTimeout(()=>{
+    const input=document.getElementById("contactSearch");
+
+    if(input){
+      input.addEventListener("input",e=>{
+        const q=e.target.value.toLowerCase();
+
+        const filtered=state.contacts.filter(c=>
+          c.name.toLowerCase().includes(q)
+        );
+
+        document.getElementById("contactList").innerHTML=
+          contactsHTML(filtered);
+      });
+    }
+  },20);
+}
+
+
+function contactsHTML(list){
+
+  if(!list.length){
+    return `
+      <div class="empty">
+        <div class="empty-icon">⌕</div>
+        <p>No contacts found.</p>
+      </div>
+    `;
+  }
+
+  return list.map(c=>`
+    <button class="transaction" data-contact="${c.id}">
+      <div class="person-avatar" style="width:44px;height:44px;border-radius:15px">
+        ${c.initials}
+      </div>
+
+      <div class="tx-info">
+        <strong>${c.name}</strong>
+        <small>NOVA recipient</small>
+      </div>
+
+      <div style="color:var(--purple);font-size:18px">›</div>
+    </button>
+  `).join("");
+}
+
+
+/* REQUEST */
 
 function openRequest(){
 
   openModal(`
+    ${modalHeader("Request money")}
 
-    <button class="close" data-action="close">×</button>
+    <label class="form-label">From</label>
+    <input class="input" id="requestFrom" placeholder="Name or account">
 
-    <h3>Request money</h3>
+    <label class="form-label">Amount</label>
+    <input class="input" id="requestAmount" type="number" placeholder="₦0.00">
 
-    <div class="field">
-      <label>From</label>
-      <input id="requestFrom" placeholder="Name or email">
-    </div>
+    <label class="form-label">Message</label>
+    <input class="input" id="requestNote" placeholder="Optional message">
 
-    <div class="field">
-      <label>Amount</label>
-      <input
-        id="requestAmount"
-        class="amount-input"
-        inputmode="decimal"
-        placeholder="$0.00">
-    </div>
-
-    <div class="field">
-      <label>Reason</label>
-      <input id="requestReason" placeholder="Dinner, rent, etc.">
-    </div>
-
-    <button
-      class="primary-btn"
-      data-action="submit-request">
+    <button class="primary" data-action="request-submit">
       Create request
     </button>
-
   `);
-
 }
 
+
+function submitRequest(){
+
+  const amount=Number(document.getElementById("requestAmount")?.value||0);
+  const person=document.getElementById("requestFrom")?.value||"Contact";
+
+  if(!amount){
+    toast("Enter an amount");
+    return;
+  }
+
+  closeModal();
+
+  toast(`Request for ${money(amount)} created`);
+}
+
+
+/* PAY */
 
 function openPay(){
 
   openModal(`
+    ${modalHeader("Pay")}
 
-    <button class="close" data-action="close">×</button>
-
-    <h3>Pay</h3>
-
-    <div class="field">
-      <label>Merchant</label>
-      <input id="payMerchant" placeholder="Merchant name">
+    <div style="text-align:center;padding:10px 0 20px">
+      <div style="width:75px;height:75px;border-radius:23px;background:var(--surface2);display:grid;place-items:center;margin:auto;font-size:34px">
+        ▦
+      </div>
+      <p style="font-size:11px;color:var(--muted);margin-top:12px">
+        Scan a merchant code or enter payment details.
+      </p>
     </div>
 
-    <div class="field">
-      <label>Amount</label>
-      <input
-        id="payAmount"
-        class="amount-input"
-        inputmode="decimal"
-        placeholder="$0.00">
-    </div>
+    <input class="input" placeholder="Merchant or payment reference">
 
-    <div class="field">
-      <label>Category</label>
-      <input id="payCategory" placeholder="Food, travel, shopping...">
-    </div>
+    <input class="input" type="number" placeholder="Amount">
 
-    <button
-      class="primary-btn"
-      data-action="submit-pay">
-      Pay now
+    <button class="primary" data-action="pay-submit">
+      Continue
     </button>
-
   `);
-
 }
 
+
+/* ADD MONEY */
 
 function openAdd(){
 
   openModal(`
+    ${modalHeader("Add money")}
 
-    <button class="close" data-action="close">×</button>
+    <label class="form-label">Amount</label>
+    <input class="input" id="addAmount" type="number" placeholder="₦0.00">
 
-    <h3>Add money</h3>
+    <label class="form-label">Funding source</label>
 
-    <div class="field">
-      <label>Amount</label>
-      <input
-        id="addAmount"
-        class="amount-input"
-        inputmode="decimal"
-        placeholder="$0.00">
-    </div>
+    <button class="secondary" style="margin:0 0 9px;text-align:left;padding-left:15px">
+      ◉ NOVA linked account
+    </button>
 
-    <div class="field">
-      <label>Funding source</label>
-      <input
-        value="Linked bank account"
-        readonly>
-    </div>
+    <button class="secondary" style="text-align:left;padding-left:15px">
+      ＋ Add another source
+    </button>
 
-    <button
-      class="primary-btn"
-      data-action="submit-add">
+    <button class="primary" style="margin-top:15px" data-action="add-submit">
       Add money
     </button>
-
   `);
-
 }
 
 
-function openDetail(id){
+function submitAdd(){
 
-  const tx =
-    state.transactions.find(x=>x.id===id);
+  const amount=Number(document.getElementById("addAmount")?.value||0);
 
-  if(!tx) return;
+  if(!amount){
+    toast("Enter an amount");
+    return;
+  }
+
+  state.balance+=amount;
+
+  state.transactions.unshift({
+    id:Date.now(),
+    title:"Money added",
+    category:"Income",
+    date:"Just now",
+    amount,
+    icon:"income",
+    method:"NOVA linked account",
+    location:"NOVA",
+    status:"Completed"
+  });
+
+  state.notifications.unshift({
+    id:Date.now()+1,
+    title:"Money added",
+    text:`${money(amount)} was added to your balance.`,
+    time:"Just now",
+    unread:true
+  });
+
+  renderAll();
+  closeModal();
+
+  toast(`${money(amount)} added`);
+}
+
+
+/* TRANSACTION RECEIPT */
+
+function openTransaction(id){
+
+  const t=state.transactions.find(x=>x.id==id);
+
+  if(!t) return;
+
+  const sign=t.amount>=0?"+":"−";
 
   openModal(`
+    ${modalHeader("Transaction")}
 
-    <button class="close" data-action="close">×</button>
+    <div class="receipt">
 
-    <div class="detail-icon">
-      ${tx.icon}
-    </div>
+      <div class="receipt-top">
 
-    <div class="detail-amount">
-      ${tx.amount>0 ? "+" : "-"}${money(tx.amount)}
-    </div>
+        <div class="receipt-logo">NOVA</div>
 
-    <div class="detail-status">
-      Completed
-    </div>
+        <div class="receipt-status">
+          <span>●</span>
+          ${t.status}
+        </div>
 
-    <div style="
-      text-align:center;
-      font-size:13px;
-      font-weight:700;
-      margin-bottom:18px;
-    ">
-      ${tx.merchant}
-    </div>
+        <div class="receipt-amount">
+          ${sign}${money(t.amount)}
+        </div>
 
-    <div class="detail-list">
+        <div style="font-size:10px;color:var(--muted);margin-top:5px">
+          ${t.title}
+        </div>
 
-      <div class="detail-row">
+      </div>
+
+      <div class="receipt-row">
         <span>Transaction ID</span>
-        <strong>${tx.id}</strong>
+        <span>NOVA-${String(t.id).slice(-8)}</span>
       </div>
 
-      <div class="detail-row">
+      <div class="receipt-row">
         <span>Date</span>
-        <strong>${tx.date}</strong>
+        <span>${t.date}</span>
       </div>
 
-      <div class="detail-row">
+      <div class="receipt-row">
         <span>Category</span>
-        <strong>${tx.category}</strong>
+        <span>${t.category}</span>
       </div>
 
-      <div class="detail-row">
-        <span>Payment method</span>
-        <strong>${tx.method}</strong>
+      <div class="receipt-row">
+        <span>Method</span>
+        <span>${t.method}</span>
       </div>
 
-      <div class="detail-row">
+      <div class="receipt-row">
         <span>Location</span>
-        <strong>${tx.location}</strong>
+        <span>${t.location}</span>
+      </div>
+
+      <div class="receipt-row">
+        <span>Fee</span>
+        <span>₦0.00</span>
       </div>
 
     </div>
 
-    <button
-      class="primary-btn"
-      data-action="copy-id"
-      data-id="${tx.id}">
-      Copy transaction ID
+    <button class="secondary" data-action="share-receipt">
+      Share receipt
     </button>
 
-    <button
-      class="secondary-btn"
-      data-action="close">
-      Close
+    <button class="secondary" data-action="download-receipt">
+      Save receipt
     </button>
-
   `);
-
 }
 
+
+/* NOTIFICATIONS */
 
 function openNotifications(){
 
-  state.notifications.forEach(n=>{
-    n.unread=false;
-  });
-
-  saveState();
-  renderNotifications();
-
   openModal(`
+    ${modalHeader("Notifications")}
 
-    <button class="close" data-action="close">×</button>
+    <button style="width:100%;background:none;color:var(--purple);font-size:11px;font-weight:700;text-align:right;margin:-8px 0 10px" data-action="mark-read">
+      Mark all as read
+    </button>
 
-    <h3>Notifications</h3>
+    <div>
+      ${
+        state.notifications.length
+        ?
+        state.notifications.map(n=>`
+          <div class="notification ${n.unread?"unread":""}">
 
-    ${
-      state.notifications.map(n=>`
+            <div class="n-icon">${icon("bell")}</div>
 
-        <div class="notification">
+            <div>
+              <strong>${n.title}</strong>
+              <p>${n.text}</p>
+              <small>${n.time}</small>
+            </div>
 
-          <div class="n-icon">✦</div>
-
-          <div>
-            <strong>${n.title}</strong>
-            <p>${n.text}</p>
           </div>
-
-        </div>
-
-      `).join("")
-    }
-
+        `).join("")
+        :
+        `<div class="empty"><p>No notifications.</p></div>`
+      }
+    </div>
   `);
-
 }
 
+
+/* SEARCH */
 
 function openSearch(){
 
   openModal(`
+    ${modalHeader("Search NOVA")}
 
-    <button class="close" data-action="close">×</button>
-
-    <h3>Search NOVA</h3>
-
-    <div class="search-box">
-
-      <input
-        id="searchInput"
-        autofocus
-        placeholder="Search transactions...">
-
+    <div class="search-box" style="margin:0">
+      ${icon("search")}
+      <input id="globalSearch" placeholder="Search transactions...">
     </div>
 
-    <div id="searchResults"></div>
-
+    <div id="globalResults" style="margin-top:15px">
+      <div style="font-size:10px;color:var(--muted);padding:8px">
+        Try searching for Uber, Salary, Shopping or an amount.
+      </div>
+    </div>
   `);
 
-  document
-    .getElementById("searchInput")
-    .addEventListener("input",e=>{
+  setTimeout(()=>{
+    const input=document.getElementById("globalSearch");
 
-      const q =
-        e.target.value.toLowerCase().trim();
+    input?.addEventListener("input",e=>{
 
-      const results =
-        state.transactions.filter(tx=>
-          tx.merchant.toLowerCase().includes(q) ||
-          tx.category.toLowerCase().includes(q)
-        );
+      const q=e.target.value.toLowerCase();
 
-      document.getElementById("searchResults").innerHTML =
+      const results=state.transactions.filter(t=>
+        t.title.toLowerCase().includes(q) ||
+        t.category.toLowerCase().includes(q) ||
+        String(Math.abs(t.amount)).includes(q)
+      );
+
+      document.getElementById("globalResults").innerHTML=
         q
-        ? results.map(txHTML).join("") ||
-          `<div class="empty">No matches.</div>`
-        : `<div class="empty">Search your NOVA activity.</div>`;
-
+        ?
+        (results.length
+          ?results.map(transactionHTML).join("")
+          :`<div class="empty"><p>No matching transactions.</p></div>`)
+        :
+        `<div style="font-size:10px;color:var(--muted);padding:8px">
+          Start typing to search.
+        </div>`;
     });
 
+  },20);
 }
 
 
-function openCreateSpace(){
+/* SPACE */
+
+function createSpace(){
 
   openModal(`
+    ${modalHeader("Create a Space")}
 
-    <button class="close" data-action="close">×</button>
+    <label class="form-label">Space name</label>
+    <input class="input" id="spaceName" placeholder="e.g. New phone">
 
-    <h3>Create a Space</h3>
+    <label class="form-label">Target amount</label>
+    <input class="input" id="spaceTarget" type="number" placeholder="₦0.00">
 
-    <div class="field">
-      <label>Name</label>
-      <input id="spaceName" placeholder="Emergency fund">
-    </div>
-
-    <div class="field">
-      <label>Goal amount</label>
-      <input
-        id="spaceTarget"
-        inputmode="decimal"
-        placeholder="$5,000">
-    </div>
-
-    <div class="field">
-      <label>Icon</label>
-      <input id="spaceEmoji" value="✦">
-    </div>
-
-    <button
-      class="primary-btn"
-      data-action="submit-space">
+    <button class="primary" data-action="create-space-submit">
       Create Space
     </button>
-
   `);
-
 }
 
 
-function openAddSpace(index){
+function submitSpace(){
 
-  const space = state.spaces[index];
+  const name=document.getElementById("spaceName")?.value.trim();
+  const target=Number(document.getElementById("spaceTarget")?.value||0);
+
+  if(!name || !target){
+    toast("Complete the fields first");
+    return;
+  }
+
+  state.spaces.push({
+    id:Date.now(),
+    name,
+    target,
+    saved:0,
+    icon:"✦"
+  });
+
+  renderAll();
+  closeModal();
+  toast("Space created");
+}
+
+
+function addToSpace(id){
+
+  const s=state.spaces.find(x=>x.id==id);
+
+  if(!s)return;
+
+  currentSpace=id;
 
   openModal(`
+    ${modalHeader("Add to ${s.name}")}
 
-    <button class="close" data-action="close">×</button>
-
-    <h3>Add to ${space.name}</h3>
-
-    <div class="field">
-      <label>Amount</label>
-      <input
-        id="spaceAmount"
-        class="amount-input"
-        inputmode="decimal"
-        placeholder="$0.00">
+    <div style="text-align:center;padding:5px 0 18px">
+      <div style="font-size:11px;color:var(--muted)">Current progress</div>
+      <strong style="font-family:'Space Grotesk';font-size:21px">${money(s.saved)}</strong>
     </div>
 
-    <button
-      class="primary-btn"
-      data-action="submit-space-money"
-      data-index="${index}">
+    <label class="form-label">Amount</label>
+    <input class="input" id="spaceAddAmount" type="number" placeholder="₦0.00">
+
+    <button class="primary" data-action="space-add-submit">
       Add money
     </button>
-
   `);
-
 }
 
+
+function submitSpaceAdd(){
+
+  const s=state.spaces.find(x=>x.id==currentSpace);
+  const amount=Number(document.getElementById("spaceAddAmount")?.value||0);
+
+  if(!s || !amount){
+    toast("Enter an amount");
+    return;
+  }
+
+  if(amount>state.balance){
+    toast("Insufficient demo balance");
+    return;
+  }
+
+  state.balance-=amount;
+  s.saved+=amount;
+
+  state.transactions.unshift({
+    id:Date.now(),
+    title:s.name,
+    category:"Space",
+    date:"Just now",
+    amount:-amount,
+    icon:"bolt",
+    method:"NOVA Space",
+    location:"NOVA",
+    status:"Completed"
+  });
+
+  renderAll();
+  closeModal();
+
+  toast(`${money(amount)} moved to ${s.name}`);
+}
+
+
+function spaceDetails(id){
+
+  const s=state.spaces.find(x=>x.id==id);
+
+  if(!s)return;
+
+  const percent=Math.min(100,(s.saved/s.target)*100);
+  const remaining=Math.max(0,s.target-s.saved);
+
+  openModal(`
+    ${modalHeader(s.name)}
+
+    <div class="analytics">
+
+      <div style="text-align:center">
+        <div style="font-size:10px;color:var(--muted)">Saved so far</div>
+        <div style="font-family:'Space Grotesk';font-size:29px;margin-top:5px">
+          ${money(s.saved)}
+        </div>
+        <div style="font-size:10px;color:var(--muted);margin-top:3px">
+          Target ${money(s.target)}
+        </div>
+      </div>
+
+      <div class="progress" style="height:9px;margin-top:22px">
+        <i style="width:${percent}%"></i>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;margin-top:9px;font-size:10px;color:var(--muted)">
+        <span>${Math.round(percent)}% complete</span>
+        <span>${money(remaining)} remaining</span>
+      </div>
+
+    </div>
+
+    <button class="primary" style="margin-top:15px" data-space-add="${s.id}">
+      Add money
+    </button>
+  `);
+}
+
+
+/* CARD ACTIONS */
+
+function flipSelectedCard(){
+
+  const card=document.querySelector(`.nova-card[data-card="${selectedCard}"]`);
+
+  if(card){
+    card.classList.toggle("flipped");
+  }
+}
+
+
+function toggleFreeze(){
+
+  state.frozen=!state.frozen;
+
+  renderCards();
+  save();
+
+  toast(state.frozen?"Card frozen":"Card active");
+}
+
+
+function revealCard(){
+
+  const c=state.cards[selectedCard];
+
+  c.revealed=!c.revealed;
+
+  renderCards();
+
+  toast(c.revealed?"Demo card details revealed":"Card details hidden");
+}
+
+
+function cardOptions(){
+
+  openModal(`
+    ${modalHeader("Card options")}
+
+    <button class="profile-row" data-action="reveal-card">
+      <span>Reveal card details</span>
+      <em>›</em>
+    </button>
+
+    <button class="profile-row" data-action="freeze-card">
+      <span>${state.frozen?"Unfreeze card":"Freeze card"}</span>
+      <em>›</em>
+    </button>
+
+    <button class="profile-row" data-action="edit-limit">
+      <span>Spending limit</span>
+      <em>₦${state.limit.toLocaleString()}</em>
+    </button>
+
+    <p style="font-size:10px;color:var(--muted);line-height:1.5;margin-top:17px">
+      Card controls shown here are interface simulations for the NOVA prototype.
+    </p>
+  `);
+}
+
+
+function editLimit(){
+
+  openModal(`
+    ${modalHeader("Spending limit")}
+
+    <label class="form-label">Monthly limit</label>
+
+    <input class="input" id="limitInput" type="number" value="${state.limit}">
+
+    <button class="primary" data-action="limit-save">
+      Save limit
+    </button>
+  `);
+}
+
+
+function saveLimit(){
+
+  const n=Number(document.getElementById("limitInput")?.value||0);
+
+  if(!n){
+    toast("Enter a valid limit");
+    return;
+  }
+
+  state.limit=n;
+
+  renderAll();
+  closeModal();
+
+  toast("Spending limit updated");
+}
+
+
+/* PROFILE */
+
+function openProfileInfo(){
+
+  openModal(`
+    ${modalHeader("Personal information")}
+
+    <label class="form-label">Display name</label>
+    <input class="input" value="NOVA Member">
+
+    <label class="form-label">Email</label>
+    <input class="input" value="member@nova.demo">
+
+    <label class="form-label">Phone</label>
+    <input class="input" value="+234 ••• ••• 2841">
+
+    <button class="primary" data-action="profile-saved">
+      Save changes
+    </button>
+  `);
+}
+
+
+function openSecurity(){
+
+  openModal(`
+    ${modalHeader("Security")}
+
+    <div class="profile-menu">
+
+      <button class="profile-row">
+        <span>Biometric login</span>
+        <i class="switch on"><i></i></i>
+      </button>
+
+      <button class="profile-row">
+        <span>Transaction PIN</span>
+        <em>Enabled</em>
+      </button>
+
+      <button class="profile-row">
+        <span>Login alerts</span>
+        <i class="switch on"><i></i></i>
+      </button>
+
+    </div>
+
+    <p style="font-size:10px;color:var(--muted);line-height:1.5;margin-top:15px">
+      These controls are visual simulations and do not provide real account security.
+    </p>
+  `);
+}
+
+
+function openHelp(){
+
+  openModal(`
+    ${modalHeader("Help & support")}
+
+    <div class="profile-menu">
+
+      <button class="profile-row">
+        <span>Frequently asked questions</span>
+        <em>›</em>
+      </button>
+
+      <button class="profile-row">
+        <span>Contact NOVA support</span>
+        <em>›</em>
+      </button>
+
+      <button class="profile-row">
+        <span>Report a problem</span>
+        <em>›</em>
+      </button>
+
+    </div>
+
+    <p style="text-align:center;color:var(--muted);font-size:10px;margin-top:20px">
+      NOVA prototype support
+    </p>
+  `);
+}
+
+
+function openAbout(){
+
+  openModal(`
+    ${modalHeader("About NOVA")}
+
+    <div style="text-align:center;padding:10px 0 20px">
+
+      <div style="width:70px;height:70px;border-radius:23px;background:#17171d;color:#fff;display:grid;place-items:center;margin:auto;font-family:'Space Grotesk';font-size:22px;font-weight:700">
+        N
+      </div>
+
+      <h2 style="font-family:'Space Grotesk';margin-top:15px">
+        NOVA
+      </h2>
+
+      <p style="color:var(--muted);font-size:11px;margin-top:5px">
+        Modern money, beautifully organized.
+      </p>
+
+    </div>
+
+    <div class="receipt">
+
+      <div class="receipt-row">
+        <span>Version</span>
+        <span>13.0 Prototype</span>
+      </div>
+
+      <div class="receipt-row">
+        <span>Design</span>
+        <span>NOVA Original</span>
+      </div>
+
+      <div class="receipt-row">
+        <span>Platform</span>
+        <span>Web</span>
+      </div>
+
+    </div>
+
+    <p style="font-size:10px;color:var(--muted);line-height:1.5;margin-top:15px;text-align:center">
+      NOVA is a front-end concept. No real banking, payment, card or security services are connected.
+    </p>
+  `);
+}
+
+
+/* TOAST */
+
+let toastTimer;
+
+function toast(message){
+
+  const t=document.getElementById("toast");
+
+  t.textContent=message;
+  t.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer=setTimeout(()=>{
+    t.classList.remove("show");
+  },2200);
+}
+
+
+/* EVENT DELEGATION */
 
 document.addEventListener("click",e=>{
 
-  const button =
-    e.target.closest("[data-action]");
+  const screen=e.target.closest("[data-screen]");
 
-  const screenButton =
-    e.target.closest("[data-screen]");
-
-  if(screenButton){
-
-    switchScreen(screenButton.dataset.screen);
-    return;
-
-  }
-
-  if(!button) return;
-
-  const action =
-    button.dataset.action;
-
-
-  if(action==="close"){
-    closeModal();
+  if(screen){
+    showScreen(screen.dataset.screen);
     return;
   }
 
 
-  if(action==="toggle-balance"){
+  const filter=e.target.closest("[data-filter]");
 
-    state.balanceVisible =
-      !state.balanceVisible;
-
-    renderBalance();
-    saveState();
-
+  if(filter){
+    state.filter=filter.dataset.filter;
+    renderAll();
     return;
-
   }
 
 
-  if(action==="send"){
+  const tx=e.target.closest("[data-transaction]");
 
+  if(tx){
+    openTransaction(tx.dataset.transaction);
+    return;
+  }
+
+
+  const contact=e.target.closest("[data-contact]");
+
+  if(contact){
+
+    const c=state.contacts.find(x=>x.id==contact.dataset.contact);
+
+    if(c){
+      openSend(c);
+    }
+
+    return;
+  }
+
+
+  const spaceAdd=e.target.closest("[data-space-add]");
+
+  if(spaceAdd){
+    addToSpace(spaceAdd.dataset.spaceAdd);
+    return;
+  }
+
+
+  const spaceDetail=e.target.closest("[data-space-detail]");
+
+  if(spaceDetail){
+    spaceDetails(spaceDetail.dataset.spaceDetail);
+    return;
+  }
+
+
+  const action=e.target.closest("[data-action]");
+
+  if(!action)return;
+
+  const a=action.dataset.action;
+
+
+  if(a==="toggle-balance"){
+    state.balanceVisible=!state.balanceVisible;
+    renderAll();
+  }
+
+
+  if(a==="send"){
     openSend();
-    return;
-
   }
 
 
-  if(action==="request"){
-
+  if(a==="request"){
     openRequest();
-    return;
-
   }
 
 
-  if(action==="pay"){
-
+  if(a==="pay"){
     openPay();
-    return;
-
   }
 
 
-  if(action==="add"){
-
+  if(a==="add"){
     openAdd();
-    return;
-
   }
 
 
-  if(action==="notifications"){
+  if(a==="contacts"){
+    openContacts();
+  }
+
+
+  if(a==="notifications"){
+    openNotifications();
+  }
+
+
+  if(a==="search"){
+    openSearch();
+  }
+
+
+  if(a==="review-send"){
+    reviewSend();
+  }
+
+
+  if(a==="confirm-send"){
+    confirmSend();
+  }
+
+
+  if(a==="send-back"){
+    openSend(currentSend.contact);
+  }
+
+
+  if(a==="request-submit"){
+    submitRequest();
+  }
+
+
+  if(a==="pay-submit"){
+    closeModal();
+    toast("Payment flow opened");
+  }
+
+
+  if(a==="add-submit"){
+    submitAdd();
+  }
+
+
+  if(a==="mark-read"){
+
+    state.notifications.forEach(n=>n.unread=false);
+
+    renderAll();
 
     openNotifications();
-    return;
 
+    toast("Notifications marked as read");
   }
 
 
-  if(action==="search"){
-
-    openSearch();
-    return;
-
+  if(a==="flip-card"){
+    flipSelectedCard();
   }
 
 
-  if(action==="review-send"){
-
-    reviewSend();
-    return;
-
-  }
-
-
-  if(action==="confirm-send"){
-
-    confirmSend(
-      button.dataset.recipient,
-      Number(button.dataset.amount)
-    );
-
-    return;
-
-  }
-
-
-  if(action==="submit-request"){
-
-    const from =
-      document.getElementById("requestFrom").value.trim();
-
-    const amount =
-      Number(document.getElementById("requestAmount").value);
-
-    if(!from || !amount){
-      showToast("Complete the request details");
-      return;
-    }
-
+  if(a==="freeze-card"){
+    toggleFreeze();
     closeModal();
-
-    showToast("Money request created");
-
-    return;
-
   }
 
 
-  if(action==="submit-pay"){
+  if(a==="reveal-card"){
+    revealCard();
+    closeModal();
+  }
 
-    const merchant =
-      document.getElementById("payMerchant").value.trim();
 
-    const amount =
-      Number(document.getElementById("payAmount").value);
+  if(a==="card-options"){
+    cardOptions();
+  }
 
-    const category =
-      document.getElementById("payCategory").value.trim() ||
-      "Payment";
 
-    if(!merchant || !amount){
-      showToast("Enter merchant and amount");
-      return;
-    }
+  if(a==="edit-limit"){
+    editLimit();
+  }
 
-    if(amount>state.balance){
-      showToast("Not enough available balance");
-      return;
-    }
 
-    state.balance -= amount;
+  if(a==="limit-save"){
+    saveLimit();
+  }
 
-    state.transactions.unshift({
 
-      id:"TX-"+Math.floor(100000+Math.random()*899999),
+  if(a==="add-card"){
+    toast("New card setup coming soon");
+  }
 
-      merchant,
 
-      amount:-amount,
+  if(a==="create-space"){
+    createSpace();
+  }
 
-      category:"Payment",
 
-      date:"Just now",
+  if(a==="create-space-submit"){
+    submitSpace();
+  }
 
-      method:"NOVA Card",
 
-      location:category,
+  if(a==="space-add-submit"){
+    submitSpaceAdd();
+  }
 
-      icon:merchant.slice(0,2).toUpperCase()
 
-    });
+  if(a==="share-receipt"){
+    closeModal();
+    toast("Receipt sharing simulated");
+  }
+
+
+  if(a==="download-receipt"){
+    closeModal();
+    toast("Receipt saving simulated");
+  }
+
+
+  if(a==="personal"){
+    openProfileInfo();
+  }
+
+
+  if(a==="security"){
+    openSecurity();
+  }
+
+
+  if(a==="theme"){
+
+    state.dark=!state.dark;
 
     renderAll();
+
+    toast(state.dark?"Dark appearance on":"Light appearance on");
+  }
+
+
+  if(a==="notifications-settings"){
+    openNotifications();
+  }
+
+
+  if(a==="help"){
+    openHelp();
+  }
+
+
+  if(a==="about"){
+    openAbout();
+  }
+
+
+  if(a==="profile-saved"){
     closeModal();
-
-    showToast("Payment completed");
-
-    return;
-
-  }
-
-
-  if(action==="submit-add"){
-
-    const amount =
-      Number(document.getElementById("addAmount").value);
-
-    if(!amount || amount<=0){
-      showToast("Enter a valid amount");
-      return;
-    }
-
-    state.balance += amount;
-
-    state.transactions.unshift({
-
-      id:"TX-"+Math.floor(100000+Math.random()*899999),
-
-      merchant:"Money added",
-
-      amount,
-
-      category:"Income",
-
-      date:"Just now",
-
-      method:"Linked bank account",
-
-      location:"NOVA balance",
-
-      icon:"+"
-
-    });
-
-    renderAll();
-    closeModal();
-
-    showToast(`${money(amount)} added`);
-
-    return;
-
-  }
-
-
-  if(action==="detail"){
-
-    openDetail(button.dataset.id);
-    return;
-
-  }
-
-
-  if(action==="copy-id"){
-
-    const id = button.dataset.id;
-
-    if(navigator.clipboard){
-      navigator.clipboard.writeText(id);
-    }
-
-    showToast("Transaction ID copied");
-
-    return;
-
-  }
-
-
-  if(action==="flip-card"){
-
-    document
-      .getElementById("novaCard")
-      .classList.toggle("flipped");
-
-    return;
-
-  }
-
-
-  if(action==="reveal"){
-
-    state.revealed =
-      !state.revealed;
-
-    document.getElementById("cardNumber").textContent =
-      state.revealed
-      ? "4821 9052 7419 4821"
-      : "•••• •••• •••• 4821";
-
-    showToast(
-      state.revealed
-      ? "Demo card details revealed"
-      : "Card details hidden"
-    );
-
-    return;
-
-  }
-
-
-  if(action==="freeze"){
-
-    state.frozen =
-      !state.frozen;
-
-    const freeze =
-      document.getElementById("freezeCard");
-
-    freeze.classList.toggle(
-      "active",
-      state.frozen
-    );
-
-    freeze.querySelector("strong").textContent =
-      state.frozen
-      ? "Unfreeze card"
-      : "Freeze card";
-
-    freeze.querySelector("span").textContent =
-      state.frozen
-      ? "Payments are paused"
-      : "Temporarily stop payments";
-
-    saveState();
-
-    showToast(
-      state.frozen
-      ? "Card frozen"
-      : "Card unfrozen"
-    );
-
-    return;
-
-  }
-
-
-  if(action==="card-options"){
-
-    openModal(`
-
-      <button class="close" data-action="close">×</button>
-
-      <h3>Card options</h3>
-
-      <button
-        class="menu-item"
-        data-action="profile-security"
-        style="border:1px solid var(--line);border-radius:15px;margin-bottom:8px">
-        <div class="menu-icon">⌁</div>
-        <div>
-          <strong>Security settings</strong>
-          <span>Manage card protection</span>
-        </div>
-        <div>›</div>
-      </button>
-
-      <button
-        class="menu-item"
-        data-action="edit-limit"
-        style="border:1px solid var(--line);border-radius:15px">
-        <div class="menu-icon">↗</div>
-        <div>
-          <strong>Spending limit</strong>
-          <span>Adjust your demo card limit</span>
-        </div>
-        <div>›</div>
-      </button>
-
-    `);
-
-    return;
-
-  }
-
-
-  if(action==="edit-limit"){
-
-    openModal(`
-
-      <button class="close" data-action="close">×</button>
-
-      <h3>Spending limit</h3>
-
-      <div class="field">
-        <label>Monthly card limit</label>
-        <input
-          value="$10,000"
-          inputmode="decimal">
-      </div>
-
-      <button
-        class="primary-btn"
-        data-action="save-limit">
-        Save limit
-      </button>
-
-    `);
-
-    return;
-
-  }
-
-
-  if(action==="save-limit"){
-
-    closeModal();
-    showToast("Spending limit updated");
-
-    return;
-
-  }
-
-
-  if(action==="create-space"){
-
-    openCreateSpace();
-    return;
-
-  }
-
-
-  if(action==="submit-space"){
-
-    const name =
-      document.getElementById("spaceName").value.trim();
-
-    const target =
-      Number(document.getElementById("spaceTarget").value);
-
-    const emoji =
-      document.getElementById("spaceEmoji").value.trim() || "✦";
-
-    if(!name || !target){
-      showToast("Complete the Space details");
-      return;
-    }
-
-    state.spaces.push({
-      name,
-      emoji,
-      saved:0,
-      target
-    });
-
-    renderAll();
-    closeModal();
-
-    showToast("Space created");
-
-    return;
-
-  }
-
-
-  if(action==="add-space"){
-
-    openAddSpace(
-      Number(button.dataset.index)
-    );
-
-    return;
-
-  }
-
-
-  if(action==="submit-space-money"){
-
-    const index =
-      Number(button.dataset.index);
-
-    const amount =
-      Number(document.getElementById("spaceAmount").value);
-
-    if(!amount || amount<=0){
-      showToast("Enter a valid amount");
-      return;
-    }
-
-    if(amount>state.balance){
-      showToast("Not enough available balance");
-      return;
-    }
-
-    state.balance -= amount;
-
-    state.spaces[index].saved += amount;
-
-    renderAll();
-    closeModal();
-
-    showToast("Money added to Space");
-
-    return;
-
-  }
-
-
-  if(action==="space-detail"){
-
-    const index =
-      Number(button.dataset.index);
-
-    const space =
-      state.spaces[index];
-
-    const percent =
-      Math.min(
-        100,
-        Math.round(space.saved/space.target*100)
-      );
-
-    openModal(`
-
-      <button class="close" data-action="close">×</button>
-
-      <div class="detail-icon">
-        ${space.emoji}
-      </div>
-
-      <div style="
-        text-align:center;
-        font-family:'Space Grotesk';
-        font-size:21px;
-        font-weight:700;
-      ">
-        ${space.name}
-      </div>
-
-      <div style="
-        text-align:center;
-        color:#999;
-        font-size:10px;
-        margin-top:5px;
-      ">
-        ${percent}% of goal complete
-      </div>
-
-      <div class="progress" style="margin-top:20px">
-        <div class="progress-fill"
-          style="width:${percent}%"></div>
-      </div>
-
-      <div class="detail-list">
-
-        <div class="detail-row">
-          <span>Saved</span>
-          <strong>${money(space.saved)}</strong>
-        </div>
-
-        <div class="detail-row">
-          <span>Goal</span>
-          <strong>${money(space.target)}</strong>
-        </div>
-
-        <div class="detail-row">
-          <span>Remaining</span>
-          <strong>${money(Math.max(0,space.target-space.saved))}</strong>
-        </div>
-
-      </div>
-
-      <button
-        class="primary-btn"
-        data-action="add-space"
-        data-index="${index}">
-        Add money
-      </button>
-
-    `);
-
-    return;
-
-  }
-
-
-  if(action==="profile-personal"){
-
-    openModal(`
-
-      <button class="close" data-action="close">×</button>
-
-      <h3>Personal information</h3>
-
-      <div class="field">
-        <label>Display name</label>
-        <input value="NOVA Member">
-      </div>
-
-      <div class="field">
-        <label>Email</label>
-        <input value="member@nova.demo">
-      </div>
-
-      <div class="field">
-        <label>Account type</label>
-        <input value="Personal account" readonly>
-      </div>
-
-      <button
-        class="primary-btn"
-        data-action="close">
-        Done
-      </button>
-
-    `);
-
-    return;
-
-  }
-
-
-  if(action==="profile-security"){
-
-    openModal(`
-
-      <button class="close" data-action="close">×</button>
-
-      <h3>Security</h3>
-
-      <div class="menu">
-
-        <button class="menu-item" data-action="security-demo">
-          <div class="menu-icon">⌁</div>
-          <div>
-            <strong>Passcode</strong>
-            <span>Protected with a demo passcode</span>
-          </div>
-          <div>›</div>
-        </button>
-
-        <button class="menu-item" data-action="security-demo">
-          <div class="menu-icon">◉</div>
-          <div>
-            <strong>Biometric login</strong>
-            <span>Face or fingerprint login</span>
-          </div>
-          <div>›</div>
-        </button>
-
-      </div>
-
-      <p style="
-        color:#999;
-        font-size:9px;
-        line-height:1.5;
-      ">
-        Security controls shown here are interface simulations
-        for the NOVA prototype and do not provide real account security.
-      </p>
-
-    `);
-
-    return;
-
-  }
-
-
-  if(action==="security-demo"){
-
-    showToast("Demo setting selected");
-    return;
-
-  }
-
-
-  if(action==="profile-preferences"){
-
-    openModal(`
-
-      <button class="close" data-action="close">×</button>
-
-      <h3>Preferences</h3>
-
-      <div class="menu">
-
-        <button class="menu-item" data-action="preference-demo">
-          <div class="menu-icon">◌</div>
-          <div>
-            <strong>Push notifications</strong>
-            <span>Transaction and account alerts</span>
-          </div>
-          <div>ON</div>
-        </button>
-
-        <button class="menu-item" data-action="preference-demo">
-          <div class="menu-icon">☼</div>
-          <div>
-            <strong>Appearance</strong>
-            <span>System default</span>
-          </div>
-          <div>›</div>
-        </button>
-
-      </div>
-
-    `);
-
-    return;
-
-  }
-
-
-  if(action==="preference-demo"){
-
-    showToast("Preference selected");
-    return;
-
-  }
-
-
-  if(action==="support"){
-
-    openModal(`
-
-      <button class="close" data-action="close">×</button>
-
-      <h3>Help & support</h3>
-
-      <div class="insight" style="margin-top:0">
-        <div class="insight-title">
-          <div class="insight-star">?</div>
-          NOVA Support
-        </div>
-
-        <p>
-          This is a front-end prototype. Support actions
-          are simulated and no real financial account is connected.
-        </p>
-      </div>
-
-      <button
-        class="primary-btn"
-        data-action="support-demo">
-        Contact support
-      </button>
-
-    `);
-
-    return;
-
-  }
-
-
-  if(action==="support-demo"){
-
-    showToast("Support request simulated");
-    return;
-
-  }
-
-
-  if(action==="about"){
-
-    openModal(`
-
-      <button class="close" data-action="close">×</button>
-
-      <h3>About NOVA</h3>
-
-      <div style="
-        text-align:center;
-        padding:15px 0;
-      ">
-
-        <div class="logo"
-          style="
-            width:60px;
-            height:60px;
-            margin:auto;
-            font-size:24px;
-            border-radius:20px;
-          ">
-          N
-        </div>
-
-        <div style="
-          font-family:'Space Grotesk';
-          font-size:20px;
-          font-weight:700;
-          margin-top:12px;
-        ">
-          NOVA
-        </div>
-
-        <p style="
-          color:#999;
-          font-size:10px;
-          margin-top:6px;
-        ">
-          Version 12.0 · Personal finance prototype
-        </p>
-
-      </div>
-
-    `);
-
-    return;
-
+    toast("Profile updated");
   }
 
 });
 
 
-document.querySelectorAll(".filter").forEach(btn=>{
+/* MODAL CLOSE */
 
-  btn.addEventListener("click",()=>{
+modal.addEventListener("click",e=>{
 
-    state.filter =
-      btn.dataset.filter;
-
-    renderFilters();
-    renderTransactions();
-
-  });
+  if(e.target===modal || e.target.closest("[data-close]")){
+    closeModal();
+  }
 
 });
 
 
-document.querySelectorAll(".recipient").forEach(btn=>{
+/* ACTIVITY SEARCH */
 
-  btn.addEventListener("click",()=>{
+document.getElementById("activitySearch").addEventListener("input",e=>{
 
-    openSend(
-      btn.dataset.recipient
-    );
+  state.search=e.target.value;
 
-  });
+  renderTransactions();
 
 });
 
 
-document.getElementById("modal")
-  .addEventListener("click",e=>{
+/* CARD SWIPE */
 
-    if(e.target.id==="modal"){
-      closeModal();
+document.getElementById("cardScroll").addEventListener("scroll",()=>{
+
+  const cards=[...document.querySelectorAll(".nova-card")];
+
+  if(!cards.length)return;
+
+  const container=document.getElementById("cardScroll");
+
+  const center=container.scrollLeft+(container.clientWidth/2);
+
+  let closest=0;
+  let distance=Infinity;
+
+  cards.forEach((card,i)=>{
+
+    const c=card.offsetLeft+(card.offsetWidth/2);
+    const d=Math.abs(c-center);
+
+    if(d<distance){
+      distance=d;
+      closest=i;
     }
 
   });
 
+  if(closest!==selectedCard){
+    selectedCard=closest;
+  }
+
+});
+
+
+/* INITIAL */
 
 renderAll();
 
-
-setTimeout(()=>{
-
-  document
-    .getElementById("loading")
-    .classList.add("hide");
-
-},700);
-
-
-/* Restore card state */
-if(state.frozen){
-
-  const freeze =
-    document.getElementById("freezeCard");
-
-  freeze.classList.add("active");
-
-  freeze.querySelector("strong").textContent =
-    "Unfreeze card";
-
-  freeze.querySelector("span").textContent =
-    "Payments are paused";
-
-}
 </script>
 
 </body>
