@@ -1,0 +1,12 @@
+{
+  "name": "NOVA",
+  "short_name": "NOVA",
+  "description": "NOVA premium fintech app",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#090b0e",
+  "theme_color": "#090b0e",
+  "orientation": "portrait-primary",
+  "icons": []
+}
