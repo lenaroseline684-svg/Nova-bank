@@ -3,938 +3,2148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#f6f7fb">
-<title>NOVA — v6</title>
-
+<meta name="theme-color" content="#f7f7fb">
+<title>NOVA — v7</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
- --bg:#f6f7fb;
- --card:#fff;
- --text:#101116;
- --muted:#8b8f99;
- --line:#eceef2;
- --purple:#6258f5;
- --purple2:#786eff;
- --green:#16a36c;
- --red:#e15d67;
- --orange:#ef9c3c;
- --shadow:0 18px 45px rgba(31,34,50,.08);
+  --bg:#f6f6fa;
+  --card:#fff;
+  --text:#111218;
+  --muted:#858894;
+  --line:#e9e9ef;
+  --dark:#111217;
+  --soft:#f0f0f5;
+  --green:#35c77a;
+  --red:#ef6262;
+  --purple:#745cff;
+  --shadow:0 18px 45px rgba(20,20,35,.08);
 }
-html,body{min-height:100%;background:var(--bg)}
+html,body{
+  width:100%;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"DM Sans",sans-serif;
+}
 body{
- font-family:"DM Sans",sans-serif;
- color:var(--text);
- overflow-x:hidden;
+  display:flex;
+  justify-content:center;
 }
-button{font:inherit;border:0;cursor:pointer}
-.app{width:100%;max-width:520px;margin:auto;padding-bottom:100px}
-header{
- display:flex;align-items:center;justify-content:space-between;
- padding:24px 20px 14px;
+button,input,select{font:inherit}
+button{border:0;cursor:pointer}
+.app{
+  width:100%;
+  max-width:520px;
+  min-height:100vh;
+  padding-bottom:100px;
+  overflow:hidden;
 }
-.user{display:flex;align-items:center;gap:11px}
-.avatar{
- width:43px;height:43px;border-radius:15px;
- background:#111;color:white;display:grid;place-items:center;
- font-weight:700;
+.top{
+  padding:24px 20px 10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-.greeting{font-size:12px;color:var(--muted)}
-.username{font-family:"Space Grotesk";font-weight:700;font-size:16px;margin-top:2px}
-.headActions{display:flex;gap:9px}
-.iconBtn{
- width:43px;height:43px;border-radius:14px;background:white;
- display:grid;place-items:center;box-shadow:0 8px 25px rgba(0,0,0,.05);
- position:relative;
+.brand{
+  font-family:"Space Grotesk";
+  font-size:24px;
+  font-weight:700;
+  letter-spacing:-1px;
 }
-.iconBtn svg{width:20px;height:20px}
+.top-right{
+  display:flex;
+  gap:8px;
+}
+.icon-btn{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:#fff;
+  display:grid;
+  place-items:center;
+  font-size:18px;
+  box-shadow:0 5px 18px rgba(20,20,35,.06);
+  position:relative;
+}
 .badge{
- position:absolute;right:4px;top:4px;width:9px;height:9px;
- border-radius:50%;background:#ed5361;border:2px solid white;
+  position:absolute;
+  right:6px;
+  top:5px;
+  min-width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#ff5b5b;
+  border:2px solid white;
 }
-
-main{padding:0 16px}
-.screen{display:none;animation:screenIn .35s ease}
+.screen{
+  display:none;
+  padding:8px 20px;
+  animation:screenIn .28s ease;
+}
 .screen.active{display:block}
 @keyframes screenIn{
- from{opacity:0;transform:translateY(8px)}
- to{opacity:1;transform:none}
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:none}
 }
-
-.balanceCard{
- position:relative;overflow:hidden;color:white;border-radius:28px;
- min-height:235px;padding:24px;margin-top:8px;
- background:
- radial-gradient(circle at 90% 15%,rgba(120,110,255,.6),transparent 28%),
- radial-gradient(circle at 10% 100%,rgba(98,88,245,.55),transparent 35%),
- linear-gradient(140deg,#16161c,#292832);
- box-shadow:0 25px 55px rgba(22,22,30,.2);
+.greeting{
+  margin:12px 0 18px;
 }
-.balanceCard:after{
- content:"";position:absolute;width:170px;height:170px;border:1px solid rgba(255,255,255,.08);
- border-radius:50%;right:-55px;bottom:-60px;
+.greeting small{
+  color:var(--muted);
+  font-size:13px;
 }
-.balanceTop{display:flex;justify-content:space-between;align-items:center}
-.balanceLabel{font-size:12px;color:#b8b8c0}
-.eye{
- width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.1);
- color:white;display:grid;place-items:center;
+.greeting h1{
+  margin-top:4px;
+  font-family:"Space Grotesk";
+  font-size:28px;
+  letter-spacing:-1.3px;
+}
+.balance-card{
+  position:relative;
+  overflow:hidden;
+  min-height:205px;
+  padding:24px;
+  border-radius:27px;
+  color:white;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(116,92,255,.7),transparent 38%),
+    radial-gradient(circle at 0% 100%,rgba(48,207,133,.18),transparent 35%),
+    linear-gradient(135deg,#171820,#090a0d);
+  box-shadow:0 25px 55px rgba(10,10,15,.2);
+}
+.balance-card:after{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:50%;
+  right:-70px;
+  bottom:-75px;
+}
+.balance-label{
+  color:rgba(255,255,255,.58);
+  font-size:13px;
+}
+.balance-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:8px;
 }
 .balance{
- font-family:"Space Grotesk";font-size:36px;font-weight:700;
- letter-spacing:-1.5px;margin-top:13px;
+  font-family:"Space Grotesk";
+  font-size:38px;
+  letter-spacing:-2px;
+  font-weight:700;
 }
-.change{margin-top:6px;font-size:12px;color:#71e0b2}
-.cardBottom{
- position:absolute;bottom:22px;left:24px;right:24px;
- display:flex;justify-content:space-between;align-items:end;
+.eye{
+  color:rgba(255,255,255,.65);
+  background:rgba(255,255,255,.08);
+  width:34px;
+  height:34px;
+  border-radius:50%;
 }
-.account{font-size:12px;color:#aaa}
-.cardMark{font-family:"Space Grotesk";font-size:20px;font-weight:700;letter-spacing:2px}
-
-.sectionHead{
- display:flex;align-items:center;justify-content:space-between;
- margin:27px 3px 13px;
+.card-bottom{
+  position:absolute;
+  bottom:20px;
+  left:24px;
+  right:24px;
+  display:flex;
+  justify-content:space-between;
+  color:rgba(255,255,255,.56);
+  font-size:12px;
 }
-.sectionHead h2{font-family:"Space Grotesk";font-size:18px}
-.sectionHead span{font-size:12px;color:var(--purple);font-weight:700}
-
 .quick{
- display:grid;grid-template-columns:repeat(4,1fr);gap:9px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin:18px 0;
 }
 .quick button{
- background:white;border-radius:18px;padding:14px 4px;
- box-shadow:0 9px 25px rgba(30,32,45,.045);
- transition:.2s;
+  min-height:76px;
+  border-radius:19px;
+  background:#fff;
+  color:var(--text);
+  box-shadow:0 7px 24px rgba(20,20,35,.05);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  font-size:11px;
+  font-weight:600;
 }
-.quick button:active{transform:scale(.94)}
-.qIcon{
- width:38px;height:38px;border-radius:13px;margin:auto;
- display:grid;place-items:center;background:#f0efff;color:var(--purple);
+.quick-icon{
+  width:34px;
+  height:34px;
+  border-radius:12px;
+  background:var(--soft);
+  display:grid;
+  place-items:center;
+  font-size:16px;
 }
-.qIcon svg{width:18px}
-.quick b{display:block;font-size:11px;margin-top:9px}
-
-.pulse{
- background:white;border-radius:23px;padding:19px;
- box-shadow:var(--shadow);
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:24px 2px 12px;
 }
-.pulseTop{display:flex;justify-content:space-between}
-.pulseLabel{font-size:12px;color:var(--muted)}
-.pulseAmount{font-family:"Space Grotesk";font-size:24px;font-weight:700;margin-top:4px}
-.pulsePercent{font-size:11px;color:var(--green);margin-top:3px}
-.chart{height:95px;margin-top:12px}
-.chart svg{width:100%;height:100%;overflow:visible}
-.chartPath{
- fill:none;stroke:var(--purple);stroke-width:3;
- stroke-linecap:round;stroke-linejoin:round;
- stroke-dasharray:500;stroke-dashoffset:500;
- animation:draw 1.5s ease forwards;
+.section-head h2{
+  font-family:"Space Grotesk";
+  font-size:17px;
 }
-@keyframes draw{to{stroke-dashoffset:0}}
-
+.link{
+  background:none;
+  color:#725cff;
+  font-size:12px;
+  font-weight:700;
+}
+.chart-card,.insight,.profile-card,.space-card,.empty{
+  background:#fff;
+  border-radius:23px;
+  box-shadow:0 8px 28px rgba(20,20,35,.045);
+}
+.chart-card{
+  padding:18px;
+}
+.chart-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.chart-value{
+  font-family:"Space Grotesk";
+  font-size:23px;
+  font-weight:700;
+}
+.chart-change{
+  color:var(--green);
+  font-size:11px;
+  font-weight:700;
+}
+.chart{
+  height:115px;
+  margin-top:12px;
+  position:relative;
+  overflow:hidden;
+}
+.chart svg{
+  width:100%;
+  height:100%;
+}
 .insight{
- margin-top:13px;background:#efefff;border-radius:20px;padding:17px;
- display:flex;gap:13px;
+  padding:18px;
+  margin-top:14px;
+  background:linear-gradient(135deg,#fff,#f2f0ff);
 }
-.insightIcon{
- width:39px;height:39px;flex:none;border-radius:13px;background:white;
- display:grid;place-items:center;color:var(--purple);
+.insight-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:700;
+  font-size:13px;
 }
-.insight h3{font-size:13px}
-.insight p{font-size:11px;line-height:1.5;color:#737782;margin-top:4px}
-
-.activityList{display:grid;gap:9px}
+.insight p{
+  color:#6e707a;
+  font-size:12px;
+  line-height:1.55;
+  margin-top:8px;
+}
+.tx-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
 .tx{
- background:white;border-radius:19px;padding:14px;
- display:flex;align-items:center;gap:12px;
- animation:txIn .35s ease;
+  background:#fff;
+  padding:13px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  box-shadow:0 5px 20px rgba(20,20,35,.035);
+  cursor:pointer;
+  transition:.18s;
 }
-@keyframes txIn{
- from{opacity:0;transform:translateY(-12px) scale(.98)}
- to{opacity:1;transform:none}
+.tx:active{transform:scale(.985)}
+.tx-icon{
+  width:43px;
+  height:43px;
+  border-radius:15px;
+  background:#f1f1f5;
+  display:grid;
+  place-items:center;
+  font-size:18px;
+  flex:none;
 }
-.txIcon{
- width:43px;height:43px;border-radius:14px;
- background:#f2f2f6;display:grid;place-items:center;font-size:18px;
+.tx-main{min-width:0;flex:1}
+.tx-name{
+  font-size:13px;
+  font-weight:700;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
-.txMain{flex:1;min-width:0}
-.txName{font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.txMeta{font-size:10px;color:var(--muted);margin-top:4px}
-.txAmount{font-family:"Space Grotesk";font-size:13px;font-weight:700}
-.plus{color:var(--green)}
-.minus{color:var(--text)}
-
-.nav{
- position:fixed;z-index:30;bottom:13px;left:50%;
- transform:translateX(-50%);
- width:min(488px,calc(100% - 24px));
- background:rgba(255,255,255,.92);
- backdrop-filter:blur(18px);
- border:1px solid rgba(230,230,235,.9);
- box-shadow:0 15px 40px rgba(0,0,0,.12);
- border-radius:24px;padding:8px;
- display:grid;grid-template-columns:repeat(4,1fr);
+.tx-meta{
+  margin-top:3px;
+  color:var(--muted);
+  font-size:10px;
 }
-.nav button{
- background:transparent;color:#999;padding:7px 3px;border-radius:17px;
- font-size:9px;font-weight:700;
+.tx-amount{
+  text-align:right;
+  font-size:13px;
+  font-weight:700;
 }
-.nav button svg{display:block;margin:auto auto 4px;width:19px;height:19px}
-.nav button.active{background:#f0efff;color:var(--purple)}
-
-.pageTitle{padding:14px 3px 5px}
-.pageTitle h1{font-family:"Space Grotesk";font-size:28px}
-.pageTitle p{font-size:12px;color:var(--muted);margin-top:5px}
-
-.filters{display:flex;gap:7px;overflow:auto;margin:18px 0 13px}
-.filters button{
- white-space:nowrap;padding:9px 14px;border-radius:13px;
- background:white;color:#888;font-size:11px;font-weight:700;
+.income{color:var(--green)}
+.expense{color:var(--text)}
+.bottom-nav{
+  position:fixed;
+  z-index:30;
+  bottom:14px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(calc(100% - 28px),492px);
+  padding:8px;
+  border:1px solid rgba(0,0,0,.05);
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(18px);
+  border-radius:23px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  box-shadow:0 18px 50px rgba(20,20,35,.15);
 }
-.filters button.active{background:#111;color:white}
-
-.empty{
- text-align:center;background:white;border-radius:23px;padding:45px 20px;
- color:var(--muted);
+.nav-btn{
+  background:none;
+  height:54px;
+  border-radius:17px;
+  color:#9a9ca5;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  font-size:10px;
+  font-weight:700;
 }
-.emptyIcon{
- width:55px;height:55px;border-radius:18px;background:#f1f0ff;
- color:var(--purple);display:grid;place-items:center;margin:0 auto 12px;
+.nav-btn.active{
+  color:#111217;
+  background:#f0f0f4;
 }
-.empty h3{color:var(--text);font-size:15px}
-.empty p{font-size:11px;margin-top:5px}
-
-.spaceGrid{display:grid;gap:12px}
-.spaceCard{
- background:white;border-radius:23px;padding:18px;
- box-shadow:0 10px 30px rgba(30,32,45,.05);
+.nav-icon{font-size:17px}
+.page-title{
+  padding:18px 0 16px;
 }
-.spaceTop{display:flex;align-items:center;gap:12px}
-.spaceEmoji{
- width:45px;height:45px;border-radius:15px;background:#f4f3ff;
- display:grid;place-items:center;font-size:21px;
+.page-title h1{
+  font-family:"Space Grotesk";
+  font-size:30px;
+  letter-spacing:-1.3px;
 }
-.spaceInfo{flex:1}
-.spaceName{font-family:"Space Grotesk";font-weight:700}
-.spaceGoal{font-size:10px;color:var(--muted);margin-top:3px}
-.spaceMoney{text-align:right;font-family:"Space Grotesk";font-weight:700;font-size:13px}
-.progress{height:7px;border-radius:20px;background:#eeeef2;margin-top:16px;overflow:hidden}
+.page-title p{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:12px;
+}
+.filters{
+  display:flex;
+  gap:7px;
+  overflow:auto;
+  padding-bottom:4px;
+}
+.filter{
+  white-space:nowrap;
+  padding:9px 13px;
+  border-radius:13px;
+  background:#fff;
+  color:#858791;
+  font-size:11px;
+  font-weight:700;
+}
+.filter.active{
+  color:#fff;
+  background:#111217;
+}
+.day-label{
+  color:#999ba4;
+  font-size:11px;
+  font-weight:700;
+  margin:20px 2px 8px;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+.notify-card{
+  padding:15px;
+  border-radius:19px;
+  background:#fff;
+  display:flex;
+  gap:12px;
+  margin-bottom:9px;
+  box-shadow:0 5px 20px rgba(20,20,35,.04);
+  position:relative;
+}
+.notify-card.unread:before{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#745cff;
+  position:absolute;
+  right:14px;
+  top:14px;
+}
+.notify-icon{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:#f0efff;
+  display:grid;
+  place-items:center;
+}
+.notify-title{
+  font-size:13px;
+  font-weight:700;
+}
+.notify-text{
+  margin-top:4px;
+  color:#777985;
+  font-size:11px;
+  line-height:1.45;
+}
+.notify-time{
+  margin-top:6px;
+  color:#a0a1aa;
+  font-size:9px;
+}
+.profile-card{
+  padding:22px;
+  background:linear-gradient(135deg,#18191f,#0d0e11);
+  color:#fff;
+}
+.avatar{
+  width:58px;
+  height:58px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#8e7aff,#4c3bc4);
+  display:grid;
+  place-items:center;
+  font-family:"Space Grotesk";
+  font-weight:700;
+  font-size:20px;
+}
+.profile-name{
+  margin-top:15px;
+  font-family:"Space Grotesk";
+  font-size:21px;
+}
+.verified{
+  margin-top:5px;
+  color:#62dc9b;
+  font-size:11px;
+  font-weight:700;
+}
+.menu{
+  margin-top:14px;
+  background:#fff;
+  border-radius:22px;
+  overflow:hidden;
+}
+.menu-item{
+  width:100%;
+  padding:16px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border-bottom:1px solid var(--line);
+  text-align:left;
+}
+.menu-item:last-child{border:0}
+.menu-item .mi{
+  width:37px;
+  height:37px;
+  border-radius:12px;
+  background:#f2f2f6;
+  display:grid;
+  place-items:center;
+}
+.menu-item strong{
+  font-size:12px;
+}
+.menu-item small{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:2px;
+}
+.spaces{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.space-card{
+  padding:18px;
+}
+.space-head{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.space-icon{
+  width:45px;
+  height:45px;
+  border-radius:15px;
+  background:#f0efff;
+  display:grid;
+  place-items:center;
+  font-size:19px;
+}
+.space-name{
+  font-weight:700;
+  font-size:14px;
+}
+.space-goal{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
+}
+.space-money{
+  margin-left:auto;
+  text-align:right;
+}
+.space-balance{
+  font-family:"Space Grotesk";
+  font-weight:700;
+  font-size:16px;
+}
+.space-percent{
+  color:var(--muted);
+  font-size:9px;
+  margin-top:3px;
+}
+.progress{
+  height:7px;
+  background:#eeeef3;
+  border-radius:20px;
+  overflow:hidden;
+  margin:16px 0 12px;
+}
 .progress i{
- display:block;height:100%;border-radius:20px;background:var(--purple);
- width:0;transition:1s ease;
+  display:block;
+  height:100%;
+  width:0;
+  border-radius:20px;
+  background:linear-gradient(90deg,#745cff,#a08fff);
+  transition:width .7s cubic-bezier(.2,.8,.2,1);
 }
-.spaceBottom{
- display:flex;justify-content:space-between;margin-top:8px;
- font-size:10px;color:var(--muted);
+.space-actions{
+  display:flex;
+  gap:8px;
 }
-.spaceActions{display:flex;gap:8px;margin-top:13px}
-.smallBtn{
- flex:1;padding:10px;border-radius:12px;background:#f4f4f7;
- font-size:10px;font-weight:700;
+.small-btn{
+  flex:1;
+  padding:10px;
+  border-radius:12px;
+  background:#f2f2f5;
+  font-size:10px;
+  font-weight:700;
 }
-.smallBtn.primary{background:#111;color:white}
-
-.profileHero{
- background:linear-gradient(145deg,#17171d,#302d43);
- color:white;border-radius:25px;padding:22px;margin-top:10px;
+.small-btn.dark{
+  background:#111217;
+  color:white;
 }
-.profileAvatar{
- width:60px;height:60px;border-radius:20px;background:#6258f5;
- display:grid;place-items:center;font-family:"Space Grotesk";font-size:22px;font-weight:700;
-}
-.profileHero h2{font-family:"Space Grotesk";margin-top:15px}
-.verified{font-size:10px;color:#8ee6bd;margin-top:4px}
-.profileRows{background:white;border-radius:23px;margin-top:13px;overflow:hidden}
-.profileRow{
- display:flex;align-items:center;gap:13px;padding:16px;border-bottom:1px solid var(--line);
-}
-.profileRow:last-child{border:0}
-.rowIcon{
- width:38px;height:38px;border-radius:12px;background:#f2f1ff;color:var(--purple);
- display:grid;place-items:center;
-}
-.profileRow div:nth-child(2){flex:1}
-.profileRow b{font-size:12px}
-.profileRow span{display:block;font-size:10px;color:var(--muted);margin-top:3px}
-.chev{color:#aaa}
-
 .overlay{
- position:fixed;inset:0;background:rgba(10,10,15,.45);
- backdrop-filter:blur(7px);z-index:50;
- display:none;align-items:end;
+  position:fixed;
+  z-index:50;
+  inset:0;
+  background:rgba(10,10,15,.45);
+  backdrop-filter:blur(5px);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
 }
 .overlay.show{display:flex}
 .sheet{
- width:100%;max-width:520px;margin:auto auto 0;
- background:#fff;border-radius:28px 28px 0 0;
- padding:22px 19px 30px;
- max-height:90vh;overflow:auto;
- animation:sheetUp .32s cubic-bezier(.2,.8,.2,1);
+  width:min(100%,520px);
+  max-height:90vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:29px 29px 0 0;
+  padding:20px;
+  animation:sheetUp .28s cubic-bezier(.2,.8,.2,1);
 }
 @keyframes sheetUp{
- from{transform:translateY(100%)}
- to{transform:none}
+  from{transform:translateY(100%)}
+  to{transform:translateY(0)}
 }
-.sheetHandle{width:38px;height:4px;background:#ddd;border-radius:9px;margin:0 auto 20px}
-.sheetHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-.sheetHead h2{font-family:"Space Grotesk";font-size:21px}
-.close{
- width:33px;height:33px;border-radius:11px;background:#f1f1f4;
- display:grid;place-items:center;
+.handle{
+  width:40px;
+  height:4px;
+  border-radius:20px;
+  background:#dddde3;
+  margin:0 auto 20px;
 }
-.field{margin-top:14px}
-.field label{display:block;font-size:10px;color:#777;margin-bottom:7px;font-weight:700}
-.input{
- width:100%;border:1px solid var(--line);outline:0;
- background:#fafafd;border-radius:15px;padding:14px;font-size:14px;
- transition:.2s;
+.sheet h2{
+  font-family:"Space Grotesk";
+  font-size:22px;
 }
-.input:focus{border-color:var(--purple);background:white}
-.primaryBtn{
- width:100%;padding:15px;border-radius:16px;
- background:#111;color:white;font-weight:700;margin-top:18px;
- transition:.2s;
+.sheet-sub{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:5px;
+  margin-bottom:18px;
 }
-.primaryBtn:active{transform:scale(.98)}
-.secondaryBtn{
- width:100%;padding:14px;border-radius:16px;
- background:#f1f0ff;color:var(--purple);font-weight:700;margin-top:9px;
+.field{
+  margin-bottom:12px;
 }
-
-.recipient{
- display:flex;align-items:center;gap:12px;background:#f8f8fa;
- padding:13px;border-radius:15px;margin-top:8px;
+.field label{
+  display:block;
+  color:#858791;
+  font-size:10px;
+  font-weight:700;
+  margin-bottom:6px;
 }
-.recAvatar{
- width:38px;height:38px;border-radius:12px;background:#111;color:white;
- display:grid;place-items:center;font-weight:700;
+.field input,.field select{
+  width:100%;
+  border:1px solid var(--line);
+  outline:none;
+  padding:14px;
+  border-radius:15px;
+  background:#fafafd;
+  color:var(--text);
+}
+.field input:focus,.field select:focus{
+  border-color:#8c7cff;
+  box-shadow:0 0 0 3px rgba(116,92,255,.08);
+}
+.primary{
+  width:100%;
+  padding:15px;
+  border-radius:16px;
+  background:#111217;
+  color:white;
+  font-weight:700;
+  margin-top:7px;
+}
+.secondary{
+  width:100%;
+  padding:14px;
+  border-radius:16px;
+  background:#f1f1f5;
+  color:#22232a;
+  font-weight:700;
+  margin-top:8px;
+}
+.amount-input{
+  font-family:"Space Grotesk";
+  font-size:30px!important;
+  font-weight:700;
+  text-align:center;
 }
 .review{
- background:#f7f7f9;border-radius:20px;padding:18px;margin-top:12px;
+  background:#f7f7fa;
+  padding:15px;
+  border-radius:17px;
+  margin-bottom:12px;
 }
-.reviewRow{display:flex;justify-content:space-between;padding:8px 0;font-size:12px}
-.reviewRow span{color:#888}
-.reviewTotal{
- border-top:1px solid #ddd;margin-top:8px;padding-top:14px;
- font-family:"Space Grotesk";font-weight:700;font-size:22px;
+.review-row{
+  display:flex;
+  justify-content:space-between;
+  padding:7px 0;
+  font-size:12px;
 }
-
-.success{text-align:center;padding:15px 5px 10px}
-.successCircle{
- width:75px;height:75px;border-radius:50%;background:#e7f8f0;color:var(--green);
- display:grid;place-items:center;margin:10px auto 18px;
- animation:pop .5s ease;
+.review-row span:first-child{color:var(--muted)}
+.success{
+  text-align:center;
+  padding:20px 0 8px;
+}
+.success-circle{
+  width:76px;
+  height:76px;
+  margin:0 auto 16px;
+  border-radius:50%;
+  background:#ddf8e9;
+  color:#22ae67;
+  display:grid;
+  place-items:center;
+  font-size:35px;
+  animation:pop .45s cubic-bezier(.2,1.5,.4,1);
 }
 @keyframes pop{
- 0%{transform:scale(.3);opacity:0}
- 70%{transform:scale(1.12)}
- 100%{transform:scale(1);opacity:1}
+  from{transform:scale(.4);opacity:0}
+  to{transform:scale(1);opacity:1}
 }
-.success h2{font-family:"Space Grotesk"}
-.success p{font-size:12px;color:#888;margin-top:7px}
-
 .toast{
- position:fixed;z-index:100;left:50%;bottom:90px;
- transform:translate(-50%,20px);opacity:0;pointer-events:none;
- background:#111;color:white;border-radius:14px;padding:12px 16px;
- font-size:11px;font-weight:600;transition:.3s;
- white-space:nowrap;
+  position:fixed;
+  z-index:100;
+  left:50%;
+  bottom:88px;
+  transform:translate(-50%,20px);
+  background:#111217;
+  color:#fff;
+  padding:12px 16px;
+  border-radius:14px;
+  font-size:11px;
+  font-weight:600;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  white-space:nowrap;
 }
-.toast.show{opacity:1;transform:translate(-50%,0)}
-
-.detailAmount{
- text-align:center;font-family:"Space Grotesk";font-size:31px;font-weight:700;
- margin:5px 0 22px;
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
 }
-.detailIcon{
- width:57px;height:57px;border-radius:18px;background:#f1f0ff;
- display:grid;place-items:center;font-size:24px;margin:0 auto 9px;
+.search-box{
+  display:flex;
+  gap:8px;
+  margin-bottom:15px;
 }
-.detailRows{background:#f8f8fa;border-radius:18px;padding:8px 15px}
-.detailRow{display:flex;justify-content:space-between;padding:11px 0;font-size:11px}
-.detailRow span:first-child{color:#8a8d95}
-.status{color:var(--green);font-weight:700}
+.search-box input{
+  flex:1;
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:13px;
+  outline:none;
+}
+.search-results{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+.empty{
+  padding:28px 18px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+}
+.empty strong{
+  display:block;
+  color:var(--text);
+  font-size:14px;
+  margin-bottom:5px;
+}
+@media(max-width:380px){
+  .balance{font-size:33px}
+  .quick button{min-height:70px}
+}
 </style>
 </head>
-
 <body>
 <div class="app">
-
-<header>
- <div class="user">
-  <div class="avatar">J</div>
-  <div>
-   <div class="greeting">Good evening</div>
-   <div class="username">Jack</div>
+<header class="top">
+  <div class="brand">NOVA</div>
+  <div class="top-right">
+    <button class="icon-btn" data-action="search">⌕</button>
+    <button class="icon-btn" data-action="notifications">
+      ♢
+      <i class="badge" id="badge"></i>
+    </button>
   </div>
- </div>
- <div class="headActions">
-  <button class="iconBtn" onclick="openSearch()" aria-label="Search">
-   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>
-   </svg>
-  </button>
-  <button class="iconBtn" onclick="openNotifications()" aria-label="Notifications">
-   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
-    <path d="M10 21h4"/>
-   </svg>
-   <i class="badge" id="notifBadge"></i>
-  </button>
- </div>
 </header>
-
-<main>
-
 <!-- HOME -->
-<section id="home" class="screen active">
-
- <div class="balanceCard">
-  <div class="balanceTop">
-   <span class="balanceLabel">Available balance</span>
-   <button class="eye" onclick="toggleBalance()">
-    <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-     <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
-     <circle cx="12" cy="12" r="3"/>
-    </svg>
-   </button>
+<section class="screen active" id="homeScreen">
+  <div class="greeting">
+    <small>Good evening</small>
+    <h1>Welcome back.</h1>
   </div>
-  <div class="balance" id="balance">$24,860.40</div>
-  <div class="change">↗ 8.4% this month</div>
-  <div class="cardBottom">
-   <div class="account">Primary account · •••• 4821</div>
-   <div class="cardMark">NOVA</div>
+  <div class="balance-card">
+    <div class="balance-label">Available balance</div>
+    <div class="balance-row">
+      <div class="balance" id="balance">$24,860.40</div>
+      <button class="eye" data-action="toggleBalance" id="eye">◉</button>
+    </div>
+    <div class="card-bottom">
+      <span>NOVA •••• 2841</span>
+      <span>Personal</span>
+    </div>
   </div>
- </div>
-
- <div class="sectionHead"><h2>Quick actions</h2></div>
-
- <div class="quick">
-  <button onclick="openSend()"><div class="qIcon">
-   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 14-7-4 14-3-6-7-1Z"/></svg>
-  </div><b>Send</b></button>
-
-  <button onclick="openRequest()"><div class="qIcon">
-   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-  </div><b>Request</b></button>
-
-  <button onclick="openPay()"><div class="qIcon">
-   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/></svg>
-  </div><b>Pay</b></button>
-
-  <button onclick="openAdd()"><div class="qIcon">
-   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-  </div><b>Add</b></button>
- </div>
-
- <div class="sectionHead"><h2>Money pulse</h2><span>SEP 2026</span></div>
- <div class="pulse">
-  <div class="pulseTop">
-   <div>
-    <div class="pulseLabel">Spent this month</div>
-    <div class="pulseAmount">$2,418</div>
-    <div class="pulsePercent">↓ 12% less than August</div>
-   </div>
+  <div class="quick">
+    <button data-action="send">
+      <span class="quick-icon">↗</span>
+      Send
+    </button>
+    <button data-action="request">
+      <span class="quick-icon">↙</span>
+      Request
+    </button>
+    <button data-action="pay">
+      <span class="quick-icon">⌁</span>
+      Pay
+    </button>
+    <button data-action="add">
+      <span class="quick-icon">＋</span>
+      Add
+    </button>
   </div>
-  <div class="chart">
-   <svg viewBox="0 0 460 100" preserveAspectRatio="none">
-    <path class="chartPath" d="M0 75 C35 69 45 78 70 64 S108 57 130 67 S166 48 188 55 S220 36 245 46 S280 57 302 42 S340 28 360 38 S390 23 410 30 S440 16 460 22"/>
-   </svg>
+  <div class="section-head">
+    <h2>Money Pulse</h2>
+    <button class="link" data-action="activity">See all</button>
   </div>
- </div>
-
- <div class="insight">
-  <div class="insightIcon">✦</div>
-  <div>
-   <h3>NOVA Insight</h3>
-   <p>Your spending is moving in the right direction. You spent 12% less this month while keeping your savings pace steady.</p>
+  <div class="chart-card">
+    <div class="chart-top">
+      <div>
+        <div class="chart-value">$5,842</div>
+        <div class="chart-change">↑ 8.4% this month</div>
+      </div>
+      <span style="font-size:10px;color:#999">30 days</span>
+    </div>
+    <div class="chart">
+      <svg viewBox="0 0 500 120" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="fill" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#745cff" stop-opacity=".24"/>
+            <stop offset="100%" stop-color="#745cff" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M0 96 C35 90 48 77 75 82 S115 54 145 67 S190 44 220 58 S255 37 285 50 S325 32 350 40 S390 22 420 34 S465 10 500 18 L500 120 L0 120 Z" fill="url(#fill)"/>
+        <path d="M0 96 C35 90 48 77 75 82 S115 54 145 67 S190 44 220 58 S255 37 285 50 S325 32 350 40 S390 22 420 34 S465 10 500 18" fill="none" stroke="#745cff" stroke-width="3"/>
+      </svg>
+    </div>
   </div>
- </div>
-
- <div class="sectionHead"><h2>Recent activity</h2><span onclick="showScreen('activity')">See all</span></div>
- <div class="activityList" id="homeActivity"></div>
-
+  <div class="insight">
+    <div class="insight-title">✦ NOVA Insight</div>
+    <p>Your spending is trending lower this week. You have <b>$1,240</b> more available than your usual weekly average.</p>
+  </div>
+  <div class="section-head">
+    <h2>Recent activity</h2>
+    <button class="link" data-action="activity">View all</button>
+  </div>
+  <div class="tx-list" id="homeTransactions"></div>
 </section>
-
-<!-- SPACES -->
-<section id="spaces" class="screen">
- <div class="pageTitle">
-  <h1>Money Spaces</h1>
-  <p>Give every goal its own place.</p>
- </div>
-
- <div class="spaceGrid" id="spaceGrid"></div>
-
- <button class="primaryBtn" onclick="openCreateSpace()">＋ Create a new space</button>
-</section>
-
 <!-- ACTIVITY -->
-<section id="activity" class="screen">
- <div class="pageTitle">
-  <h1>Activity</h1>
-  <p>Your money, in motion.</p>
- </div>
-
- <div class="filters">
-  <button class="active" onclick="filterActivity('all',this)">All</button>
-  <button onclick="filterActivity('payment',this)">Payments</button>
-  <button onclick="filterActivity('income',this)">Income</button>
-  <button onclick="filterActivity('space',this)">Spaces</button>
- </div>
-
- <div class="activityList" id="activityList"></div>
+<section class="screen" id="activityScreen">
+  <div class="page-title">
+    <h1>Activity</h1>
+    <p>Your complete money timeline.</p>
+  </div>
+  <div class="filters">
+    <button class="filter active" data-filter="all">All</button>
+    <button class="filter" data-filter="payment">Payments</button>
+    <button class="filter" data-filter="income">Income</button>
+    <button class="filter" data-filter="space">Spaces</button>
+  </div>
+  <div id="activityList"></div>
 </section>
-
+<!-- SPACES -->
+<section class="screen" id="spacesScreen">
+  <div class="page-title">
+    <h1>Money Spaces</h1>
+    <p>Give every goal its own place.</p>
+  </div>
+  <button class="primary" data-action="createSpace">＋ Create new Space</button>
+  <div class="section-head">
+    <h2>Your Spaces</h2>
+    <span style="font-size:10px;color:#999" id="spaceTotal"></span>
+  </div>
+  <div class="spaces" id="spacesList"></div>
+</section>
 <!-- PROFILE -->
-<section id="profile" class="screen">
- <div class="pageTitle">
-  <h1>Profile</h1>
-  <p>Your NOVA identity.</p>
- </div>
-
- <div class="profileHero">
-  <div class="profileAvatar">J</div>
-  <h2>Jack</h2>
-  <div class="verified">● Identity verified · NOVA member since 2026</div>
- </div>
-
- <div class="profileRows">
-  <div class="profileRow">
-   <div class="rowIcon">♙</div>
-   <div><b>Personal details</b><span>Name, email and phone</span></div>
-   <div class="chev">›</div>
+<section class="screen" id="profileScreen">
+  <div class="page-title">
+    <h1>Profile</h1>
+    <p>Your NOVA identity.</p>
   </div>
-  <div class="profileRow">
-   <div class="rowIcon">⌕</div>
-   <div><b>Security</b><span>Passcode, Face ID and devices</span></div>
-   <div class="chev">›</div>
+  <div class="profile-card">
+    <div class="avatar">NV</div>
+    <div class="profile-name">NOVA Member</div>
+    <div class="verified">✓ Identity verified</div>
   </div>
-  <div class="profileRow">
-   <div class="rowIcon">⌁</div>
-   <div><b>Preferences</b><span>Notifications and appearance</span></div>
-   <div class="chev">›</div>
+  <div class="menu">
+    <button class="menu-item" data-action="profileToast" data-message="Personal information is protected.">
+      <span class="mi">♙</span>
+      <span>
+        <strong>Personal information</strong>
+        <small>Identity and account details</small>
+      </span>
+    </button>
+    <button class="menu-item" data-action="profileToast" data-message="Your security settings are active.">
+      <span class="mi">⌾</span>
+      <span>
+        <strong>Security</strong>
+        <small>Passcode, biometrics and devices</small>
+      </span>
+    </button>
+    <button class="menu-item" data-action="profileToast" data-message="Preferences saved locally for this prototype.">
+      <span class="mi">⚙</span>
+      <span>
+        <strong>Preferences</strong>
+        <small>Appearance and notifications</small>
+      </span>
+    </button>
+    <button class="menu-item" data-action="profileToast" data-message="NOVA support is available in this prototype.">
+      <span class="mi">?</span>
+      <span>
+        <strong>Help & support</strong>
+        <small>Get answers and contact support</small>
+      </span>
+    </button>
   </div>
-  <div class="profileRow" onclick="notify('NOVA Help Center opened')">
-   <div class="rowIcon">?</div>
-   <div><b>Help & support</b><span>We are here when you need us</span></div>
-   <div class="chev">›</div>
-  </div>
- </div>
 </section>
-
-</main>
-
-<nav class="nav">
- <button class="active" onclick="showScreen('home',this)">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"/><path d="M9 21v-6h6v6"/></svg>
-  Home
- </button>
- <button onclick="showScreen('spaces',this)">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M8 9h8M8 13h5"/></svg>
-  Spaces
- </button>
- <button onclick="showScreen('activity',this)">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 5-7"/></svg>
-  Activity
- </button>
- <button onclick="showScreen('profile',this)">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c.7-4 3.2-6 8-6s7.3 2 8 6"/></svg>
-  Profile
- </button>
+<!-- NAV -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" data-screen="home">
+    <span class="nav-icon">⌂</span>
+    Home
+  </button>
+  <button class="nav-btn" data-screen="activity">
+    <span class="nav-icon">◷</span>
+    Activity
+  </button>
+  <button class="nav-btn" data-screen="spaces">
+    <span class="nav-icon">◫</span>
+    Spaces
+  </button>
+  <button class="nav-btn" data-screen="profile">
+    <span class="nav-icon">♙</span>
+    Profile
+  </button>
 </nav>
 </div>
-
+<div class="toast" id="toast"></div>
 <!-- SEND -->
 <div class="overlay" id="sendModal">
- <div class="sheet">
-  <div class="sheetHandle"></div>
-  <div class="sheetHead"><h2 id="sendTitle">Send money</h2><button class="close" onclick="closeModal('sendModal')">×</button></div>
-  <div id="sendBody"></div>
- </div>
+  <div class="sheet">
+    <div class="handle"></div>
+    <div id="sendStep1">
+      <h2>Send money</h2>
+      <p class="sheet-sub">Send instantly from your NOVA balance.</p>
+      <div class="field">
+        <label>Recipient</label>
+        <input id="sendRecipient" placeholder="Name or phone number">
+      </div>
+      <button class="primary" data-action="reviewSend">Continue</button>
+      <button class="secondary" data-action="close">Cancel</button>
+    </div>
+    <div id="sendStep2" style="display:none">
+      <h2>How much?</h2>
+      <p class="sheet-sub" id="sendToText"></p>
+      <div class="field">
+        <input class="amount-input" id="sendAmount" type="number" min="0" step=".01" placeholder="$0.00">
+      </div>
+      <button class="primary" data-action="confirmSend">Review transfer</button>
+      <button class="secondary" data-action="backSend">Back</button>
+    </div>
+    <div id="sendStep3" style="display:none">
+      <h2>Review transfer</h2>
+      <p class="sheet-sub">Make sure everything looks right.</p>
+      <div class="review">
+        <div class="review-row"><span>Recipient</span><b id="reviewRecipient"></b></div>
+        <div class="review-row"><span>Amount</span><b id="reviewAmount"></b></div>
+        <div class="review-row"><span>Fee</span><b>$0.00</b></div>
+        <div class="review-row"><span>Total</span><b id="reviewTotal"></b></div>
+      </div>
+      <button class="primary" data-action="finishSend">Confirm & send</button>
+      <button class="secondary" data-action="backAmount">Back</button>
+    </div>
+  </div>
 </div>
-
+<!-- SUCCESS -->
+<div class="overlay" id="successModal">
+  <div class="sheet">
+    <div class="success">
+      <div class="success-circle">✓</div>
+      <h2 id="successTitle">Transfer complete</h2>
+      <p class="sheet-sub" id="successText">Your money has been sent successfully.</p>
+      <button class="primary" data-action="closeSuccess">Done</button>
+    </div>
+  </div>
+</div>
 <!-- REQUEST -->
 <div class="overlay" id="requestModal">
- <div class="sheet">
-  <div class="sheetHandle"></div>
-  <div class="sheetHead"><h2>Request money</h2><button class="close" onclick="closeModal('requestModal')">×</button></div>
-  <div class="field"><label>FROM</label><input class="input" id="requestFrom" placeholder="Name or phone number"></div>
-  <div class="field"><label>AMOUNT</label><input class="input" id="requestAmount" type="number" placeholder="0.00"></div>
-  <div class="field"><label>NOTE</label><input class="input" id="requestNote" placeholder="What's this for?"></div>
-  <button class="primaryBtn" onclick="submitRequest()">Request money</button>
- </div>
+  <div class="sheet">
+    <div class="handle"></div>
+    <h2>Request money</h2>
+    <p class="sheet-sub">Create a simple payment request.</p>
+    <div class="field">
+      <label>From</label>
+      <input id="requestPerson" placeholder="Name or phone number">
+    </div>
+    <div class="field">
+      <label>Amount</label>
+      <input id="requestAmount" type="number" min="0" step=".01" placeholder="$0.00">
+    </div>
+    <div class="field">
+      <label>Note</label>
+      <input id="requestNote" placeholder="What's it for?">
+    </div>
+    <button class="primary" data-action="submitRequest">Create request</button>
+    <button class="secondary" data-action="close">Cancel</button>
+  </div>
 </div>
-
 <!-- PAY -->
 <div class="overlay" id="payModal">
- <div class="sheet">
-  <div class="sheetHandle"></div>
-  <div class="sheetHead"><h2>NOVA Pay</h2><button class="close" onclick="closeModal('payModal')">×</button></div>
-  <div class="field"><label>MERCHANT</label><input class="input" id="merchant" placeholder="Merchant name"></div>
-  <div class="field"><label>AMOUNT</label><input class="input" id="payAmount" type="number" placeholder="0.00"></div>
-  <div class="field"><label>CATEGORY</label><select class="input" id="payCategory"><option>Food</option><option>Shopping</option><option>Transport</option><option>Entertainment</option><option>Other</option></select></div>
-  <button class="primaryBtn" onclick="submitPay()">Pay now</button>
- </div>
+  <div class="sheet">
+    <div class="handle"></div>
+    <h2>NOVA Pay</h2>
+    <p class="sheet-sub">Pay a merchant using your NOVA balance.</p>
+    <div class="field">
+      <label>Merchant</label>
+      <input id="merchant" placeholder="Merchant name">
+    </div>
+    <div class="field">
+      <label>Amount</label>
+      <input id="payAmount" type="number" min="0" step=".01" placeholder="$0.00">
+    </div>
+    <div class="field">
+      <label>Category</label>
+      <select id="payCategory">
+        <option>Food</option>
+        <option>Shopping</option>
+        <option>Transport</option>
+        <option>Entertainment</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <button class="primary" data-action="submitPay">Pay now</button>
+    <button class="secondary" data-action="close">Cancel</button>
+  </div>
 </div>
-
 <!-- ADD -->
 <div class="overlay" id="addModal">
- <div class="sheet">
-  <div class="sheetHandle"></div>
-  <div class="sheetHead"><h2>Add money</h2><button class="close" onclick="closeModal('addModal')">×</button></div>
-  <div class="field"><label>AMOUNT</label><input class="input" id="addAmount" type="number" placeholder="0.00"></div>
-  <div class="field"><label>FUNDING SOURCE</label><select class="input"><option>Linked bank account</option><option>Debit card</option></select></div>
-  <button class="primaryBtn" onclick="submitAdd()">Add to NOVA</button>
- </div>
+  <div class="sheet">
+    <div class="handle"></div>
+    <h2>Add money</h2>
+    <p class="sheet-sub">Simulate adding money to your NOVA balance.</p>
+    <div class="field">
+      <label>Amount</label>
+      <input id="addAmount" type="number" min="0" step=".01" placeholder="$0.00">
+    </div>
+    <div class="field">
+      <label>Source</label>
+      <select id="addSource">
+        <option>Bank transfer</option>
+        <option>Debit card</option>
+        <option>Salary</option>
+        <option>Cash deposit</option>
+      </select>
+    </div>
+    <button class="primary" data-action="submitAdd">Add money</button>
+    <button class="secondary" data-action="close">Cancel</button>
+  </div>
 </div>
-
-<!-- NOTIFICATIONS -->
-<div class="overlay" id="notifModal">
- <div class="sheet">
-  <div class="sheetHandle"></div>
-  <div class="sheetHead"><h2>Notifications</h2><button class="close" onclick="closeModal('notifModal')">×</button></div>
-  <div id="notifList"></div>
-  <button class="secondaryBtn" onclick="markRead()">Mark all as read</button>
- </div>
-</div>
-
-<!-- SEARCH -->
-<div class="overlay" id="searchModal">
- <div class="sheet">
-  <div class="sheetHandle"></div>
-  <div class="sheetHead"><h2>Search NOVA</h2><button class="close" onclick="closeModal('searchModal')">×</button></div>
-  <input class="input" id="searchInput" oninput="searchEverything()" placeholder="Search transactions, spaces...">
-  <div id="searchResults" style="margin-top:12px"></div>
- </div>
-</div>
-
 <!-- DETAIL -->
 <div class="overlay" id="detailModal">
- <div class="sheet">
-  <div class="sheetHandle"></div>
-  <div class="sheetHead"><h2>Transaction</h2><button class="close" onclick="closeModal('detailModal')">×</button></div>
-  <div id="detailBody"></div>
- </div>
+  <div class="sheet">
+    <div class="handle"></div>
+    <div id="detailContent"></div>
+    <button class="secondary" data-action="close">Close</button>
+  </div>
 </div>
-
+<!-- NOTIFICATIONS -->
+<div class="overlay" id="notificationsModal">
+  <div class="sheet">
+    <div class="handle"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <h2>Notifications</h2>
+        <p class="sheet-sub" style="margin-bottom:0">What's happening with NOVA.</p>
+      </div>
+      <button class="link" data-action="markRead">Mark all read</button>
+    </div>
+    <div style="margin-top:18px" id="notificationList"></div>
+  </div>
+</div>
+<!-- SEARCH -->
+<div class="overlay" id="searchModal">
+  <div class="sheet">
+    <div class="handle"></div>
+    <h2>Search NOVA</h2>
+    <p class="sheet-sub">Find transactions and spaces.</p>
+    <div class="search-box">
+      <input id="searchInput" placeholder="Search...">
+      <button class="icon-btn" data-action="searchRun">⌕</button>
+    </div>
+    <div class="search-results" id="searchResults">
+      <div class="empty">Start typing to search.</div>
+    </div>
+    <button class="secondary" data-action="close">Close</button>
+  </div>
+</div>
 <!-- CREATE SPACE -->
-<div class="overlay" id="spaceModal">
- <div class="sheet">
-  <div class="sheetHandle"></div>
-  <div class="sheetHead"><h2>Create Space</h2><button class="close" onclick="closeModal('spaceModal')">×</button></div>
-  <div class="field"><label>SPACE NAME</label><input class="input" id="spaceName" placeholder="e.g. New apartment"></div>
-  <div class="field"><label>GOAL</label><input class="input" id="spaceGoal" type="number" placeholder="5000"></div>
-  <div class="field"><label>ICON</label><select class="input" id="spaceEmoji"><option>🏠</option><option>✈️</option><option>💼</option><option>🎓</option><option>🚗</option><option>💎</option></select></div>
-  <button class="primaryBtn" onclick="createSpace()">Create Space</button>
- </div>
+<div class="overlay" id="createSpaceModal">
+  <div class="sheet">
+    <div class="handle"></div>
+    <h2>Create Space</h2>
+    <p class="sheet-sub">Give a goal its own identity.</p>
+    <div class="field">
+      <label>Space name</label>
+      <input id="spaceName" placeholder="e.g. New car">
+    </div>
+    <div class="field">
+      <label>Goal amount</label>
+      <input id="spaceGoal" type="number" min="0" step=".01" placeholder="$5,000">
+    </div>
+    <div class="field">
+      <label>Icon</label>
+      <select id="spaceEmoji">
+        <option>🎯</option>
+        <option>🏠</option>
+        <option>✈️</option>
+        <option>💼</option>
+        <option>🚗</option>
+        <option>🎓</option>
+        <option>💻</option>
+      </select>
+    </div>
+    <button class="primary" data-action="createSpaceSubmit">Create Space</button>
+    <button class="secondary" data-action="close">Cancel</button>
+  </div>
 </div>
-
-<div class="toast" id="toast"></div>
-
+<!-- ADD TO SPACE -->
+<div class="overlay" id="spaceAddModal">
+  <div class="sheet">
+    <div class="handle"></div>
+    <h2>Add to Space</h2>
+    <p class="sheet-sub" id="spaceAddName"></p>
+    <div class="field">
+      <label>Amount</label>
+      <input id="spaceAddAmount" type="number" min="0" step=".01" placeholder="$0.00">
+    </div>
+    <button class="primary" data-action="spaceAddSubmit">Move money</button>
+    <button class="secondary" data-action="close">Cancel</button>
+  </div>
+</div>
 <script>
-const $=id=>document.getElementById(id);
-
-let balanceAmount=24860.40;
-let balanceVisible=true;
-
-let transactions=[
- {id:"NX-849231",name:"Blue Bottle Coffee",amount:-8.40,category:"Food",time:"Today · 6:42 PM",icon:"☕",type:"payment",status:"Completed",method:"NOVA Card",location:"Downtown"},
- {id:"NX-849184",name:"Salary deposit",amount:4280,category:"Income",time:"Today · 9:15 AM",icon:"↗",type:"income",status:"Completed",method:"Bank transfer",location:"—"},
- {id:"NX-848921",name:"Apartment rent",amount:-1420,category:"Housing",time:"Yesterday · 10:03 AM",icon:"🏠",type:"payment",status:"Completed",method:"Bank transfer",location:"Home"},
- {id:"NX-848731",name:"NOVA Travel",amount:-250,category:"Spaces",time:"Aug 31 · 4:12 PM",icon:"✈️",type:"space",status:"Completed",method:"Space transfer",location:"NOVA"},
- {id:"NX-848412",name:"Uber",amount:-22.60,category:"Transport",time:"Aug 30 · 8:20 PM",icon:"🚗",type:"payment",status:"Completed",method:"NOVA Card",location:"Downtown"}
-];
-
-let spaces=[
- {name:"Rent",emoji:"🏠",balance:2800,goal:4000},
- {name:"Travel",emoji:"✈️",balance:1220,goal:3000},
- {name:"Business",emoji:"💼",balance:740,goal:5000}
-];
-
-let notifications=[
- {title:"Salary received",text:"$4,280 was added to your NOVA account.",time:"Today · 9:15 AM",unread:true,icon:"↗"},
- {title:"Spending insight",text:"You're spending 12% less than last month.",time:"Today",unread:true,icon:"✦"},
- {title:"New sign-in",text:"Your NOVA account was accessed from this device.",time:"Yesterday",unread:false,icon:"⌕"}
-];
-
-function money(n){
- return (n<0?"−":"+")+"$"+Math.abs(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+"use strict";
+/* -----------------------------
+   NOVA STATE
+----------------------------- */
+const state = {
+  balance: 24860.40,
+  balanceVisible: true,
+  activeScreen: "home",
+  activityFilter: "all",
+  selectedSpace: null,
+  send: {
+    recipient: "",
+    amount: 0
+  },
+  transactions: [
+    {
+      id:"NX-849231",
+      name:"Blue Bottle Coffee",
+      amount:-8.40,
+      category:"Food",
+      time:"Today · 6:42 PM",
+      icon:"☕",
+      type:"payment",
+      status:"Completed",
+      method:"NOVA Card",
+      location:"Downtown"
+    },
+    {
+      id:"NX-849184",
+      name:"Salary deposit",
+      amount:4280,
+      category:"Income",
+      time:"Today · 9:15 AM",
+      icon:"↗",
+      type:"income",
+      status:"Completed",
+      method:"Bank transfer",
+      location:"—"
+    },
+    {
+      id:"NX-848921",
+      name:"Apartment rent",
+      amount:-1420,
+      category:"Housing",
+      time:"Yesterday · 10:03 AM",
+      icon:"🏠",
+      type:"payment",
+      status:"Completed",
+      method:"Bank transfer",
+      location:"Home"
+    },
+    {
+      id:"NX-848731",
+      name:"NOVA Travel",
+      amount:-250,
+      category:"Spaces",
+      time:"Aug 31 · 4:12 PM",
+      icon:"✈️",
+      type:"space",
+      status:"Completed",
+      method:"Space transfer",
+      location:"NOVA"
+    },
+    {
+      id:"NX-848412",
+      name:"Uber",
+      amount:-22.60,
+      category:"Transport",
+      time:"Aug 30 · 8:20 PM",
+      icon:"🚗",
+      type:"payment",
+      status:"Completed",
+      method:"NOVA Card",
+      location:"Downtown"
+    }
+  ],
+  spaces: [
+    {name:"Rent",emoji:"🏠",balance:2800,goal:4000},
+    {name:"Travel",emoji:"✈️",balance:1220,goal:3000},
+    {name:"Business",emoji:"💼",balance:740,goal:5000}
+  ],
+  notifications: [
+    {
+      title:"Salary received",
+      text:"$4,280 was added to your NOVA account.",
+      time:"Today · 9:15 AM",
+      unread:true,
+      icon:"↗"
+    },
+    {
+      title:"Spending insight",
+      text:"You're spending 12% less than last month.",
+      time:"Today",
+      unread:true,
+      icon:"✦"
+    },
+    {
+      title:"New sign-in",
+      text:"Your NOVA account was accessed from this device.",
+      time:"Yesterday",
+      unread:false,
+      icon:"⌕"
+    }
+  ]
+};
+/* -----------------------------
+   HELPERS
+----------------------------- */
+const $ = id => document.getElementById(id);
+function money(value){
+  return "$" + Number(value).toLocaleString("en-US",{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
 }
-function moneyPositive(n){
- return "$"+Number(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+function moneyPositive(value){
+  return (value >= 0 ? "+" : "") + money(value);
 }
-
+function uid(){
+  return "NX-" + Math.floor(100000 + Math.random()*900000);
+}
+function escapeHTML(value){
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+/* -----------------------------
+   TOAST
+----------------------------- */
+let toastTimer;
+function notify(message){
+  const toast = $("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>{
+    toast.classList.remove("show");
+  },2200);
+}
+/* -----------------------------
+   MODALS
+----------------------------- */
+function openModal(id){
+  const modal = $(id);
+  if(modal) modal.classList.add("show");
+}
+function closeModal(id){
+  const modal = $(id);
+  if(modal) modal.classList.remove("show");
+}
+function closeAllModals(){
+  document.querySelectorAll(".overlay.show")
+    .forEach(modal=>modal.classList.remove("show"));
+}
+/* -----------------------------
+   NAVIGATION
+----------------------------- */
+function showScreen(screen){
+  state.activeScreen = screen;
+  document.querySelectorAll(".screen").forEach(section=>{
+    section.classList.remove("active");
+  });
+  const target = $(screen + "Screen");
+  if(target){
+    target.classList.add("active");
+  }
+  document.querySelectorAll(".nav-btn").forEach(button=>{
+    button.classList.toggle(
+      "active",
+      button.dataset.screen === screen
+    );
+  });
+  if(screen === "home") renderHome();
+  if(screen === "activity") renderActivity();
+  if(screen === "spaces") renderSpaces();
+}
+/* -----------------------------
+   HOME
+----------------------------- */
 function renderHome(){
- $("homeActivity").innerHTML=transactions.slice(0,3).map(tx=>txHTML(tx)).join("");
- $("activityList").innerHTML=transactions.map(tx=>txHTML(tx)).join("");
+  $("balance").textContent =
+    state.balanceVisible ? money(state.balance) : "••••••••";
+  $("eye").textContent =
+    state.balanceVisible ? "◉" : "○";
+  $("homeTransactions").innerHTML =
+    state.transactions
+      .slice(0,4)
+      .map(txHTML)
+      .join("");
 }
+/* -----------------------------
+   TRANSACTIONS
+----------------------------- */
 function txHTML(tx){
- return `<div class="tx" onclick="openDetail('${tx.id}')">
-  <div class="txIcon">${tx.icon}</div>
-  <div class="txMain">
-   <div class="txName">${tx.name}</div>
-   <div class="txMeta">${tx.category} · ${tx.time}</div>
-  </div>
-  <div class="txAmount ${tx.amount>0?'plus':'minus'}">${money(tx.amount)}</div>
- </div>`;
+  const amountClass =
+    tx.amount >= 0 ? "income" : "expense";
+  const amountText =
+    tx.amount >= 0
+      ? "+" + money(tx.amount)
+      : "−" + money(Math.abs(tx.amount));
+  return `
+    <div class="tx" data-action="detail" data-id="${escapeHTML(tx.id)}">
+      <div class="tx-icon">
+        ${escapeHTML(tx.icon)}
+      </div>
+      <div class="tx-main">
+        <div class="tx-name">
+          ${escapeHTML(tx.name)}
+        </div>
+        <div class="tx-meta">
+          ${escapeHTML(tx.category)} · ${escapeHTML(tx.time)}
+        </div>
+      </div>
+      <div class="tx-amount ${amountClass}">
+        ${amountText}
+      </div>
+    </div>
+  `;
 }
-
-function renderSpaces(){
- $("spaceGrid").innerHTML=spaces.map((s,i)=>{
-  let p=Math.min(100,(s.balance/s.goal)*100);
-  return `<div class="spaceCard">
-   <div class="spaceTop">
-    <div class="spaceEmoji">${s.emoji}</div>
-    <div class="spaceInfo"><div class="spaceName">${s.name}</div><div class="spaceGoal">Goal · ${moneyPositive(s.goal)}</div></div>
-    <div class="spaceMoney">${moneyPositive(s.balance)}</div>
-   </div>
-   <div class="progress"><i style="width:${p}%"></i></div>
-   <div class="spaceBottom"><span>${Math.round(p)}% funded</span><span>${moneyPositive(Math.max(0,s.goal-s.balance))} to go</span></div>
-   <div class="spaceActions">
-    <button class="smallBtn primary" onclick="addToSpace(${i})">Add money</button>
-    <button class="smallBtn" onclick="notify('${s.name} Space opened')">View</button>
-   </div>
-  </div>`;
- }).join("");
+/* -----------------------------
+   ACTIVITY
+----------------------------- */
+function renderActivity(){
+  const list = $("activityList");
+  let items = state.transactions;
+  if(state.activityFilter !== "all"){
+    items = items.filter(
+      tx => tx.type === state.activityFilter
+    );
+  }
+  if(!items.length){
+    list.innerHTML = `
+      <div class="empty" style="margin-top:18px">
+        <strong>No activity</strong>
+        Nothing matches this filter yet.
+      </div>
+    `;
+    return;
+  }
+  list.innerHTML = `
+    <div class="day-label">Recent</div>
+    <div class="tx-list">
+      ${items.map(txHTML).join("")}
+    </div>
+  `;
 }
-
+function filterActivity(filter){
+  state.activityFilter = filter;
+  document.querySelectorAll(".filter").forEach(button=>{
+    button.classList.toggle(
+      "active",
+      button.dataset.filter === filter
+    );
+  });
+  renderActivity();
+}
+/* -----------------------------
+   BALANCE
+----------------------------- */
 function toggleBalance(){
- balanceVisible=!balanceVisible;
- $("balance").textContent=balanceVisible?moneyPositive(balanceAmount):"••••••";
+  state.balanceVisible =
+    !state.balanceVisible;
+  renderHome();
 }
-
-function showScreen(id,btn){
- document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));
- $(id).classList.add("active");
- document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
- if(btn)btn.classList.add("active");
- window.scrollTo({top:0,behavior:"smooth"});
-}
-
-function notify(msg){
- const t=$("toast");
- t.textContent=msg;t.classList.add("show");
- clearTimeout(window.toastTimer);
- window.toastTimer=setTimeout(()=>t.classList.remove("show"),2400);
-}
-
-function openModal(id){$(id).classList.add("show")}
-function closeModal(id){$(id).classList.remove("show")}
-
+/* -----------------------------
+   SEND FLOW
+----------------------------- */
 function openSend(){
- $("sendTitle").textContent="Send money";
- $("sendBody").innerHTML=`
-  <div class="field"><label>RECIPIENT</label>
-   <input class="input" id="recipientInput" placeholder="Name, phone or NOVA ID">
-  </div>
-  <div class="recipient">
-   <div class="recAvatar">?</div>
-   <div><b style="font-size:12px">Who are you sending to?</b><div style="font-size:10px;color:#888;margin-top:3px">Enter a recipient above</div></div>
-  </div>
-  <div class="field"><label>AMOUNT</label>
-   <input class="input" id="sendAmount" type="number" placeholder="0.00">
-  </div>
-  <div class="field"><label>NOTE</label>
-   <input class="input" id="sendNote" placeholder="What's this for?">
-  </div>
-  <button class="primaryBtn" onclick="reviewSend()">Review transfer</button>`;
- openModal("sendModal");
+  state.send.recipient = "";
+  state.send.amount = 0;
+  $("sendRecipient").value = "";
+  $("sendAmount").value = "";
+  $("sendStep1").style.display = "block";
+  $("sendStep2").style.display = "none";
+  $("sendStep3").style.display = "none";
+  openModal("sendModal");
 }
-
 function reviewSend(){
- const person=$("recipientInput").value.trim();
- const amount=Number($("sendAmount").value);
- if(!person||!amount||amount<=0)return notify("Enter a recipient and amount");
- if(amount>balanceAmount)return notify("Not enough available balance");
-
- $("sendTitle").textContent="Review transfer";
- $("sendBody").innerHTML=`
-  <div class="detailIcon">↗</div>
-  <div style="text-align:center;font-size:11px;color:#888">Sending to</div>
-  <div style="text-align:center;font-family:Space Grotesk;font-weight:700;margin-top:4px">${person}</div>
-  <div class="review">
-   <div class="reviewRow"><span>Amount</span><b>${moneyPositive(amount)}</b></div>
-   <div class="reviewRow"><span>Fee</span><b>$0.00</b></div>
-   <div class="reviewRow"><span>From</span><b>•••• 4821</b></div>
-   <div class="reviewRow"><span>Arrives</span><b>Instantly</b></div>
-   <div class="reviewTotal"><span>Total</span> ${moneyPositive(amount)}</div>
-  </div>
-  <button class="primaryBtn" onclick="confirmSend('${encodeURIComponent(person)}',${amount})">Confirm & send</button>
-  <button class="secondaryBtn" onclick="openSend()">Edit transfer</button>`;
+  const person =
+    $("sendRecipient").value.trim();
+  if(!person){
+    notify("Enter a recipient");
+    return;
+  }
+  state.send.recipient = person;
+  $("sendToText").textContent =
+    "Sending to " + person;
+  $("sendStep1").style.display = "none";
+  $("sendStep2").style.display = "block";
 }
-
-function confirmSend(encoded,amount){
- const person=decodeURIComponent(encoded);
- balanceAmount-=amount;
- transactions.unshift({
-  id:"NX-"+Math.floor(100000+Math.random()*899999),
-  name:person,amount:-amount,category:"Transfer",
-  time:"Just now",icon:"↗",type:"payment",status:"Completed",
-  method:"NOVA account",location:"NOVA"
- });
- notifications.unshift({
-  title:"Transfer sent",
-  text:`${moneyPositive(amount)} was sent to ${person}.`,
-  time:"Just now",unread:true,icon:"↗"
- });
- renderAll();
- $("sendTitle").textContent="Transfer complete";
- $("sendBody").innerHTML=`
-  <div class="success">
-   <div class="successCircle">✓</div>
-   <h2>Money sent</h2>
-   <p>${moneyPositive(amount)} was successfully sent to ${person}.</p>
-   <button class="primaryBtn" onclick="closeModal('sendModal')">Done</button>
-  </div>`;
- notify("Transfer completed");
+function confirmSend(){
+  const amount =
+    Number($("sendAmount").value);
+  if(!amount || amount <= 0){
+    notify("Enter a valid amount");
+    return;
+  }
+  if(amount > state.balance){
+    notify("Not enough available balance");
+    return;
+  }
+  state.send.amount = amount;
+  $("reviewRecipient").textContent =
+    state.send.recipient;
+  $("reviewAmount").textContent =
+    money(amount);
+  $("reviewTotal").textContent =
+    money(amount);
+  $("sendStep2").style.display = "none";
+  $("sendStep3").style.display = "block";
 }
-
-function openRequest(){openModal("requestModal")}
+function backSend(){
+  $("sendStep2").style.display = "none";
+  $("sendStep1").style.display = "block";
+}
+function backAmount(){
+  $("sendStep3").style.display = "none";
+  $("sendStep2").style.display = "block";
+}
+function finishSend(){
+  const amount = state.send.amount;
+  if(amount <= 0 || amount > state.balance){
+    notify("Transfer could not be completed");
+    return;
+  }
+  state.balance -= amount;
+  const tx = {
+    id:uid(),
+    name:state.send.recipient,
+    amount:-amount,
+    category:"Transfer",
+    time:"Just now",
+    icon:"↗",
+    type:"payment",
+    status:"Completed",
+    method:"NOVA Transfer",
+    location:"NOVA"
+  };
+  state.transactions.unshift(tx);
+  state.notifications.unshift({
+    title:"Transfer sent",
+    text:`${money(amount)} was sent to ${state.send.recipient}.`,
+    time:"Just now",
+    unread:true,
+    icon:"↗"
+  });
+  closeModal("sendModal");
+  $("successTitle").textContent =
+    "Transfer complete";
+  $("successText").textContent =
+    `${money(amount)} was sent to ${state.send.recipient}.`;
+  openModal("successModal");
+  renderAll();
+}
+/* -----------------------------
+   REQUEST
+----------------------------- */
+function openRequest(){
+  $("requestPerson").value = "";
+  $("requestAmount").value = "";
+  $("requestNote").value = "";
+  openModal("requestModal");
+}
 function submitRequest(){
- const person=$("requestFrom").value.trim();
- const amount=Number($("requestAmount").value);
- if(!person||!amount)return notify("Complete the request details");
- closeModal("requestModal");
- notifications.unshift({title:"Request created",text:`You requested ${moneyPositive(amount)} from ${person}.`,time:"Just now",unread:true,icon:"＋"});
- renderAll();notify("Money request sent");
+  const person =
+    $("requestPerson").value.trim();
+  const amount =
+    Number($("requestAmount").value);
+  if(!person || !amount || amount <= 0){
+    notify("Complete the request details");
+    return;
+  }
+  state.notifications.unshift({
+    title:"Request created",
+    text:`You requested ${money(amount)} from ${person}.`,
+    time:"Just now",
+    unread:true,
+    icon:"↙"
+  });
+  closeModal("requestModal");
+  notify("Payment request created");
+  updateBadge();
 }
-
-function openPay(){openModal("payModal")}
+/* -----------------------------
+   PAY
+----------------------------- */
+function openPay(){
+  $("merchant").value = "";
+  $("payAmount").value = "";
+  $("payCategory").value = "Food";
+  openModal("payModal");
+}
 function submitPay(){
- const merchant=$("merchant").value.trim();
- const amount=Number($("payAmount").value);
- const category=$("payCategory").value;
- if(!merchant||!amount)return notify("Enter a merchant and amount");
- if(amount>balanceAmount)return notify("Not enough available balance");
-
- balanceAmount-=amount;
- transactions.unshift({
-  id:"NX-"+Math.floor(100000+Math.random()*899999),
-  name:merchant,amount:-amount,category,time:"Just now",
-  icon:category==="Food"?"☕":"◉",type:"payment",status:"Completed",
-  method:"NOVA Pay",location:"Merchant"
- });
- notifications.unshift({title:"Payment completed",text:`${moneyPositive(amount)} paid to ${merchant}.`,time:"Just now",unread:true,icon:"✓"});
- closeModal("payModal");renderAll();notify("Payment completed");
+  const merchant =
+    $("merchant").value.trim();
+  const amount =
+    Number($("payAmount").value);
+  const category =
+    $("payCategory").value;
+  if(!merchant || !amount || amount <= 0){
+    notify("Enter a merchant and amount");
+    return;
+  }
+  if(amount > state.balance){
+    notify("Not enough available balance");
+    return;
+  }
+  state.balance -= amount;
+  state.transactions.unshift({
+    id:uid(),
+    name:merchant,
+    amount:-amount,
+    category:category,
+    time:"Just now",
+    icon:category === "Food" ? "☕" : "◉",
+    type:"payment",
+    status:"Completed",
+    method:"NOVA Pay",
+    location:"Merchant"
+  });
+  state.notifications.unshift({
+    title:"Payment completed",
+    text:`${money(amount)} paid to ${merchant}.`,
+    time:"Just now",
+    unread:true,
+    icon:"⌁"
+  });
+  closeModal("payModal");
+  $("successTitle").textContent =
+    "Payment complete";
+  $("successText").textContent =
+    `${money(amount)} paid to ${merchant}.`;
+  openModal("successModal");
+  renderAll();
 }
-
-function openAdd(){openModal("addModal")}
+/* -----------------------------
+   ADD MONEY
+----------------------------- */
+function openAdd(){
+  $("addAmount").value = "";
+  $("addSource").value = "Bank transfer";
+  openModal("addModal");
+}
 function submitAdd(){
- const amount=Number($("addAmount").value);
- if(!amount||amount<=0)return notify("Enter an amount");
- balanceAmount+=amount;
- transactions.unshift({
-  id:"NX-"+Math.floor(100000+Math.random()*899999),
-  name:"Added money",amount,category:"Income",time:"Just now",
-  icon:"＋",type:"income",status:"Completed",method:"Linked bank",location:"NOVA"
- });
- notifications.unshift({title:"Money added",text:`${moneyPositive(amount)} was added to your account.`,time:"Just now",unread:true,icon:"＋"});
- closeModal("addModal");renderAll();notify(`${moneyPositive(amount)} added`);
+  const amount =
+    Number($("addAmount").value);
+  const source =
+    $("addSource").value;
+  if(!amount || amount <= 0){
+    notify("Enter a valid amount");
+    return;
+  }
+  state.balance += amount;
+  state.transactions.unshift({
+    id:uid(),
+    name:"Money added",
+    amount:amount,
+    category:"Income",
+    time:"Just now",
+    icon:"＋",
+    type:"income",
+    status:"Completed",
+    method:source,
+    location:"NOVA"
+  });
+  state.notifications.unshift({
+    title:"Money added",
+    text:`${money(amount)} was added from ${source}.`,
+    time:"Just now",
+    unread:true,
+    icon:"＋"
+  });
+  closeModal("addModal");
+  $("successTitle").textContent =
+    "Money added";
+  $("successText").textContent =
+    `${money(amount)} is now available in your NOVA balance.`;
+  openModal("successModal");
+  renderAll();
 }
-
-function filterActivity(type,btn){
- document.querySelectorAll(".filters button").forEach(x=>x.classList.remove("active"));
- btn.classList.add("active");
- const list=type==="all"?transactions:transactions.filter(x=>x.type===type);
- $("activityList").innerHTML=list.length?list.map(tx=>txHTML(tx)).join(""):`<div class="empty">No activity here yet.</div>`;
-}
-
+/* -----------------------------
+   TRANSACTION DETAIL
+----------------------------- */
 function openDetail(id){
- const tx=transactions.find(x=>x.id===id);if(!tx)return;
- $("detailBody").innerHTML=`
-  <div class="detailIcon">${tx.icon}</div>
-  <div style="text-align:center;font-weight:700">${tx.name}</div>
-  <div class="detailAmount ${tx.amount>0?'plus':''}">${money(tx.amount)}</div>
-  <div class="detailRows">
-   <div class="detailRow"><span>Status</span><b class="status">${tx.status}</b></div>
-   <div class="detailRow"><span>Transaction ID</span><b>${tx.id}</b></div>
-   <div class="detailRow"><span>Date</span><b>${tx.time}</b></div>
-   <div class="detailRow"><span>Payment method</span><b>${tx.method}</b></div>
-   <div class="detailRow"><span>Category</span><b>${tx.category}</b></div>
-   <div class="detailRow"><span>Location</span><b>${tx.location}</b></div>
-  </div>
-  <button class="secondaryBtn" onclick="notify('Receipt prepared');closeModal('detailModal')">View receipt</button>
-  <button class="primaryBtn" onclick="notify('Report feature opened');">Report a problem</button>`;
- openModal("detailModal");
+  const tx =
+    state.transactions.find(item=>item.id === id);
+  if(!tx) return;
+  const amount =
+    tx.amount >= 0
+      ? "+" + money(tx.amount)
+      : "−" + money(Math.abs(tx.amount));
+  $("detailContent").innerHTML = `
+    <div style="text-align:center;padding:4px 0 20px">
+      <div class="tx-icon"
+           style="margin:0 auto 13px;width:58px;height:58px;font-size:23px">
+        ${escapeHTML(tx.icon)}
+      </div>
+      <h2>${escapeHTML(tx.name)}</h2>
+      <div style="
+        font-family:'Space Grotesk';
+        font-size:28px;
+        font-weight:700;
+        margin-top:7px;
+      ">
+        ${amount}
+      </div>
+      <div style="
+        color:#31b972;
+        font-size:10px;
+        font-weight:700;
+        margin-top:5px;
+      ">
+        ✓ ${escapeHTML(tx.status)}
+      </div>
+    </div>
+    <div class="review">
+      <div class="review-row">
+        <span>Transaction ID</span>
+        <b>${escapeHTML(tx.id)}</b>
+      </div>
+      <div class="review-row">
+        <span>Date</span>
+        <b>${escapeHTML(tx.time)}</b>
+      </div>
+      <div class="review-row">
+        <span>Payment method</span>
+        <b>${escapeHTML(tx.method)}</b>
+      </div>
+      <div class="review-row">
+        <span>Category</span>
+        <b>${escapeHTML(tx.category)}</b>
+      </div>
+      <div class="review-row">
+        <span>Location</span>
+        <b>${escapeHTML(tx.location)}</b>
+      </div>
+    </div>
+    <button
+      class="secondary"
+      data-action="reportProblem"
+      data-id="${escapeHTML(tx.id)}">
+      Report a problem
+    </button>
+  `;
+  openModal("detailModal");
 }
-
-function openNotifications(){
- renderNotifications();openModal("notifModal");
+/* -----------------------------
+   NOTIFICATIONS
+----------------------------- */
+function updateBadge(){
+  const unread =
+    state.notifications.filter(
+      notification => notification.unread
+    ).length;
+  $("badge").style.display =
+    unread ? "block" : "none";
 }
 function renderNotifications(){
- $("notifList").innerHTML=notifications.map((n,i)=>`
-  <div class="tx" style="${n.unread?'background:#f4f3ff':''}" onclick="notifications[${i}].unread=false;renderNotifications();updateBadge()">
-   <div class="txIcon">${n.icon}</div>
-   <div class="txMain">
-    <div class="txName">${n.title}${n.unread?' <span style="color:#6258f5">●</span>':''}</div>
-    <div class="txMeta">${n.text}</div>
-    <div class="txMeta">${n.time}</div>
-   </div>
-  </div>`).join("");
+  const list = $("notificationList");
+  if(!state.notifications.length){
+    list.innerHTML = `
+      <div class="empty">
+        <strong>You're all caught up</strong>
+        No new notifications.
+      </div>
+    `;
+    return;
+  }
+  list.innerHTML =
+    state.notifications.map((n,index)=>`
+      <div class="notify-card ${n.unread ? "unread" : ""}"
+           data-action="readNotification"
+           data-index="${index}">
+        <div class="notify-icon">
+          ${escapeHTML(n.icon)}
+        </div>
+        <div style="flex:1">
+          <div class="notify-title">
+            ${escapeHTML(n.title)}
+          </div>
+          <div class="notify-text">
+            ${escapeHTML(n.text)}
+          </div>
+          <div class="notify-time">
+            ${escapeHTML(n.time)}
+          </div>
+        </div>
+      </div>
+    `).join("");
+}
+function openNotifications(){
+  renderNotifications();
+  openModal("notificationsModal");
 }
 function markRead(){
- notifications.forEach(n=>n.unread=false);
- renderNotifications();updateBadge();notify("Notifications marked as read");
+  state.notifications.forEach(
+    notification => notification.unread = false
+  );
+  renderNotifications();
+  updateBadge();
+  notify("Notifications marked as read");
 }
-function updateBadge(){
- $("notifBadge").style.display=notifications.some(n=>n.unread)?"block":"none";
-}
-
+/* -----------------------------
+   SEARCH
+----------------------------- */
 function openSearch(){
- $("searchInput").value="";
- $("searchResults").innerHTML='<div style="padding:20px;text-align:center;color:#999;font-size:11px">Search your NOVA activity</div>';
- openModal("searchModal");
- setTimeout(()=>$("searchInput").focus(),200);
+  $("searchInput").value = "";
+  $("searchResults").innerHTML = `
+    <div class="empty">
+      Start typing to search.
+    </div>
+  `;
+  openModal("searchModal");
+  setTimeout(()=>{
+    $("searchInput").focus();
+  },200);
 }
 function searchEverything(){
- const q=$("searchInput").value.toLowerCase();
- if(!q){$("searchResults").innerHTML="";return}
- const matches=transactions.filter(t=>
-  t.name.toLowerCase().includes(q)||t.category.toLowerCase().includes(q)
- );
- $("searchResults").innerHTML=matches.length?matches.map(tx=>txHTML(tx)).join(""):'<div class="empty">Nothing found</div>';
+  const query =
+    $("searchInput").value.trim().toLowerCase();
+  if(!query){
+    $("searchResults").innerHTML = `
+      <div class="empty">
+        Start typing to search.
+      </div>
+    `;
+    return;
+  }
+  const txResults =
+    state.transactions.filter(tx =>
+      [
+        tx.name,
+        tx.category,
+        tx.method,
+        tx.location,
+        tx.id
+      ].join(" ").toLowerCase().includes(query)
+    );
+  const spaceResults =
+    state.spaces.filter(space =>
+      space.name.toLowerCase().includes(query)
+    );
+  let html = "";
+  txResults.forEach(tx=>{
+    html += txHTML(tx);
+  });
+  spaceResults.forEach(space=>{
+    html += `
+      <div class="tx">
+        <div class="tx-icon">
+          ${escapeHTML(space.emoji)}
+        </div>
+        <div class="tx-main">
+          <div class="tx-name">
+            ${escapeHTML(space.name)}
+          </div>
+          <div class="tx-meta">
+            Money Space
+          </div>
+        </div>
+        <div class="tx-amount">
+          ${money(space.balance)}
+        </div>
+      </div>
+    `;
+  });
+  $("searchResults").innerHTML =
+    html ||
+    `<div class="empty">
+      <strong>No results</strong>
+      Nothing matched "${escapeHTML(query)}".
+    </div>`;
 }
-
-function openCreateSpace(){openModal("spaceModal")}
+/* -----------------------------
+   SPACES
+----------------------------- */
+function renderSpaces(){
+  const list = $("spacesList");
+  const total =
+    state.spaces.reduce(
+      (sum,space)=>sum + space.balance,
+      0
+    );
+  $("spaceTotal").textContent =
+    money(total) + " saved";
+  if(!state.spaces.length){
+    list.innerHTML = `
+      <div class="empty">
+        <strong>No Spaces yet</strong>
+        Create your first goal above.
+      </div>
+    `;
+    return;
+  }
+  list.innerHTML =
+    state.spaces.map((space,index)=>{
+      const percent =
+        space.goal > 0
+          ? Math.min(
+              100,
+              (space.balance / space.goal) * 100
+            )
+          : 0;
+      const remaining =
+        Math.max(
+          0,
+          space.goal - space.balance
+        );
+      return `
+        <div class="space-card">
+          <div class="space-head">
+            <div class="space-icon">
+              ${escapeHTML(space.emoji)}
+            </div>
+            <div>
+              <div class="space-name">
+                ${escapeHTML(space.name)}
+              </div>
+              <div class="space-goal">
+                ${remaining > 0
+                  ? money(remaining) + " to go"
+                  : "Goal reached"}
+              </div>
+            </div>
+            <div class="space-money">
+              <div class="space-balance">
+                ${money(space.balance)}
+              </div>
+              <div class="space-percent">
+                ${Math.round(percent)}%
+              </div>
+            </div>
+          </div>
+          <div class="progress">
+            <i style="width:${percent}%"></i>
+          </div>
+          <div class="space-actions">
+            <button
+              class="small-btn dark"
+              data-action="addToSpace"
+              data-index="${index}">
+              Add money
+            </button>
+            <button
+              class="small-btn"
+              data-action="spaceInfo"
+              data-index="${index}">
+              Details
+            </button>
+          </div>
+        </div>
+      `;
+    }).join("");
+}
+function openCreateSpace(){
+  $("spaceName").value = "";
+  $("spaceGoal").value = "";
+  $("spaceEmoji").value = "🎯";
+  openModal("createSpaceModal");
+}
 function createSpace(){
- const name=$("spaceName").value.trim();
- const goal=Number($("spaceGoal").value);
- const emoji=$("spaceEmoji").value;
- if(!name||!goal)return notify("Give your Space a name and goal");
- spaces.push({name,emoji,balance:0,goal});
- closeModal("spaceModal");renderSpaces();notify(`${name} Space created`);
+  const name =
+    $("spaceName").value.trim();
+  const goal =
+    Number($("spaceGoal").value);
+  const emoji =
+    $("spaceEmoji").value;
+  if(!name){
+    notify("Give your Space a name");
+    return;
+  }
+  if(!goal || goal <= 0){
+    notify("Enter a goal amount");
+    return;
+  }
+  state.spaces.push({
+    name:name,
+    emoji:emoji,
+    balance:0,
+    goal:goal
+  });
+  closeModal("createSpaceModal");
+  renderSpaces();
+  notify(name + " Space created");
 }
 function addToSpace(index){
- const amount=Number(prompt("Amount to move into "+spaces[index].name+" Space"));
- if(!amount||amount<=0)return;
- if(amount>balanceAmount)return notify("Not enough available balance");
- balanceAmount-=amount;
- spaces[index].balance+=amount;
- transactions.unshift({
-  id:"NX-"+Math.floor(100000+Math.random()*899999),
-  name:"Moved to "+spaces[index].name,amount:-amount,
-  category:"Spaces",time:"Just now",icon:spaces[index].emoji,
-  type:"space",status:"Completed",method:"Space transfer",location:"NOVA"
- });
- renderAll();notify(`${moneyPositive(amount)} moved to ${spaces[index].name}`);
+  const space =
+    state.spaces[index];
+  if(!space) return;
+  state.selectedSpace = index;
+  $("spaceAddName").textContent =
+    space.name + " · " + money(space.balance);
+  $("spaceAddAmount").value = "";
+  openModal("spaceAddModal");
 }
-
-function renderAll(){
- $("balance").textContent=balanceVisible?moneyPositive(balanceAmount):"••••••";
- renderHome();renderSpaces();updateBadge();
+function submitSpaceAdd(){
+  const index =
+    state.selectedSpace;
+  const space =
+    state.spaces[index];
+  const amount =
+    Number($("spaceAddAmount").value);
+  if(!space){
+    closeModal("spaceAddModal");
+    return;
+  }
+  if(!amount || amount <= 0){
+    notify("Enter an amount");
+    return;
+  }
+  if(amount > state.balance){
+    notify("Not enough available balance");
+    return;
+  }
+  state.balance -= amount;
+  space.balance += amount;
+  state.transactions.unshift({
+    id:uid(),
+    name:space.name,
+    amount:-amount,
+    category:"Spaces",
+    time:"Just now",
+    icon:space.emoji,
+    type:"space",
+    status:"Completed",
+    method:"Space transfer",
+    location:"NOVA"
+  });
+  state.notifications.unshift({
+    title:"Space funded",
+    text:`${money(amount)} moved into ${space.name}.`,
+    time:"Just now",
+    unread:true,
+    icon:space.emoji
+  });
+  closeModal("spaceAddModal");
+  renderAll();
+  notify(
+    money(amount) +
+    " added to " +
+    space.name
+  );
 }
-
-document.querySelectorAll(".overlay").forEach(o=>{
- o.addEventListener("click",e=>{
-  if(e.target===o)o.classList.remove("show");
- });
+function spaceInfo(index){
+  const space =
+    state.spaces[index];
+  if(!space) return;
+  const percent =
+    space.goal
+      ? Math.min(100,(space.balance/space.goal)*100)
+      : 0;
+  notify(
+    `${space.name}: ${Math.round(percent)}% of goal`
+  );
+}
+/* -----------------------------
+   PROFILE
+----------------------------- */
+function profileToast(message){
+  notify(message);
+}
+/* -----------------------------
+   REPORT
+----------------------------- */
+function reportProblem(){
+  closeModal("detailModal");
+  notify("Problem report started");
+}
+/* -----------------------------
+   EVENT DELEGATION
+----------------------------- */
+document.addEventListener("click",event=>{
+  const button =
+    event.target.closest("[data-action]");
+  if(button){
+    const action =
+      button.dataset.action;
+    switch(action){
+      case "toggleBalance":
+        toggleBalance();
+        break;
+      case "send":
+        openSend();
+        break;
+      case "request":
+        openRequest();
+        break;
+      case "pay":
+        openPay();
+        break;
+      case "add":
+        openAdd();
+        break;
+      case "activity":
+        showScreen("activity");
+        break;
+      case "notifications":
+        openNotifications();
+        break;
+      case "search":
+        openSearch();
+        break;
+      case "reviewSend":
+        reviewSend();
+        break;
+      case "confirmSend":
+        confirmSend();
+        break;
+      case "finishSend":
+        finishSend();
+        break;
+      case "backSend":
+        backSend();
+        break;
+      case "backAmount":
+        backAmount();
+        break;
+      case "submitRequest":
+        submitRequest();
+        break;
+      case "submitPay":
+        submitPay();
+        break;
+      case "submitAdd":
+        submitAdd();
+        break;
+      case "close":
+        closeAllModals();
+        break;
+      case "closeSuccess":
+        closeModal("successModal");
+        break;
+      case "markRead":
+        markRead();
+        break;
+      case "searchRun":
+        searchEverything();
+        break;
+      case "createSpace":
+        openCreateSpace();
+        break;
+      case "createSpaceSubmit":
+        createSpace();
+        break;
+      case "addToSpace":
+        addToSpace(Number(button.dataset.index));
+        break;
+      case "spaceAddSubmit":
+        submitSpaceAdd();
+        break;
+      case "spaceInfo":
+        spaceInfo(Number(button.dataset.index));
+        break;
+      case "profileToast":
+        profileToast(button.dataset.message);
+        break;
+      case "reportProblem":
+        reportProblem(button.dataset.id);
+        break;
+      case "detail":
+        openDetail(button.dataset.id);
+        break;
+      case "readNotification":{
+        const index =
+          Number(button.dataset.index);
+        if(state.notifications[index]){
+          state.notifications[index].unread = false;
+          renderNotifications();
+          updateBadge();
+        }
+        break;
+      }
+    }
+    return;
+  }
+  const filter =
+    event.target.closest("[data-filter]");
+  if(filter){
+    filterActivity(filter.dataset.filter);
+  }
 });
-
+/* -----------------------------
+   NAV EVENTS
+----------------------------- */
+document.querySelectorAll(".nav-btn")
+  .forEach(button=>{
+    button.addEventListener("click",()=>{
+      showScreen(button.dataset.screen);
+    });
+  });
+/* -----------------------------
+   MODAL BACKDROP
+----------------------------- */
+document.querySelectorAll(".overlay")
+  .forEach(overlay=>{
+    overlay.addEventListener("click",event=>{
+      if(event.target === overlay){
+        overlay.classList.remove("show");
+      }
+    });
+  });
+/* -----------------------------
+   SEARCH INPUT
+----------------------------- */
+$("searchInput")
+  .addEventListener("input",searchEverything);
+/* -----------------------------
+   KEYBOARD
+----------------------------- */
+document.addEventListener("keydown",event=>{
+  if(event.key === "Escape"){
+    closeAllModals();
+  }
+  if(
+    event.key === "Enter" &&
+    document.activeElement === $("searchInput")
+  ){
+    searchEverything();
+  }
+});
+/* -----------------------------
+   RENDER ALL
+----------------------------- */
+function renderAll(){
+  renderHome();
+  renderActivity();
+  renderSpaces();
+  renderNotifications();
+  updateBadge();
+}
+/* -----------------------------
+   START NOVA
+----------------------------- */
 renderAll();
 </script>
 </body>
