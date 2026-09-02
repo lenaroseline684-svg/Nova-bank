@@ -1,3 +1,8 @@
+<!-- NOVA v3
+     Full dashboard + Send Money + Pay/QR prototype
+     Replace your current index.html with this file.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -420,7 +425,7 @@ header{
   line-height:1.6;
 }
 
-/* BOTTOM NAV */
+/* NAV */
 
 .bottom-nav{
   display:none;
@@ -449,7 +454,7 @@ header{
   transform:translate(-50%,0);
 }
 
-/* SEND MODAL */
+/* MODALS */
 
 .modal{
   position:fixed;
@@ -473,7 +478,7 @@ header{
 
 .sheet{
   width:min(520px,100%);
-  max-height:90vh;
+  max-height:92vh;
   overflow:auto;
   padding:24px;
   border-radius:30px 30px 22px 22px;
@@ -505,6 +510,8 @@ header{
   border-radius:50%;
   background:#f1f2f4;
 }
+
+/* SEND */
 
 .field-label{
   display:block;
@@ -609,12 +616,9 @@ header{
   cursor:not-allowed;
 }
 
-/* CONFIRMATION */
+/* CONFIRM */
 
-.confirm{
-  display:none;
-}
-
+.confirm{display:none}
 .confirm.show{display:block}
 
 .confirm-icon{
@@ -659,11 +663,167 @@ header{
 
 .summary-row strong{color:var(--text)}
 
+/* PAY */
+
+.pay-intro{
+  padding:18px;
+  margin-bottom:18px;
+  border-radius:20px;
+  color:white;
+  background:linear-gradient(135deg,#111318,#2d3040);
+}
+
+.pay-intro small{
+  color:#ffffff99;
+  font-size:11px;
+}
+
+.pay-intro h3{
+  margin-top:5px;
+  font-family:"Space Grotesk";
+  font-size:20px;
+}
+
+.qr-card{
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:23px;
+  text-align:center;
+}
+
+.qr{
+  width:190px;
+  height:190px;
+  display:grid;
+  place-items:center;
+  margin:8px auto 17px;
+  padding:12px;
+  border-radius:16px;
+  background:white;
+  box-shadow:0 8px 30px #0000000d;
+}
+
+.qr-pattern{
+  width:100%;
+  height:100%;
+  position:relative;
+  overflow:hidden;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #111 0 7px,
+      transparent 7px 13px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      #111 0 7px,
+      transparent 7px 13px
+    );
+}
+
+.qr-pattern:before,
+.qr-pattern:after{
+  content:"";
+  position:absolute;
+  width:43px;
+  height:43px;
+  border:9px solid white;
+  outline:9px solid #111;
+  background:white;
+}
+
+.qr-pattern:before{
+  top:10px;
+  left:10px;
+}
+
+.qr-pattern:after{
+  right:10px;
+  bottom:10px;
+}
+
+.qr-center{
+  position:absolute;
+  z-index:3;
+  left:50%;
+  top:50%;
+  width:39px;
+  height:39px;
+  display:grid;
+  place-items:center;
+  transform:translate(-50%,-50%);
+  border-radius:11px;
+  color:white;
+  background:#111318;
+  font-family:"Space Grotesk";
+  font-weight:700;
+}
+
+.qr-title{
+  font-family:"Space Grotesk";
+  font-size:18px;
+}
+
+.qr-sub{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.scan-btn{
+  width:100%;
+  padding:15px;
+  margin-top:13px;
+  border-radius:17px;
+  color:white;
+  background:#635bff;
+  font-weight:700;
+}
+
+.pay-divider{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:19px 0;
+  color:#a0a5ad;
+  font-size:11px;
+}
+
+.pay-divider:before,
+.pay-divider:after{
+  content:"";
+  height:1px;
+  flex:1;
+  background:var(--line);
+}
+
+.pay-input{
+  width:100%;
+  padding:15px;
+  margin-bottom:10px;
+  border:1px solid var(--line);
+  outline:none;
+  border-radius:16px;
+}
+
+.pay-input:focus{
+  border-color:#635bff66;
+}
+
+.pay-note{
+  margin-top:9px;
+  color:#969ba4;
+  font-size:10px;
+  line-height:1.5;
+}
+
 /* MOBILE */
 
 @media(max-width:760px){
 
-  .app{padding:17px 15px 95px}
+  .app{
+    padding:17px 15px 95px;
+  }
 
   header{margin-bottom:25px}
 
@@ -728,17 +888,18 @@ header{
     background:#ffffff12;
   }
 
-  .nav-item b{
-    font-size:18px;
-  }
+  .nav-item b{font-size:18px}
 
-  .modal{
-    padding:0;
-  }
+  .modal{padding:0}
 
   .sheet{
     border-radius:30px 30px 0 0;
     padding:22px 18px 28px;
+  }
+
+  .qr{
+    width:175px;
+    height:175px;
   }
 }
 </style>
@@ -762,6 +923,7 @@ header{
 </section>
 
 <section class="balance-card">
+
   <div class="balance-label">Available balance</div>
 
   <div class="balance-row">
@@ -780,6 +942,7 @@ header{
       <strong>+$4,280.00</strong>
     </div>
   </div>
+
 </section>
 
 <div class="actions">
@@ -794,7 +957,7 @@ header{
     <span>Request</span>
   </button>
 
-  <button class="action" onclick="notify('NOVA Pay is coming next')">
+  <button class="action" onclick="openPay()">
     <div class="action-icon">⌁</div>
     <span>Pay</span>
   </button>
@@ -887,7 +1050,9 @@ header{
 
   <div class="card-head">
     <div class="card-title">Recent activity</div>
-    <div class="card-link" onclick="notify('All activity coming next')">View all</div>
+    <div class="card-link" onclick="notify('All activity coming next')">
+      View all
+    </div>
   </div>
 
   <div class="transaction">
@@ -958,117 +1123,186 @@ header{
 
 </nav>
 
-<!-- SEND MONEY -->
+<!-- SEND MONEY MODAL -->
 
-<div class="modal" id="sendModal" onclick="outsideClose(event)">
+<div class="modal" id="sendModal" onclick="outsideClose(event,'sendModal')">
 
-  <div class="sheet">
+<div class="sheet">
 
-    <div id="sendForm">
+<div id="sendForm">
 
-      <div class="sheet-head">
-        <div class="sheet-title">Send money</div>
-        <button class="close" onclick="closeSend()">×</button>
-      </div>
+<div class="sheet-head">
+  <div class="sheet-title">Send money</div>
+  <button class="close" onclick="closeModal('sendModal')">×</button>
+</div>
 
-      <label class="field-label">Amount</label>
+<label class="field-label">Amount</label>
 
-      <div class="amount-box">
-        <span>$</span>
-        <input
-          class="amount-input"
-          id="amount"
-          type="number"
-          min="1"
-          placeholder="0.00"
-          oninput="validateSend()"
-        >
-      </div>
+<div class="amount-box">
+  <span>$</span>
+  <input
+    class="amount-input"
+    id="amount"
+    type="number"
+    min="1"
+    placeholder="0.00"
+    oninput="validateSend()"
+  >
+</div>
 
-      <label class="field-label">Choose recipient</label>
+<label class="field-label">Choose recipient</label>
 
-      <div class="recipient-list">
+<div class="recipient-list">
 
-        <button class="recipient" onclick="selectRecipient(this,'Alex Morgan')">
-          <div class="avatar">A</div>
-          <div class="recipient-info">
-            <div class="recipient-name">Alex Morgan</div>
-            <div class="recipient-tag">@alexm</div>
-          </div>
-          <div class="check">✓</div>
-        </button>
+<button class="recipient" onclick="selectRecipient(this,'Alex Morgan')">
+  <div class="avatar">A</div>
+  <div class="recipient-info">
+    <div class="recipient-name">Alex Morgan</div>
+    <div class="recipient-tag">@alexm</div>
+  </div>
+  <div class="check">✓</div>
+</button>
 
-        <button class="recipient" onclick="selectRecipient(this,'Sarah Williams')">
-          <div class="avatar">S</div>
-          <div class="recipient-info">
-            <div class="recipient-name">Sarah Williams</div>
-            <div class="recipient-tag">@sarahw</div>
-          </div>
-          <div class="check">✓</div>
-        </button>
+<button class="recipient" onclick="selectRecipient(this,'Sarah Williams')">
+  <div class="avatar">S</div>
+  <div class="recipient-info">
+    <div class="recipient-name">Sarah Williams</div>
+    <div class="recipient-tag">@sarahw</div>
+  </div>
+  <div class="check">✓</div>
+</button>
 
-        <button class="recipient" onclick="selectRecipient(this,'Daniel Carter')">
-          <div class="avatar">D</div>
-          <div class="recipient-info">
-            <div class="recipient-name">Daniel Carter</div>
-            <div class="recipient-tag">@danielc</div>
-          </div>
-          <div class="check">✓</div>
-        </button>
+<button class="recipient" onclick="selectRecipient(this,'Daniel Carter')">
+  <div class="avatar">D</div>
+  <div class="recipient-info">
+    <div class="recipient-name">Daniel Carter</div>
+    <div class="recipient-tag">@danielc</div>
+  </div>
+  <div class="check">✓</div>
+</button>
 
-      </div>
+</div>
 
-      <button class="primary" id="continueBtn" disabled onclick="showConfirmation()">
-        Continue
-      </button>
+<button class="primary" id="continueBtn" disabled onclick="showConfirmation()">
+  Continue
+</button>
 
-    </div>
+</div>
 
-    <div class="confirm" id="confirmation">
+<div class="confirm" id="confirmation">
 
-      <div class="confirm-icon">✓</div>
+<div class="confirm-icon">✓</div>
 
-      <div class="confirm-title">Review transfer</div>
+<div class="confirm-title">Review transfer</div>
 
-      <div class="confirm-sub">
-        Check everything before sending.
-      </div>
+<div class="confirm-sub">
+  Check everything before sending.
+</div>
 
-      <div class="summary">
+<div class="summary">
 
-        <div class="summary-row">
-          <span>Recipient</span>
-          <strong id="confirmName">—</strong>
-        </div>
+<div class="summary-row">
+  <span>Recipient</span>
+  <strong id="confirmName">—</strong>
+</div>
 
-        <div class="summary-row">
-          <span>Amount</span>
-          <strong id="confirmAmount">$0.00</strong>
-        </div>
+<div class="summary-row">
+  <span>Amount</span>
+  <strong id="confirmAmount">$0.00</strong>
+</div>
 
-        <div class="summary-row">
-          <span>Fee</span>
-          <strong>$0.00</strong>
-        </div>
+<div class="summary-row">
+  <span>Fee</span>
+  <strong>$0.00</strong>
+</div>
 
-      </div>
+</div>
 
-      <button class="primary" onclick="completeTransfer()">
-        Send money
-      </button>
+<button class="primary" onclick="completeTransfer()">
+  Send money
+</button>
 
-      <button
-        class="primary"
-        style="margin-top:9px;background:#f1f2f4;color:#111318"
-        onclick="backToForm()"
-      >
-        Go back
-      </button>
+<button
+  class="primary"
+  style="margin-top:9px;background:#f1f2f4;color:#111318"
+  onclick="backToForm()">
+  Go back
+</button>
 
-    </div>
+</div>
 
+</div>
+</div>
+
+<!-- PAY MODAL -->
+
+<div class="modal" id="payModal" onclick="outsideClose(event,'payModal')">
+
+<div class="sheet">
+
+<div class="sheet-head">
+  <div class="sheet-title">NOVA Pay</div>
+  <button class="close" onclick="closeModal('payModal')">×</button>
+</div>
+
+<div class="pay-intro">
+  <small>YOUR NOVA PAYMENT ID</small>
+  <h3>@jacknova</h3>
+</div>
+
+<div class="qr-card">
+
+<div class="qr">
+
+  <div class="qr-pattern">
+    <div class="qr-center">N</div>
   </div>
 
+</div>
+
+<div class="qr-title">Scan to pay me</div>
+
+<div class="qr-sub">
+  Show this code to another NOVA user.
+</div>
+
+<button class="scan-btn" onclick="notify('Camera scanner would open here')">
+  Scan a QR code
+</button>
+
+</div>
+
+<div class="pay-divider">
+  or pay someone directly
+</div>
+
+<input
+  class="pay-input"
+  id="payPerson"
+  placeholder="@username or payment ID"
+>
+
+<input
+  class="pay-input"
+  id="payAmount"
+  type="number"
+  min="1"
+  placeholder="Amount"
+/>
+
+<button
+  class="primary"
+  style="margin-top:5px"
+  onclick="startPay()">
+  Continue
+</button>
+
+<div class="pay-note">
+  NOVA Pay shown here is a front-end prototype. It does not connect
+  to a bank, payment network, or real-money account.
+</div>
+
+</div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -1079,16 +1313,7 @@ let visible=true;
 let selectedRecipient="";
 let currentAmount=0;
 
-function toggleBalance(){
-
-  const balance=document.getElementById("balance");
-
-  visible=!visible;
-
-  balance.textContent=
-    visible ? "$24,860.40" : "••••••••";
-
-}
+/* GENERAL */
 
 function notify(message){
 
@@ -1103,28 +1328,33 @@ function notify(message){
 
 }
 
-function openSend(){
-
-  document.getElementById("sendModal")
-    .classList.add("open");
-
+function closeModal(id){
+  document.getElementById(id).classList.remove("open");
 }
 
-function closeSend(){
+function outsideClose(event,id){
 
-  document.getElementById("sendModal")
-    .classList.remove("open");
-
-  setTimeout(resetSend,250);
-
-}
-
-function outsideClose(event){
-
-  if(event.target.id==="sendModal"){
-    closeSend();
+  if(event.target.id===id){
+    closeModal(id);
   }
 
+}
+
+function toggleBalance(){
+
+  const balance=document.getElementById("balance");
+
+  visible=!visible;
+
+  balance.textContent=
+    visible ? "$24,860.40" : "••••••••";
+
+}
+
+/* SEND */
+
+function openSend(){
+  document.getElementById("sendModal").classList.add("open");
 }
 
 function selectRecipient(button,name){
@@ -1145,13 +1375,8 @@ function validateSend(){
   const amount=
     parseFloat(document.getElementById("amount").value);
 
-  const btn=document.getElementById("continueBtn");
-
-  if(amount>0 && selectedRecipient){
-    btn.disabled=false;
-  }else{
-    btn.disabled=true;
-  }
+  document.getElementById("continueBtn").disabled=
+    !(amount>0 && selectedRecipient);
 
 }
 
@@ -1160,30 +1385,24 @@ function showConfirmation(){
   currentAmount=
     parseFloat(document.getElementById("amount").value);
 
-  document.getElementById("confirmName")
-    .textContent=selectedRecipient;
+  document.getElementById("confirmName").textContent=
+    selectedRecipient;
 
-  document.getElementById("confirmAmount")
-    .textContent="$"+currentAmount.toLocaleString(
+  document.getElementById("confirmAmount").textContent=
+    "$"+currentAmount.toLocaleString(
       "en-US",
       {minimumFractionDigits:2}
     );
 
-  document.getElementById("sendForm")
-    .style.display="none";
-
-  document.getElementById("confirmation")
-    .classList.add("show");
+  document.getElementById("sendForm").style.display="none";
+  document.getElementById("confirmation").classList.add("show");
 
 }
 
 function backToForm(){
 
-  document.getElementById("confirmation")
-    .classList.remove("show");
-
-  document.getElementById("sendForm")
-    .style.display="block";
+  document.getElementById("confirmation").classList.remove("show");
+  document.getElementById("sendForm").style.display="block";
 
 }
 
@@ -1191,57 +1410,78 @@ function completeTransfer(){
 
   const balance=document.getElementById("balance");
 
-  let current=24860.40-currentAmount;
+  const newBalance=
+    Math.max(0,24860.40-currentAmount);
 
   balance.textContent=
-    "$"+current.toLocaleString(
+    "$"+newBalance.toLocaleString(
       "en-US",
       {minimumFractionDigits:2}
     );
 
-  document.getElementById("confirmation")
-    .innerHTML=`
+  document.getElementById("confirmation").innerHTML=`
 
-      <div class="confirm-icon">✓</div>
+    <div class="confirm-icon">✓</div>
 
-      <div class="confirm-title">
-        Money sent
-      </div>
+    <div class="confirm-title">
+      Money sent
+    </div>
 
-      <div class="confirm-sub">
-        $${currentAmount.toLocaleString(
-          "en-US",
-          {minimumFractionDigits:2}
-        )} was sent to ${selectedRecipient}.
-      </div>
+    <div class="confirm-sub">
+      $${currentAmount.toLocaleString(
+        "en-US",
+        {minimumFractionDigits:2}
+      )}
+      was sent to ${selectedRecipient}.
+    </div>
 
-      <button
-        class="primary"
-        onclick="closeSend()"
-      >
-        Done
-      </button>
+    <button class="primary" onclick="closeModal('sendModal')">
+      Done
+    </button>
+
   `;
 
 }
 
-function resetSend(){
+/* PAY */
 
-  selectedRecipient="";
-  currentAmount=0;
+function openPay(){
 
-  document.getElementById("amount").value="";
-
-  document.querySelectorAll(".recipient")
-    .forEach(item=>item.classList.remove("selected"));
-
-  document.getElementById("continueBtn").disabled=true;
-
-  document.getElementById("sendForm").style.display="block";
-
-  document.getElementById("confirmation").classList.remove("show");
+  document.getElementById("payModal").classList.add("open");
 
 }
+
+function startPay(){
+
+  const person=
+    document.getElementById("payPerson").value.trim();
+
+  const amount=
+    parseFloat(document.getElementById("payAmount").value);
+
+  if(!person){
+    notify("Enter a payment ID");
+    return;
+  }
+
+  if(!amount || amount<=0){
+    notify("Enter a valid amount");
+    return;
+  }
+
+  notify("Payment ready for "+person);
+
+  setTimeout(()=>{
+
+    document.getElementById("payPerson").value="";
+    document.getElementById("payAmount").value="";
+    closeModal("payModal");
+
+  },1100);
+
+}
+
+/* NAV */
 
 function setNav(element){
 
