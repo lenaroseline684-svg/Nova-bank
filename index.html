@@ -3,1577 +3,3798 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#f6f6f8">
-<title>NOVA — v12</title>
+<meta name="theme-color" content="#f6f6fa">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>NOVA — v11</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
 <style>
-:root{
-  --bg:#f6f6f8;
-  --surface:#fff;
-  --surface2:#f0f0f3;
-  --text:#111114;
-  --muted:#77777f;
-  --line:#e8e8ec;
-  --purple:#6d4aff;
-  --purple2:#8b72ff;
-  --green:#21a366;
-  --red:#df4d59;
-  --shadow:0 18px 50px rgba(20,20,35,.08);
-  --radius:24px;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
+
+:root{
+  --bg:#f5f5f9;
+  --card:#ffffff;
+  --card2:#f0f0f5;
+  --text:#111218;
+  --muted:#858793;
+  --line:#e7e7ed;
+  --dark:#101116;
+  --purple:#765cff;
+  --purple2:#9b8aff;
+  --green:#31c579;
+  --red:#ef6262;
+  --blue:#4e8cff;
+  --shadow:0 12px 35px rgba(18,18,30,.055);
+}
+
+html,body{
+  min-height:100%;
   background:var(--bg);
   color:var(--text);
   font-family:"DM Sans",sans-serif;
-  -webkit-font-smoothing:antialiased;
 }
-button,input{font:inherit}
-button{border:0;cursor:pointer}
-button:active{transform:scale(.97)}
+
+body{
+  display:flex;
+  justify-content:center;
+}
+
+button,input,select{
+  font:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+button:active{
+  transform:scale(.975);
+}
+
 .app{
   width:100%;
   max-width:540px;
-  margin:auto;
   min-height:100vh;
-  padding-bottom:96px;
+  padding-bottom:105px;
+  overflow:hidden;
 }
-.topbar{
+
+/* TOP */
+
+.top{
   padding:22px 20px 8px;
   display:flex;
   align-items:center;
   justify-content:space-between;
 }
+
 .brand{
   font-family:"Space Grotesk";
-  font-weight:700;
-  letter-spacing:-1px;
   font-size:25px;
-}
-.avatar{
-  width:42px;height:42px;border-radius:50%;
-  background:#17171b;color:white;
-  display:grid;place-items:center;
   font-weight:700;
-  box-shadow:0 8px 20px rgba(0,0,0,.15);
+  letter-spacing:-1.4px;
 }
-.screen{display:none;padding:8px 18px}
-.screen.active{display:block;animation:screenIn .3s ease}
+
+.brand span{
+  color:var(--purple);
+}
+
+.top-actions{
+  display:flex;
+  gap:8px;
+}
+
+.icon-btn{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:var(--card);
+  color:var(--text);
+  display:grid;
+  place-items:center;
+  font-size:18px;
+  box-shadow:0 6px 20px rgba(20,20,35,.055);
+  position:relative;
+}
+
+.notification-dot{
+  position:absolute;
+  right:7px;
+  top:7px;
+  width:8px;
+  height:8px;
+  background:#ff5555;
+  border:2px solid #fff;
+  border-radius:50%;
+}
+
+/* SCREENS */
+
+.screen{
+  display:none;
+  padding:8px 20px;
+  animation:screenIn .25s ease;
+}
+
+.screen.active{
+  display:block;
+}
+
 @keyframes screenIn{
-  from{opacity:0;transform:translateY(8px)}
-  to{opacity:1;transform:none}
+  from{
+    opacity:0;
+    transform:translateY(7px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
 }
-.hello{
-  margin:20px 2px 16px;
+
+/* HOME */
+
+.greeting{
+  margin:15px 0 18px;
 }
-.hello small{color:var(--muted)}
-.hello h1{
+
+.greeting small{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.greeting h1{
   font-family:"Space Grotesk";
-  font-size:27px;
-  letter-spacing:-1.2px;
-  margin-top:3px;
+  font-size:29px;
+  letter-spacing:-1.5px;
+  margin-top:4px;
 }
+
+/* BALANCE */
+
 .balance-card{
-  background:#17171b;
-  color:white;
-  border-radius:30px;
+  min-height:218px;
+  border-radius:29px;
   padding:24px;
-  min-height:190px;
+  color:#fff;
   position:relative;
   overflow:hidden;
-  box-shadow:0 24px 55px rgba(15,15,20,.2);
+  background:
+    radial-gradient(circle at 90% 5%,rgba(120,91,255,.75),transparent 35%),
+    radial-gradient(circle at 5% 100%,rgba(44,201,122,.18),transparent 34%),
+    linear-gradient(140deg,#1b1c24,#090a0d);
+  box-shadow:0 25px 60px rgba(12,12,18,.2);
 }
+
+.balance-card:before{
+  content:"";
+  position:absolute;
+  width:250px;
+  height:250px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:50%;
+  right:-110px;
+  top:-115px;
+}
+
 .balance-card:after{
   content:"";
   position:absolute;
-  width:190px;height:190px;
-  right:-70px;top:-75px;
+  width:190px;
+  height:190px;
+  border:1px solid rgba(255,255,255,.06);
   border-radius:50%;
-  background:rgba(109,74,255,.45);
-  filter:blur(8px);
+  right:-70px;
+  bottom:-105px;
 }
+
 .balance-label{
-  color:#aaaab1;
-  font-size:13px;
+  color:rgba(255,255,255,.56);
+  font-size:12px;
 }
+
+.balance-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:7px;
+  position:relative;
+  z-index:2;
+}
+
 .balance{
   font-family:"Space Grotesk";
   font-size:38px;
+  font-weight:700;
   letter-spacing:-2px;
-  margin:6px 0 28px;
-  position:relative;
-  z-index:1;
 }
-.balance-row{
+
+.eye-btn{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  color:#fff;
+  background:rgba(255,255,255,.09);
+}
+
+.balance-stats{
+  display:flex;
+  gap:9px;
+  margin-top:19px;
+  position:relative;
+  z-index:2;
+}
+
+.balance-stat{
+  padding:9px 11px;
+  border-radius:12px;
+  background:rgba(255,255,255,.07);
+  color:rgba(255,255,255,.72);
+  font-size:10px;
+}
+
+.balance-stat b{
+  display:block;
+  color:#fff;
+  font-size:11px;
+  margin-top:2px;
+}
+
+.card-bottom{
+  position:absolute;
+  left:24px;
+  right:24px;
+  bottom:19px;
   display:flex;
   justify-content:space-between;
+  color:rgba(255,255,255,.48);
+  font-size:10px;
+}
+
+/* QUICK ACTIONS */
+
+.quick{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:9px;
+  margin:18px 0;
+}
+
+.quick-btn{
+  min-height:78px;
+  border-radius:19px;
+  background:#fff;
+  color:var(--text);
+  display:flex;
+  flex-direction:column;
   align-items:center;
-  position:relative;
-  z-index:1;
+  justify-content:center;
+  gap:7px;
+  font-size:10px;
+  font-weight:700;
+  box-shadow:var(--shadow);
 }
-.eye{
-  background:rgba(255,255,255,.1);
-  color:white;
-  width:38px;height:38px;border-radius:12px;
+
+.quick-icon{
+  width:35px;
+  height:35px;
+  border-radius:12px;
+  background:#f0efff;
+  color:var(--purple);
+  display:grid;
+  place-items:center;
+  font-size:16px;
 }
-.card-mini{
-  font-size:12px;
-  color:#b8b8bd;
-}
+
+/* HEADERS */
+
 .section-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin:28px 2px 12px;
+  margin:25px 2px 12px;
 }
+
 .section-head h2{
   font-family:"Space Grotesk";
-  font-size:18px;
+  font-size:17px;
+  letter-spacing:-.4px;
 }
+
 .link{
-  color:var(--purple);
-  font-size:13px;
-  font-weight:700;
   background:none;
-}
-.quick{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-}
-.quick button{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:15px 5px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-  color:var(--text);
-  box-shadow:0 6px 20px rgba(20,20,30,.03);
-}
-.quick-icon{
-  width:38px;height:38px;
-  border-radius:13px;
-  background:#f0edff;
   color:var(--purple);
-  display:grid;place-items:center;
-  font-size:18px;
+  font-size:11px;
+  font-weight:700;
 }
-.quick span{font-size:12px;font-weight:600}
-.bank-card{
-  min-height:215px;
-  border-radius:28px;
-  padding:23px;
-  color:white;
-  position:relative;
-  overflow:hidden;
-  background:linear-gradient(135deg,#17171b,#36313e);
+
+/* CHART */
+
+.chart-card{
+  background:#fff;
+  border-radius:23px;
+  padding:18px;
   box-shadow:var(--shadow);
 }
-.bank-card.virtual{
-  background:linear-gradient(135deg,#211c34,#7057ed);
-}
-.bank-card:before{
-  content:"";
-  position:absolute;
-  width:250px;height:250px;
-  right:-100px;bottom:-130px;
-  border-radius:50%;
-  border:1px solid rgba(255,255,255,.16);
-  box-shadow:0 0 0 30px rgba(255,255,255,.03),
-             0 0 0 60px rgba(255,255,255,.025);
-}
-.card-brand{
+
+.chart-head{
   display:flex;
+  align-items:flex-start;
   justify-content:space-between;
+}
+
+.chart-value{
   font-family:"Space Grotesk";
+  font-size:24px;
   font-weight:700;
 }
-.chip{
-  width:43px;height:31px;
-  border-radius:8px;
-  background:linear-gradient(135deg,#ddd,#999);
-  margin-top:35px;
-}
-.card-number{
-  font-family:"Space Grotesk";
-  letter-spacing:2px;
-  font-size:17px;
-  margin-top:18px;
-}
-.card-bottom{
-  display:flex;
-  justify-content:space-between;
-  margin-top:20px;
+
+.chart-change{
+  color:var(--green);
   font-size:10px;
-  text-transform:uppercase;
-  color:#c9c9ce;
+  font-weight:700;
+  margin-top:3px;
 }
-.card-switch{
+
+.chart-period{
+  color:#999ba4;
+  font-size:10px;
+  background:#f3f3f6;
+  padding:7px 9px;
+  border-radius:10px;
+}
+
+.chart{
+  height:125px;
+  margin-top:10px;
+}
+
+.chart svg{
+  width:100%;
+  height:100%;
+}
+
+/* INSIGHT */
+
+.insight{
+  margin-top:13px;
+  padding:17px;
+  border-radius:21px;
+  background:linear-gradient(135deg,#fff,#f1efff);
+  box-shadow:var(--shadow);
+}
+
+.insight-title{
+  font-size:12px;
+  font-weight:700;
   display:flex;
   gap:8px;
-  margin-top:11px;
+  align-items:center;
 }
-.card-switch button{
-  background:var(--surface);
-  border:1px solid var(--line);
-  padding:8px 13px;
-  border-radius:999px;
-  font-size:11px;
-}
-.card-switch button.active{
-  background:#17171b;
-  color:white;
-}
-.stats{
+
+.insight-star{
+  width:25px;
+  height:25px;
+  border-radius:9px;
+  background:#e8e4ff;
+  color:var(--purple);
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+  place-items:center;
 }
-.stat{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:18px;
+
+.insight p{
+  color:#70717c;
+  font-size:11px;
+  line-height:1.55;
+  margin-top:9px;
 }
-.stat small{color:var(--muted)}
-.stat strong{
-  display:block;
-  margin-top:6px;
-  font-family:"Space Grotesk";
-  font-size:21px;
-}
-.green{color:var(--green)}
-.red{color:var(--red)}
-.chart{
-  height:170px;
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:25px;
-  padding:18px;
-  position:relative;
-}
-.chart svg{width:100%;height:100%}
-.chart-labels{
-  display:flex;
-  justify-content:space-between;
-  color:#a0a0a7;
-  font-size:9px;
-  margin-top:-8px;
-}
+
+/* TRANSACTIONS */
+
 .tx-list{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:25px;
-  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
 }
+
 .tx{
+  padding:13px;
+  border-radius:18px;
+  background:#fff;
   display:flex;
   align-items:center;
-  gap:13px;
-  padding:16px;
-  border-bottom:1px solid var(--line);
-  cursor:pointer;
+  gap:12px;
+  box-shadow:0 5px 20px rgba(20,20,35,.035);
+  transition:.18s;
 }
-.tx:last-child{border-bottom:0}
+
 .tx-icon{
-  width:43px;height:43px;border-radius:15px;
-  background:#f0f0f3;
-  display:grid;place-items:center;
+  width:44px;
+  height:44px;
+  flex:none;
+  border-radius:15px;
+  background:#f1f1f5;
+  display:grid;
+  place-items:center;
   font-size:18px;
 }
-.tx-main{flex:1;min-width:0}
-.tx-title{
+
+.tx-main{
+  flex:1;
+  min-width:0;
+}
+
+.tx-name{
+  font-size:12px;
   font-weight:700;
-  font-size:14px;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
 }
-.tx-sub{font-size:11px;color:var(--muted);margin-top:3px}
+
+.tx-meta{
+  color:var(--muted);
+  font-size:9px;
+  margin-top:4px;
+}
+
 .tx-amount{
   font-family:"Space Grotesk";
-  font-size:13px;
+  font-size:12px;
   font-weight:700;
+  text-align:right;
 }
-.income{color:var(--green)}
-.search{
-  display:flex;
-  gap:10px;
-  margin:14px 0;
+
+.income{
+  color:var(--green);
 }
-.search input{
-  flex:1;
-  border:1px solid var(--line);
-  background:white;
-  border-radius:16px;
-  padding:13px 15px;
-  outline:none;
+
+.expense{
+  color:var(--text);
 }
+
+/* PAGE TITLE */
+
+.page-title{
+  padding:18px 0 16px;
+}
+
+.page-title h1{
+  font-family:"Space Grotesk";
+  font-size:30px;
+  letter-spacing:-1.5px;
+}
+
+.page-title p{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:5px;
+}
+
+/* FILTER */
+
 .filters{
   display:flex;
   gap:7px;
   overflow:auto;
-  padding-bottom:5px;
+  padding-bottom:3px;
+  scrollbar-width:none;
 }
-.filters button{
-  white-space:nowrap;
-  padding:9px 13px;
-  border-radius:999px;
-  background:white;
-  border:1px solid var(--line);
-  font-size:12px;
-}
-.filters button.active{
-  background:#17171b;color:white;border-color:#17171b;
-}
-.space{
-  background:white;
-  border:1px solid var(--line);
-  border-radius:25px;
-  padding:19px;
-  margin-bottom:12px;
-}
-.space-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.space-icon{
-  width:44px;height:44px;
-  border-radius:15px;
-  background:#f0edff;
-  display:grid;place-items:center;
-  color:var(--purple);
-}
-.space-info{flex:1;margin-left:12px}
-.space-info strong{font-size:14px}
-.space-info small{display:block;color:var(--muted);margin-top:3px}
-.space-money{
-  font-family:"Space Grotesk";
-  font-size:13px;
-}
-.progress{
-  height:7px;
-  background:#ececf0;
-  border-radius:99px;
-  margin-top:17px;
-  overflow:hidden;
-}
-.progress i{
-  display:block;height:100%;
-  background:var(--purple);
-  border-radius:inherit;
-}
-.space-actions{
-  display:flex;gap:8px;margin-top:13px;
-}
-.space-actions button{
-  flex:1;
-  padding:9px;
-  border-radius:12px;
-  background:#f4f4f6;
-  font-size:11px;
-  font-weight:700;
-}
-.profile-card{
-  background:#17171b;color:white;
-  border-radius:27px;
-  padding:23px;
-  margin-top:18px;
-}
-.profile-row{
-  display:flex;align-items:center;gap:13px;
-}
-.big-avatar{
-  width:52px;height:52px;
-  border-radius:18px;
-  background:#6d4aff;
-  display:grid;place-items:center;
-  font-family:"Space Grotesk";
-  font-weight:700;
-}
-.profile-card small{color:#a7a7ad}
-.profile-card strong{font-family:"Space Grotesk"}
-.menu{
-  margin-top:14px;
-  background:white;
-  border:1px solid var(--line);
-  border-radius:24px;
-  overflow:hidden;
-}
-.menu-item{
-  padding:17px;
-  display:flex;
-  align-items:center;
-  gap:13px;
-  border-bottom:1px solid var(--line);
-  cursor:pointer;
-}
-.menu-item:last-child{border:0}
-.menu-item .mi{
-  width:38px;height:38px;
-  background:#f0f0f3;
-  border-radius:13px;
-  display:grid;place-items:center;
-}
-.menu-item div:nth-child(2){flex:1}
-.menu-item strong{font-size:13px}
-.menu-item small{display:block;color:var(--muted);margin-top:3px;font-size:11px}
-.chev{color:#aaa}
-.bottom{
-  position:fixed;
-  bottom:12px;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(505px,calc(100% - 24px));
-  background:rgba(255,255,255,.94);
-  backdrop-filter:blur(20px);
-  border:1px solid #e5e5e9;
-  border-radius:24px;
-  padding:8px;
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  box-shadow:0 18px 50px rgba(0,0,0,.12);
-  z-index:20;
-}
-.nav{
-  background:none;
-  color:#9a9aa2;
-  padding:7px 2px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:4px;
-  font-size:10px;
-}
-.nav b{
-  font-size:19px;
-  font-weight:500;
-}
-.nav.active{color:var(--text)}
-.nav.pay{
-  background:#17171b;
-  color:white;
-  border-radius:17px;
-  margin:-2px 2px;
-}
-.modal-backdrop{
-  position:fixed;
-  inset:0;
-  background:rgba(10,10,14,.45);
-  backdrop-filter:blur(7px);
+
+.filters::-webkit-scrollbar{
   display:none;
-  align-items:flex-end;
-  justify-content:center;
-  z-index:50;
 }
-.modal-backdrop.show{display:flex}
-.modal{
-  width:min(540px,100%);
-  max-height:90vh;
-  overflow:auto;
-  background:#f8f8fa;
-  border-radius:30px 30px 0 0;
-  padding:18px;
-  animation:modalUp .3s ease;
+
+.filter{
+  white-space:nowrap;
+  background:#fff;
+  color:#888a94;
+  padding:9px 13px;
+  border-radius:13px;
+  font-size:10px;
+  font-weight:700;
 }
-@keyframes modalUp{
-  from{transform:translateY(100%)}
-  to{transform:none}
+
+.filter.active{
+  background:#111217;
+  color:#fff;
 }
-.handle{
-  width:38px;height:4px;background:#d1d1d5;
-  border-radius:99px;margin:0 auto 18px;
-}
-.modal-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:18px;
-}
-.modal-head h3{
-  font-family:"Space Grotesk";
-  font-size:20px;
-}
-.close{
-  width:35px;height:35px;
-  border-radius:12px;
-  background:#ececef;
-}
-.field{margin-bottom:13px}
-.field label{
-  display:block;
-  font-size:11px;
+
+/* EMPTY */
+
+.empty{
+  background:#fff;
+  border-radius:21px;
+  padding:30px 18px;
+  text-align:center;
   color:var(--muted);
-  margin:0 0 7px 3px;
+  font-size:11px;
+  margin-top:15px;
+  box-shadow:var(--shadow);
 }
-.field input,.field select{
-  width:100%;
-  padding:14px;
-  border:1px solid var(--line);
-  background:white;
-  border-radius:15px;
-  outline:none;
+
+.empty strong{
+  display:block;
+  color:var(--text);
+  font-size:14px;
+  margin-bottom:5px;
 }
+
+/* SPACES */
+
 .primary{
   width:100%;
   padding:15px;
-  background:#17171b;
-  color:white;
-  border-radius:16px;
+  border-radius:17px;
+  background:#111217;
+  color:#fff;
+  font-size:12px;
   font-weight:700;
-  margin-top:5px;
+  box-shadow:0 10px 25px rgba(10,10,15,.13);
 }
-.secondary{
-  width:100%;
-  padding:14px;
-  background:#e9e9ed;
-  color:var(--text);
-  border-radius:16px;
-  font-weight:700;
-  margin-top:8px;
-}
-.review{
-  background:white;
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:16px;
-  margin:12px 0;
-}
-.review-row{
+
+.spaces{
   display:flex;
-  justify-content:space-between;
-  padding:8px 0;
-  font-size:13px;
+  flex-direction:column;
+  gap:11px;
 }
-.review-row span:first-child{color:var(--muted)}
-.big-success{
-  text-align:center;
-  padding:20px 10px 10px;
-}
-.success-circle{
-  width:65px;height:65px;border-radius:50%;
-  background:#e5f7ed;color:var(--green);
-  display:grid;place-items:center;
-  font-size:28px;margin:0 auto 15px;
-}
-.big-success h3{
-  font-family:"Space Grotesk";
-  font-size:23px;
-}
-.big-success p{color:var(--muted);font-size:13px;margin-top:7px}
-.qr{
-  width:210px;height:210px;
-  margin:20px auto;
-  background:
-  repeating-conic-gradient(#111 0 25%,#fff 0 50%) 50% / 18px 18px;
-  border:15px solid white;
-  box-shadow:0 12px 30px rgba(0,0,0,.1);
-}
-.qr-center{
-  width:55px;height:55px;
-  background:#17171b;color:white;
-  border-radius:14px;
-  display:grid;place-items:center;
-  position:relative;
-  left:62px;top:62px;
-  font-family:"Space Grotesk";
-  font-weight:700;
-}
-.contact-list{
-  background:white;
+
+.space-card{
+  background:#fff;
+  padding:18px;
   border-radius:22px;
-  border:1px solid var(--line);
-  overflow:hidden;
+  box-shadow:var(--shadow);
 }
-.contact{
+
+.space-head{
   display:flex;
   align-items:center;
   gap:12px;
-  padding:14px;
-  border-bottom:1px solid var(--line);
-  cursor:pointer;
 }
-.contact:last-child{border:0}
-.contact-avatar{
-  width:42px;height:42px;
-  border-radius:14px;
-  background:#eeeafd;
-  color:var(--purple);
-  display:grid;place-items:center;
+
+.space-icon{
+  width:47px;
+  height:47px;
+  border-radius:16px;
+  background:#f0efff;
+  display:grid;
+  place-items:center;
+  font-size:20px;
+}
+
+.space-name{
+  font-size:13px;
   font-weight:700;
 }
-.contact-info{flex:1}
-.contact-info strong{font-size:13px}
-.contact-info small{display:block;color:var(--muted);margin-top:2px}
-.contact-arrow{color:#aaa}
-.detail-card{
-  background:white;
-  border:1px solid var(--line);
-  border-radius:23px;
-  padding:17px;
+
+.space-goal{
+  color:var(--muted);
+  font-size:9px;
+  margin-top:3px;
 }
-.detail-icon{
-  width:55px;height:55px;border-radius:18px;
-  background:#f0edff;color:var(--purple);
-  display:grid;place-items:center;
-  font-size:23px;margin-bottom:15px;
+
+.space-money{
+  margin-left:auto;
+  text-align:right;
 }
-.detail-amount{
+
+.space-balance{
   font-family:"Space Grotesk";
-  font-size:31px;
-  letter-spacing:-1px;
+  font-size:16px;
+  font-weight:700;
 }
-.detail-status{
-  display:inline-block;
-  background:#e7f7ee;
-  color:var(--green);
-  padding:6px 9px;
-  border-radius:999px;
+
+.space-percent{
+  color:var(--muted);
+  font-size:9px;
+  margin-top:2px;
+}
+
+.progress{
+  height:7px;
+  margin:16px 0 12px;
+  background:#eeeeF3;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.progress i{
+  display:block;
+  height:100%;
+  width:0;
+  border-radius:20px;
+  background:linear-gradient(90deg,#745cff,#a28fff);
+  transition:width .7s cubic-bezier(.2,.8,.2,1);
+}
+
+.space-actions{
+  display:flex;
+  gap:8px;
+}
+
+.small-btn{
+  flex:1;
+  padding:10px;
+  border-radius:12px;
+  background:#f2f2f5;
   font-size:10px;
   font-weight:700;
-  margin-top:7px;
 }
-.detail-grid{
-  margin-top:18px;
+
+.small-btn.dark{
+  background:#111217;
+  color:#fff;
+}
+
+/* PROFILE */
+
+.profile-card{
+  background:linear-gradient(140deg,#1b1c23,#0c0d10);
+  color:#fff;
+  padding:22px;
+  border-radius:25px;
+  box-shadow:0 20px 45px rgba(10,10,15,.18);
+}
+
+.avatar{
+  width:61px;
+  height:61px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#8d79ff,#4b39c6);
   display:grid;
-  grid-template-columns:1fr 1fr;
+  place-items:center;
+  font-family:"Space Grotesk";
+  font-size:20px;
+  font-weight:700;
+}
+
+.profile-name{
+  margin-top:15px;
+  font-family:"Space Grotesk";
+  font-size:21px;
+}
+
+.verified{
+  margin-top:5px;
+  color:#63dd9c;
+  font-size:10px;
+  font-weight:700;
+}
+
+.menu{
+  margin-top:13px;
+  border-radius:22px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:var(--shadow);
+}
+
+.menu-item{
+  width:100%;
+  padding:15px;
+  background:#fff;
+  display:flex;
+  align-items:center;
   gap:12px;
+  border-bottom:1px solid var(--line);
+  text-align:left;
 }
-.detail-grid div{
-  background:#f5f5f7;
-  padding:12px;
+
+.menu-item:last-child{
+  border-bottom:0;
+}
+
+.mi{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  background:#f2f2f6;
+  display:grid;
+  place-items:center;
+}
+
+.menu-item strong{
+  display:block;
+  font-size:11px;
+}
+
+.menu-item small{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  margin-top:3px;
+}
+
+/* NOTIFICATIONS */
+
+.notify-card{
+  background:#fff;
+  border-radius:19px;
+  padding:14px;
+  display:flex;
+  gap:11px;
+  margin-bottom:8px;
+  box-shadow:var(--shadow);
+  position:relative;
+}
+
+.notify-card.unread:after{
+  content:"";
+  position:absolute;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--purple);
+  right:13px;
+  top:13px;
+}
+
+.notify-icon{
+  width:42px;
+  height:42px;
   border-radius:14px;
+  background:#f0efff;
+  color:var(--purple);
+  display:grid;
+  place-items:center;
 }
-.detail-grid small{display:block;color:var(--muted);font-size:9px}
-.detail-grid strong{display:block;margin-top:4px;font-size:12px}
-.toast{
-  position:fixed;
-  left:50%;
-  top:18px;
-  transform:translate(-50%,-120px);
-  background:#17171b;
-  color:white;
-  padding:12px 16px;
-  border-radius:15px;
-  z-index:100;
+
+.notify-title{
   font-size:12px;
-  font-weight:600;
-  box-shadow:0 15px 35px rgba(0,0,0,.2);
-  transition:.35s ease;
+  font-weight:700;
 }
-.toast.show{transform:translate(-50%,0)}
-.loading{
-  opacity:.6;
-  pointer-events:none;
+
+.notify-text{
+  margin-top:4px;
+  color:#777984;
+  font-size:10px;
+  line-height:1.45;
+  padding-right:10px;
 }
-.empty{
+
+.notify-time{
+  margin-top:5px;
+  color:#a1a2aa;
+  font-size:8px;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+  position:fixed;
+  z-index:30;
+  bottom:13px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(calc(100% - 28px),510px);
+  padding:8px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:3px;
+  background:rgba(255,255,255,.93);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(0,0,0,.05);
+  border-radius:24px;
+  box-shadow:0 18px 50px rgba(20,20,35,.15);
+}
+
+.nav-btn{
+  height:54px;
+  border-radius:17px;
+  background:transparent;
+  color:#999ba5;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:4px;
+  font-size:9px;
+  font-weight:700;
+}
+
+.nav-btn.active{
+  color:#111217;
+  background:#f0f0f4;
+}
+
+.nav-icon{
+  font-size:17px;
+}
+
+/* MODALS */
+
+.overlay{
+  position:fixed;
+  z-index:50;
+  inset:0;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  background:rgba(8,8,12,.45);
+  backdrop-filter:blur(6px);
+}
+
+.overlay.show{
+  display:flex;
+}
+
+.sheet{
+  width:min(100%,540px);
+  max-height:91vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:30px 30px 0 0;
+  padding:20px;
+  animation:sheetUp .28s cubic-bezier(.2,.8,.2,1);
+}
+
+@keyframes sheetUp{
+  from{
+    transform:translateY(100%);
+  }
+  to{
+    transform:translateY(0);
+  }
+}
+
+.handle{
+  width:39px;
+  height:4px;
+  border-radius:10px;
+  background:#dedee4;
+  margin:0 auto 20px;
+}
+
+.sheet h2{
+  font-family:"Space Grotesk";
+  font-size:22px;
+  letter-spacing:-.7px;
+}
+
+.sheet-sub{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:5px;
+  margin-bottom:18px;
+}
+
+.field{
+  margin-bottom:12px;
+}
+
+.field label{
+  display:block;
+  color:#858791;
+  font-size:9px;
+  font-weight:700;
+  margin-bottom:6px;
+}
+
+.field input,
+.field select{
+  width:100%;
+  padding:14px;
+  border:1px solid var(--line);
+  outline:none;
+  border-radius:15px;
+  background:#fafafd;
+  color:var(--text);
+  font-size:12px;
+}
+
+.field input:focus,
+.field select:focus{
+  border-color:#8c7cff;
+  box-shadow:0 0 0 3px rgba(116,92,255,.08);
+}
+
+.secondary{
+  width:100%;
+  padding:14px;
+  margin-top:8px;
+  border-radius:16px;
+  background:#f1f1f5;
+  color:#22232a;
+  font-size:11px;
+  font-weight:700;
+}
+
+.amount-input{
   text-align:center;
-  padding:35px 15px;
+  font-family:"Space Grotesk";
+  font-size:31px!important;
+  font-weight:700;
+}
+
+/* REVIEW */
+
+.review{
+  background:#f7f7fa;
+  padding:14px;
+  border-radius:17px;
+  margin-bottom:12px;
+}
+
+.review-row{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  padding:7px 0;
+  font-size:11px;
+}
+
+.review-row span{
   color:var(--muted);
 }
-.empty strong{display:block;color:var(--text);margin-bottom:5px}
+
+.review-row b{
+  text-align:right;
+}
+
+/* SUCCESS */
+
+.success{
+  text-align:center;
+  padding:15px 0 5px;
+}
+
+.success-circle{
+  width:78px;
+  height:78px;
+  margin:0 auto 16px;
+  border-radius:50%;
+  background:#dcf8e9;
+  color:#20ae66;
+  display:grid;
+  place-items:center;
+  font-size:35px;
+  animation:pop .45s cubic-bezier(.2,1.5,.4,1);
+}
+
+@keyframes pop{
+  from{
+    transform:scale(.4);
+    opacity:0;
+  }
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
+/* SEARCH */
+
+.search-box{
+  display:flex;
+  gap:8px;
+}
+
+.search-box input{
+  flex:1;
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  outline:none;
+  background:#fafafd;
+}
+
+.search-box .icon-btn{
+  flex:none;
+  box-shadow:none;
+  background:#111217;
+  color:#fff;
+}
+
+.search-results{
+  margin-top:13px;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  z-index:100;
+  left:50%;
+  bottom:87px;
+  transform:translate(-50%,18px);
+  background:#111217;
+  color:#fff;
+  padding:12px 16px;
+  border-radius:14px;
+  font-size:10px;
+  font-weight:600;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  white-space:nowrap;
+  max-width:90%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* RESPONSIVE */
+
 @media(max-width:380px){
-  .balance{font-size:33px}
-  .quick span{font-size:10px}
+  .screen{
+    padding-left:16px;
+    padding-right:16px;
+  }
+
+  .top{
+    padding-left:16px;
+    padding-right:16px;
+  }
+
+  .balance{
+    font-size:32px;
+  }
+
+  .quick-btn{
+    min-height:70px;
+  }
+
+  .balance-stats{
+    gap:5px;
+  }
+
+  .balance-stat{
+    padding:8px;
+  }
 }
 </style>
 </head>
+
 <body>
+
 <div class="app">
-<header class="topbar">
-  <div class="brand">NOVA</div>
-  <button class="avatar" id="openProfile">AM</button>
+
+<header class="top">
+  <div class="brand">NO<span>V</span>A</div>
+
+  <div class="top-actions">
+    <button class="icon-btn" data-action="search">⌕</button>
+
+    <button class="icon-btn" data-action="notifications">
+      ♢
+      <i class="notification-dot" id="notificationDot"></i>
+    </button>
+  </div>
 </header>
+
 <!-- HOME -->
-<section class="screen active" id="home">
-  <div class="hello">
-    <small id="greeting">Good afternoon</small>
-    <h1>Welcome back, Alex</h1>
+
+<section class="screen active" id="homeScreen">
+
+  <div class="greeting">
+    <small id="greetingText">Good evening</small>
+    <h1>Welcome back.</h1>
   </div>
+
   <div class="balance-card">
+
     <div class="balance-label">Available balance</div>
-    <div class="balance" id="balance">$24,860.40</div>
+
     <div class="balance-row">
-      <button class="eye" id="toggleBalance">◉</button>
-      <div class="card-mini">NOVA • Everyday account</div>
+      <div class="balance" id="balance">$24,860.40</div>
+
+      <button class="eye-btn" id="eyeBtn" data-action="toggleBalance">
+        ◉
+      </button>
     </div>
-  </div>
-  <div class="section-head">
-    <h2>Your card</h2>
-    <button class="link" id="manageCards">Manage</button>
-  </div>
-  <div class="bank-card virtual" id="homeCard">
-    <div class="card-brand">
-      <span>NOVA</span>
-      <span id="cardTypeLabel">VIRTUAL</span>
+
+    <div class="balance-stats">
+      <div class="balance-stat">
+        This month
+        <b id="monthIncome">+$4,280</b>
+      </div>
+
+      <div class="balance-stat">
+        Spending
+        <b id="monthSpend">−$1,701</b>
+      </div>
     </div>
-    <div class="chip"></div>
-    <div class="card-number" id="cardNumber">•••• •••• •••• 2841</div>
+
     <div class="card-bottom">
-      <span>ALEX MORGAN</span>
-      <span>09/29</span>
+      <span>NOVA •••• 2841</span>
+      <span>Personal</span>
     </div>
+
   </div>
-  <div class="card-switch">
-    <button class="active" data-card="virtual">Virtual</button>
-    <button data-card="physical">Physical</button>
-  </div>
-  <div class="section-head">
-    <h2>Quick actions</h2>
-  </div>
+
   <div class="quick">
-    <button data-action="send">
-      <div class="quick-icon">↗</div><span>Send</span>
+
+    <button class="quick-btn" data-action="send">
+      <span class="quick-icon">↗</span>
+      Send
     </button>
-    <button data-action="request">
-      <div class="quick-icon">↓</div><span>Request</span>
+
+    <button class="quick-btn" data-action="request">
+      <span class="quick-icon">↙</span>
+      Request
     </button>
-    <button data-action="pay">
-      <div class="quick-icon">⌁</div><span>Pay</span>
+
+    <button class="quick-btn" data-action="pay">
+      <span class="quick-icon">⌁</span>
+      Pay
     </button>
-    <button data-action="add">
-      <div class="quick-icon">+</div><span>Add</span>
+
+    <button class="quick-btn" data-action="add">
+      <span class="quick-icon">＋</span>
+      Add
     </button>
+
   </div>
+
   <div class="section-head">
-    <h2>Cashflow</h2>
-    <button class="link" id="openAnalytics">Details</button>
+    <h2>Money Pulse</h2>
+    <button class="link" data-action="activity">See all</button>
   </div>
-  <div class="stats">
-    <div class="stat">
-      <small>This month spent</small>
-      <strong>$1,701</strong>
-      <span class="green">↓ 8.4%</span>
+
+  <div class="chart-card">
+
+    <div class="chart-head">
+
+      <div>
+        <div class="chart-value">$5,842</div>
+        <div class="chart-change">↑ 8.4% this month</div>
+      </div>
+
+      <span class="chart-period">30 days</span>
+
     </div>
-    <div class="stat">
-      <small>This month income</small>
-      <strong>$4,280</strong>
-      <span class="green">↑ 12.1%</span>
+
+    <div class="chart">
+
+      <svg viewBox="0 0 500 120" preserveAspectRatio="none">
+
+        <defs>
+          <linearGradient id="chartFill"
+                          x1="0"
+                          x2="0"
+                          y1="0"
+                          y2="1">
+            <stop offset="0%" stop-color="#745cff" stop-opacity=".25"/>
+            <stop offset="100%" stop-color="#745cff" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <path
+          d="M0 96
+             C35 90 48 77 75 82
+             S115 54 145 67
+             S190 44 220 58
+             S255 37 285 50
+             S325 32 350 40
+             S390 22 420 34
+             S465 10 500 18
+             L500 120 L0 120 Z"
+          fill="url(#chartFill)"
+        />
+
+        <path
+          d="M0 96
+             C35 90 48 77 75 82
+             S115 54 145 67
+             S190 44 220 58
+             S255 37 285 50
+             S325 32 350 40
+             S390 22 420 34
+             S465 10 500 18"
+          fill="none"
+          stroke="#745cff"
+          stroke-width="3"
+        />
+
+      </svg>
+
     </div>
+
   </div>
-  <div class="section-head">
-    <h2>Money pulse</h2>
-    <span style="font-size:11px;color:#999">Last 7 days</span>
-  </div>
-  <div class="chart">
-    <svg viewBox="0 0 500 150" preserveAspectRatio="none">
-      <polyline
-        points="0,110 70,92 140,105 210,62 280,78 350,43 420,61 500,28"
-        fill="none"
-        stroke="#6d4aff"
-        stroke-width="4"
-        stroke-linecap="round"
-        stroke-linejoin="round"/>
-      <polyline
-        points="0,110 70,92 140,105 210,62 280,78 350,43 420,61 500,28 500,150 0,150"
-        fill="rgba(109,74,255,.08)"
-        stroke="none"/>
-    </svg>
-    <div class="chart-labels">
-      <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+
+  <div class="insight">
+
+    <div class="insight-title">
+      <span class="insight-star">✦</span>
+      NOVA Insight
     </div>
+
+    <p>
+      Your spending is trending lower this week.
+      You have <b>$1,240</b> more available than your usual weekly average.
+    </p>
+
   </div>
+
   <div class="section-head">
     <h2>Recent activity</h2>
-    <button class="link" data-nav="activity">See all</button>
+    <button class="link" data-action="activity">View all</button>
   </div>
+
   <div class="tx-list" id="homeTransactions"></div>
+
 </section>
+
 <!-- ACTIVITY -->
-<section class="screen" id="activity">
-  <div class="hello">
-    <small>Your money</small>
+
+<section class="screen" id="activityScreen">
+
+  <div class="page-title">
     <h1>Activity</h1>
+    <p>Your complete money timeline.</p>
   </div>
-  <div class="search">
-    <input id="searchInput" placeholder="Search transactions">
-  </div>
+
   <div class="filters">
-    <button class="active" data-filter="all">All</button>
-    <button data-filter="payments">Payments</button>
-    <button data-filter="income">Income</button>
-    <button data-filter="spaces">Spaces</button>
+
+    <button class="filter active" data-filter="all">
+      All
+    </button>
+
+    <button class="filter" data-filter="payment">
+      Payments
+    </button>
+
+    <button class="filter" data-filter="income">
+      Income
+    </button>
+
+    <button class="filter" data-filter="space">
+      Spaces
+    </button>
+
   </div>
-  <div class="section-head">
-    <h2>Transactions</h2>
-  </div>
-  <div class="tx-list" id="activityList"></div>
+
+  <div id="activityList"></div>
+
 </section>
+
 <!-- SPACES -->
-<section class="screen" id="spaces">
-  <div class="hello">
-    <small>Organize your money</small>
-    <h1>Spaces</h1>
+
+<section class="screen" id="spacesScreen">
+
+  <div class="page-title">
+    <h1>Money Spaces</h1>
+    <p>Give every goal its own place.</p>
   </div>
 
-+ Create a Space
+  <button class="primary" data-action="createSpace">
+    ＋ Create new Space
+  </button>
 
   <div class="section-head">
-    <h2>Your goals</h2>
+    <h2>Your Spaces</h2>
+    <span id="spaceTotal" style="font-size:10px;color:#999"></span>
   </div>
-  <div id="spaceList"></div>
+
+  <div class="spaces" id="spacesList"></div>
+
 </section>
-<!-- CARDS -->
-<section class="screen" id="cards">
-  <div class="hello">
-    <small>Your NOVA cards</small>
-    <h1>Cards</h1>
-  </div>
-  <div class="bank-card virtual" id="cardsMain">
-    <div class="card-brand">
-      <span>NOVA</span><span>VIRTUAL</span>
-    </div>
-    <div class="chip"></div>
-    <div class="card-number">•••• •••• •••• 2841</div>
-    <div class="card-bottom">
-      <span>ALEX MORGAN</span><span>09/29</span>
-    </div>
-  </div>
-  <div class="section-head">
-    <h2>Card controls</h2>
-  </div>
-  <div class="menu">
-    <div class="menu-item" id="freezeCard">
-      <div class="mi">❄</div>
-      <div><strong>Freeze card</strong><small>Temporarily stop card payments</small></div>
-      <span class="chev">›</span>
-    </div>
-    <div class="menu-item" id="cardDetails">
-      <div class="mi">▣</div>
-      <div><strong>Card details</strong><small>View demo card information</small></div>
-      <span class="chev">›</span>
-    </div>
-    <div class="menu-item" id="cardLimits">
-      <div class="mi">◷</div>
-      <div><strong>Spending limits</strong><small>Daily card limit</small></div>
-      <span class="chev">›</span>
-    </div>
-  </div>
-  <div class="section-head">
-    <h2>Physical card</h2>
-  </div>
-  <div class="detail-card">
-    <strong>NOVA Everyday Card</strong>
-    <p style="font-size:12px;color:#777;margin-top:5px">
-      Your physical card is ready for everyday spending.
-    </p>
-    <button class="secondary" id="switchPhysical">View physical card</button>
-  </div>
-</section>
+
 <!-- PROFILE -->
-<section class="screen" id="profile">
-  <div class="hello">
-    <small>Your account</small>
+
+<section class="screen" id="profileScreen">
+
+  <div class="page-title">
     <h1>Profile</h1>
+    <p>Your NOVA identity.</p>
   </div>
+
   <div class="profile-card">
-    <div class="profile-row">
-      <div class="big-avatar">AM</div>
-      <div>
-        <strong>Alex Morgan</strong>
-        <small>Member • NV-482841</small>
-      </div>
+
+    <div class="avatar">NV</div>
+
+    <div class="profile-name">
+      NOVA Member
     </div>
+
+    <div class="verified">
+      ✓ Identity verified
+    </div>
+
   </div>
+
   <div class="menu">
-    <div class="menu-item" data-profile="personal">
-      <div class="mi">◎</div>
-      <div><strong>Personal information</strong><small>Name, email and details</small></div>
-      <span class="chev">›</span>
-    </div>
-    <div class="menu-item" data-profile="cards">
-      <div class="mi">▣</div>
-      <div><strong>Cards & limits</strong><small>Manage your NOVA cards</small></div>
-      <span class="chev">›</span>
-    </div>
-    <div class="menu-item" data-profile="security">
-      <div class="mi">⌑</div>
-      <div><strong>Security</strong><small>Passcode and sign-in controls</small></div>
-      <span class="chev">›</span>
-    </div>
-    <div class="menu-item" data-profile="preferences">
-      <div class="mi">⚙</div>
-      <div><strong>Preferences</strong><small>Notifications and display</small></div>
-      <span class="chev">›</span>
-    </div>
-    <div class="menu-item" data-profile="help">
-      <div class="mi">?</div>
-      <div><strong>Help & support</strong><small>Get help with NOVA</small></div>
-      <span class="chev">›</span>
-    </div>
+
+    <button class="menu-item"
+            data-action="profileToast"
+            data-message="Your personal information is protected.">
+
+      <span class="mi">♙</span>
+
+      <span>
+        <strong>Personal information</strong>
+        <small>Identity and account details</small>
+      </span>
+
+    </button>
+
+    <button class="menu-item"
+            data-action="profileToast"
+            data-message="Your security settings are active.">
+
+      <span class="mi">⌾</span>
+
+      <span>
+        <strong>Security</strong>
+        <small>Passcode, biometrics and devices</small>
+      </span>
+
+    </button>
+
+    <button class="menu-item"
+            data-action="profileToast"
+            data-message="Preferences saved on this device.">
+
+      <span class="mi">⚙</span>
+
+      <span>
+        <strong>Preferences</strong>
+        <small>Appearance and notifications</small>
+      </span>
+
+    </button>
+
+    <button class="menu-item"
+            data-action="profileToast"
+            data-message="NOVA support is available in this prototype.">
+
+      <span class="mi">?</span>
+
+      <span>
+        <strong>Help & support</strong>
+        <small>Get answers and contact support</small>
+      </span>
+
+    </button>
+
   </div>
+
 </section>
-<!-- BOTTOM NAV -->
-<nav class="bottom">
-  <button class="nav active" data-nav="home"><b>⌂</b>Home</button>
-  <button class="nav" data-nav="activity"><b>◷</b>Activity</button>
-  <button class="nav" data-nav="spaces"><b>◌</b>Spaces</button>
-  <button class="nav pay" data-action="pay"><b>⌁</b>Pay</button>
-  <button class="nav" data-nav="profile"><b>●</b>Profile</button>
+
+<!-- NAV -->
+
+<nav class="bottom-nav">
+
+  <button class="nav-btn active" data-screen="home">
+    <span class="nav-icon">⌂</span>
+    Home
+  </button>
+
+  <button class="nav-btn" data-screen="activity">
+    <span class="nav-icon">◷</span>
+    Activity
+  </button>
+
+  <button class="nav-btn" data-screen="spaces">
+    <span class="nav-icon">◫</span>
+    Spaces
+  </button>
+
+  <button class="nav-btn" data-screen="profile">
+    <span class="nav-icon">♙</span>
+    Profile
+  </button>
+
 </nav>
+
 </div>
+
 <div class="toast" id="toast"></div>
-<!-- MODAL -->
-<div class="modal-backdrop" id="modalBackdrop">
-  <div class="modal" id="modal"></div>
-</div>
-<script>
-const state={
-  balance:24860.40,
-  hidden:false,
-  cardType:"virtual",
-  frozen:false,
-  limit:3000,
-  filter:"all",
-  transactions:[
-    {title:"Blue Bottle Coffee",sub:"Today • Card payment",amount:-8.40,type:"payments",icon:"☕",merchant:"Blue Bottle Coffee",location:"New York, NY",method:"Virtual card"},
-    {title:"Salary deposit",sub:"Yesterday • Income",amount:4280,type:"income",icon:"↙",merchant:"Payroll",location:"Direct deposit",method:"Bank transfer"},
-    {title:"Apartment rent",sub:"Aug 31 • Payment",amount:-1420,type:"payments",icon:"⌂",merchant:"Apartment rent",location:"New York, NY",method:"Bank transfer"},
-    {title:"NOVA Travel",sub:"Aug 29 • Payment",amount:-250,type:"spaces",icon:"✈",merchant:"NOVA Travel",location:"Online",method:"Virtual card"},
-    {title:"Uber",sub:"Aug 28 • Payment",amount:-22.60,type:"payments",icon:"U",merchant:"Uber",location:"New York, NY",method:"Virtual card"}
-  ],
-  spaces:[
-    {name:"Rent",current:2800,target:4000,date:"Sep 30",icon:"⌂"},
-    {name:"Travel",current:1220,target:3000,date:"Dec 15",icon:"✈"},
-    {name:"Business",current:740,target:5000,date:"Jan 20",icon:"◆"}
-  ]
-};
-const $=id=>document.getElementById(id);
-function money(n){
-  return new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(n);
-}
-function toast(msg){
-  $("toast").textContent=msg;
-  $("toast").classList.add("show");
-  clearTimeout(window.toastTimer);
-  window.toastTimer=setTimeout(()=>$("toast").classList.remove("show"),2400);
-}
-function openModal(html){
-  $("modal").innerHTML=`
+
+
+<!-- SEND MODAL -->
+
+<div class="overlay" id="sendModal">
+
+  <div class="sheet">
+
     <div class="handle"></div>
-    ${html}
-  `;
-  $("modalBackdrop").classList.add("show");
-}
-function closeModal(){
-  $("modalBackdrop").classList.remove("show");
-}
-function renderBalance(){
-  $("balance").textContent=state.hidden?"••••••":"$"+state.balance.toLocaleString("en-US",{minimumFractionDigits:2});
-  $("toggleBalance").textContent=state.hidden?"◌":"◉";
-}
-function renderCard(){
-  const physical=state.cardType==="physical";
-  $("homeCard").classList.toggle("virtual",!physical);
-  $("cardTypeLabel").textContent=physical?"PHYSICAL":"VIRTUAL";
-  $("cardNumber").textContent=physical?"•••• •••• •••• 6192":"•••• •••• •••• 2841";
-  document.querySelectorAll("[data-card]").forEach(b=>{
-    b.classList.toggle("active",b.dataset.card===state.cardType);
-  });
-}
-function txHTML(t){
-  return `
-    <div class="tx" data-tx="${state.transactions.indexOf(t)}">
-      <div class="tx-icon">${t.icon}</div>
-      <div class="tx-main">
-        <div class="tx-title">${t.title}</div>
-        <div class="tx-sub">${t.sub}</div>
+
+    <div id="sendStep1">
+
+      <h2>Send money</h2>
+      <p class="sheet-sub">
+        Send instantly from your NOVA balance.
+      </p>
+
+      <div class="field">
+        <label>RECIPIENT</label>
+        <input
+          id="sendRecipient"
+          placeholder="Name or phone number"
+          autocomplete="off">
       </div>
-      <div class="tx-amount ${t.amount>0?"income":""}">
-        ${t.amount>0?"+":""}${money(t.amount)}
+
+      <button class="primary" data-action="reviewSend">
+        Continue
+      </button>
+
+      <button class="secondary" data-action="close">
+        Cancel
+      </button>
+
+    </div>
+
+    <div id="sendStep2" style="display:none">
+
+      <h2>How much?</h2>
+
+      <p class="sheet-sub" id="sendToText"></p>
+
+      <div class="field">
+        <input
+          class="amount-input"
+          id="sendAmount"
+          type="number"
+          min="0"
+          step=".01"
+          placeholder="$0.00">
       </div>
+
+      <button class="primary" data-action="confirmSend">
+        Review transfer
+      </button>
+
+      <button class="secondary" data-action="backSend">
+        Back
+      </button>
+
     </div>
-  `;
-}
-function renderHomeTransactions(){
-  $("homeTransactions").innerHTML=state.transactions.slice(0,4).map(txHTML).join("");
-}
-function renderActivity(){
-  const q=($("searchInput")?.value||"").toLowerCase();
-  const arr=state.transactions.filter(t=>{
-    const filterOk=state.filter==="all"||t.type===state.filter;
-    const searchOk=!q||t.title.toLowerCase().includes(q)||t.merchant.toLowerCase().includes(q);
-    return filterOk&&searchOk;
-  });
-  $("activityList").innerHTML=arr.length
-    ?arr.map(txHTML).join("")
-    :`<div class="empty"><strong>No transactions found</strong>Try another search or filter.</div>`;
-}
-function renderSpaces(){
-  $("spaceList").innerHTML=state.spaces.map((s,i)=>{
-    const pct=Math.min(100,(s.current/s.target)*100);
-    return `
-      <div class="space">
-        <div class="space-top">
-          <div class="space-icon">${s.icon}</div>
-          <div class="space-info">
-            <strong>${s.name}</strong>
-            <small>Target • ${s.date}</small>
-          </div>
-          <div class="space-money">${money(s.current)}</div>
+
+    <div id="sendStep3" style="display:none">
+
+      <h2>Review transfer</h2>
+
+      <p class="sheet-sub">
+        Make sure everything looks right.
+      </p>
+
+      <div class="review">
+
+        <div class="review-row">
+          <span>Recipient</span>
+          <b id="reviewRecipient"></b>
         </div>
-        <div class="progress"><i style="width:${pct}%"></i></div>
-        <div style="display:flex;justify-content:space-between;margin-top:7px;color:#888;font-size:10px">
-          <span>${Math.round(pct)}% funded</span>
-          <span>${money(s.target)}</span>
+
+        <div class="review-row">
+          <span>Amount</span>
+          <b id="reviewAmount"></b>
         </div>
-        <div class="space-actions">
-          <button data-space-add="${i}">Add money</button>
-          <button data-space-move="${i}">Move out</button>
+
+        <div class="review-row">
+          <span>Fee</span>
+          <b>$0.00</b>
         </div>
+
+        <div class="review-row">
+          <span>Total</span>
+          <b id="reviewTotal"></b>
+        </div>
+
       </div>
-    `;
-  }).join("");
-}
-function navigate(screen){
-  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  const target=$(screen);
-  if(target)target.classList.add("active");
-  document.querySelectorAll(".nav").forEach(n=>{
-    n.classList.toggle("active",n.dataset.nav===screen);
-  });
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-function sendModal(prefill=""){
-  openModal(`
-    <div class="modal-head">
-      <h3>Send money</h3><button class="close" data-close>×</button>
+
+      <button class="primary" data-action="finishSend">
+        Confirm & send
+      </button>
+
+      <button class="secondary" data-action="backAmount">
+        Back
+      </button>
+
     </div>
-    <div class="field">
-      <label>RECIPIENT</label>
-      <input id="sendRecipient" placeholder="Name or email" value="${prefill}">
-    </div>
-    <div class="field">
-      <label>AMOUNT</label>
-      <input id="sendAmount" type="number" min="1" placeholder="0.00">
-    </div>
-    <div class="field">
-      <label>NOTE</label>
-      <input id="sendNote" placeholder="What's this for?">
-    </div>
-    <button class="primary" id="reviewSend">Review transfer</button>
-  `);
-}
-function requestModal(){
-  openModal(`
-    <div class="modal-head">
-      <h3>Request money</h3><button class="close" data-close>×</button>
-    </div>
+
+  </div>
+
+</div>
+
+
+<!-- REQUEST MODAL -->
+
+<div class="overlay" id="requestModal">
+
+  <div class="sheet">
+
+    <div class="handle"></div>
+
+    <h2>Request money</h2>
+
+    <p class="sheet-sub">
+      Create a simple payment request.
+    </p>
+
     <div class="field">
       <label>FROM</label>
-      <input id="requestFrom" placeholder="Name or email">
+      <input id="requestPerson" placeholder="Name or phone number">
     </div>
+
     <div class="field">
       <label>AMOUNT</label>
-      <input id="requestAmount" type="number" min="1" placeholder="0.00">
+      <input id="requestAmount"
+             type="number"
+             min="0"
+             step=".01"
+             placeholder="$0.00">
     </div>
+
     <div class="field">
       <label>NOTE</label>
-      <input id="requestNote" placeholder="Optional note">
+      <input id="requestNote"
+             placeholder="What's it for?">
     </div>
-    <button class="primary" id="createRequest">Create request</button>
-  `);
-}
-function payModal(){
-  openModal(`
-    <div class="modal-head">
-      <h3>Pay</h3><button class="close" data-close>×</button>
-    </div>
-    <div class="qr">
-      <div class="qr-center">N</div>
-    </div>
-    <p style="text-align:center;color:#777;font-size:12px">
-      Scan a merchant QR or enter payment details below.
+
+    <button class="primary" data-action="submitRequest">
+      Create request
+    </button>
+
+    <button class="secondary" data-action="close">
+      Cancel
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- PAY MODAL -->
+
+<div class="overlay" id="payModal">
+
+  <div class="sheet">
+
+    <div class="handle"></div>
+
+    <h2>NOVA Pay</h2>
+
+    <p class="sheet-sub">
+      Pay a merchant using your NOVA balance.
     </p>
-    <div class="field" style="margin-top:18px">
+
+    <div class="field">
       <label>MERCHANT</label>
-      <input id="payMerchant" placeholder="Merchant name">
+      <input id="merchant" placeholder="Merchant name">
     </div>
+
     <div class="field">
       <label>AMOUNT</label>
-      <input id="payAmount" type="number" min="1" placeholder="0.00">
+      <input id="payAmount"
+             type="number"
+             min="0"
+             step=".01"
+             placeholder="$0.00">
     </div>
+
     <div class="field">
       <label>CATEGORY</label>
+
       <select id="payCategory">
+        <option>Food</option>
         <option>Shopping</option>
-        <option>Food & dining</option>
-        <option>Travel</option>
         <option>Transport</option>
-        <option>Bills</option>
+        <option>Entertainment</option>
+        <option>Other</option>
       </select>
+
     </div>
-    <button class="primary" id="reviewPay">Review payment</button>
-  `);
-}
-function addMoneyModal(){
-  openModal(`
-    <div class="modal-head">
-      <h3>Add money</h3><button class="close" data-close>×</button>
-    </div>
-    <div class="review">
-      <div class="review-row"><span>Funding source</span><strong>Linked bank •••• 4821</strong></div>
-      <div class="review-row"><span>Available</span><strong>${money(state.balance)}</strong></div>
-    </div>
+
+    <button class="primary" data-action="submitPay">
+      Pay now
+    </button>
+
+    <button class="secondary" data-action="close">
+      Cancel
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ADD MONEY -->
+
+<div class="overlay" id="addModal">
+
+  <div class="sheet">
+
+    <div class="handle"></div>
+
+    <h2>Add money</h2>
+
+    <p class="sheet-sub">
+      Add money to your NOVA balance.
+    </p>
+
     <div class="field">
       <label>AMOUNT</label>
-      <input id="addAmount" type="number" min="1" placeholder="0.00">
+
+      <input
+        id="addAmount"
+        type="number"
+        min="0"
+        step=".01"
+        placeholder="$0.00">
     </div>
-    <button class="primary" id="confirmAdd">Add money</button>
-  `);
-}
-function showTransaction(i){
-  const t=state.transactions[i];
-  if(!t)return;
-  openModal(`
-    <div class="modal-head">
-      <h3>Transaction</h3><button class="close" data-close>×</button>
-    </div>
-    <div class="detail-card">
-      <div class="detail-icon">${t.icon}</div>
-      <div class="detail-amount ${t.amount>0?"income":""}">
-        ${t.amount>0?"+":""}${money(t.amount)}
-      </div>
-      <strong style="display:block;margin-top:6px">${t.title}</strong>
-      <span class="detail-status">Completed</span>
-      <div class="detail-grid">
-        <div><small>DATE</small><strong>${t.sub.split("•")[0]}</strong></div>
-        <div><small>METHOD</small><strong>${t.method}</strong></div>
-        <div><small>LOCATION</small><strong>${t.location}</strong></div>
-        <div><small>REFERENCE</small><strong>NOVA-${100000+i}</strong></div>
-      </div>
-    </div>
-    <button class="secondary" data-close style="margin-top:12px">Done</button>
-  `);
-}
-function cardsModal(){
-  openModal(`
-    <div class="modal-head">
-      <h3>Cards & limits</h3><button class="close" data-close>×</button>
-    </div>
-    <div class="detail-card">
-      <strong>Virtual card</strong>
-      <p style="font-size:12px;color:#777;margin-top:5px">•••• 2841</p>
-      <button class="secondary" id="viewCardDetails">View details</button>
-    </div>
-    <div class="detail-card" style="margin-top:10px">
-      <strong>Daily spending limit</strong>
-      <p style="font-size:12px;color:#777;margin-top:5px">${money(state.limit)}</p>
-      <button class="secondary" id="changeLimit">Change limit</button>
-    </div>
-  `);
-}
-function createSpaceModal(){
-  openModal(`
-    <div class="modal-head">
-      <h3>Create a Space</h3><button class="close" data-close>×</button>
-    </div>
+
     <div class="field">
-      <label>NAME</label>
+
+      <label>SOURCE</label>
+
+      <select id="addSource">
+        <option>Bank transfer</option>
+        <option>Debit card</option>
+        <option>Salary</option>
+        <option>Cash deposit</option>
+      </select>
+
+    </div>
+
+    <button class="primary" data-action="submitAdd">
+      Add money
+    </button>
+
+    <button class="secondary" data-action="close">
+      Cancel
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- SUCCESS -->
+
+<div class="overlay" id="successModal">
+
+  <div class="sheet">
+
+    <div class="success">
+
+      <div class="success-circle">✓</div>
+
+      <h2 id="successTitle">
+        Transfer complete
+      </h2>
+
+      <p class="sheet-sub" id="successText">
+        Your transaction was completed successfully.
+      </p>
+
+      <button class="primary" data-action="closeSuccess">
+        Done
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- DETAIL -->
+
+<div class="overlay" id="detailModal">
+
+  <div class="sheet">
+
+    <div class="handle"></div>
+
+    <div id="detailContent"></div>
+
+    <button class="secondary" data-action="close">
+      Close
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- NOTIFICATIONS -->
+
+<div class="overlay" id="notificationsModal">
+
+  <div class="sheet">
+
+    <div class="handle"></div>
+
+    <div style="
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+    ">
+
+      <div>
+        <h2>Notifications</h2>
+
+        <p class="sheet-sub" style="margin-bottom:0">
+          What's happening with NOVA.
+        </p>
+      </div>
+
+      <button class="link" data-action="markRead">
+        Mark all read
+      </button>
+
+    </div>
+
+    <div
+      id="notificationList"
+      style="margin-top:18px">
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- SEARCH -->
+
+<div class="overlay" id="searchModal">
+
+  <div class="sheet">
+
+    <div class="handle"></div>
+
+    <h2>Search NOVA</h2>
+
+    <p class="sheet-sub">
+      Find transactions and Spaces.
+    </p>
+
+    <div class="search-box">
+
+      <input
+        id="searchInput"
+        placeholder="Search transactions..."
+        autocomplete="off">
+
+      <button
+        class="icon-btn"
+        data-action="searchRun">
+        ⌕
+      </button>
+
+    </div>
+
+    <div
+      class="search-results"
+      id="searchResults">
+
+      <div class="empty">
+        Start typing to search.
+      </div>
+
+    </div>
+
+    <button class="secondary" data-action="close">
+      Close
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- CREATE SPACE -->
+
+<div class="overlay" id="createSpaceModal">
+
+  <div class="sheet">
+
+    <div class="handle"></div>
+
+    <h2>Create Space</h2>
+
+    <p class="sheet-sub">
+      Give a goal its own identity.
+    </p>
+
+    <div class="field">
+      <label>SPACE NAME</label>
       <input id="spaceName" placeholder="e.g. New car">
     </div>
+
     <div class="field">
-      <label>TARGET AMOUNT</label>
-      <input id="spaceTarget" type="number" min="1" placeholder="0.00">
+      <label>GOAL AMOUNT</label>
+      <input
+        id="spaceGoal"
+        type="number"
+        min="0"
+        step=".01"
+        placeholder="$5,000">
     </div>
+
     <div class="field">
-      <label>GOAL DATE</label>
-      <input id="spaceDate" type="date">
+      <label>ICON</label>
+
+      <select id="spaceEmoji">
+        <option>🎯</option>
+        <option>🏠</option>
+        <option>✈️</option>
+        <option>💼</option>
+        <option>🚗</option>
+        <option>🎓</option>
+        <option>💻</option>
+        <option>💰</option>
+      </select>
+
     </div>
-    <button class="primary" id="saveSpace">Create Space</button>
-  `);
-}
-function addToSpace(i){
-  const s=state.spaces[i];
-  openModal(`
-    <div class="modal-head">
-      <h3>Add to ${s.name}</h3><button class="close" data-close>×</button>
-    </div>
-    <div class="review">
-      <div class="review-row"><span>Current</span><strong>${money(s.current)}</strong></div>
-      <div class="review-row"><span>Target</span><strong>${money(s.target)}</strong></div>
-    </div>
+
+    <button class="primary" data-action="createSpaceSubmit">
+      Create Space
+    </button>
+
+    <button class="secondary" data-action="close">
+      Cancel
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ADD TO SPACE -->
+
+<div class="overlay" id="spaceAddModal">
+
+  <div class="sheet">
+
+    <div class="handle"></div>
+
+    <h2>Add to Space</h2>
+
+    <p class="sheet-sub" id="spaceAddName"></p>
+
     <div class="field">
+
       <label>AMOUNT</label>
-      <input id="spaceAddAmount" type="number" min="1" placeholder="0.00">
+
+      <input
+        id="spaceAddAmount"
+        type="number"
+        min="0"
+        step=".01"
+        placeholder="$0.00">
+
     </div>
-    <button class="primary" id="confirmSpaceAdd" data-space-index="${i}">Add money</button>
-  `);
-}
-function moveFromSpace(i){
-  const s=state.spaces[i];
-  openModal(`
-    <div class="modal-head">
-      <h3>Move money out</h3><button class="close" data-close>×</button>
-    </div>
-    <div class="review">
-      <div class="review-row"><span>${s.name} balance</span><strong>${money(s.current)}</strong></div>
-    </div>
-    <div class="field">
-      <label>AMOUNT</label>
-      <input id="spaceMoveAmount" type="number" min="1" max="${s.current}" placeholder="0.00">
-    </div>
-    <button class="primary" id="confirmSpaceMove" data-space-index="${i}">Move money</button>
-  `);
-}
-function profileModal(type){
-  const content={
-    personal:`
-      <div class="modal-head"><h3>Personal information</h3><button class="close" data-close>×</button></div>
-      <div class="field"><label>FULL NAME</label><input value="Alex Morgan"></div>
-      <div class="field"><label>EMAIL</label><input value="alex@example.com"></div>
-      <div class="field"><label>MEMBER ID</label><input value="NV-482841" disabled></div>
-      <button class="primary" data-close>Done</button>
-    `,
-    security:`
-      <div class="modal-head"><h3>Security</h3><button class="close" data-close>×</button></div>
-      <div class="menu">
-        <div class="menu-item"><div class="mi">●</div><div><strong>Face ID</strong><small>Enabled on this device</small></div><span>ON</span></div>
-        <div class="menu-item"><div class="mi">⌑</div><div><strong>Passcode</strong><small>Last changed recently</small></div><span>›</span></div>
-        <div class="menu-item"><div class="mi">◉</div><div><strong>New sign-in alerts</strong><small>Get notified about new sessions</small></div><span>ON</span></div>
-      </div>
-      <p style="font-size:10px;color:#888;margin-top:14px">Demo interface only. These controls do not provide real account security.</p>
-    `,
-    preferences:`
-      <div class="modal-head"><h3>Preferences</h3><button class="close" data-close>×</button></div>
-      <div class="menu">
-        <div class="menu-item"><div class="mi">◔</div><div><strong>Push notifications</strong><small>Transaction alerts</small></div><span>ON</span></div>
-        <div class="menu-item"><div class="mi">⌁</div><div><strong>Marketing messages</strong><small>Occasional NOVA updates</small></div><span>OFF</span></div>
-      </div>
-    `,
-    help:`
-      <div class="modal-head"><h3>Help & support</h3><button class="close" data-close>×</button></div>
-      <div class="detail-card">
-        <strong>How can we help?</strong>
-        <p style="color:#777;font-size:12px;margin-top:6px">Browse common questions or contact NOVA support.</p>
-      </div>
-      <button class="secondary">Browse help centre</button>
-      <button class="secondary">Contact support</button>
-    `
-  };
-  openModal(content[type]||content.personal);
-}
-$("toggleBalance").onclick=()=>{
-  state.hidden=!state.hidden;
-  renderBalance();
-};
-$("openProfile").onclick=()=>navigate("profile");
-$("manageCards").onclick=()=>navigate("cards");
-$("openAnalytics").onclick=()=>{
-  openModal(`
-    <div class="modal-head"><h3>Spending analytics</h3><button class="close" data-close>×</button></div>
-    <div class="stats">
-      <div class="stat"><small>Total spent</small><strong>$1,701</strong></div>
-      <div class="stat"><small>Total income</small><strong>$4,280</strong></div>
-    </div>
-    <div class="section-head"><h2>Top categories</h2></div>
-    <div class="detail-card">
-      <div class="review-row"><span>Housing</span><strong>$1,420</strong></div>
-      <div class="review-row"><span>Travel</span><strong>$250</strong></div>
-      <div class="review-row"><span>Transport</span><strong>$22.60</strong></div>
-      <div class="review-row"><span>Food</span><strong>$8.40</strong></div>
-    </div>
-  `);
-};
-$("createSpace").onclick=createSpaceModal;
-$("searchInput").addEventListener("input",renderActivity);
-$("freezeCard").onclick=()=>{
-  state.frozen=!state.frozen;
-  $("freezeCard").querySelector("strong").textContent=state.frozen?"Unfreeze card":"Freeze card";
-  toast(state.frozen?"Card frozen":"Card unfrozen");
-};
-$("cardDetails").onclick=()=>{
-  openModal(`
-    <div class="modal-head"><h3>Card details</h3><button class="close" data-close>×</button></div>
-    <div class="detail-card">
-      <div class="review-row"><span>Card</span><strong>NOVA Virtual</strong></div>
-      <div class="review-row"><span>Number</span><strong>•••• 2841</strong></div>
-      <div class="review-row"><span>Expiry</span><strong>09/29</strong></div>
-      <div class="review-row"><span>CVV</span><strong>•••</strong></div>
-    </div>
-    <p style="font-size:10px;color:#888;margin-top:10px">Demo card information only.</p>
-  `);
-};
-$("cardLimits").onclick=cardsModal;
-$("switchPhysical").onclick=()=>{
-  state.cardType="physical";
-  navigate("cards");
-  $("cardsMain").classList.remove("virtual");
-};
-document.addEventListener("click",e=>{
-  const nav=e.target.closest("[data-nav]");
-  if(nav){
-    navigate(nav.dataset.nav);
-    if(nav.dataset.nav==="activity")renderActivity();
-    return;
-  }
-  const action=e.target.closest("[data-action]");
-  if(action){
-    const a=action.dataset.action;
-    if(a==="send")sendModal();
-    if(a==="request")requestModal();
-    if(a==="pay")payModal();
-    if(a==="add")addMoneyModal();
-    return;
-  }
-  const card=e.target.closest("[data-card]");
-  if(card){
-    state.cardType=card.dataset.card;
-    renderCard();
-    return;
-  }
-  const tx=e.target.closest("[data-tx]");
-  if(tx){
-    showTransaction(Number(tx.dataset.tx));
-    return;
-  }
-  const filter=e.target.closest("[data-filter]");
-  if(filter){
-    state.filter=filter.dataset.filter;
-    document.querySelectorAll("[data-filter]").forEach(b=>b.classList.remove("active"));
-    filter.classList.add("active");
-    renderActivity();
-    return;
-  }
-  const addSpace=e.target.closest("[data-space-add]");
-  if(addSpace){addToSpace(Number(addSpace.dataset.spaceAdd));return}
-  const moveSpace=e.target.closest("[data-space-move]");
-  if(moveSpace){moveFromSpace(Number(moveSpace.dataset.spaceMove));return}
-  const profile=e.target.closest("[data-profile]");
-  if(profile){
-    if(profile.dataset.profile==="cards")navigate("cards");
-    else profileModal(profile.dataset.profile);
-    return;
-  }
-  if(e.target.closest("[data-close]")){
-    closeModal();
-    return;
-  }
-});
-$("modalBackdrop").addEventListener("click",e=>{
-  if(e.target===$("modalBackdrop"))closeModal();
-});
-document.addEventListener("click",e=>{
-  if(e.target.id==="reviewSend"){
-    const recipient=$("sendRecipient").value.trim();
-    const amount=Number($("sendAmount").value);
-    if(!recipient||amount<=0)return toast("Enter a recipient and amount");
-    if(amount>state.balance)return toast("Insufficient balance");
-    openModal(`
-      <div class="modal-head"><h3>Review transfer</h3><button class="close" data-close>×</button></div>
-      <div class="review">
-        <div class="review-row"><span>To</span><strong>${recipient}</strong></div>
-        <div class="review-row"><span>Amount</span><strong>${money(amount)}</strong></div>
-        <div class="review-row"><span>Fee</span><strong>$0.00</strong></div>
-        <div class="review-row"><span>Total</span><strong>${money(amount)}</strong></div>
-      </div>
-      <button class="primary" id="confirmSend" data-recipient="${recipient}" data-amount="${amount}">Confirm transfer</button>
-    `);
-  }
-  if(e.target.id==="confirmSend"){
-    const amount=Number(e.target.dataset.amount);
-    const recipient=e.target.dataset.recipient;
-    state.balance-=amount;
-    state.transactions.unshift({
-      title:recipient,
-      sub:"Just now • Transfer",
-      amount:-amount,
-      type:"payments",
+
+    <button class="primary" data-action="spaceAddSubmit">
+      Move money
+    </button>
+
+    <button class="secondary" data-action="close">
+      Cancel
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+"use strict";
+
+/* =========================================
+   NOVA v11
+========================================= */
+
+const STORAGE_KEY = "nova-v11-state";
+
+const defaultState = {
+
+  balance:24860.40,
+
+  balanceVisible:true,
+
+  activeScreen:"home",
+
+  activityFilter:"all",
+
+  selectedSpace:null,
+
+  send:{
+    recipient:"",
+    amount:0
+  },
+
+  transactions:[
+
+    {
+      id:"NX-849231",
+      name:"Blue Bottle Coffee",
+      amount:-8.40,
+      category:"Food",
+      time:"Today · 6:42 PM",
+      icon:"☕",
+      type:"payment",
+      status:"Completed",
+      method:"NOVA Card",
+      location:"Downtown"
+    },
+
+    {
+      id:"NX-849184",
+      name:"Salary deposit",
+      amount:4280,
+      category:"Income",
+      time:"Today · 9:15 AM",
       icon:"↗",
-      merchant:recipient,
-      location:"NOVA transfer",
-      method:"NOVA account"
-    });
-    renderBalance();
-    renderHomeTransactions();
-    renderActivity();
-    openModal(`
-      <div class="big-success">
-        <div class="success-circle">✓</div>
-        <h3>Transfer sent</h3>
-        <p>${money(amount)} was sent to ${recipient}.</p>
-      </div>
-      <button class="primary" data-close>Done</button>
-    `);
-  }
-  if(e.target.id==="createRequest"){
-    const from=$("requestFrom").value.trim();
-    const amount=Number($("requestAmount").value);
-    if(!from||amount<=0)return toast("Enter who you're requesting from");
-    openModal(`
-      <div class="big-success">
-        <div class="success-circle">✓</div>
-        <h3>Request created</h3>
-        <p>${money(amount)} requested from ${from}.</p>
-      </div>
-      <button class="primary" data-close>Done</button>
-    `);
-  }
-  if(e.target.id==="reviewPay"){
-    const merchant=$("payMerchant").value.trim();
-    const amount=Number($("payAmount").value);
-    if(!merchant||amount<=0)return toast("Enter a merchant and amount");
-    if(state.frozen)return toast("Your card is frozen");
-    if(amount>state.limit)return toast("Payment exceeds card limit");
-    if(amount>state.balance)return toast("Insufficient balance");
-    openModal(`
-      <div class="modal-head"><h3>Review payment</h3><button class="close" data-close>×</button></div>
-      <div class="review">
-        <div class="review-row"><span>Merchant</span><strong>${merchant}</strong></div>
-        <div class="review-row"><span>Amount</span><strong>${money(amount)}</strong></div>
-        <div class="review-row"><span>Card</span><strong>Virtual •••• 2841</strong></div>
-      </div>
-      <button class="primary" id="confirmPay" data-merchant="${merchant}" data-amount="${amount}">Confirm payment</button>
-    `);
-  }
-  if(e.target.id==="confirmPay"){
-    const amount=Number(e.target.dataset.amount);
-    const merchant=e.target.dataset.merchant;
-    state.balance-=amount;
-    state.transactions.unshift({
-      title:merchant,
-      sub:"Just now • Card payment",
-      amount:-amount,
-      type:"payments",
-      icon:"⌁",
-      merchant,
-      location:"Online",
-      method:"Virtual card"
-    });
-    renderBalance();
-    renderHomeTransactions();
-    renderActivity();
-    openModal(`
-      <div class="big-success">
-        <div class="success-circle">✓</div>
-        <h3>Payment complete</h3>
-        <p>${money(amount)} paid to ${merchant}.</p>
-      </div>
-      <button class="primary" data-close>Done</button>
-    `);
-  }
-  if(e.target.id==="confirmAdd"){
-    const amount=Number($("addAmount").value);
-    if(amount<=0)return toast("Enter an amount");
-    state.balance+=amount;
-    state.transactions.unshift({
-      title:"Money added",
-      sub:"Just now • Deposit",
-      amount,
       type:"income",
-      icon:"+",
-      merchant:"Linked bank",
-      location:"NOVA account",
-      method:"Bank transfer"
+      status:"Completed",
+      method:"Bank transfer",
+      location:"—"
+    },
+
+    {
+      id:"NX-848921",
+      name:"Apartment rent",
+      amount:-1420,
+      category:"Housing",
+      time:"Yesterday · 10:03 AM",
+      icon:"🏠",
+      type:"payment",
+      status:"Completed",
+      method:"Bank transfer",
+      location:"Home"
+    },
+
+    {
+      id:"NX-848731",
+      name:"NOVA Travel",
+      amount:-250,
+      category:"Spaces",
+      time:"Aug 31 · 4:12 PM",
+      icon:"✈️",
+      type:"space",
+      status:"Completed",
+      method:"Space transfer",
+      location:"NOVA"
+    },
+
+    {
+      id:"NX-848412",
+      name:"Uber",
+      amount:-22.60,
+      category:"Transport",
+      time:"Aug 30 · 8:20 PM",
+      icon:"🚗",
+      type:"payment",
+      status:"Completed",
+      method:"NOVA Card",
+      location:"Downtown"
+    }
+
+  ],
+
+  spaces:[
+
+    {
+      name:"Rent",
+      emoji:"🏠",
+      balance:2800,
+      goal:4000
+    },
+
+    {
+      name:"Travel",
+      emoji:"✈️",
+      balance:1220,
+      goal:3000
+    },
+
+    {
+      name:"Business",
+      emoji:"💼",
+      balance:740,
+      goal:5000
+    }
+
+  ],
+
+  notifications:[
+
+    {
+      title:"Salary received",
+      text:"$4,280 was added to your NOVA account.",
+      time:"Today · 9:15 AM",
+      unread:true,
+      icon:"↗"
+    },
+
+    {
+      title:"Spending insight",
+      text:"You're spending 12% less than last month.",
+      time:"Today",
+      unread:true,
+      icon:"✦"
+    },
+
+    {
+      title:"New sign-in",
+      text:"Your NOVA account was accessed from this device.",
+      time:"Yesterday",
+      unread:false,
+      icon:"⌕"
+    }
+
+  ]
+
+};
+
+
+/* =========================================
+   STATE
+========================================= */
+
+let state;
+
+try{
+
+  const saved = localStorage.getItem(STORAGE_KEY);
+
+  state = saved
+    ? Object.assign({},defaultState,JSON.parse(saved))
+    : structuredClone(defaultState);
+
+}catch{
+
+  state = structuredClone(defaultState);
+
+}
+
+
+/* =========================================
+   HELPERS
+========================================= */
+
+const $ = id => document.getElementById(id);
+
+function money(value){
+
+  return "$" + Number(value).toLocaleString("en-US",{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
+
+}
+
+function uid(){
+
+  return "NX-" +
+    Math.floor(100000 + Math.random()*900000);
+
+}
+
+function saveState(){
+
+  try{
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(state)
+    );
+  }catch{}
+
+}
+
+function escapeHTML(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================================
+   TIME
+========================================= */
+
+function updateGreeting(){
+
+  const hour = new Date().getHours();
+
+  let text = "Good evening";
+
+  if(hour < 12){
+    text = "Good morning";
+  }else if(hour < 18){
+    text = "Good afternoon";
+  }
+
+  $("greetingText").textContent = text;
+
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+let toastTimer;
+
+function notify(message){
+
+  const toast = $("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer = setTimeout(()=>{
+    toast.classList.remove("show");
+  },2200);
+
+}
+
+
+/* =========================================
+   MODALS
+========================================= */
+
+function openModal(id){
+
+  const modal = $(id);
+
+  if(modal){
+    modal.classList.add("show");
+  }
+
+}
+
+function closeModal(id){
+
+  const modal = $(id);
+
+  if(modal){
+    modal.classList.remove("show");
+  }
+
+}
+
+function closeAllModals(){
+
+  document
+    .querySelectorAll(".overlay.show")
+    .forEach(modal=>{
+      modal.classList.remove("show");
     });
-    renderBalance();
-    renderHomeTransactions();
+
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+function showScreen(screen){
+
+  state.activeScreen = screen;
+
+  document
+    .querySelectorAll(".screen")
+    .forEach(section=>{
+      section.classList.remove("active");
+    });
+
+  const target = $(screen + "Screen");
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(button=>{
+      button.classList.toggle(
+        "active",
+        button.dataset.screen === screen
+      );
+    });
+
+  if(screen === "home"){
+    renderHome();
+  }
+
+  if(screen === "activity"){
     renderActivity();
-    openModal(`
-      <div class="big-success">
-        <div class="success-circle">✓</div>
-        <h3>Money added</h3>
-        <p>${money(amount)} is now available in your NOVA balance.</p>
-      </div>
-      <button class="primary" data-close>Done</button>
-    `);
   }
-  if(e.target.id==="saveSpace"){
-    const name=$("spaceName").value.trim();
-    const target=Number($("spaceTarget").value);
-    const date=$("spaceDate").value;
-    if(!name||target<=0)return toast("Enter a name and target");
-    state.spaces.push({
-      name,
-      target,
-      current:0,
-      date:date||"No date",
-      icon:"◆"
+
+  if(screen === "spaces"){
+    renderSpaces();
+  }
+
+  saveState();
+
+}
+
+
+/* =========================================
+   HOME
+========================================= */
+
+function renderHome(){
+
+  $("balance").textContent =
+    state.balanceVisible
+      ? money(state.balance)
+      : "••••••••";
+
+  $("eyeBtn").textContent =
+    state.balanceVisible
+      ? "◉"
+      : "○";
+
+  $("homeTransactions").innerHTML =
+    state.transactions
+      .slice(0,4)
+      .map(txHTML)
+      .join("");
+
+  calculateMonthlyStats();
+
+}
+
+
+/* =========================================
+   MONTHLY STATS
+========================================= */
+
+function calculateMonthlyStats(){
+
+  let income = 0;
+  let spend = 0;
+
+  state.transactions.forEach(tx=>{
+
+    if(tx.amount > 0){
+      income += tx.amount;
+    }else{
+      spend += Math.abs(tx.amount);
+    }
+
+  });
+
+  $("monthIncome").textContent =
+    "+" + money(income).replace("$","$");
+
+  $("monthSpend").textContent =
+    "−" + money(spend).replace("$","$");
+
+}
+
+
+/* =========================================
+   TRANSACTIONS
+========================================= */
+
+function txHTML(tx){
+
+  const amountClass =
+    tx.amount >= 0
+      ? "income"
+      : "expense";
+
+  const amountText =
+    tx.amount >= 0
+      ? "+" + money(tx.amount)
+      : "−" + money(Math.abs(tx.amount));
+
+  return `
+
+    <div
+      class="tx"
+      data-action="detail"
+      data-id="${escapeHTML(tx.id)}">
+
+      <div class="tx-icon">
+        ${escapeHTML(tx.icon)}
+      </div>
+
+      <div class="tx-main">
+
+        <div class="tx-name">
+          ${escapeHTML(tx.name)}
+        </div>
+
+        <div class="tx-meta">
+          ${escapeHTML(tx.category)}
+          ·
+          ${escapeHTML(tx.time)}
+        </div>
+
+      </div>
+
+      <div class="tx-amount ${amountClass}">
+        ${amountText}
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================
+   ACTIVITY
+========================================= */
+
+function renderActivity(){
+
+  const list = $("activityList");
+
+  let items = state.transactions;
+
+  if(state.activityFilter !== "all"){
+
+    items = items.filter(
+      tx => tx.type === state.activityFilter
+    );
+
+  }
+
+  if(!items.length){
+
+    list.innerHTML = `
+
+      <div class="empty">
+
+        <strong>No activity</strong>
+
+        Nothing matches this filter yet.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  list.innerHTML = `
+
+    <div class="section-head">
+      <h2>Recent</h2>
+      <span style="font-size:9px;color:#999">
+        ${items.length} transactions
+      </span>
+    </div>
+
+    <div class="tx-list">
+      ${items.map(txHTML).join("")}
+    </div>
+
+  `;
+
+}
+
+function filterActivity(filter){
+
+  state.activityFilter = filter;
+
+  document
+    .querySelectorAll(".filter")
+    .forEach(button=>{
+
+      button.classList.toggle(
+        "active",
+        button.dataset.filter === filter
+      );
+
     });
-    renderSpaces();
-    openModal(`
-      <div class="big-success">
-        <div class="success-circle">✓</div>
-        <h3>Space created</h3>
-        <p>Your ${name} Space is ready.</p>
+
+  renderActivity();
+
+}
+
+
+/* =========================================
+   BALANCE
+========================================= */
+
+function toggleBalance(){
+
+  state.balanceVisible =
+    !state.balanceVisible;
+
+  renderHome();
+
+}
+
+
+/* =========================================
+   SEND
+========================================= */
+
+function openSend(){
+
+  state.send.recipient = "";
+  state.send.amount = 0;
+
+  $("sendRecipient").value = "";
+  $("sendAmount").value = "";
+
+  $("sendStep1").style.display = "block";
+  $("sendStep2").style.display = "none";
+  $("sendStep3").style.display = "none";
+
+  openModal("sendModal");
+
+}
+
+function reviewSend(){
+
+  const person =
+    $("sendRecipient").value.trim();
+
+  if(!person){
+
+    notify("Enter a recipient");
+
+    return;
+  }
+
+  state.send.recipient = person;
+
+  $("sendToText").textContent =
+    "Sending to " + person;
+
+  $("sendStep1").style.display = "none";
+  $("sendStep2").style.display = "block";
+
+}
+
+function confirmSend(){
+
+  const amount =
+    Number($("sendAmount").value);
+
+  if(!amount || amount <= 0){
+
+    notify("Enter a valid amount");
+
+    return;
+  }
+
+  if(amount > state.balance){
+
+    notify("Not enough available balance");
+
+    return;
+  }
+
+  state.send.amount = amount;
+
+  $("reviewRecipient").textContent =
+    state.send.recipient;
+
+  $("reviewAmount").textContent =
+    money(amount);
+
+  $("reviewTotal").textContent =
+    money(amount);
+
+  $("sendStep2").style.display = "none";
+  $("sendStep3").style.display = "block";
+
+}
+
+function backSend(){
+
+  $("sendStep2").style.display = "none";
+  $("sendStep1").style.display = "block";
+
+}
+
+function backAmount(){
+
+  $("sendStep3").style.display = "none";
+  $("sendStep2").style.display = "block";
+
+}
+
+function finishSend(){
+
+  const amount = state.send.amount;
+
+  if(
+    amount <= 0 ||
+    amount > state.balance
+  ){
+
+    notify("Transfer could not be completed");
+
+    return;
+  }
+
+  state.balance -= amount;
+
+  state.transactions.unshift({
+
+    id:uid(),
+
+    name:state.send.recipient,
+
+    amount:-amount,
+
+    category:"Transfer",
+
+    time:"Just now",
+
+    icon:"↗",
+
+    type:"payment",
+
+    status:"Completed",
+
+    method:"NOVA Transfer",
+
+    location:"NOVA"
+
+  });
+
+  state.notifications.unshift({
+
+    title:"Transfer sent",
+
+    text:
+      `${money(amount)} was sent to ${state.send.recipient}.`,
+
+    time:"Just now",
+
+    unread:true,
+
+    icon:"↗"
+
+  });
+
+  closeModal("sendModal");
+
+  $("successTitle").textContent =
+    "Transfer complete";
+
+  $("successText").textContent =
+    `${money(amount)} was sent to ${state.send.recipient}.`;
+
+  openModal("successModal");
+
+  renderAll();
+
+}
+
+
+/* =========================================
+   REQUEST
+========================================= */
+
+function openRequest(){
+
+  $("requestPerson").value = "";
+  $("requestAmount").value = "";
+  $("requestNote").value = "";
+
+  openModal("requestModal");
+
+}
+
+function submitRequest(){
+
+  const person =
+    $("requestPerson").value.trim();
+
+  const amount =
+    Number($("requestAmount").value);
+
+  const note =
+    $("requestNote").value.trim();
+
+  if(
+    !person ||
+    !amount ||
+    amount <= 0
+  ){
+
+    notify("Complete the request details");
+
+    return;
+  }
+
+  state.notifications.unshift({
+
+    title:"Request created",
+
+    text:
+      `You requested ${money(amount)} from ${person}` +
+      (note ? ` · ${note}` : "."),
+
+    time:"Just now",
+
+    unread:true,
+
+    icon:"↙"
+
+  });
+
+  closeModal("requestModal");
+
+  notify("Payment request created");
+
+  renderNotifications();
+
+  updateBadge();
+
+  saveState();
+
+}
+
+
+/* =========================================
+   PAY
+========================================= */
+
+function openPay(){
+
+  $("merchant").value = "";
+  $("payAmount").value = "";
+  $("payCategory").value = "Food";
+
+  openModal("payModal");
+
+}
+
+function submitPay(){
+
+  const merchant =
+    $("merchant").value.trim();
+
+  const amount =
+    Number($("payAmount").value);
+
+  const category =
+    $("payCategory").value;
+
+  if(
+    !merchant ||
+    !amount ||
+    amount <= 0
+  ){
+
+    notify("Enter a merchant and amount");
+
+    return;
+  }
+
+  if(amount > state.balance){
+
+    notify("Not enough available balance");
+
+    return;
+  }
+
+  state.balance -= amount;
+
+  state.transactions.unshift({
+
+    id:uid(),
+
+    name:merchant,
+
+    amount:-amount,
+
+    category:category,
+
+    time:"Just now",
+
+    icon:
+      category === "Food"
+        ? "☕"
+        : category === "Transport"
+          ? "🚗"
+          : "◉",
+
+    type:"payment",
+
+    status:"Completed",
+
+    method:"NOVA Pay",
+
+    location:"Merchant"
+
+  });
+
+  state.notifications.unshift({
+
+    title:"Payment completed",
+
+    text:
+      `${money(amount)} paid to ${merchant}.`,
+
+    time:"Just now",
+
+    unread:true,
+
+    icon:"⌁"
+
+  });
+
+  closeModal("payModal");
+
+  $("successTitle").textContent =
+    "Payment complete";
+
+  $("successText").textContent =
+    `${money(amount)} paid to ${merchant}.`;
+
+  openModal("successModal");
+
+  renderAll();
+
+}
+
+
+/* =========================================
+   ADD MONEY
+========================================= */
+
+function openAdd(){
+
+  $("addAmount").value = "";
+  $("addSource").value = "Bank transfer";
+
+  openModal("addModal");
+
+}
+
+function submitAdd(){
+
+  const amount =
+    Number($("addAmount").value);
+
+  const source =
+    $("addSource").value;
+
+  if(!amount || amount <= 0){
+
+    notify("Enter a valid amount");
+
+    return;
+  }
+
+  state.balance += amount;
+
+  state.transactions.unshift({
+
+    id:uid(),
+
+    name:"Money added",
+
+    amount:amount,
+
+    category:"Income",
+
+    time:"Just now",
+
+    icon:"＋",
+
+    type:"income",
+
+    status:"Completed",
+
+    method:source,
+
+    location:"NOVA"
+
+  });
+
+  state.notifications.unshift({
+
+    title:"Money added",
+
+    text:
+      `${money(amount)} was added from ${source}.`,
+
+    time:"Just now",
+
+    unread:true,
+
+    icon:"＋"
+
+  });
+
+  closeModal("addModal");
+
+  $("successTitle").textContent =
+    "Money added";
+
+  $("successText").textContent =
+    `${money(amount)} is now available in your NOVA balance.`;
+
+  openModal("successModal");
+
+  renderAll();
+
+}
+
+
+/* =========================================
+   TRANSACTION DETAIL
+========================================= */
+
+function openDetail(id){
+
+  const tx =
+    state.transactions.find(
+      item => item.id === id
+    );
+
+  if(!tx) return;
+
+  const amount =
+    tx.amount >= 0
+      ? "+" + money(tx.amount)
+      : "−" + money(Math.abs(tx.amount));
+
+  $("detailContent").innerHTML = `
+
+    <div style="
+      text-align:center;
+      padding:4px 0 20px;
+    ">
+
+      <div
+        class="tx-icon"
+        style="
+          margin:0 auto 13px;
+          width:60px;
+          height:60px;
+          font-size:24px;
+        ">
+
+        ${escapeHTML(tx.icon)}
+
       </div>
-      <button class="primary" data-close>Done</button>
-    `);
-  }
-  if(e.target.id==="confirmSpaceAdd"){
-    const i=Number(e.target.dataset.spaceIndex);
-    const amount=Number($("spaceAddAmount").value);
-    if(amount<=0)return toast("Enter an amount");
-    if(amount>state.balance)return toast("Insufficient balance");
-    state.balance-=amount;
-    state.spaces[i].current+=amount;
-    renderBalance();
-    renderSpaces();
-    openModal(`
-      <div class="big-success">
-        <div class="success-circle">✓</div>
-        <h3>Space funded</h3>
-        <p>${money(amount)} moved into ${state.spaces[i].name}.</p>
+
+      <h2>
+        ${escapeHTML(tx.name)}
+      </h2>
+
+      <div style="
+        font-family:'Space Grotesk';
+        font-size:29px;
+        font-weight:700;
+        margin-top:7px;
+      ">
+
+        ${amount}
+
       </div>
-      <button class="primary" data-close>Done</button>
-    `);
-  }
-  if(e.target.id==="confirmSpaceMove"){
-    const i=Number(e.target.dataset.spaceIndex);
-    const amount=Number($("spaceMoveAmount").value);
-    if(amount<=0||amount>state.spaces[i].current)return toast("Enter a valid amount");
-    state.spaces[i].current-=amount;
-    state.balance+=amount;
-    renderBalance();
-    renderSpaces();
-    openModal(`
-      <div class="big-success">
-        <div class="success-circle">✓</div>
-        <h3>Money moved</h3>
-        <p>${money(amount)} returned to your available balance.</p>
+
+      <div style="
+        color:#31b972;
+        font-size:9px;
+        font-weight:700;
+        margin-top:5px;
+      ">
+
+        ✓ ${escapeHTML(tx.status)}
+
       </div>
-      <button class="primary" data-close>Done</button>
-    `);
-  }
-  if(e.target.id==="viewCardDetails"){
-    closeModal();
-    setTimeout(()=>$("cardDetails").click(),100);
-  }
-  if(e.target.id==="changeLimit"){
-    openModal(`
-      <div class="modal-head"><h3>Change spending limit</h3><button class="close" data-close>×</button></div>
-      <div class="field">
-        <label>DAILY LIMIT</label>
-        <input id="newLimit" type="number" min="100" value="${state.limit}">
+
+    </div>
+
+    <div class="review">
+
+      <div class="review-row">
+        <span>Transaction ID</span>
+        <b>${escapeHTML(tx.id)}</b>
       </div>
-      <button class="primary" id="saveLimit">Save limit</button>
-    `);
+
+      <div class="review-row">
+        <span>Date</span>
+        <b>${escapeHTML(tx.time)}</b>
+      </div>
+
+      <div class="review-row">
+        <span>Payment method</span>
+        <b>${escapeHTML(tx.method)}</b>
+      </div>
+
+      <div class="review-row">
+        <span>Category</span>
+        <b>${escapeHTML(tx.category)}</b>
+      </div>
+
+      <div class="review-row">
+        <span>Location</span>
+        <b>${escapeHTML(tx.location)}</b>
+      </div>
+
+    </div>
+
+    <button
+      class="secondary"
+      data-action="reportProblem"
+      data-id="${escapeHTML(tx.id)}">
+
+      Report a problem
+
+    </button>
+
+  `;
+
+  openModal("detailModal");
+
+}
+
+
+/* =========================================
+   NOTIFICATIONS
+========================================= */
+
+function updateBadge(){
+
+  const unread =
+    state.notifications.filter(
+      n => n.unread
+    ).length;
+
+  $("notificationDot").style.display =
+    unread ? "block" : "none";
+
+}
+
+function renderNotifications(){
+
+  const list =
+    $("notificationList");
+
+  if(!state.notifications.length){
+
+    list.innerHTML = `
+
+      <div class="empty">
+
+        <strong>You're all caught up</strong>
+
+        No new notifications.
+
+      </div>
+
+    `;
+
+    return;
   }
-  if(e.target.id==="saveLimit"){
-    const limit=Number($("newLimit").value);
-    if(limit<100)return toast("Minimum limit is $100");
-    state.limit=limit;
-    toast("Spending limit updated");
-    cardsModal();
+
+  list.innerHTML =
+    state.notifications
+      .map((n,index)=>`
+
+        <div
+          class="notify-card ${n.unread ? "unread" : ""}"
+          data-action="readNotification"
+          data-index="${index}">
+
+          <div class="notify-icon">
+            ${escapeHTML(n.icon)}
+          </div>
+
+          <div style="flex:1">
+
+            <div class="notify-title">
+              ${escapeHTML(n.title)}
+            </div>
+
+            <div class="notify-text">
+              ${escapeHTML(n.text)}
+            </div>
+
+            <div class="notify-time">
+              ${escapeHTML(n.time)}
+            </div>
+
+          </div>
+
+        </div>
+
+      `)
+      .join("");
+
+}
+
+function openNotifications(){
+
+  renderNotifications();
+
+  openModal("notificationsModal");
+
+}
+
+function markRead(){
+
+  state.notifications.forEach(
+    n => n.unread = false
+  );
+
+  renderNotifications();
+
+  updateBadge();
+
+  saveState();
+
+  notify("Notifications marked as read");
+
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+function openSearch(){
+
+  $("searchInput").value = "";
+
+  $("searchResults").innerHTML = `
+
+    <div class="empty">
+      Start typing to search.
+    </div>
+
+  `;
+
+  openModal("searchModal");
+
+  setTimeout(()=>{
+    $("searchInput").focus();
+  },180);
+
+}
+
+function searchEverything(){
+
+  const query =
+    $("searchInput").value
+      .trim()
+      .toLowerCase();
+
+  if(!query){
+
+    $("searchResults").innerHTML = `
+
+      <div class="empty">
+        Start typing to search.
+      </div>
+
+    `;
+
+    return;
   }
+
+  const txResults =
+    state.transactions.filter(tx=>
+
+      [
+        tx.name,
+        tx.category,
+        tx.method,
+        tx.location,
+        tx.id
+      ]
+      .join(" ")
+      .toLowerCase()
+      .includes(query)
+
+    );
+
+  const spaceResults =
+    state.spaces.filter(space=>
+
+      space.name
+        .toLowerCase()
+        .includes(query)
+
+    );
+
+  let html = "";
+
+  txResults.forEach(tx=>{
+    html += txHTML(tx);
+  });
+
+  spaceResults.forEach(space=>{
+
+    html += `
+
+      <div class="tx">
+
+        <div class="tx-icon">
+          ${escapeHTML(space.emoji)}
+        </div>
+
+        <div class="tx-main">
+
+          <div class="tx-name">
+            ${escapeHTML(space.name)}
+          </div>
+
+          <div class="tx-meta">
+            Money Space
+          </div>
+
+        </div>
+
+        <div class="tx-amount">
+          ${money(space.balance)}
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+  $("searchResults").innerHTML =
+    html ||
+    `
+
+      <div class="empty">
+
+        <strong>No results</strong>
+
+        Nothing matched
+        "${escapeHTML(query)}".
+
+      </div>
+
+    `;
+
+}
+
+
+/* =========================================
+   SPACES
+========================================= */
+
+function renderSpaces(){
+
+  const list =
+    $("spacesList");
+
+  const total =
+    state.spaces.reduce(
+      (sum,space)=>
+        sum + Number(space.balance),
+      0
+    );
+
+  $("spaceTotal").textContent =
+    money(total) + " saved";
+
+  if(!state.spaces.length){
+
+    list.innerHTML = `
+
+      <div class="empty">
+
+        <strong>No Spaces yet</strong>
+
+        Create your first goal above.
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+  list.innerHTML =
+    state.spaces
+      .map((space,index)=>{
+
+        const percent =
+          space.goal > 0
+            ? Math.min(
+                100,
+                (space.balance / space.goal) * 100
+              )
+            : 0;
+
+        const remaining =
+          Math.max(
+            0,
+            space.goal - space.balance
+          );
+
+        return `
+
+          <div class="space-card">
+
+            <div class="space-head">
+
+              <div class="space-icon">
+                ${escapeHTML(space.emoji)}
+              </div>
+
+              <div>
+
+                <div class="space-name">
+                  ${escapeHTML(space.name)}
+                </div>
+
+                <div class="space-goal">
+
+                  ${
+                    remaining > 0
+                      ? money(remaining) + " to go"
+                      : "Goal reached"
+                  }
+
+                </div>
+
+              </div>
+
+              <div class="space-money">
+
+                <div class="space-balance">
+                  ${money(space.balance)}
+                </div>
+
+                <div class="space-percent">
+                  ${Math.round(percent)}%
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="progress">
+              <i style="width:${percent}%"></i>
+            </div>
+
+            <div class="space-actions">
+
+              <button
+                class="small-btn dark"
+                data-action="addToSpace"
+                data-index="${index}">
+
+                Add money
+
+              </button>
+
+              <button
+                class="small-btn"
+                data-action="spaceInfo"
+                data-index="${index}">
+
+                Details
+
+              </button>
+
+            </div>
+
+          </div>
+
+        `;
+
+      })
+      .join("");
+
+}
+
+function openCreateSpace(){
+
+  $("spaceName").value = "";
+  $("spaceGoal").value = "";
+  $("spaceEmoji").value = "🎯";
+
+  openModal("createSpaceModal");
+
+}
+
+function createSpace(){
+
+  const name =
+    $("spaceName").value.trim();
+
+  const goal =
+    Number($("spaceGoal").value);
+
+  const emoji =
+    $("spaceEmoji").value;
+
+  if(!name){
+
+    notify("Give your Space a name");
+
+    return;
+  }
+
+  if(!goal || goal <= 0){
+
+    notify("Enter a goal amount");
+
+    return;
+  }
+
+  state.spaces.push({
+
+    name:name,
+
+    emoji:emoji,
+
+    balance:0,
+
+    goal:goal
+
+  });
+
+  closeModal("createSpaceModal");
+
+  renderSpaces();
+
+  saveState();
+
+  notify(name + " Space created");
+
+}
+
+function addToSpace(index){
+
+  const space =
+    state.spaces[index];
+
+  if(!space) return;
+
+  state.selectedSpace = index;
+
+  $("spaceAddName").textContent =
+    space.name +
+    " · " +
+    money(space.balance);
+
+  $("spaceAddAmount").value = "";
+
+  openModal("spaceAddModal");
+
+}
+
+function submitSpaceAdd(){
+
+  const index =
+    state.selectedSpace;
+
+  const space =
+    state.spaces[index];
+
+  const amount =
+    Number($("spaceAddAmount").value);
+
+  if(!space){
+
+    closeModal("spaceAddModal");
+
+    return;
+  }
+
+  if(!amount || amount <= 0){
+
+    notify("Enter an amount");
+
+    return;
+  }
+
+  if(amount > state.balance){
+
+    notify("Not enough available balance");
+
+    return;
+  }
+
+  state.balance -= amount;
+
+  space.balance += amount;
+
+  state.transactions.unshift({
+
+    id:uid(),
+
+    name:space.name,
+
+    amount:-amount,
+
+    category:"Spaces",
+
+    time:"Just now",
+
+    icon:space.emoji,
+
+    type:"space",
+
+    status:"Completed",
+
+    method:"Space transfer",
+
+    location:"NOVA"
+
+  });
+
+  state.notifications.unshift({
+
+    title:"Space funded",
+
+    text:
+      `${money(amount)} moved into ${space.name}.`,
+
+    time:"Just now",
+
+    unread:true,
+
+    icon:space.emoji
+
+  });
+
+  closeModal("spaceAddModal");
+
+  renderAll();
+
+  notify(
+    money(amount) +
+    " added to " +
+    space.name
+  );
+
+}
+
+function spaceInfo(index){
+
+  const space =
+    state.spaces[index];
+
+  if(!space) return;
+
+  const percent =
+    space.goal
+      ? Math.min(
+          100,
+          (space.balance / space.goal) * 100
+        )
+      : 0;
+
+  notify(
+    `${space.name}: ${Math.round(percent)}% of goal`
+  );
+
+}
+
+
+/* =========================================
+   PROFILE
+========================================= */
+
+function profileToast(message){
+
+  notify(message);
+
+}
+
+
+/* =========================================
+   REPORT
+========================================= */
+
+function reportProblem(){
+
+  closeModal("detailModal");
+
+  notify("Problem report started");
+
+}
+
+
+/* =========================================
+   EVENT DELEGATION
+========================================= */
+
+document.addEventListener("click",event=>{
+
+  const button =
+    event.target.closest("[data-action]");
+
+  if(button){
+
+    const action =
+      button.dataset.action;
+
+    switch(action){
+
+      case "toggleBalance":
+        toggleBalance();
+        break;
+
+      case "send":
+        openSend();
+        break;
+
+      case "request":
+        openRequest();
+        break;
+
+      case "pay":
+        openPay();
+        break;
+
+      case "add":
+        openAdd();
+        break;
+
+      case "activity":
+        showScreen("activity");
+        break;
+
+      case "notifications":
+        openNotifications();
+        break;
+
+      case "search":
+        openSearch();
+        break;
+
+      case "reviewSend":
+        reviewSend();
+        break;
+
+      case "confirmSend":
+        confirmSend();
+        break;
+
+      case "finishSend":
+        finishSend();
+        break;
+
+      case "backSend":
+        backSend();
+        break;
+
+      case "backAmount":
+        backAmount();
+        break;
+
+      case "submitRequest":
+        submitRequest();
+        break;
+
+      case "submitPay":
+        submitPay();
+        break;
+
+      case "submitAdd":
+        submitAdd();
+        break;
+
+      case "close":
+        closeAllModals();
+        break;
+
+      case "closeSuccess":
+        closeModal("successModal");
+        break;
+
+      case "markRead":
+        markRead();
+        break;
+
+      case "searchRun":
+        searchEverything();
+        break;
+
+      case "createSpace":
+        openCreateSpace();
+        break;
+
+      case "createSpaceSubmit":
+        createSpace();
+        break;
+
+      case "addToSpace":
+        addToSpace(
+          Number(button.dataset.index)
+        );
+        break;
+
+      case "spaceAddSubmit":
+        submitSpaceAdd();
+        break;
+
+      case "spaceInfo":
+        spaceInfo(
+          Number(button.dataset.index)
+        );
+        break;
+
+      case "profileToast":
+        profileToast(
+          button.dataset.message
+        );
+        break;
+
+      case "reportProblem":
+        reportProblem(
+          button.dataset.id
+        );
+        break;
+
+      case "detail":
+        openDetail(
+          button.dataset.id
+        );
+        break;
+
+      case "readNotification":{
+
+        const index =
+          Number(button.dataset.index);
+
+        if(state.notifications[index]){
+
+          state.notifications[index].unread =
+            false;
+
+          renderNotifications();
+
+          updateBadge();
+
+          saveState();
+
+        }
+
+        break;
+
+      }
+
+    }
+
+    return;
+  }
+
+  const filter =
+    event.target.closest("[data-filter]");
+
+  if(filter){
+
+    filterActivity(
+      filter.dataset.filter
+    );
+
+  }
+
 });
-renderBalance();
-renderCard();
-renderHomeTransactions();
-renderActivity();
-renderSpaces();
-const hour=new Date().getHours();
-$("greeting").textContent=
-  hour<12?"Good morning":
-  hour<18?"Good afternoon":
-  "Good evening";
+
+
+/* =========================================
+   NAV EVENTS
+========================================= */
+
+document
+  .querySelectorAll(".nav-btn")
+  .forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+      showScreen(
+        button.dataset.screen
+      );
+
+    });
+
+  });
+
+
+/* =========================================
+   BACKDROP
+========================================= */
+
+document
+  .querySelectorAll(".overlay")
+  .forEach(overlay=>{
+
+    overlay.addEventListener("click",event=>{
+
+      if(event.target === overlay){
+
+        overlay.classList.remove("show");
+
+      }
+
+    });
+
+  });
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+$("searchInput")
+  .addEventListener(
+    "input",
+    searchEverything
+  );
+
+
+/* =========================================
+   KEYBOARD
+========================================= */
+
+document.addEventListener(
+  "keydown",
+  event=>{
+
+    if(event.key === "Escape"){
+
+      closeAllModals();
+
+    }
+
+    if(
+      event.key === "Enter" &&
+      document.activeElement === $("searchInput")
+    ){
+
+      searchEverything();
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   RENDER ALL
+========================================= */
+
+function renderAll(){
+
+  updateGreeting();
+
+  renderHome();
+
+  renderActivity();
+
+  renderSpaces();
+
+  renderNotifications();
+
+  updateBadge();
+
+  saveState();
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+renderAll();
+
 </script>
+
 </body>
 </html>
