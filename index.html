@@ -3,26 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#f6f6fa">
-<title>NOVA — v8</title>
+<meta name="theme-color" content="#f6f6f8">
+<title>NOVA — v9</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f5f5f9;
+  --bg:#f6f6f8;
   --card:#fff;
-  --text:#111217;
-  --muted:#858792;
-  --line:#e9e9ef;
-  --dark:#111217;
-  --soft:#f0f0f5;
-  --green:#32c77a;
-  --red:#ef6262;
-  --purple:#745cff;
-  --shadow:0 15px 40px rgba(20,20,35,.07);
+  --text:#17171c;
+  --muted:#85858f;
+  --line:#e9e9ee;
+  --purple:#7357ff;
+  --purple2:#5d42ed;
+  --green:#21a66a;
+  --red:#e65361;
+  --dark:#181820;
+  --shadow:0 12px 35px rgba(25,25,35,.07);
+  --radius:24px;
 }
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
+}
+
 html,body{
   width:100%;
   min-height:100%;
@@ -30,2982 +40,2603 @@ html,body{
   color:var(--text);
   font-family:"DM Sans",sans-serif;
 }
+
 body{
-  display:flex;
-  justify-content:center;
-  -webkit-tap-highlight-color:transparent;
+  overflow-x:hidden;
 }
-button,input,select{font:inherit}
-button{border:0;cursor:pointer}
-button:active{
-  transform:scale(.97);
+
+button,input{
+  font:inherit;
 }
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
 .app{
   width:100%;
   max-width:520px;
   min-height:100vh;
-  padding-bottom:105px;
-  overflow:hidden;
+  margin:auto;
+  padding-bottom:92px;
 }
-/* TOP */
-.top{
-  padding:23px 20px 9px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-.brand{
-  font-family:"Space Grotesk";
-  font-size:24px;
-  font-weight:700;
-  letter-spacing:-1.2px;
-}
-.top-right{
-  display:flex;
-  gap:8px;
-}
-.icon-btn{
-  width:42px;
-  height:42px;
-  border-radius:14px;
-  background:#fff;
-  display:grid;
-  place-items:center;
-  color:#17181d;
-  font-size:18px;
-  box-shadow:0 6px 20px rgba(20,20,35,.055);
-  position:relative;
-  transition:.18s;
-}
-.icon-btn:active{
-  transform:scale(.92);
-}
-.badge{
-  position:absolute;
-  right:6px;
-  top:5px;
-  min-width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#ff5a5a;
-  border:2px solid white;
-}
-/* SCREENS */
+
 .screen{
   display:none;
-  padding:8px 20px;
-  animation:screenIn .32s cubic-bezier(.2,.8,.2,1);
+  padding:20px 18px;
+  animation:pageIn .3s ease;
 }
+
 .screen.active{
   display:block;
 }
-@keyframes screenIn{
-  from{
-    opacity:0;
-    transform:translateY(11px);
-  }
-  to{
-    opacity:1;
-    transform:none;
-  }
+
+@keyframes pageIn{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
 }
-/* HOME */
-.greeting{
-  margin:12px 0 18px;
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
 }
-.greeting small{
+
+.hello{
+  font-size:14px;
+  color:var(--muted);
+}
+
+.name{
+  font-family:"Space Grotesk";
+  font-size:25px;
+  font-weight:700;
+  margin-top:3px;
+}
+
+.avatar{
+  width:46px;
+  height:46px;
+  border-radius:16px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(145deg,#9b8aff,#5c45eb);
+  color:white;
+  font-weight:700;
+  box-shadow:0 9px 25px rgba(115,87,255,.25);
+}
+
+/* BALANCE */
+
+.balance-box{
+  margin-bottom:18px;
+}
+
+.balance-label{
   color:var(--muted);
   font-size:13px;
-}
-.greeting h1{
-  margin-top:4px;
-  font-family:"Space Grotesk";
-  font-size:29px;
-  letter-spacing:-1.4px;
-}
-/* CARD */
-.balance-card{
-  position:relative;
-  overflow:hidden;
-  min-height:215px;
-  padding:24px;
-  border-radius:28px;
-  color:#fff;
-  background:
-    radial-gradient(circle at 100% 0%,rgba(116,92,255,.72),transparent 38%),
-    radial-gradient(circle at 0% 100%,rgba(50,199,122,.18),transparent 35%),
-    linear-gradient(135deg,#191a21,#08090c);
-  box-shadow:0 27px 60px rgba(10,10,15,.22);
-}
-.balance-card:before{
-  content:"";
-  position:absolute;
-  width:240px;
-  height:240px;
-  right:-125px;
-  top:-120px;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:50%;
-}
-.balance-card:after{
-  content:"";
-  position:absolute;
-  width:185px;
-  height:185px;
-  right:-75px;
-  bottom:-82px;
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:50%;
-}
-.balance-label{
-  color:rgba(255,255,255,.58);
-  font-size:13px;
-}
-.balance-row{
   display:flex;
   align-items:center;
-  gap:10px;
-  margin-top:7px;
+  gap:7px;
 }
+
+.eye{
+  font-size:14px;
+  cursor:pointer;
+}
+
 .balance{
   font-family:"Space Grotesk";
-  font-size:38px;
-  letter-spacing:-2px;
+  font-size:39px;
+  line-height:1.1;
   font-weight:700;
-  transition:.3s;
+  letter-spacing:-1.5px;
+  margin-top:5px;
+  transition:.25s;
 }
+
 .balance.flash{
   animation:balanceFlash .45s ease;
 }
+
 @keyframes balanceFlash{
-  0%{transform:scale(1)}
-  45%{transform:scale(1.05)}
-  100%{transform:scale(1)}
+  50%{transform:scale(1.035)}
 }
-.eye{
-  color:rgba(255,255,255,.7);
-  background:rgba(255,255,255,.09);
-  width:35px;
-  height:35px;
-  border-radius:50%;
-}
-.card-number{
-  position:absolute;
-  bottom:49px;
-  left:24px;
-  font-family:"Space Grotesk";
-  letter-spacing:2px;
+
+.subbalance{
+  color:var(--green);
   font-size:13px;
-  color:rgba(255,255,255,.7);
+  margin-top:6px;
+  font-weight:600;
 }
-.card-bottom{
+
+/* CARD */
+
+.bank-card{
+  min-height:210px;
+  border-radius:28px;
+  padding:23px;
+  color:#fff;
+  background:
+    radial-gradient(circle at 85% 15%,rgba(255,255,255,.2),transparent 25%),
+    linear-gradient(140deg,#28283a,#111119 72%);
+  box-shadow:0 22px 45px rgba(18,18,28,.18);
+  position:relative;
+  overflow:hidden;
+  margin:22px 0;
+}
+
+.bank-card:after{
+  content:"";
   position:absolute;
-  bottom:20px;
-  left:24px;
-  right:24px;
+  width:210px;
+  height:210px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.08);
+  right:-90px;
+  bottom:-90px;
+}
+
+.card-top{
   display:flex;
   justify-content:space-between;
-  color:rgba(255,255,255,.48);
-  font-size:10px;
+  align-items:center;
 }
-.card-chip{
+
+.nova-mark{
+  font-family:"Space Grotesk";
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:1px;
+}
+
+.card-type{
+  font-size:11px;
+  letter-spacing:1.5px;
+  opacity:.65;
+}
+
+.chip{
+  width:42px;
+  height:31px;
+  border-radius:8px;
+  margin-top:31px;
+  background:linear-gradient(135deg,#d8d8dc,#777781);
+  position:relative;
+}
+
+.chip:after,
+.chip:before{
+  content:"";
   position:absolute;
-  right:24px;
-  bottom:50px;
-  width:38px;
-  height:27px;
-  border-radius:7px;
-  background:linear-gradient(135deg,#d9d9d9,#747474);
-  opacity:.72;
+  background:rgba(40,40,45,.25);
 }
+
+.chip:after{
+  width:100%;
+  height:1px;
+  top:50%;
+}
+
+.chip:before{
+  height:100%;
+  width:1px;
+  left:50%;
+}
+
+.card-number{
+  font-family:"Space Grotesk";
+  letter-spacing:2.4px;
+  font-size:18px;
+  margin-top:20px;
+}
+
+.card-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-top:18px;
+}
+
+.card-holder{
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:1.2px;
+  opacity:.6;
+}
+
+.card-name{
+  font-size:12px;
+  margin-top:3px;
+}
+
+.card-exp{
+  text-align:right;
+}
+
 /* QUICK */
-.quick{
+
+.quick-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:10px;
-  margin:18px 0;
+  margin:20px 0 26px;
 }
-.quick button{
-  min-height:77px;
-  border-radius:19px;
-  background:#fff;
-  color:var(--text);
-  box-shadow:0 7px 24px rgba(20,20,35,.05);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:7px;
-  font-size:11px;
-  font-weight:700;
-  transition:.18s;
+
+.quick{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:14px 7px;
+  text-align:center;
+  transition:.2s;
 }
-.quick button:active{
-  transform:translateY(2px) scale(.97);
+
+.quick:active{
+  transform:scale(.95);
 }
+
 .quick-icon{
-  width:35px;
-  height:35px;
-  border-radius:12px;
-  background:var(--soft);
+  width:40px;
+  height:40px;
+  margin:auto;
+  border-radius:14px;
   display:grid;
   place-items:center;
-  font-size:16px;
+  background:#f0edff;
+  color:var(--purple);
+  font-size:18px;
+  font-weight:700;
 }
+
+.quick span{
+  display:block;
+  font-size:11px;
+  font-weight:600;
+  margin-top:8px;
+}
+
 /* SECTION */
+
 .section-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin:25px 2px 12px;
+  margin:24px 0 12px;
 }
-.section-head h2{
+
+.section-title{
   font-family:"Space Grotesk";
   font-size:17px;
+  font-weight:700;
 }
-.link{
-  background:none;
-  color:#725cff;
+
+.section-link{
+  color:var(--purple);
   font-size:12px;
   font-weight:700;
 }
-/* CHART */
-.chart-card,
-.insight,
-.profile-card,
-.space-card,
-.empty{
-  background:#fff;
-  border-radius:23px;
-  box-shadow:0 8px 28px rgba(20,20,35,.045);
-}
-.chart-card{
+
+/* PULSE */
+
+.pulse{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:24px;
   padding:18px;
+  box-shadow:var(--shadow);
 }
-.chart-top{
+
+.pulse-head{
   display:flex;
   justify-content:space-between;
-  align-items:center;
 }
-.chart-value{
-  font-family:"Space Grotesk";
-  font-size:23px;
+
+.pulse-value{
+  font-size:20px;
   font-weight:700;
 }
-.chart-change{
-  color:var(--green);
+
+.pulse-caption{
   font-size:11px;
-  font-weight:700;
+  color:var(--muted);
   margin-top:3px;
 }
+
 .chart{
-  height:115px;
-  margin-top:12px;
-  position:relative;
-  overflow:hidden;
+  height:110px;
+  display:flex;
+  align-items:end;
+  gap:8px;
+  margin-top:20px;
 }
-.chart svg{
-  width:100%;
-  height:100%;
+
+.bar{
+  flex:1;
+  border-radius:8px 8px 3px 3px;
+  background:linear-gradient(to top,#7357ff,#a496ff);
+  min-height:12px;
+  animation:barIn .6s ease both;
 }
+
+@keyframes barIn{
+  from{height:0!important}
+}
+
 /* INSIGHT */
+
 .insight{
-  padding:18px;
-  margin-top:14px;
-  background:linear-gradient(135deg,#fff,#f2f0ff);
+  margin-top:18px;
+  padding:17px;
+  border-radius:22px;
+  background:linear-gradient(135deg,#eeeaff,#faf9ff);
+  border:1px solid #e4defe;
 }
-.insight-title{
-  display:flex;
-  align-items:center;
-  gap:8px;
+
+.insight-label{
+  color:var(--purple);
+  font-size:11px;
   font-weight:700;
-  font-size:13px;
+  letter-spacing:.5px;
 }
-.insight p{
-  color:#6e707a;
+
+.insight-title{
+  font-weight:700;
+  margin-top:7px;
+}
+
+.insight-text{
+  color:#6e6d78;
   font-size:12px;
-  line-height:1.55;
-  margin-top:8px;
+  line-height:1.5;
+  margin-top:5px;
 }
+
 /* TRANSACTIONS */
-.tx-list{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
+
 .tx{
-  background:#fff;
-  padding:13px;
-  border-radius:18px;
   display:flex;
   align-items:center;
   gap:12px;
-  box-shadow:0 5px 20px rgba(20,20,35,.035);
-  cursor:pointer;
-  transition:.2s;
-  animation:txIn .35s ease both;
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
 }
-.tx:nth-child(2){animation-delay:.04s}
-.tx:nth-child(3){animation-delay:.08s}
-.tx:nth-child(4){animation-delay:.12s}
-.tx:nth-child(5){animation-delay:.16s}
-@keyframes txIn{
-  from{
-    opacity:0;
-    transform:translateY(8px);
-  }
-  to{
-    opacity:1;
-    transform:none;
-  }
+
+.tx:last-child{
+  border-bottom:0;
 }
-.tx:active{
-  transform:scale(.985);
-}
+
 .tx-icon{
   width:43px;
   height:43px;
   border-radius:15px;
-  background:#f1f1f5;
   display:grid;
   place-items:center;
-  font-size:18px;
-  flex:none;
+  background:#f0f0f3;
+  font-size:17px;
 }
+
 .tx-main{
-  min-width:0;
   flex:1;
+  min-width:0;
 }
-.tx-name{
+
+.tx-title{
   font-size:13px;
   font-weight:700;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
 }
+
 .tx-meta{
-  margin-top:3px;
   color:var(--muted);
   font-size:10px;
+  margin-top:3px;
 }
+
 .tx-amount{
-  text-align:right;
   font-size:13px;
   font-weight:700;
 }
-.income{color:var(--green)}
-.expense{color:var(--text)}
-.status-dot{
-  display:inline-block;
-  width:5px;
-  height:5px;
-  border-radius:50%;
-  background:var(--green);
-  margin-right:4px;
+
+.plus{
+  color:var(--green);
 }
+
+.minus{
+  color:var(--text);
+}
+
+/* ACTIVITY */
+
+.filter-row{
+  display:flex;
+  gap:8px;
+  overflow:auto;
+  padding-bottom:3px;
+}
+
+.filter{
+  white-space:nowrap;
+  border:1px solid var(--line);
+  background:white;
+  padding:9px 14px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.filter.active{
+  background:var(--dark);
+  color:white;
+  border-color:var(--dark);
+}
+
+/* SPACES */
+
+.space-card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:18px;
+  margin-bottom:12px;
+  box-shadow:var(--shadow);
+}
+
+.space-top{
+  display:flex;
+  justify-content:space-between;
+}
+
+.space-name{
+  font-weight:700;
+}
+
+.space-amount{
+  font-family:"Space Grotesk";
+  font-weight:700;
+  margin-top:3px;
+}
+
+.space-target{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.progress{
+  height:8px;
+  background:#eeeeF2;
+  border-radius:99px;
+  overflow:hidden;
+  margin-top:16px;
+}
+
+.progress > div{
+  height:100%;
+  border-radius:99px;
+  background:linear-gradient(90deg,#7357ff,#9d8dff);
+  transition:width .5s ease;
+}
+
+.space-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:9px;
+}
+
+.space-percent{
+  font-size:11px;
+  font-weight:700;
+}
+
+.space-action{
+  color:var(--purple);
+  font-size:11px;
+  font-weight:700;
+}
+
+/* PROFILE */
+
+.profile-card{
+  background:linear-gradient(145deg,#242432,#111119);
+  color:white;
+  padding:21px;
+  border-radius:27px;
+  margin-bottom:20px;
+}
+
+.profile-row{
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+
+.profile-avatar{
+  width:54px;
+  height:54px;
+  border-radius:18px;
+  display:grid;
+  place-items:center;
+  background:#7660f7;
+  font-weight:700;
+}
+
+.profile-name{
+  font-family:"Space Grotesk";
+  font-weight:700;
+  font-size:18px;
+}
+
+.profile-id{
+  color:#aaaab5;
+  font-size:11px;
+  margin-top:3px;
+}
+
+.menu-card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:24px;
+  overflow:hidden;
+}
+
+.menu-item{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:17px;
+  border-bottom:1px solid var(--line);
+}
+
+.menu-item:last-child{
+  border-bottom:0;
+}
+
+.menu-icon{
+  width:38px;
+  height:38px;
+  border-radius:13px;
+  background:#f1efff;
+  color:var(--purple);
+  display:grid;
+  place-items:center;
+}
+
+.menu-main{
+  flex:1;
+}
+
+.menu-title{
+  font-size:13px;
+  font-weight:700;
+}
+
+.menu-sub{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.chevron{
+  color:#aaa;
+}
+
 /* NAV */
+
 .bottom-nav{
   position:fixed;
   z-index:30;
-  bottom:14px;
+  bottom:0;
   left:50%;
   transform:translateX(-50%);
-  width:min(calc(100% - 28px),492px);
-  padding:8px;
-  border:1px solid rgba(0,0,0,.05);
-  background:rgba(255,255,255,.93);
-  backdrop-filter:blur(20px);
-  border-radius:23px;
+  width:min(520px,100%);
+  padding:10px 15px 13px;
+  background:rgba(246,246,248,.9);
+  backdrop-filter:blur(18px);
+  border-top:1px solid rgba(220,220,225,.7);
+}
+
+.nav-inner{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  box-shadow:0 18px 50px rgba(20,20,35,.15);
+  background:white;
+  border:1px solid var(--line);
+  border-radius:23px;
+  padding:6px;
+  box-shadow:0 12px 30px rgba(0,0,0,.08);
 }
+
 .nav-btn{
-  background:none;
-  height:54px;
-  border-radius:17px;
-  color:#9a9ca5;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
+  background:transparent;
+  border-radius:18px;
+  padding:9px 3px;
+  color:#96969e;
   font-size:10px;
   font-weight:700;
-  transition:.2s;
 }
+
 .nav-btn.active{
-  color:#111217;
-  background:#f0f0f4;
+  color:var(--purple);
+  background:#f0edff;
 }
-.nav-icon{
+
+.nav-symbol{
   font-size:17px;
-}
-/* TITLES */
-.page-title{
-  padding:18px 0 16px;
-}
-.page-title h1{
-  font-family:"Space Grotesk";
-  font-size:30px;
-  letter-spacing:-1.3px;
-}
-.page-title p{
-  margin-top:5px;
-  color:var(--muted);
-  font-size:12px;
-}
-/* FILTERS */
-.filters{
-  display:flex;
-  gap:7px;
-  overflow:auto;
-  padding-bottom:4px;
-  scrollbar-width:none;
-}
-.filters::-webkit-scrollbar{
-  display:none;
-}
-.filter{
-  white-space:nowrap;
-  padding:9px 13px;
-  border-radius:13px;
-  background:#fff;
-  color:#858791;
-  font-size:11px;
-  font-weight:700;
-}
-.filter.active{
-  color:#fff;
-  background:#111217;
-}
-/* NOTIFICATIONS */
-.notify-card{
-  padding:15px;
-  border-radius:19px;
-  background:#fff;
-  display:flex;
-  gap:12px;
-  margin-bottom:9px;
-  box-shadow:0 5px 20px rgba(20,20,35,.04);
-  position:relative;
-  animation:txIn .3s ease both;
-}
-.notify-card.unread{
-  background:#fbfaff;
-}
-.notify-card.unread:before{
-  content:"";
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:#745cff;
-  position:absolute;
-  right:14px;
-  top:14px;
-}
-.notify-icon{
-  width:42px;
-  height:42px;
-  border-radius:14px;
-  background:#f0efff;
-  display:grid;
-  place-items:center;
-}
-.notify-title{
-  font-size:13px;
-  font-weight:700;
-}
-.notify-text{
-  margin-top:4px;
-  color:#777985;
-  font-size:11px;
-  line-height:1.45;
-}
-.notify-time{
-  margin-top:6px;
-  color:#a0a1aa;
-  font-size:9px;
-}
-/* PROFILE */
-.profile-card{
-  padding:22px;
-  background:linear-gradient(135deg,#18191f,#0d0e11);
-  color:#fff;
-}
-.avatar{
-  width:58px;
-  height:58px;
-  border-radius:20px;
-  background:linear-gradient(135deg,#8e7aff,#4c3bc4);
-  display:grid;
-  place-items:center;
-  font-family:"Space Grotesk";
-  font-weight:700;
-  font-size:20px;
-}
-.profile-name{
-  margin-top:15px;
-  font-family:"Space Grotesk";
-  font-size:21px;
-}
-.verified{
-  margin-top:5px;
-  color:#62dc9b;
-  font-size:11px;
-  font-weight:700;
-}
-.menu{
-  margin-top:14px;
-  background:#fff;
-  border-radius:22px;
-  overflow:hidden;
-}
-.menu-item{
-  width:100%;
-  padding:16px;
-  background:#fff;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  border-bottom:1px solid var(--line);
-  text-align:left;
-}
-.menu-item:last-child{
-  border:0;
-}
-.menu-item .mi{
-  width:37px;
-  height:37px;
-  border-radius:12px;
-  background:#f2f2f6;
-  display:grid;
-  place-items:center;
-}
-.menu-item strong{
-  font-size:12px;
-}
-.menu-item small{
   display:block;
-  color:var(--muted);
-  font-size:10px;
-  margin-top:2px;
+  margin-bottom:3px;
 }
-/* SPACES */
-.spaces{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-.space-card{
-  padding:18px;
-  transition:.2s;
-}
-.space-card:active{
-  transform:scale(.985);
-}
-.space-head{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.space-icon{
-  width:45px;
-  height:45px;
-  border-radius:15px;
-  background:#f0efff;
-  display:grid;
-  place-items:center;
-  font-size:19px;
-}
-.space-name{
-  font-weight:700;
-  font-size:14px;
-}
-.space-goal{
-  color:var(--muted);
-  font-size:10px;
-  margin-top:3px;
-}
-.space-money{
-  margin-left:auto;
-  text-align:right;
-}
-.space-balance{
-  font-family:"Space Grotesk";
-  font-weight:700;
-  font-size:16px;
-}
-.space-percent{
-  color:var(--muted);
-  font-size:9px;
-  margin-top:3px;
-}
-.progress{
-  height:7px;
-  background:#eeeef3;
-  border-radius:20px;
-  overflow:hidden;
-  margin:16px 0 12px;
-}
-.progress i{
-  display:block;
-  height:100%;
-  width:0;
-  border-radius:20px;
-  background:linear-gradient(90deg,#745cff,#a08fff);
-  transition:width .9s cubic-bezier(.2,.8,.2,1);
-}
-.space-actions{
-  display:flex;
-  gap:8px;
-}
-.small-btn{
-  flex:1;
-  padding:10px;
-  border-radius:12px;
-  background:#f2f2f5;
-  font-size:10px;
-  font-weight:700;
-}
-.small-btn.dark{
-  background:#111217;
-  color:white;
-}
-/* PRIMARY BUTTON */
-.primary{
-  width:100%;
-  padding:15px;
-  border-radius:16px;
-  background:#111217;
-  color:white;
-  font-weight:700;
-  margin-top:7px;
-  transition:.18s;
-}
-.primary:active{
-  transform:scale(.985);
-}
-.secondary{
-  width:100%;
-  padding:14px;
-  border-radius:16px;
-  background:#f1f1f5;
-  color:#22232a;
-  font-weight:700;
-  margin-top:8px;
-}
-/* OVERLAY */
+
+/* MODALS */
+
 .overlay{
   position:fixed;
   z-index:50;
   inset:0;
-  background:rgba(10,10,15,.45);
-  backdrop-filter:blur(6px);
+  background:rgba(12,12,18,.38);
+  backdrop-filter:blur(7px);
   display:none;
-  align-items:flex-end;
-  justify-content:center;
+  align-items:end;
 }
+
 .overlay.show{
   display:flex;
 }
+
 .sheet{
-  width:min(100%,520px);
-  max-height:91vh;
+  width:min(520px,100%);
+  margin:auto;
+  background:white;
+  border-radius:30px 30px 0 0;
+  padding:21px 18px 28px;
+  max-height:88vh;
   overflow:auto;
-  background:#fff;
-  border-radius:29px 29px 0 0;
-  padding:20px;
-  animation:sheetUp .32s cubic-bezier(.2,.8,.2,1);
+  animation:sheetIn .28s ease;
 }
-@keyframes sheetUp{
-  from{
-    transform:translateY(100%);
-    opacity:.7;
-  }
-  to{
-    transform:translateY(0);
-    opacity:1;
-  }
+
+@keyframes sheetIn{
+  from{transform:translateY(100%)}
+  to{transform:translateY(0)}
 }
-.handle{
-  width:40px;
+
+.sheet-handle{
+  width:42px;
   height:4px;
-  border-radius:20px;
-  background:#dddde3;
+  border-radius:99px;
+  background:#ddd;
   margin:0 auto 20px;
 }
-.sheet h2{
-  font-family:"Space Grotesk";
-  font-size:22px;
-}
-.sheet-sub{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:5px;
-  margin-bottom:18px;
-}
-/* FIELDS */
-.field{
-  margin-bottom:12px;
-}
-.field label{
-  display:block;
-  color:#858791;
-  font-size:10px;
-  font-weight:700;
-  margin-bottom:6px;
-}
-.field input,
-.field select{
-  width:100%;
-  border:1px solid var(--line);
-  outline:none;
-  padding:14px;
-  border-radius:15px;
-  background:#fafafd;
-  color:var(--text);
-  transition:.2s;
-}
-.field input:focus,
-.field select:focus{
-  border-color:#8c7cff;
-  box-shadow:0 0 0 3px rgba(116,92,255,.08);
-}
-.amount-input{
-  font-family:"Space Grotesk";
-  font-size:31px!important;
-  font-weight:700;
-  text-align:center;
-}
-/* REVIEW */
-.review{
-  background:#f7f7fa;
-  padding:15px;
-  border-radius:17px;
-  margin-bottom:12px;
-}
-.review-row{
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-  padding:8px 0;
-  font-size:12px;
-}
-.review-row span:first-child{
-  color:var(--muted);
-}
-.review-row b{
-  text-align:right;
-}
-/* SUCCESS */
-.success{
-  text-align:center;
-  padding:20px 0 8px;
-}
-.success-circle{
-  width:78px;
-  height:78px;
-  margin:0 auto 16px;
-  border-radius:50%;
-  background:#ddf8e9;
-  color:#22ae67;
-  display:grid;
-  place-items:center;
-  font-size:35px;
-  animation:pop .5s cubic-bezier(.2,1.5,.4,1);
-}
-@keyframes pop{
-  from{
-    transform:scale(.35);
-    opacity:0;
-  }
-  to{
-    transform:scale(1);
-    opacity:1;
-  }
-}
-/* RECEIPT */
-.receipt-head{
-  text-align:center;
-  padding:3px 0 20px;
-}
-.receipt-icon{
-  width:60px;
-  height:60px;
-  border-radius:20px;
-  background:#f1f1f5;
-  display:grid;
-  place-items:center;
-  margin:0 auto 12px;
-  font-size:25px;
-}
-.receipt-amount{
-  font-family:"Space Grotesk";
-  font-size:30px;
-  font-weight:700;
-  margin-top:7px;
-}
-.receipt-status{
-  color:#31b972;
-  font-size:10px;
-  font-weight:700;
-  margin-top:5px;
-}
-.receipt-divider{
-  height:1px;
-  background:var(--line);
-  margin:15px 0;
-}
-/* CARD CONTROL */
-.card-preview{
-  min-height:180px;
-  border-radius:24px;
-  padding:21px;
-  color:white;
-  position:relative;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 90% 10%,rgba(116,92,255,.8),transparent 38%),
-    linear-gradient(135deg,#191a21,#090a0d);
-  box-shadow:0 18px 40px rgba(10,10,15,.18);
-}
-.card-preview .chip{
-  width:39px;
-  height:28px;
-  border-radius:7px;
-  background:linear-gradient(135deg,#ddd,#777);
-  position:absolute;
-  top:22px;
-  right:22px;
-  opacity:.8;
-}
-.card-preview .pv-number{
-  position:absolute;
-  bottom:53px;
-  left:21px;
-  font-family:"Space Grotesk";
-  letter-spacing:2px;
-  font-size:13px;
-}
-.card-preview .pv-name{
-  position:absolute;
-  bottom:21px;
-  left:21px;
-  color:rgba(255,255,255,.55);
-  font-size:9px;
-  text-transform:uppercase;
-}
-.control-row{
-  margin-top:12px;
-  padding:15px;
-  background:#f7f7fa;
-  border-radius:17px;
+
+.sheet-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  margin-bottom:18px;
 }
-.control-row strong{
-  font-size:12px;
+
+.sheet-title{
+  font-family:"Space Grotesk";
+  font-size:21px;
+  font-weight:700;
 }
-.control-row small{
+
+.close{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:#f1f1f4;
+}
+
+.input-label{
   display:block;
   color:var(--muted);
-  font-size:9px;
-  margin-top:3px;
+  font-size:11px;
+  font-weight:700;
+  margin:13px 0 7px;
 }
+
+.input{
+  width:100%;
+  border:1px solid var(--line);
+  background:#f8f8fa;
+  padding:14px;
+  border-radius:15px;
+  outline:none;
+}
+
+.input:focus{
+  border-color:#aa9cff;
+  background:white;
+}
+
+.primary{
+  width:100%;
+  margin-top:18px;
+  padding:15px;
+  border-radius:16px;
+  background:var(--dark);
+  color:white;
+  font-weight:700;
+}
+
+.primary.purple{
+  background:var(--purple);
+}
+
+.secondary{
+  width:100%;
+  margin-top:10px;
+  padding:14px;
+  border-radius:16px;
+  background:#f2f2f5;
+  font-weight:700;
+}
+
+.amount-input{
+  font-family:"Space Grotesk";
+  font-size:31px;
+  font-weight:700;
+  text-align:center;
+  background:white;
+  border:0;
+}
+
+.review{
+  background:#f7f7f9;
+  border-radius:19px;
+  padding:15px;
+  margin-top:15px;
+}
+
+.review-row{
+  display:flex;
+  justify-content:space-between;
+  padding:8px 0;
+  font-size:12px;
+}
+
+.review-row span:first-child{
+  color:var(--muted);
+}
+
+.success{
+  text-align:center;
+  padding:18px 8px;
+}
+
+.success-icon{
+  width:70px;
+  height:70px;
+  margin:0 auto 17px;
+  border-radius:50%;
+  background:#e5f8ef;
+  color:var(--green);
+  display:grid;
+  place-items:center;
+  font-size:30px;
+}
+
+.success h2{
+  font-family:"Space Grotesk";
+}
+
+.success p{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:7px;
+  line-height:1.5;
+}
+
+/* CARD CONTROLS */
+
+.card-preview{
+  background:linear-gradient(140deg,#2a2a3b,#101016);
+  color:white;
+  border-radius:24px;
+  padding:20px;
+  min-height:185px;
+}
+
+.toggle-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:17px 0;
+  border-bottom:1px solid var(--line);
+}
+
 .toggle{
-  width:46px;
-  height:27px;
-  border-radius:30px;
-  background:#dcdce2;
+  width:48px;
+  height:28px;
   padding:3px;
+  border-radius:99px;
+  background:#d9d9de;
   transition:.2s;
 }
+
 .toggle i{
   display:block;
-  width:21px;
-  height:21px;
+  width:22px;
+  height:22px;
   border-radius:50%;
   background:white;
   transition:.2s;
-  box-shadow:0 2px 5px rgba(0,0,0,.15);
+  box-shadow:0 2px 4px rgba(0,0,0,.15);
 }
+
 .toggle.on{
-  background:#745cff;
+  background:var(--green);
 }
+
 .toggle.on i{
-  transform:translateX(19px);
+  transform:translateX(20px);
 }
+
 /* TOAST */
+
 .toast{
   position:fixed;
   z-index:100;
   left:50%;
-  bottom:88px;
+  bottom:95px;
   transform:translate(-50%,20px);
-  background:#111217;
-  color:#fff;
-  padding:12px 16px;
+  background:#17171d;
+  color:white;
+  padding:12px 17px;
   border-radius:14px;
-  font-size:11px;
-  font-weight:600;
+  font-size:12px;
   opacity:0;
   pointer-events:none;
   transition:.25s;
-  white-space:nowrap;
-  box-shadow:0 12px 35px rgba(0,0,0,.2);
 }
+
 .toast.show{
   opacity:1;
   transform:translate(-50%,0);
 }
-/* SEARCH */
-.search-box{
-  display:flex;
-  gap:8px;
-  margin-bottom:15px;
-}
-.search-box input{
-  flex:1;
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:13px;
-  outline:none;
-}
-.search-results{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
+
 /* EMPTY */
+
 .empty{
-  padding:28px 18px;
+  padding:40px 15px;
   text-align:center;
   color:var(--muted);
   font-size:12px;
 }
-.empty strong{
-  display:block;
-  color:var(--text);
-  font-size:14px;
-  margin-bottom:5px;
+
+/* RECEIPT */
+
+.receipt{
+  background:#f7f7f9;
+  border-radius:22px;
+  overflow:hidden;
 }
-/* SPACE DETAIL */
-.goal-ring{
-  width:150px;
-  height:150px;
-  margin:5px auto 18px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:conic-gradient(#745cff var(--progress),#ececf2 0);
-  position:relative;
-}
-.goal-ring:after{
-  content:"";
-  position:absolute;
-  inset:9px;
-  border-radius:50%;
+
+.receipt-top{
+  text-align:center;
+  padding:22px 15px;
   background:white;
 }
-.goal-ring-content{
-  position:relative;
-  z-index:2;
-  text-align:center;
-}
-.goal-ring-percent{
+
+.receipt-amount{
   font-family:"Space Grotesk";
-  font-size:27px;
+  font-size:30px;
   font-weight:700;
 }
-.goal-ring-label{
-  color:var(--muted);
-  font-size:9px;
+
+.receipt-status{
+  color:var(--green);
+  font-size:11px;
+  font-weight:700;
+  margin-top:5px;
 }
-/* MINI STAT */
-.mini-stats{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:9px;
-  margin-top:12px;
+
+.receipt-body{
+  padding:15px;
 }
-.mini-stat{
-  background:#f7f7fa;
-  border-radius:16px;
-  padding:14px;
-}
-.mini-stat span{
-  display:block;
-  color:var(--muted);
-  font-size:9px;
-}
-.mini-stat strong{
-  display:block;
-  font-family:"Space Grotesk";
-  font-size:16px;
-  margin-top:4px;
-}
-/* CARD MENU */
-.card-menu{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:9px;
-  margin-top:12px;
-}
-.card-menu button{
-  padding:14px;
-  border-radius:16px;
-  background:#f5f5f8;
-  text-align:left;
-}
-.card-menu strong{
-  display:block;
+
+.receipt-line{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  padding:9px 0;
   font-size:11px;
 }
-.card-menu small{
-  display:block;
+
+.receipt-line span:first-child{
   color:var(--muted);
-  margin-top:3px;
-  font-size:9px;
 }
-@media(max-width:380px){
-  .balance{
-    font-size:33px;
-  }
-  .quick button{
-    min-height:70px;
-  }
+
+@media(max-width:360px){
+  .balance{font-size:34px}
+  .bank-card{min-height:195px}
 }
 </style>
 </head>
+
 <body>
+
 <div class="app">
-<header class="top">
-  <div class="brand">NOVA</div>
-  <div class="top-right">
-    <button class="icon-btn" data-action="search">⌕</button>
-    <button class="icon-btn" data-action="notifications">
-      ♢
-      <i class="badge" id="badge"></i>
-    </button>
-  </div>
-</header>
-<!-- HOME -->
-<section class="screen active" id="homeScreen">
-  <div class="greeting">
-    <small>Good evening</small>
-    <h1>Welcome back.</h1>
-  </div>
-  <div class="balance-card">
-    <div class="balance-label">
-      Available balance
-    </div>
-    <div class="balance-row">
-      <div class="balance" id="balance">$24,860.40</div>
-      <button class="eye" data-action="toggleBalance" id="eye">
-        ◉
-      </button>
-    </div>
-    <div class="card-number">
-      NOVA •••• 2841
-    </div>
-    <div class="card-chip"></div>
-    <div class="card-bottom">
-      <span>Personal</span>
-      <span>VIRTUAL</span>
-    </div>
-  </div>
-  <div class="quick">
-    <button data-action="send">
-      <span class="quick-icon">↗</span>
-      Send
-    </button>
-    <button data-action="request">
-      <span class="quick-icon">↙</span>
-      Request
-    </button>
-    <button data-action="pay">
-      <span class="quick-icon">⌁</span>
-      Pay
-    </button>
-    <button data-action="add">
-      <span class="quick-icon">＋</span>
-      Add
-    </button>
-  </div>
-  <div class="section-head">
-    <h2>Money Pulse</h2>
-    <button class="link" data-action="activity">
-      See all
-    </button>
-  </div>
-  <div class="chart-card">
-    <div class="chart-top">
+
+  <!-- HOME -->
+  <section id="home" class="screen active">
+    <div class="top">
       <div>
-        <div class="chart-value">$5,842</div>
-        <div class="chart-change">
-          ↑ 8.4% this month
-        </div>
+        <div class="hello">Good evening</div>
+        <div class="name">Welcome back, Alex</div>
       </div>
-      <span style="font-size:10px;color:#999">
-        30 days
-      </span>
+      <button class="avatar" data-action="notifications">A</button>
     </div>
-    <div class="chart">
-      <svg viewBox="0 0 500 120" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="fill" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0%" stop-color="#745cff" stop-opacity=".24"/>
-            <stop offset="100%" stop-color="#745cff" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <path
-          d="M0 96 C35 90 48 77 75 82 S115 54 145 67 S190 44 220 58 S255 37 285 50 S325 32 350 40 S390 22 420 34 S465 10 500 18 L500 120 L0 120 Z"
-          fill="url(#fill)"
-        />
-        <path
-          d="M0 96 C35 90 48 77 75 82 S115 54 145 67 S190 44 220 58 S255 37 285 50 S325 32 350 40 S390 22 420 34 S465 10 500 18"
-          fill="none"
-          stroke="#745cff"
-          stroke-width="3"
-        />
-      </svg>
-    </div>
-  </div>
-  <div class="insight">
-    <div class="insight-title">
-      ✦ NOVA Insight
-    </div>
-    <p>
-      Your spending is trending lower this week.
-      You have <b>$1,240</b> more available than your
-      usual weekly average.
-    </p>
-  </div>
-  <div class="section-head">
-    <h2>Recent activity</h2>
-    <button class="link" data-action="activity">
-      View all
-    </button>
-  </div>
-  <div class="tx-list" id="homeTransactions"></div>
-</section>
-<!-- ACTIVITY -->
-<section class="screen" id="activityScreen">
-  <div class="page-title">
-    <h1>Activity</h1>
-    <p>Your complete money timeline.</p>
-  </div>
-  <div class="filters">
-    <button class="filter active" data-filter="all">
-      All
-    </button>
-    <button class="filter" data-filter="payment">
-      Payments
-    </button>
-    <button class="filter" data-filter="income">
-      Income
-    </button>
-    <button class="filter" data-filter="space">
-      Spaces
-    </button>
-  </div>
-  <div id="activityList"></div>
-</section>
-<!-- SPACES -->
-<section class="screen" id="spacesScreen">
-  <div class="page-title">
-    <h1>Money Spaces</h1>
-    <p>Give every goal its own place.</p>
-  </div>
-  <button class="primary" data-action="createSpace">
-    ＋ Create new Space
-  </button>
-  <div class="section-head">
-    <h2>Your Spaces</h2>
-    <span style="font-size:10px;color:#999" id="spaceTotal"></span>
-  </div>
-  <div class="spaces" id="spacesList"></div>
-</section>
-<!-- PROFILE -->
-<section class="screen" id="profileScreen">
-  <div class="page-title">
-    <h1>Profile</h1>
-    <p>Your NOVA identity.</p>
-  </div>
-  <div class="profile-card">
-    <div class="avatar">
-      NV
-    </div>
-    <div class="profile-name">
-      NOVA Member
-    </div>
-    <div class="verified">
-      ✓ Identity verified
-    </div>
-  </div>
-  <div class="menu">
-    <button class="menu-item"
-      data-action="profileToast"
-      data-message="Personal information is protected.">
-      <span class="mi">♙</span>
-      <span>
-        <strong>Personal information</strong>
-        <small>Identity and account details</small>
-      </span>
-    </button>
-    <button class="menu-item"
-      data-action="profileToast"
-      data-message="Your security settings are active.">
-      <span class="mi">⌾</span>
-      <span>
-        <strong>Security</strong>
-        <small>Passcode, biometrics and devices</small>
-      </span>
-    </button>
-    <button class="menu-item"
-      data-action="cardControls">
-      <span class="mi">▣</span>
-      <span>
-        <strong>Card controls</strong>
-        <small>Freeze card and manage spending</small>
-      </span>
-    </button>
-    <button class="menu-item"
-      data-action="profileToast"
-      data-message="Preferences saved locally for this prototype.">
-      <span class="mi">⚙</span>
-      <span>
-        <strong>Preferences</strong>
-        <small>Appearance and notifications</small>
-      </span>
-    </button>
-    <button class="menu-item"
-      data-action="profileToast"
-      data-message="NOVA support is available in this prototype.">
-      <span class="mi">?</span>
-      <span>
-        <strong>Help & support</strong>
-        <small>Get answers and contact support</small>
-      </span>
-    </button>
-  </div>
-</section>
-<!-- NAV -->
-<nav class="bottom-nav">
-  <button class="nav-btn active" data-screen="home">
-    <span class="nav-icon">⌂</span>
-    Home
-  </button>
-  <button class="nav-btn" data-screen="activity">
-    <span class="nav-icon">◷</span>
-    Activity
-  </button>
-  <button class="nav-btn" data-screen="spaces">
-    <span class="nav-icon">◫</span>
-    Spaces
-  </button>
-  <button class="nav-btn" data-screen="profile">
-    <span class="nav-icon">♙</span>
-    Profile
-  </button>
-</nav>
-</div>
-<div class="toast" id="toast"></div>
-<!-- SEND -->
-<div class="overlay" id="sendModal">
-  <div class="sheet">
-    <div class="handle"></div>
-    <div id="sendStep1">
-      <h2>Send money</h2>
-      <p class="sheet-sub">
-        Send instantly from your NOVA balance.
-      </p>
-      <div class="field">
-        <label>Recipient</label>
-        <input id="sendRecipient"
-          placeholder="Name or phone number">
+
+    <div class="balance-box">
+      <div class="balance-label">
+        Available balance
+        <span class="eye" data-action="toggle-balance">◉</span>
       </div>
-      <button class="primary" data-action="reviewSend">
-        Continue
-      </button>
-      <button class="secondary" data-action="close">
-        Cancel
-      </button>
+      <div id="balance" class="balance">$24,860.40</div>
+      <div class="subbalance">↑ 8.4% this month</div>
     </div>
-    <div id="sendStep2" style="display:none">
-      <h2>How much?</h2>
-      <p class="sheet-sub" id="sendToText"></p>
-      <div class="field">
-        <input
-          class="amount-input"
-          id="sendAmount"
-          type="number"
-          min="0"
-          step=".01"
-          placeholder="$0.00">
+
+    <div class="bank-card">
+      <div class="card-top">
+        <div class="nova-mark">NOVA</div>
+        <div class="card-type">VIRTUAL DEBIT</div>
       </div>
-      <button class="primary" data-action="confirmSend">
-        Review transfer
-      </button>
-      <button class="secondary" data-action="backSend">
-        Back
-      </button>
-    </div>
-    <div id="sendStep3" style="display:none">
-      <h2>Review transfer</h2>
-      <p class="sheet-sub">
-        Make sure everything looks right.
-      </p>
-      <div class="review">
-        <div class="review-row">
-          <span>Recipient</span>
-          <b id="reviewRecipient"></b>
-        </div>
-        <div class="review-row">
-          <span>Amount</span>
-          <b id="reviewAmount"></b>
-        </div>
-        <div class="review-row">
-          <span>Fee</span>
-          <b>$0.00</b>
-        </div>
-        <div class="review-row">
-          <span>Total</span>
-          <b id="reviewTotal"></b>
-        </div>
-      </div>
-      <button class="primary" data-action="finishSend">
-        Confirm & send
-      </button>
-      <button class="secondary" data-action="backAmount">
-        Back
-      </button>
-    </div>
-  </div>
-</div>
-<!-- SUCCESS -->
-<div class="overlay" id="successModal">
-  <div class="sheet">
-    <div class="success">
-      <div class="success-circle">
-        ✓
-      </div>
-      <h2 id="successTitle">
-        Transfer complete
-      </h2>
-      <p class="sheet-sub" id="successText">
-        Your money has been sent successfully.
-      </p>
-      <button class="primary" data-action="closeSuccess">
-        Done
-      </button>
-    </div>
-  </div>
-</div>
-<!-- REQUEST -->
-<div class="overlay" id="requestModal">
-  <div class="sheet">
-    <div class="handle"></div>
-    <h2>Request money</h2>
-    <p class="sheet-sub">
-      Create a simple payment request.
-    </p>
-    <div class="field">
-      <label>From</label>
-      <input id="requestPerson"
-        placeholder="Name or phone number">
-    </div>
-    <div class="field">
-      <label>Amount</label>
-      <input id="requestAmount"
-        type="number"
-        min="0"
-        step=".01"
-        placeholder="$0.00">
-    </div>
-    <div class="field">
-      <label>Note</label>
-      <input id="requestNote"
-        placeholder="What's it for?">
-    </div>
-    <button class="primary" data-action="submitRequest">
-      Create request
-    </button>
-    <button class="secondary" data-action="close">
-      Cancel
-    </button>
-  </div>
-</div>
-<!-- PAY -->
-<div class="overlay" id="payModal">
-  <div class="sheet">
-    <div class="handle"></div>
-    <h2>NOVA Pay</h2>
-    <p class="sheet-sub">
-      Pay a merchant using your NOVA balance.
-    </p>
-    <div class="field">
-      <label>Merchant</label>
-      <input id="merchant"
-        placeholder="Merchant name">
-    </div>
-    <div class="field">
-      <label>Amount</label>
-      <input id="payAmount"
-        type="number"
-        min="0"
-        step=".01"
-        placeholder="$0.00">
-    </div>
-    <div class="field">
-      <label>Category</label>
-      <select id="payCategory">
-        <option>Food</option>
-        <option>Shopping</option>
-        <option>Transport</option>
-        <option>Entertainment</option>
-        <option>Other</option>
-      </select>
-    </div>
-    <button class="primary" data-action="submitPay">
-      Pay now
-    </button>
-    <button class="secondary" data-action="close">
-      Cancel
-    </button>
-  </div>
-</div>
-<!-- ADD MONEY -->
-<div class="overlay" id="addModal">
-  <div class="sheet">
-    <div class="handle"></div>
-    <h2>Add money</h2>
-    <p class="sheet-sub">
-      Simulate adding money to your NOVA balance.
-    </p>
-    <div class="field">
-      <label>Amount</label>
-      <input
-        id="addAmount"
-        type="number"
-        min="0"
-        step=".01"
-        placeholder="$0.00">
-    </div>
-    <div class="field">
-      <label>Source</label>
-      <select id="addSource">
-        <option>Bank transfer</option>
-        <option>Debit card</option>
-        <option>Salary</option>
-        <option>Cash deposit</option>
-      </select>
-    </div>
-    <button class="primary" data-action="submitAdd">
-      Add money
-    </button>
-    <button class="secondary" data-action="close">
-      Cancel
-    </button>
-  </div>
-</div>
-<!-- DETAIL -->
-<div class="overlay" id="detailModal">
-  <div class="sheet">
-    <div class="handle"></div>
-    <div id="detailContent"></div>
-    <button class="secondary" data-action="close">
-      Close
-    </button>
-  </div>
-</div>
-<!-- NOTIFICATIONS -->
-<div class="overlay" id="notificationsModal">
-  <div class="sheet">
-    <div class="handle"></div>
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <div>
-        <h2>Notifications</h2>
-        <p class="sheet-sub" style="margin-bottom:0">
-          What's happening with NOVA.
-        </p>
-      </div>
-      <button class="link" data-action="markRead">
-        Mark all read
-      </button>
-    </div>
-    <div style="margin-top:18px" id="notificationList"></div>
-  </div>
-</div>
-<!-- SEARCH -->
-<div class="overlay" id="searchModal">
-  <div class="sheet">
-    <div class="handle"></div>
-    <h2>Search NOVA</h2>
-    <p class="sheet-sub">
-      Find transactions and spaces.
-    </p>
-    <div class="search-box">
-      <input id="searchInput"
-        placeholder="Search...">
-      <button class="icon-btn"
-        data-action="searchRun">
-        ⌕
-      </button>
-    </div>
-    <div class="search-results"
-      id="searchResults">
-      <div class="empty">
-        Start typing to search.
-      </div>
-    </div>
-    <button class="secondary" data-action="close">
-      Close
-    </button>
-  </div>
-</div>
-<!-- CREATE SPACE -->
-<div class="overlay" id="createSpaceModal">
-  <div class="sheet">
-    <div class="handle"></div>
-    <h2>Create Space</h2>
-    <p class="sheet-sub">
-      Give a goal its own identity.
-    </p>
-    <div class="field">
-      <label>Space name</label>
-      <input id="spaceName"
-        placeholder="e.g. New car">
-    </div>
-    <div class="field">
-      <label>Goal amount</label>
-      <input
-        id="spaceGoal"
-        type="number"
-        min="0"
-        step=".01"
-        placeholder="$5,000">
-    </div>
-    <div class="field">
-      <label>Icon</label>
-      <select id="spaceEmoji">
-        <option>🎯</option>
-        <option>🏠</option>
-        <option>✈️</option>
-        <option>💼</option>
-        <option>🚗</option>
-        <option>🎓</option>
-        <option>💻</option>
-      </select>
-    </div>
-    <button class="primary" data-action="createSpaceSubmit">
-      Create Space
-    </button>
-    <button class="secondary" data-action="close">
-      Cancel
-    </button>
-  </div>
-</div>
-<!-- ADD TO SPACE -->
-<div class="overlay" id="spaceAddModal">
-  <div class="sheet">
-    <div class="handle"></div>
-    <h2>Add to Space</h2>
-    <p class="sheet-sub" id="spaceAddName"></p>
-    <div class="field">
-      <label>Amount</label>
-      <input
-        id="spaceAddAmount"
-        type="number"
-        min="0"
-        step=".01"
-        placeholder="$0.00">
-    </div>
-    <button class="primary" data-action="spaceAddSubmit">
-      Move money
-    </button>
-    <button class="secondary" data-action="close">
-      Cancel
-    </button>
-  </div>
-</div>
-<!-- SPACE DETAIL -->
-<div class="overlay" id="spaceDetailModal">
-  <div class="sheet">
-    <div class="handle"></div>
-    <div id="spaceDetailContent"></div>
-    <button class="primary" data-action="spaceDetailAdd">
-      Add money
-    </button>
-    <button class="secondary" data-action="close">
-      Close
-    </button>
-  </div>
-</div>
-<!-- CARD CONTROLS -->
-<div class="overlay" id="cardModal">
-  <div class="sheet">
-    <div class="handle"></div>
-    <h2>Your NOVA Card</h2>
-    <p class="sheet-sub">
-      Manage your virtual card.
-    </p>
-    <div class="card-preview">
+
       <div class="chip"></div>
-      <div class="pv-number">
-        •••• •••• •••• 2841
-      </div>
-      <div class="pv-name">
-        NOVA MEMBER
+
+      <div class="card-number">••••  ••••  ••••  2841</div>
+
+      <div class="card-bottom">
+        <div>
+          <div class="card-holder">Card holder</div>
+          <div class="card-name">ALEX MORGAN</div>
+        </div>
+        <div class="card-exp">
+          <div class="card-holder">Expires</div>
+          <div class="card-name">09/29</div>
+        </div>
       </div>
     </div>
-    <div class="control-row">
+
+    <div class="quick-grid">
+      <button class="quick" data-action="send">
+        <div class="quick-icon">↑</div>
+        <span>Send</span>
+      </button>
+      <button class="quick" data-action="request">
+        <div class="quick-icon">↓</div>
+        <span>Request</span>
+      </button>
+      <button class="quick" data-action="pay">
+        <div class="quick-icon">⌁</div>
+        <span>Pay</span>
+      </button>
+      <button class="quick" data-action="add">
+        <div class="quick-icon">+</div>
+        <span>Add</span>
+      </button>
+    </div>
+
+    <div class="section-head">
+      <div class="section-title">Money Pulse</div>
+      <div class="section-link">This month</div>
+    </div>
+
+    <div class="pulse">
+      <div class="pulse-head">
+        <div>
+          <div class="pulse-value">$6,482</div>
+          <div class="pulse-caption">Total money in</div>
+        </div>
+        <div style="text-align:right">
+          <div class="pulse-value">$2,194</div>
+          <div class="pulse-caption">Spent</div>
+        </div>
+      </div>
+
+      <div class="chart">
+        <div class="bar" style="height:43%"></div>
+        <div class="bar" style="height:65%"></div>
+        <div class="bar" style="height:51%"></div>
+        <div class="bar" style="height:74%"></div>
+        <div class="bar" style="height:61%"></div>
+        <div class="bar" style="height:86%"></div>
+        <div class="bar" style="height:72%"></div>
+        <div class="bar" style="height:93%"></div>
+        <div class="bar" style="height:80%"></div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="insight-label">NOVA INSIGHT</div>
+      <div class="insight-title">You're spending less this week.</div>
+      <div class="insight-text">
+        Your everyday spending is down 12% compared with last week.
+        That's a good trend to keep.
+      </div>
+    </div>
+
+    <div class="section-head">
+      <div class="section-title">Recent activity</div>
+      <button class="section-link" data-nav="activity">See all</button>
+    </div>
+
+    <div id="homeTx"></div>
+  </section>
+
+  <!-- ACTIVITY -->
+  <section id="activity" class="screen">
+    <div class="top">
       <div>
-        <strong>Card status</strong>
-        <small id="cardStatusText">Card is active</small>
+        <div class="hello">Your money</div>
+        <div class="name">Activity</div>
       </div>
-      <button
-        class="toggle on"
-        id="cardToggle"
-        data-action="toggleCard">
-        <i></i>
+      <button class="avatar" data-action="search">⌕</button>
+    </div>
+
+    <div class="filter-row">
+      <button class="filter active" data-filter="all">All</button>
+      <button class="filter" data-filter="payment">Payments</button>
+      <button class="filter" data-filter="income">Income</button>
+      <button class="filter" data-filter="space">Spaces</button>
+    </div>
+
+    <div style="margin-top:18px" id="activityTx"></div>
+  </section>
+
+  <!-- SPACES -->
+  <section id="spaces" class="screen">
+    <div class="top">
+      <div>
+        <div class="hello">Organize your money</div>
+        <div class="name">Spaces</div>
+      </div>
+      <button class="avatar" data-action="create-space">+</button>
+    </div>
+
+    <div id="spacesList"></div>
+  </section>
+
+  <!-- PROFILE -->
+  <section id="profile" class="screen">
+    <div class="top">
+      <div>
+        <div class="hello">Your account</div>
+        <div class="name">Profile</div>
+      </div>
+    </div>
+
+    <div class="profile-card">
+      <div class="profile-row">
+        <div class="profile-avatar">A</div>
+        <div>
+          <div class="profile-name">Alex Morgan</div>
+          <div class="profile-id">NOVA member · #NV-482841</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-bottom:12px">Money & security</div>
+
+    <div class="menu-card">
+      <button class="menu-item" data-action="card-controls">
+        <div class="menu-icon">▣</div>
+        <div class="menu-main">
+          <div class="menu-title">Card controls</div>
+          <div class="menu-sub">Freeze, limits and card details</div>
+        </div>
+        <div class="chevron">›</div>
+      </button>
+
+      <button class="menu-item" data-action="security">
+        <div class="menu-icon">⌁</div>
+        <div class="menu-main">
+          <div class="menu-title">Security</div>
+          <div class="menu-sub">Passcode and sign-in settings</div>
+        </div>
+        <div class="chevron">›</div>
+      </button>
+
+      <button class="menu-item" data-action="personal">
+        <div class="menu-icon">◎</div>
+        <div class="menu-main">
+          <div class="menu-title">Personal information</div>
+          <div class="menu-sub">Name, email and account details</div>
+        </div>
+        <div class="chevron">›</div>
       </button>
     </div>
-    <div class="card-menu">
-      <button data-action="cardToast"
-        data-message="Spending controls opened.">
-        <strong>Spending limits</strong>
-        <small>Manage daily limits</small>
+
+    <div class="section-title" style="margin:24px 0 12px">Preferences</div>
+
+    <div class="menu-card">
+      <button class="menu-item" data-action="notifications">
+        <div class="menu-icon">♢</div>
+        <div class="menu-main">
+          <div class="menu-title">Notifications</div>
+          <div class="menu-sub">Alerts and spending insights</div>
+        </div>
+        <div class="chevron">›</div>
       </button>
-      <button data-action="cardToast"
-        data-message="Card details are protected.">
-        <strong>Card details</strong>
-        <small>View protected details</small>
+
+      <button class="menu-item" data-action="help">
+        <div class="menu-icon">?</div>
+        <div class="menu-main">
+          <div class="menu-title">Help & support</div>
+          <div class="menu-sub">Get help with NOVA</div>
+        </div>
+        <div class="chevron">›</div>
       </button>
     </div>
-    <button class="secondary" data-action="close">
-      Close
+  </section>
+
+</div>
+
+<!-- NAV -->
+<div class="bottom-nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" data-nav="home">
+      <span class="nav-symbol">⌂</span>Home
+    </button>
+    <button class="nav-btn" data-nav="activity">
+      <span class="nav-symbol">≡</span>Activity
+    </button>
+    <button class="nav-btn" data-nav="spaces">
+      <span class="nav-symbol">◇</span>Spaces
+    </button>
+    <button class="nav-btn" data-nav="profile">
+      <span class="nav-symbol">○</span>Profile
     </button>
   </div>
 </div>
+
+<!-- OVERLAY -->
+<div id="overlay" class="overlay">
+  <div id="sheet" class="sheet">
+    <div class="sheet-handle"></div>
+    <div id="sheetContent"></div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
 <script>
-"use strict";
-/* ============================
-   NOVA STATE
-============================ */
-const state = {
-  balance:24860.40,
-  balanceVisible:true,
-  activeScreen:"home",
-  activityFilter:"all",
-  selectedSpace:null,
+/* =========================================================
+   NOVA v9
+   Front-end prototype
+========================================================= */
+
+const STORAGE_KEY = "nova_v9_state";
+
+const defaultState = {
+  balance: 24860.40,
+  balanceHidden:false,
   cardActive:true,
-  send:{
-    recipient:"",
-    amount:0
-  },
+  cardLimit:3000,
+  filter:"all",
+
   transactions:[
     {
-      id:"NX-849231",
-      name:"Blue Bottle Coffee",
+      id:"NV-824931",
+      title:"Blue Bottle Coffee",
+      meta:"Today · 10:42 AM",
       amount:-8.40,
-      category:"Food",
-      time:"Today · 6:42 PM",
+      category:"payment",
       icon:"☕",
-      type:"payment",
-      status:"Completed",
       method:"NOVA Card",
-      location:"Downtown"
+      location:"San Francisco, CA"
     },
     {
-      id:"NX-849184",
-      name:"Salary deposit",
+      id:"NV-824887",
+      title:"Salary deposit",
+      meta:"Yesterday · 9:00 AM",
       amount:4280,
-      category:"Income",
-      time:"Today · 9:15 AM",
+      category:"income",
       icon:"↗",
-      type:"income",
-      status:"Completed",
       method:"Bank transfer",
-      location:"—"
+      location:"Direct deposit"
     },
     {
-      id:"NX-848921",
-      name:"Apartment rent",
+      id:"NV-824651",
+      title:"Apartment rent",
+      meta:"Aug 30 · 8:15 AM",
       amount:-1420,
-      category:"Housing",
-      time:"Yesterday · 10:03 AM",
-      icon:"🏠",
-      type:"payment",
-      status:"Completed",
-      method:"Bank transfer",
-      location:"Home"
-    },
-    {
-      id:"NX-848731",
-      name:"NOVA Travel",
-      amount:-250,
-      category:"Spaces",
-      time:"Aug 31 · 4:12 PM",
-      icon:"✈️",
-      type:"space",
-      status:"Completed",
-      method:"Space transfer",
-      location:"NOVA"
-    },
-    {
-      id:"NX-848412",
-      name:"Uber",
-      amount:-22.60,
-      category:"Transport",
-      time:"Aug 30 · 8:20 PM",
-      icon:"🚗",
-      type:"payment",
-      status:"Completed",
+      category:"payment",
+      icon:"⌂",
       method:"NOVA Card",
-      location:"Downtown"
+      location:"Housing"
+    },
+    {
+      id:"NV-824412",
+      title:"NOVA Travel",
+      meta:"Aug 28 · 3:21 PM",
+      amount:-250,
+      category:"payment",
+      icon:"✈",
+      method:"NOVA Card",
+      location:"Travel"
+    },
+    {
+      id:"NV-824188",
+      title:"Uber",
+      meta:"Aug 27 · 7:42 PM",
+      amount:-22.60,
+      category:"payment",
+      icon:"U",
+      method:"NOVA Card",
+      location:"San Francisco, CA"
     }
   ],
+
   spaces:[
     {
+      id:1,
       name:"Rent",
-      emoji:"🏠",
-      balance:2800,
-      goal:4000
+      saved:2800,
+      target:4000,
+      date:"Sep 30"
     },
     {
+      id:2,
       name:"Travel",
-      emoji:"✈️",
-      balance:1220,
-      goal:3000
+      saved:1220,
+      target:3000,
+      date:"Dec 15"
     },
     {
+      id:3,
       name:"Business",
-      emoji:"💼",
-      balance:740,
-      goal:5000
+      saved:740,
+      target:5000,
+      date:"Jan 20"
     }
   ],
+
   notifications:[
     {
       title:"Salary received",
-      text:"$4,280 was added to your NOVA account.",
-      time:"Today · 9:15 AM",
-      unread:true,
-      icon:"↗"
+      text:"$4,280 was added to your NOVA balance.",
+      time:"Yesterday",
+      unread:true
     },
     {
       title:"Spending insight",
-      text:"You're spending 12% less than last month.",
+      text:"Your weekly spending is down 12%.",
       time:"Today",
-      unread:true,
-      icon:"✦"
+      unread:true
     },
     {
       title:"New sign-in",
-      text:"Your NOVA account was accessed from this device.",
-      time:"Yesterday",
-      unread:false,
-      icon:"⌕"
+      text:"A new device signed in to your NOVA account.",
+      time:"Aug 29",
+      unread:false
     }
   ]
 };
-/* ============================
-   HELPERS
-============================ */
-const $ = id => document.getElementById(id);
-function money(value){
-  return "$" + Number(value).toLocaleString(
-    "en-US",
-    {
-      minimumFractionDigits:2,
-      maximumFractionDigits:2
-    }
-  );
+
+let state = loadState();
+let selectedTransaction = null;
+let selectedSpace = null;
+let sendData = {};
+let modalMode = "";
+
+function loadState(){
+  try{
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? {...defaultState,...JSON.parse(saved)} : structuredClone(defaultState);
+  }catch(e){
+    return structuredClone(defaultState);
+  }
 }
-function uid(){
-  return "NX-" +
-    Math.floor(
-      100000 +
-      Math.random()*900000
-    );
+
+function saveState(){
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+  }catch(e){}
 }
-function escapeHTML(value){
-  return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+
+function money(n){
+  return "$" + Number(n).toLocaleString("en-US",{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
 }
-/* ============================
-   TOAST
-============================ */
-let toastTimer;
-function notify(message){
-  const toast = $("toast");
-  toast.textContent = message;
+
+function escapeHTML(str){
+  return String(str).replace(/[&<>"']/g,m=>({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
+  }[m]));
+}
+
+function showToast(message){
+  const toast=document.getElementById("toast");
+  toast.textContent=message;
   toast.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>{
+  clearTimeout(window.toastTimer);
+  window.toastTimer=setTimeout(()=>{
     toast.classList.remove("show");
-  },2200);
+  },2300);
 }
-/* ============================
-   MODALS
-============================ */
-function openModal(id){
-  const modal = $(id);
-  if(modal){
-    modal.classList.add("show");
+
+function renderBalance(){
+  const el=document.getElementById("balance");
+
+  if(state.balanceHidden){
+    el.textContent="••••••••";
+  }else{
+    el.textContent=money(state.balance);
   }
 }
-function closeModal(id){
-  const modal = $(id);
-  if(modal){
-    modal.classList.remove("show");
-  }
-}
-function closeAllModals(){
-  document
-    .querySelectorAll(".overlay.show")
-    .forEach(modal=>{
-      modal.classList.remove("show");
-    });
-}
-/* ============================
-   NAVIGATION
-============================ */
-function showScreen(screen){
-  state.activeScreen = screen;
-  document
-    .querySelectorAll(".screen")
-    .forEach(section=>{
-      section.classList.remove("active");
-    });
-  const target = $(screen+"Screen");
-  if(target){
-    target.classList.add("active");
-  }
-  document
-    .querySelectorAll(".nav-btn")
-    .forEach(button=>{
-      button.classList.toggle(
-        "active",
-        button.dataset.screen === screen
-      );
-    });
-  if(screen==="home") renderHome();
-  if(screen==="activity") renderActivity();
-  if(screen==="spaces") renderSpaces();
-}
-/* ============================
-   BALANCE
-============================ */
-function renderHome(){
-  const balance = $("balance");
-  balance.textContent =
-    state.balanceVisible
-      ? money(state.balance)
-      : "••••••••";
-  $("eye").textContent =
-    state.balanceVisible
-      ? "◉"
-      : "○";
-  $("homeTransactions").innerHTML =
-    state.transactions
-      .slice(0,4)
-      .map(txHTML)
-      .join("");
-}
+
 function animateBalance(){
-  const balance = $("balance");
-  balance.classList.remove("flash");
-  void balance.offsetWidth;
-  balance.classList.add("flash");
+  const el=document.getElementById("balance");
+  el.classList.remove("flash");
+  void el.offsetWidth;
+  el.classList.add("flash");
 }
-/* ============================
-   TRANSACTIONS
-============================ */
-function txHTML(tx){
-  const amountClass =
-    tx.amount >= 0
-      ? "income"
-      : "expense";
-  const amountText =
-    tx.amount >= 0
-      ? "+" + money(tx.amount)
-      : "−" + money(Math.abs(tx.amount));
+
+function transactionHTML(tx){
+  const positive=tx.amount>=0;
+
   return `
-    <div
-      class="tx"
-      data-action="detail"
-      data-id="${escapeHTML(tx.id)}">
-      <div class="tx-icon">
-        ${escapeHTML(tx.icon)}
-      </div>
+    <button class="tx" data-action="transaction" data-id="${tx.id}" style="width:100%;background:transparent;text-align:left">
+      <div class="tx-icon">${escapeHTML(tx.icon)}</div>
       <div class="tx-main">
-        <div class="tx-name">
-          ${escapeHTML(tx.name)}
-        </div>
-        <div class="tx-meta">
-          <span class="status-dot"></span>
-          ${escapeHTML(tx.category)}
-          ·
-          ${escapeHTML(tx.time)}
-        </div>
+        <div class="tx-title">${escapeHTML(tx.title)}</div>
+        <div class="tx-meta">${escapeHTML(tx.meta)}</div>
       </div>
-      <div class="tx-amount ${amountClass}">
-        ${amountText}
+      <div class="tx-amount ${positive?"plus":"minus"}">
+        ${positive?"+":"−"}${money(Math.abs(tx.amount))}
       </div>
-    </div>
-  `;
-}
-/* ============================
-   ACTIVITY
-============================ */
-function renderActivity(){
-  const list = $("activityList");
-  let items = state.transactions;
-  if(state.activityFilter!=="all"){
-    items =
-      items.filter(
-        tx =>
-          tx.type ===
-          state.activityFilter
-      );
-  }
-  if(!items.length){
-    list.innerHTML = `
-      <div class="empty" style="margin-top:18px">
-        <strong>No activity</strong>
-        Nothing matches this filter yet.
-      </div>
-    `;
-    return;
-  }
-  list.innerHTML = `
-    <div class="day-label"
-      style="
-        color:#999;
-        font-size:11px;
-        font-weight:700;
-        margin:20px 2px 8px;
-        text-transform:uppercase;
-        letter-spacing:.5px;
-      ">
-      Recent
-    </div>
-    <div class="tx-list">
-      ${items.map(txHTML).join("")}
-    </div>
-  `;
-}
-function filterActivity(filter){
-  state.activityFilter = filter;
-  document
-    .querySelectorAll(".filter")
-    .forEach(button=>{
-      button.classList.toggle(
-        "active",
-        button.dataset.filter === filter
-      );
-    });
-  renderActivity();
-}
-/* ============================
-   SEND
-============================ */
-function openSend(){
-  state.send.recipient="";
-  state.send.amount=0;
-  $("sendRecipient").value="";
-  $("sendAmount").value="";
-  $("sendStep1").style.display="block";
-  $("sendStep2").style.display="none";
-  $("sendStep3").style.display="none";
-  openModal("sendModal");
-}
-function reviewSend(){
-  const person =
-    $("sendRecipient")
-      .value
-      .trim();
-  if(!person){
-    notify("Enter a recipient");
-    return;
-  }
-  state.send.recipient=person;
-  $("sendToText").textContent =
-    "Sending to " + person;
-  $("sendStep1").style.display="none";
-  $("sendStep2").style.display="block";
-}
-function confirmSend(){
-  const amount =
-    Number($("sendAmount").value);
-  if(!amount || amount<=0){
-    notify("Enter a valid amount");
-    return;
-  }
-  if(amount>state.balance){
-    notify("Not enough available balance");
-    return;
-  }
-  state.send.amount=amount;
-  $("reviewRecipient").textContent =
-    state.send.recipient;
-  $("reviewAmount").textContent =
-    money(amount);
-  $("reviewTotal").textContent =
-    money(amount);
-  $("sendStep2").style.display="none";
-  $("sendStep3").style.display="block";
-}
-function backSend(){
-  $("sendStep2").style.display="none";
-  $("sendStep1").style.display="block";
-}
-function backAmount(){
-  $("sendStep3").style.display="none";
-  $("sendStep2").style.display="block";
-}
-function finishSend(){
-  const amount =
-    state.send.amount;
-  if(
-    amount<=0 ||
-    amount>state.balance
-  ){
-    notify("Transfer could not be completed");
-    return;
-  }
-  state.balance -= amount;
-  const tx={
-    id:uid(),
-    name:state.send.recipient,
-    amount:-amount,
-    category:"Transfer",
-    time:"Just now",
-    icon:"↗",
-    type:"payment",
-    status:"Completed",
-    method:"NOVA Transfer",
-    location:"NOVA"
-  };
-  state.transactions.unshift(tx);
-  state.notifications.unshift({
-    title:"Transfer sent",
-    text:
-      `${money(amount)} was sent to ${state.send.recipient}.`,
-    time:"Just now",
-    unread:true,
-    icon:"↗"
-  });
-  closeModal("sendModal");
-  $("successTitle").textContent =
-    "Transfer complete";
-  $("successText").textContent =
-    `${money(amount)} was sent to ${state.send.recipient}.`;
-  openModal("successModal");
-  renderAll();
-  animateBalance();
-}
-/* ============================
-   REQUEST
-============================ */
-function openRequest(){
-  $("requestPerson").value="";
-  $("requestAmount").value="";
-  $("requestNote").value="";
-  openModal("requestModal");
-}
-function submitRequest(){
-  const person =
-    $("requestPerson")
-      .value
-      .trim();
-  const amount =
-    Number($("requestAmount").value);
-  const note =
-    $("requestNote")
-      .value
-      .trim();
-  if(
-    !person ||
-    !amount ||
-    amount<=0
-  ){
-    notify("Complete the request details");
-    return;
-  }
-  state.notifications.unshift({
-    title:"Request created",
-    text:
-      `You requested ${money(amount)} from ${person}${note ? " · "+note : ""}.`,
-    time:"Just now",
-    unread:true,
-    icon:"↙"
-  });
-  closeModal("requestModal");
-  notify("Payment request created");
-  updateBadge();
-}
-/* ============================
-   PAY
-============================ */
-function openPay(){
-  $("merchant").value="";
-  $("payAmount").value="";
-  $("payCategory").value="Food";
-  openModal("payModal");
-}
-function submitPay(){
-  const merchant =
-    $("merchant")
-      .value
-      .trim();
-  const amount =
-    Number($("payAmount").value);
-  const category =
-    $("payCategory").value;
-  if(
-    !merchant ||
-    !amount ||
-    amount<=0
-  ){
-    notify("Enter a merchant and amount");
-    return;
-  }
-  if(amount>state.balance){
-    notify("Not enough available balance");
-    return;
-  }
-  if(!state.cardActive){
-    notify("Your NOVA card is frozen");
-    return;
-  }
-  state.balance -= amount;
-  state.transactions.unshift({
-    id:uid(),
-    name:merchant,
-    amount:-amount,
-    category:category,
-    time:"Just now",
-    icon:
-      category==="Food"
-        ? "☕"
-        : category==="Transport"
-          ? "🚗"
-          : "◉",
-    type:"payment",
-    status:"Completed",
-    method:"NOVA Pay",
-    location:"Merchant"
-  });
-  state.notifications.unshift({
-    title:"Payment completed",
-    text:
-      `${money(amount)} paid to ${merchant}.`,
-    time:"Just now",
-    unread:true,
-    icon:"⌁"
-  });
-  closeModal("payModal");
-  $("successTitle").textContent =
-    "Payment complete";
-  $("successText").textContent =
-    `${money(amount)} paid to ${merchant}.`;
-  openModal("successModal");
-  renderAll();
-  animateBalance();
-}
-/* ============================
-   ADD MONEY
-============================ */
-function openAdd(){
-  $("addAmount").value="";
-  $("addSource").value="Bank transfer";
-  openModal("addModal");
-}
-function submitAdd(){
-  const amount =
-    Number($("addAmount").value);
-  const source =
-    $("addSource").value;
-  if(!amount || amount<=0){
-    notify("Enter a valid amount");
-    return;
-  }
-  state.balance += amount;
-  state.transactions.unshift({
-    id:uid(),
-    name:"Money added",
-    amount:amount,
-    category:"Income",
-    time:"Just now",
-    icon:"＋",
-    type:"income",
-    status:"Completed",
-    method:source,
-    location:"NOVA"
-  });
-  state.notifications.unshift({
-    title:"Money added",
-    text:
-      `${money(amount)} was added from ${source}.`,
-    time:"Just now",
-    unread:true,
-    icon:"＋"
-  });
-  closeModal("addModal");
-  $("successTitle").textContent =
-    "Money added";
-  $("successText").textContent =
-    `${money(amount)} is now available in your NOVA balance.`;
-  openModal("successModal");
-  renderAll();
-  animateBalance();
-}
-/* ============================
-   TRANSACTION DETAIL
-============================ */
-function openDetail(id){
-  const tx =
-    state.transactions.find(
-      item=>item.id===id
-    );
-  if(!tx) return;
-  const amount =
-    tx.amount>=0
-      ? "+"+money(tx.amount)
-      : "−"+money(Math.abs(tx.amount));
-  $("detailContent").innerHTML = `
-    <div class="receipt-head">
-      <div class="receipt-icon">
-        ${escapeHTML(tx.icon)}
-      </div>
-      <h2>
-        ${escapeHTML(tx.name)}
-      </h2>
-      <div class="receipt-amount">
-        ${amount}
-      </div>
-      <div class="receipt-status">
-        ✓ ${escapeHTML(tx.status)}
-      </div>
-    </div>
-    <div class="review">
-      <div class="review-row">
-        <span>Transaction ID</span>
-        <b>${escapeHTML(tx.id)}</b>
-      </div>
-      <div class="review-row">
-        <span>Date</span>
-        <b>${escapeHTML(tx.time)}</b>
-      </div>
-      <div class="review-row">
-        <span>Payment method</span>
-        <b>${escapeHTML(tx.method)}</b>
-      </div>
-      <div class="review-row">
-        <span>Category</span>
-        <b>${escapeHTML(tx.category)}</b>
-      </div>
-      <div class="review-row">
-        <span>Location</span>
-        <b>${escapeHTML(tx.location)}</b>
-      </div>
-    </div>
-    <button
-      class="secondary"
-      data-action="reportProblem"
-      data-id="${escapeHTML(tx.id)}">
-      Report a problem
     </button>
   `;
-  openModal("detailModal");
 }
-/* ============================
-   NOTIFICATIONS
-============================ */
-function updateBadge(){
-  const unread =
-    state.notifications
-      .filter(n=>n.unread)
-      .length;
-  $("badge").style.display =
-    unread
-      ? "block"
-      : "none";
+
+function renderHomeTransactions(){
+  const el=document.getElementById("homeTx");
+
+  el.innerHTML=state.transactions
+    .slice(0,4)
+    .map(transactionHTML)
+    .join("");
 }
-function renderNotifications(){
-  const list =
-    $("notificationList");
-  if(!state.notifications.length){
-    list.innerHTML = `
-      <div class="empty">
-        <strong>You're all caught up</strong>
-        No new notifications.
-      </div>
-    `;
+
+function renderActivity(){
+  const el=document.getElementById("activityTx");
+
+  let list=state.transactions;
+
+  if(state.filter!=="all"){
+    list=list.filter(t=>t.category===state.filter);
+  }
+
+  if(!list.length){
+    el.innerHTML=`<div class="empty">No transactions here yet.</div>`;
     return;
   }
-  list.innerHTML =
-    state.notifications
-      .map((n,index)=>`
-        <div
-          class="notify-card ${n.unread ? "unread" : ""}"
-          data-action="readNotification"
-          data-index="${index}">
-          <div class="notify-icon">
-            ${escapeHTML(n.icon)}
-          </div>
-          <div style="flex:1">
-            <div class="notify-title">
-              ${escapeHTML(n.title)}
-            </div>
-            <div class="notify-text">
-              ${escapeHTML(n.text)}
-            </div>
-            <div class="notify-time">
-              ${escapeHTML(n.time)}
-            </div>
-          </div>
-        </div>
-      `)
-      .join("");
+
+  el.innerHTML=list.map(transactionHTML).join("");
 }
-function openNotifications(){
-  renderNotifications();
-  openModal("notificationsModal");
-}
-function markRead(){
-  state.notifications
-    .forEach(
-      notification =>
-        notification.unread=false
-    );
-  renderNotifications();
-  updateBadge();
-  notify("Notifications marked as read");
-}
-/* ============================
-   SEARCH
-============================ */
-function openSearch(){
-  $("searchInput").value="";
-  $("searchResults").innerHTML=`
-    <div class="empty">
-      Start typing to search.
-    </div>
-  `;
-  openModal("searchModal");
-  setTimeout(()=>{
-    $("searchInput").focus();
-  },200);
-}
-function searchEverything(){
-  const query =
-    $("searchInput")
-      .value
-      .trim()
-      .toLowerCase();
-  if(!query){
-    $("searchResults").innerHTML=`
-      <div class="empty">
-        Start typing to search.
-      </div>
-    `;
-    return;
-  }
-  const txResults =
-    state.transactions.filter(tx=>
-      [
-        tx.name,
-        tx.category,
-        tx.method,
-        tx.location,
-        tx.id
-      ]
-      .join(" ")
-      .toLowerCase()
-      .includes(query)
-    );
-  const spaceResults =
-    state.spaces.filter(space=>
-      space.name
-        .toLowerCase()
-        .includes(query)
-    );
-  let html="";
-  txResults.forEach(tx=>{
-    html += txHTML(tx);
-  });
-  spaceResults.forEach(space=>{
-    html += `
-      <div
-        class="tx"
-        data-action="spaceSearch"
-        data-index="${state.spaces.indexOf(space)}">
-        <div class="tx-icon">
-          ${escapeHTML(space.emoji)}
-        </div>
-        <div class="tx-main">
-          <div class="tx-name">
-            ${escapeHTML(space.name)}
-          </div>
-          <div class="tx-meta">
-            Money Space
-          </div>
-        </div>
-        <div class="tx-amount">
-          ${money(space.balance)}
-        </div>
-      </div>
-    `;
-  });
-  $("searchResults").innerHTML =
-    html ||
-    `
-      <div class="empty">
-        <strong>No results</strong>
-        Nothing matched
-        "${escapeHTML(query)}".
-      </div>
-    `;
-}
-/* ============================
-   SPACES
-============================ */
+
 function renderSpaces(){
-  const list =
-    $("spacesList");
-  const total =
-    state.spaces.reduce(
-      (sum,space)=>
-        sum+space.balance,
-      0
+  const el=document.getElementById("spacesList");
+
+  el.innerHTML=state.spaces.map(space=>{
+    const percent=Math.min(
+      100,
+      Math.round((space.saved/space.target)*100)
     );
-  $("spaceTotal").textContent =
-    money(total)+" saved";
-  if(!state.spaces.length){
-    list.innerHTML=`
-      <div class="empty">
-        <strong>No Spaces yet</strong>
-        Create your first goal above.
-      </div>
-    `;
-    return;
-  }
-  list.innerHTML =
-    state.spaces
-      .map((space,index)=>{
-        const percent =
-          space.goal>0
-            ? Math.min(
-                100,
-                (space.balance/space.goal)*100
-              )
-            : 0;
-        const remaining =
-          Math.max(
-            0,
-            space.goal-space.balance
-          );
-        return `
-          <div class="space-card">
-            <div class="space-head">
-              <div class="space-icon">
-                ${escapeHTML(space.emoji)}
-              </div>
-              <div>
-                <div class="space-name">
-                  ${escapeHTML(space.name)}
-                </div>
-                <div class="space-goal">
-                  ${
-                    remaining>0
-                      ? money(remaining)+" to go"
-                      : "Goal reached"
-                  }
-                </div>
-              </div>
-              <div class="space-money">
-                <div class="space-balance">
-                  ${money(space.balance)}
-                </div>
-                <div class="space-percent">
-                  ${Math.round(percent)}%
-                </div>
-              </div>
-            </div>
-            <div class="progress">
-              <i style="width:${percent}%"></i>
-            </div>
-            <div class="space-actions">
-              <button
-                class="small-btn dark"
-                data-action="addToSpace"
-                data-index="${index}">
-                Add money
-              </button>
-              <button
-                class="small-btn"
-                data-action="spaceInfo"
-                data-index="${index}">
-                Details
-              </button>
-            </div>
+
+    return `
+      <button class="space-card"
+        data-action="space"
+        data-id="${space.id}"
+        style="width:100%;text-align:left">
+
+        <div class="space-top">
+          <div>
+            <div class="space-name">${escapeHTML(space.name)}</div>
+            <div class="space-amount">${money(space.saved)}</div>
           </div>
-        `;
-      })
-      .join("");
-}
-function openCreateSpace(){
-  $("spaceName").value="";
-  $("spaceGoal").value="";
-  $("spaceEmoji").value="🎯";
-  openModal("createSpaceModal");
-}
-function createSpace(){
-  const name =
-    $("spaceName")
-      .value
-      .trim();
-  const goal =
-    Number($("spaceGoal").value);
-  const emoji =
-    $("spaceEmoji").value;
-  if(!name){
-    notify("Give your Space a name");
-    return;
-  }
-  if(!goal || goal<=0){
-    notify("Enter a goal amount");
-    return;
-  }
-  state.spaces.push({
-    name:name,
-    emoji:emoji,
-    balance:0,
-    goal:goal
-  });
-  closeModal("createSpaceModal");
-  renderSpaces();
-  notify(name+" Space created");
-}
-function addToSpace(index){
-  const space =
-    state.spaces[index];
-  if(!space) return;
-  state.selectedSpace=index;
-  $("spaceAddName").textContent =
-    space.name+
-    " · "+
-    money(space.balance);
-  $("spaceAddAmount").value="";
-  openModal("spaceAddModal");
-}
-function submitSpaceAdd(){
-  const index =
-    state.selectedSpace;
-  const space =
-    state.spaces[index];
-  const amount =
-    Number($("spaceAddAmount").value);
-  if(!space){
-    closeModal("spaceAddModal");
-    return;
-  }
-  if(!amount || amount<=0){
-    notify("Enter an amount");
-    return;
-  }
-  if(amount>state.balance){
-    notify("Not enough available balance");
-    return;
-  }
-  state.balance-=amount;
-  space.balance+=amount;
-  state.transactions.unshift({
-    id:uid(),
-    name:space.name,
-    amount:-amount,
-    category:"Spaces",
-    time:"Just now",
-    icon:space.emoji,
-    type:"space",
-    status:"Completed",
-    method:"Space transfer",
-    location:"NOVA"
-  });
-  state.notifications.unshift({
-    title:"Space funded",
-    text:
-      `${money(amount)} moved into ${space.name}.`,
-    time:"Just now",
-    unread:true,
-    icon:space.emoji
-  });
-  closeModal("spaceAddModal");
-  renderAll();
-  animateBalance();
-  notify(
-    money(amount)+
-    " added to "+
-    space.name
-  );
-}
-function spaceInfo(index){
-  const space =
-    state.spaces[index];
-  if(!space) return;
-  state.selectedSpace=index;
-  const percent =
-    space.goal
-      ? Math.min(
-          100,
-          (space.balance/space.goal)*100
-        )
-      : 0;
-  const remaining =
-    Math.max(
-      0,
-      space.goal-space.balance
-    );
-  $("spaceDetailContent").innerHTML=`
-    <div style="text-align:center">
-      <div
-        class="goal-ring"
-        style="--progress:${percent}%">
-        <div class="goal-ring-content">
-          <div class="goal-ring-percent">
-            ${Math.round(percent)}%
-          </div>
-          <div class="goal-ring-label">
-            complete
+
+          <div class="space-target">
+            of ${money(space.target)}
           </div>
         </div>
-      </div>
-      <h2>
-        ${escapeHTML(space.name)}
-      </h2>
-      <p class="sheet-sub">
-        ${escapeHTML(space.emoji)}
-        Your dedicated money goal.
-      </p>
-    </div>
-    <div class="mini-stats">
-      <div class="mini-stat">
-        <span>Saved</span>
-        <strong>${money(space.balance)}</strong>
-      </div>
-      <div class="mini-stat">
-        <span>Goal</span>
-        <strong>${money(space.goal)}</strong>
-      </div>
-      <div class="mini-stat">
-        <span>Remaining</span>
-        <strong>${money(remaining)}</strong>
-      </div>
-      <div class="mini-stat">
-        <span>Status</span>
-        <strong>
-          ${percent>=100 ? "Complete" : "Active"}
-        </strong>
-      </div>
-    </div>
-    <div class="receipt-divider"></div>
-    <div class="review">
-      <div class="review-row">
-        <span>Space type</span>
-        <b>Personal goal</b>
-      </div>
-      <div class="review-row">
-        <span>Current balance</span>
-        <b>${money(space.balance)}</b>
-      </div>
-      <div class="review-row">
-        <span>Goal amount</span>
-        <b>${money(space.goal)}</b>
-      </div>
-    </div>
-  `;
-  openModal("spaceDetailModal");
+
+        <div class="progress">
+          <div style="width:${percent}%"></div>
+        </div>
+
+        <div class="space-bottom">
+          <div class="space-percent">${percent}% funded</div>
+          <div class="space-action">Open Space ›</div>
+        </div>
+      </button>
+    `;
+  }).join("");
 }
-/* ============================
-   CARD
-============================ */
-function openCardControls(){
-  updateCardUI();
-  openModal("cardModal");
-}
-function updateCardUI(){
-  const toggle =
-    $("cardToggle");
-  const text =
-    $("cardStatusText");
-  if(state.cardActive){
-    toggle.classList.add("on");
-    text.textContent =
-      "Card is active";
-  }else{
-    toggle.classList.remove("on");
-    text.textContent =
-      "Card is frozen";
-  }
-}
-function toggleCard(){
-  state.cardActive =
-    !state.cardActive;
-  updateCardUI();
-  notify(
-    state.cardActive
-      ? "NOVA card is active"
-      : "NOVA card frozen"
-  );
-}
-function cardToast(message){
-  notify(message);
-}
-/* ============================
-   PROFILE
-============================ */
-function profileToast(message){
-  notify(message);
-}
-/* ============================
-   REPORT
-============================ */
-function reportProblem(){
-  closeModal("detailModal");
-  notify("Problem report started");
-}
-/* ============================
-   EVENT DELEGATION
-============================ */
-document.addEventListener("click",event=>{
-  const button =
-    event.target.closest("[data-action]");
-  if(button){
-    const action =
-      button.dataset.action;
-    switch(action){
-      case "toggleBalance":
-        state.balanceVisible =
-          !state.balanceVisible;
-        renderHome();
-        break;
-      case "send":
-        openSend();
-        break;
-      case "request":
-        openRequest();
-        break;
-      case "pay":
-        openPay();
-        break;
-      case "add":
-        openAdd();
-        break;
-      case "activity":
-        showScreen("activity");
-        break;
-      case "notifications":
-        openNotifications();
-        break;
-      case "search":
-        openSearch();
-        break;
-      case "reviewSend":
-        reviewSend();
-        break;
-      case "confirmSend":
-        confirmSend();
-        break;
-      case "finishSend":
-        finishSend();
-        break;
-      case "backSend":
-        backSend();
-        break;
-      case "backAmount":
-        backAmount();
-        break;
-      case "submitRequest":
-        submitRequest();
-        break;
-      case "submitPay":
-        submitPay();
-        break;
-      case "submitAdd":
-        submitAdd();
-        break;
-      case "close":
-        closeAllModals();
-        break;
-      case "closeSuccess":
-        closeModal("successModal");
-        break;
-      case "markRead":
-        markRead();
-        break;
-      case "searchRun":
-        searchEverything();
-        break;
-      case "createSpace":
-        openCreateSpace();
-        break;
-      case "createSpaceSubmit":
-        createSpace();
-        break;
-      case "addToSpace":
-        addToSpace(
-          Number(button.dataset.index)
-        );
-        break;
-      case "spaceAddSubmit":
-        submitSpaceAdd();
-        break;
-      case "spaceInfo":
-        spaceInfo(
-          Number(button.dataset.index)
-        );
-        break;
-      case "spaceSearch":
-        spaceInfo(
-          Number(button.dataset.index)
-        );
-        closeModal("searchModal");
-        break;
-      case "spaceDetailAdd":
-        closeModal("spaceDetailModal");
-        if(state.selectedSpace!==null){
-          addToSpace(
-            state.selectedSpace
-          );
-        }
-        break;
-      case "cardControls":
-        openCardControls();
-        break;
-      case "toggleCard":
-        toggleCard();
-        break;
-      case "cardToast":
-        cardToast(
-          button.dataset.message
-        );
-        break;
-      case "profileToast":
-        profileToast(
-          button.dataset.message
-        );
-        break;
-      case "reportProblem":
-        reportProblem(
-          button.dataset.id
-        );
-        break;
-      case "detail":
-        openDetail(
-          button.dataset.id
-        );
-        break;
-      case "readNotification":{
-        const index =
-          Number(button.dataset.index);
-        if(state.notifications[index]){
-          state.notifications[index].unread=false;
-          renderNotifications();
-          updateBadge();
-        }
-        break;
-      }
-    }
-    return;
-  }
-  const filter =
-    event.target.closest("[data-filter]");
-  if(filter){
-    filterActivity(
-      filter.dataset.filter
-    );
-  }
-});
-/* ============================
-   NAV
-============================ */
-document
-  .querySelectorAll(".nav-btn")
-  .forEach(button=>{
-    button.addEventListener(
-      "click",
-      ()=>{
-        showScreen(
-          button.dataset.screen
-        );
-      }
-    );
-  });
-/* ============================
-   BACKDROP
-============================ */
-document
-  .querySelectorAll(".overlay")
-  .forEach(overlay=>{
-    overlay.addEventListener(
-      "click",
-      event=>{
-        if(event.target===overlay){
-          overlay.classList.remove("show");
-        }
-      }
-    );
-  });
-/* ============================
-   SEARCH
-============================ */
-$("searchInput")
-  .addEventListener(
-    "input",
-    searchEverything
-  );
-/* ============================
-   KEYBOARD
-============================ */
-document.addEventListener(
-  "keydown",
-  event=>{
-    if(event.key==="Escape"){
-      closeAllModals();
-    }
-    if(
-      event.key==="Enter" &&
-      document.activeElement===
-        $("searchInput")
-    ){
-      searchEverything();
-    }
-  }
-);
-/* ============================
-   RENDER ALL
-============================ */
+
 function renderAll(){
-  renderHome();
+  renderBalance();
+  renderHomeTransactions();
   renderActivity();
   renderSpaces();
-  renderNotifications();
-  updateBadge();
+  updateFilters();
 }
-/* ============================
-   START
-============================ */
+
+function updateFilters(){
+  document.querySelectorAll(".filter").forEach(btn=>{
+    btn.classList.toggle(
+      "active",
+      btn.dataset.filter===state.filter
+    );
+  });
+}
+
+function navigate(screen){
+  document.querySelectorAll(".screen").forEach(s=>{
+    s.classList.remove("active");
+  });
+
+  document.getElementById(screen)?.classList.add("active");
+
+  document.querySelectorAll(".nav-btn").forEach(btn=>{
+    btn.classList.toggle(
+      "active",
+      btn.dataset.nav===screen
+    );
+  });
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+function openModal(html){
+  document.getElementById("sheetContent").innerHTML=html;
+  document.getElementById("overlay").classList.add("show");
+}
+
+function closeModal(){
+  document.getElementById("overlay").classList.remove("show");
+}
+
+function sendModal(){
+  sendData={};
+
+  openModal(`
+    <div class="sheet-head">
+      <div class="sheet-title">Send money</div>
+      <button class="close" data-action="close">×</button>
+    </div>
+
+    <label class="input-label">Recipient</label>
+    <input id="sendRecipient" class="input" placeholder="Name, email or phone">
+
+    <label class="input-label">Amount</label>
+    <input id="sendAmount" class="input amount-input"
+      type="number"
+      inputmode="decimal"
+      placeholder="$0.00">
+
+    <button class="primary purple" data-action="send-review">
+      Continue
+    </button>
+  `);
+}
+
+function sendReview(){
+  const recipient=document.getElementById("sendRecipient").value.trim();
+  const amount=Number(document.getElementById("sendAmount").value);
+
+  if(!recipient){
+    showToast("Enter a recipient");
+    return;
+  }
+
+  if(!amount || amount<=0){
+    showToast("Enter a valid amount");
+    return;
+  }
+
+  if(amount>state.balance){
+    showToast("Insufficient balance");
+    return;
+  }
+
+  sendData={recipient,amount};
+
+  openModal(`
+    <div class="sheet-head">
+      <div class="sheet-title">Review transfer</div>
+      <button class="close" data-action="close">×</button>
+    </div>
+
+    <div class="review">
+      <div class="review-row">
+        <span>Recipient</span>
+        <strong>${escapeHTML(recipient)}</strong>
+      </div>
+
+      <div class="review-row">
+        <span>Amount</span>
+        <strong>${money(amount)}</strong>
+      </div>
+
+      <div class="review-row">
+        <span>Fee</span>
+        <strong>$0.00</strong>
+      </div>
+
+      <div class="review-row">
+        <span>Total</span>
+        <strong>${money(amount)}</strong>
+      </div>
+    </div>
+
+    <button class="primary purple" data-action="confirm-send">
+      Confirm transfer
+    </button>
+
+    <button class="secondary" data-action="send">
+      Edit
+    </button>
+  `);
+}
+
+function confirmSend(){
+  const {recipient,amount}=sendData;
+
+  state.balance-=amount;
+
+  state.transactions.unshift({
+    id:"NV-"+Math.floor(100000+Math.random()*899999),
+    title:"Sent to "+recipient,
+    meta:"Just now · NOVA transfer",
+    amount:-amount,
+    category:"payment",
+    icon:"↑",
+    method:"NOVA Balance",
+    location:"NOVA Transfer"
+  });
+
+  saveState();
+  renderAll();
+  animateBalance();
+
+  openModal(`
+    <div class="success">
+      <div class="success-icon">✓</div>
+      <h2>Transfer complete</h2>
+      <p>
+        ${money(amount)} was sent to
+        <strong>${escapeHTML(recipient)}</strong>.
+      </p>
+
+      <button class="primary purple" data-action="close">
+        Done
+      </button>
+    </div>
+  `);
+}
+
+function requestModal(){
+  openModal(`
+    <div class="sheet-head">
+      <div class="sheet-title">Request money</div>
+      <button class="close" data-action="close">×</button>
+    </div>
+
+    <label class="input-label">From</label>
+    <input class="input" id="requestFrom" placeholder="Name, email or phone">
+
+    <label class="input-label">Amount</label>
+    <input class="input amount-input"
+      id="requestAmount"
+      type="number"
+      placeholder="$0.00">
+
+    <label class="input-label">Note</label>
+    <input class="input" id="requestNote" placeholder="What's it for?">
+
+    <button class="primary purple" data-action="request-submit">
+      Create request
+    </button>
+  `);
+}
+
+function requestSubmit(){
+  const from=document.getElementById("requestFrom").value.trim();
+  const amount=Number(document.getElementById("requestAmount").value);
+
+  if(!from || !amount || amount<=0){
+    showToast("Complete the request first");
+    return;
+  }
+
+  closeModal();
+  showToast("Money request created");
+}
+
+function payModal(){
+  if(!state.cardActive){
+    showToast("Your NOVA card is frozen");
+    return;
+  }
+
+  openModal(`
+    <div class="sheet-head">
+      <div class="sheet-title">NOVA Pay</div>
+      <button class="close" data-action="close">×</button>
+    </div>
+
+    <label class="input-label">Merchant</label>
+    <input id="payMerchant" class="input" placeholder="Merchant name">
+
+    <label class="input-label">Amount</label>
+    <input id="payAmount"
+      class="input amount-input"
+      type="number"
+      inputmode="decimal"
+      placeholder="$0.00">
+
+    <label class="input-label">Category</label>
+    <select id="payCategory" class="input">
+      <option value="payment">Shopping</option>
+      <option value="payment">Food</option>
+      <option value="payment">Travel</option>
+      <option value="payment">Transport</option>
+    </select>
+
+    <button class="primary purple" data-action="pay-review">
+      Review payment
+    </button>
+  `);
+}
+
+function payReview(){
+  const merchant=document.getElementById("payMerchant").value.trim();
+  const amount=Number(document.getElementById("payAmount").value);
+
+  if(!merchant || !amount || amount<=0){
+    showToast("Enter merchant and amount");
+    return;
+  }
+
+  if(amount>state.balance){
+    showToast("Insufficient balance");
+    return;
+  }
+
+  openModal(`
+    <div class="sheet-head">
+      <div class="sheet-title">Review payment</div>
+      <button class="close" data-action="close">×</button>
+    </div>
+
+    <div class="review">
+      <div class="review-row">
+        <span>Merchant</span>
+        <strong>${escapeHTML(merchant)}</strong>
+      </div>
+
+      <div class="review-row">
+        <span>Amount</span>
+        <strong>${money(amount)}</strong>
+      </div>
+
+      <div class="review-row">
+        <span>Card</span>
+        <strong>•••• 2841</strong>
+      </div>
+    </div>
+
+    <button
+      class="primary purple"
+      data-action="confirm-pay"
+      data-merchant="${escapeHTML(merchant)}"
+      data-amount="${amount}">
+      Confirm payment
+    </button>
+  `);
+}
+
+function confirmPay(btn){
+  const merchant=btn.dataset.merchant;
+  const amount=Number(btn.dataset.amount);
+
+  state.balance-=amount;
+
+  state.transactions.unshift({
+    id:"NV-"+Math.floor(100000+Math.random()*899999),
+    title:merchant,
+    meta:"Just now · NOVA Pay",
+    amount:-amount,
+    category:"payment",
+    icon:"⌁",
+    method:"NOVA Card •••• 2841",
+    location:"Merchant payment"
+  });
+
+  saveState();
+  renderAll();
+  animateBalance();
+
+  openModal(`
+    <div class="success">
+      <div class="success-icon">✓</div>
+      <h2>Payment approved</h2>
+      <p>
+        ${money(amount)} paid to
+        <strong>${escapeHTML(merchant)}</strong>.
+      </p>
+
+      <button class="primary purple" data-action="close">
+        Done
+      </button>
+    </div>
+  `);
+}
+
+function addMoneyModal(){
+  openModal(`
+    <div class="sheet-head">
+      <div class="sheet-title">Add money</div>
+      <button class="close" data-action="close">×</button>
+    </div>
+
+    <label class="input-label">Amount</label>
+    <input id="addAmount"
+      class="input amount-input"
+      type="number"
+      inputmode="decimal"
+      placeholder="$0.00">
+
+    <label class="input-label">Source</label>
+    <select id="addSource" class="input">
+      <option>Linked bank account</option>
+      <option>Debit card</option>
+      <option>Direct deposit</option>
+    </select>
+
+    <button class="primary purple" data-action="add-submit">
+      Add money
+    </button>
+  `);
+}
+
+function addSubmit(){
+  const amount=Number(document.getElementById("addAmount").value);
+
+  if(!amount || amount<=0){
+    showToast("Enter a valid amount");
+    return;
+  }
+
+  state.balance+=amount;
+
+  state.transactions.unshift({
+    id:"NV-"+Math.floor(100000+Math.random()*899999),
+    title:"Money added",
+    meta:"Just now · Added to NOVA",
+    amount:amount,
+    category:"income",
+    icon:"+",
+    method:"Linked account",
+    location:"NOVA"
+  });
+
+  saveState();
+  renderAll();
+  animateBalance();
+
+  openModal(`
+    <div class="success">
+      <div class="success-icon">✓</div>
+      <h2>Money added</h2>
+      <p>${money(amount)} is now available in your NOVA balance.</p>
+
+      <button class="primary purple" data-action="close">
+        Done
+      </button>
+    </div>
+  `);
+}
+
+function createSpaceModal(){
+  openModal(`
+    <div class="sheet-head">
+      <div class="sheet-title">Create a Space</div>
+      <button class="close" data-action="close">×</button>
+    </div>
+
+    <label class="input-label">Space name</label>
+    <input id="spaceName" class="input" placeholder="e.g. New laptop">
+
+    <label class="input-label">Target amount</label>
+    <input id="spaceTarget"
+      class="input amount-input"
+      type="number"
+      placeholder="$0.00">
+
+    <label class="input-label">Target date</label>
+    <input id="spaceDate" class="input" type="date">
+
+    <button class="primary purple" data-action="create-space-submit">
+      Create Space
+    </button>
+  `);
+}
+
+function createSpaceSubmit(){
+  const name=document.getElementById("spaceName").value.trim();
+  const target=Number(document.getElementById("spaceTarget").value);
+  const date=document.getElementById("spaceDate").value;
+
+  if(!name || !target || target<=0){
+    showToast("Complete the Space details");
+    return;
+  }
+
+  state.spaces.push({
+    id:Date.now(),
+    name,
+    saved:0,
+    target,
+    date:date || "No date"
+  });
+
+  saveState();
+  renderAll();
+  closeModal();
+  showToast("Space created");
+}
+
+function openSpace(id){
+  selectedSpace=state.spaces.find(s=>String(s.id)===String(id));
+
+  if(!selectedSpace)return;
+
+  const percent=Math.min(
+    100,
+    Math.round((selectedSpace.saved/selectedSpace.target)*100)
+  );
+
+  openModal(`
+    <div class="sheet-head">
+      <div class="sheet-title">${escapeHTML(selectedSpace.name)}</div>
+      <button class="close" data-action="close">×</button>
+    </div>
+
+    <div style="text-align:center;padding:8px 0 20px">
+      <div style="
+        width:135px;
+        height:135px;
+        margin:auto;
+        border-radius:50%;
+        display:grid;
+        place-items:center;
+        background:conic-gradient(#7357ff ${percent*3.6}deg,#ececf1 0deg);
+      ">
+        <div style="
+          width:105px;
+          height:105px;
+          border-radius:50%;
+          background:white;
+          display:grid;
+          place-items:center;
+        ">
+          <div>
+            <div style="font-family:'Space Grotesk';font-size:25px;font-weight:700;text-align:center">
+              ${percent}%
+            </div>
+            <div style="font-size:10px;color:#888;text-align:center">
+              funded
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-family:'Space Grotesk';font-size:24px;font-weight:700;margin-top:15px">
+        ${money(selectedSpace.saved)}
+      </div>
+
+      <div style="font-size:11px;color:#888">
+        of ${money(selectedSpace.target)} · ${escapeHTML(selectedSpace.date)}
+      </div>
+    </div>
+
+    <button class="primary purple" data-action="space-add">
+      Add money
+    </button>
+
+    <button class="secondary" data-action="space-move">
+      Move money out
+    </button>
+  `);
+}
+
+function addToSpaceModal(){
+  if(!selectedSpace)return;
+
+  openModal(`
+    <div class="sheet-head">
+      <div class="sheet-title">Add to ${escapeHTML(selectedSpace.name)}</div>
+      <button class="close" data-action="close">×</button>
+    </div>
+
+    <div style="
+      padding:13px;
+      border-radius:17px;
+      background:#f6f6f8;
+      font-size:12px;
+      margin-bottom:15px;
+    ">
+      Available balance: <strong>${money(state.balance)}</strong>
+    </div>
+
+    <label class="input-label">Amount</label>
+    <input id="spaceAddAmount"
+      class="input amount-input"
+      type="number"
+      inputmode="decimal"
+      placeholder="$0.00">
+
+    <button class="primary purple" data-action="space-add-submit">
+      Move to Space
+    </button>
+  `);
+}
+
+function addToSpaceSubmit(){
+  const amount=Number(document.getElementById("spaceAddAmount").value);
+
+  if(!amount || amount<=0){
+    showToast("Enter an amount");
+    return;
+  }
+
+  if(amount>state.balance){
+    showToast("Insufficient balance");
+    return;
+  }
+
+  selectedSpace.saved+=amount;
+  state.balance-=amount;
+
+  state.transactions.unshift({
+    id:"NV-"+Math.floor(100000+Math.random()*899999),
+    title:"Added to "+selectedSpace.name,
+    meta:"Just now · NOVA Space",
+    amount:-amount,
+    category:"space",
+    icon:"◇",
+    method:"NOVA Balance",
+    location:selectedSpace.name+" Space"
+  });
+
+  saveState();
+  renderAll();
+  animateBalance();
+
+  closeModal();
+  showToast(money(amount)+" moved to "+selectedSpace.name);
+}
+
+function moveFromSpace(){
+  if(!selectedSpace)return;
+
+  openModal(`
+    <div class="sheet-head">
+      <div class="sheet-title">Move money out</div>
+      <button class="close" data-action="close">×</button>
+    </div>
+
+    <div style="
+      padding:13px;
+      border-radius:17px;
+      background:#f6f6f8;
+      font-size:12px;
+      margin-bottom:15px;
+    ">
+      Available in Space:
+      <strong>${money(selectedSpace.saved)}</strong>
+    </div>
+
+    <label class="input-label">Amount</label>
+    <input id="spaceMoveAmount"
+      class="input amount-input"
+      type="number"
+      inputmode="decimal"
+      placeholder="$0.00">
+
+    <button class="primary purple" data-action="space-move-submit">
+      Move to balance
+    </button>
+  `);
+}
+
+function moveFromSpaceSubmit(){
+  const amount=Number(document.getElementById("spaceMoveAmount").value);
+
+  if(!amount || amount<=0){
+    showToast("Enter an amount");
+    return;
+  }
+
+  if(amount>selectedSpace.saved){
+    showToast("Not enough money in this Space");
+    return;
+  }
+
+  selectedSpace.saved-=amount;
+  state.balance+=amount;
+
+  state.transactions.unshift({
+    id:"NV-"+Math.floor(100000+Math.random()*899999),
+    title:"Moved from "+selectedSpace.name,
+    meta:"Just now · NOVA Space",
+    amount:amount,
+    category:"income",
+    icon:"◇",
+    method:"NOVA Space",
+    location:selectedSpace.name+" Space"
+  });
+
+  saveState();
+  renderAll();
+  animateBalance();
+
+  closeModal();
+  showToast(money(amount)+" returned to balance");
+}
+
+function transactionDetails(id){
+  selectedTransaction=state.transactions.find(
+    t=>t.id===id
+  );
+
+  if(!selectedTransaction)return;
+
+  const tx=selectedTransaction;
+  const positive=tx.amount>=0;
+
+  openModal(`
+    <div class="sheet-head">
+      <div class="sheet-title">Transaction</div>
+      <button class="close" data-action="close">×</button>
+    </div>
+
+    <div class="receipt">
+
+      <div class="receipt-top">
+        <div style="
+          width:48px;
+          height:48px;
+          border-radius:16px;
+          background:#f0edff;
+          color:#7357ff;
+          display:grid;
+          place-items:center;
+          margin:0 auto 10px;
+          font-weight:700;
+        ">
+          ${escapeHTML(tx.icon)}
+        </div>
+
+        <div class="receipt-amount">
+          ${positive?"+":"−"}${money(Math.abs(tx.amount))}
+        </div>
+
+        <div class="receipt-status">
+          ${positive?"Received":"Completed"}
+        </div>
+      </div>
+
+      <div class="receipt-body">
+
+        <div class="receipt-line">
+          <span>Transaction</span>
+          <strong>${escapeHTML(tx.title)}</strong>
+        </div>
+
+        <div class="receipt-line">
+          <span>Transaction ID</span>
+          <strong>${escapeHTML(tx.id)}</strong>
+        </div>
+
+        <div class="receipt-line">
+          <span>Date</span>
+          <strong>${escapeHTML(tx.meta)}</strong>
+        </div>
+
+        <div class="receipt-line">
+          <span>Payment method</span>
+          <strong>${escapeHTML(tx.method)}</strong>
+        </div>
+
+        <div class="receipt-line">
+          <span>Category</span>
+          <strong>${escapeHTML(tx.category)}</strong>
+        </div>
+
+        <div class="receipt-line">
+          <span>Location</span>
+          <strong>${escapeHTML(tx.location)}</strong>
+        </div>
+
+      </div>
+    </div>
+
+    <button class="secondary" data-action="copy-receipt">
+      Copy transaction ID
+    </button>
+
+    <button class="secondary" data-action="close">
+      Done
+    </button>
+  `);
+}
+
+function notificationsModal(){
+  state.notifications.forEach(n=>n.unread=false);
+  saveState();
+
+  openModal(`
+    <div class="sheet-head">
+      <div class="sheet-title">Notifications</div>
+      <button class="close" data-action="close">×</button>
+    </div>
+
+    ${
+      state.notifications.map(n=>`
+        <div style="
+          padding:15px 0;
+          border-bottom:1px solid var(--line);
+        ">
+          <div style="display:flex;gap:10px">
+            <div style="
+              width:10px;
+              height:10px;
+              border-radius:50%;
+              background:${n.unread?"#7357ff":"#ddd"};
+              margin-top:5px;
+            "></div>
+
+            <div>
+              <div style="font-weight:700;font-size:13px">
+                ${escapeHTML(n.title)}
+              </div>
+
+              <div style="
+                color:#888;
+                font-size:11px;
+                line-height:1.5;
+                margin-top:4px;
+              ">
+                ${escapeHTML(n.text)}
+              </div>
+
+              <div style="
+                color:#aaa;
+                font-size:10px;
+                margin-top:5px;
+              ">
+                ${escapeHTML(n.time)}
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join("")
+    }
+  `);
+}
+
+function searchModal(){
+  openModal(`
+    <div class="sheet-head">
+      <div class="sheet-title">Search NOVA</div>
+      <button class="close" data-action="close">×</button>
+    </div>
+
+    <input id="searchInput"
+      class="input"
+      placeholder="Search transactions or Spaces..."
+      autofocus>
+
+    <div id="searchResults" style="margin-top:15px"></div>
+  `);
+
+  setTimeout(()=>{
+    document.getElementById("searchInput")?.focus();
+  },100);
+}
+
+function runSearch(query){
+  const q=query.toLowerCase().trim();
+
+  if(!q){
+    document.getElementById("searchResults").innerHTML="";
+    return;
+  }
+
+  const tx=state.transactions.filter(t=>
+    [t.title,t.id,t.category,t.location,t.method]
+      .join(" ")
+      .toLowerCase()
+      .includes(q)
+  );
+
+  const spaces=state.spaces.filter(s=>
+    s.name.toLowerCase().includes(q)
+  );
+
+  const results=[
+    ...tx.map(t=>`
+      <button class="tx"
+        data-action="transaction"
+        data-id="${t.id}"
+        style="width:100%;background:transparent;text-align:left">
+        <div class="tx-icon">${escapeHTML(t.icon)}</div>
+        <div class="tx-main">
+          <div class="tx-title">${escapeHTML(t.title)}</div>
+          <div class="tx-meta">${escapeHTML(t.meta)}</div>
+        </div>
+        <div class="tx-amount">
+          ${t.amount>=0?"+":"−"}${money(Math.abs(t.amount))}
+        </div>
+      </button>
+    `),
+
+    ...spaces.map(s=>`
+      <button
+        data-action="space"
+        data-id="${s.id}"
+        style="
+          width:100%;
+          background:#f7f7f9;
+          padding:15px;
+          border-radius:16px;
+          text-align:left;
+          margin-bottom:8px;
+        ">
+        <strong>${escapeHTML(s.name)}</strong>
+        <div style="font-size:10px;color:#888;margin-top:4px">
+          ${money(s.saved)} of ${money(s.target)}
+        </div>
+      </button>
+    `)
+  ];
+
+  document.getElementById("searchResults").innerHTML=
+    results.length
+      ? results.join("")
+      : `<div class="empty">Nothing found.</div>`;
+}
+
+function cardControlsModal(){
+  openModal(`
+    <div class="sheet-head">
+      <div class="sheet-title">Card controls</div>
+      <button class="close" data-action="close">×</button>
+    </div>
+
+    <div class="card-preview">
+      <div style="display:flex;justify-content:space-between">
+        <strong>NOVA</strong>
+        <span style="font-size:10px;opacity:.6">VIRTUAL</span>
+      </div>
+
+      <div style="margin-top:48px;font-family:'Space Grotesk';letter-spacing:2px">
+        •••• •••• •••• 2841
+      </div>
+    </div>
+
+    <div class="toggle-row">
+      <div>
+        <div style="font-size:13px;font-weight:700">Card status</div>
+        <div style="font-size:10px;color:#888;margin-top:3px">
+          ${state.cardActive?"Card is active":"Card is frozen"}
+        </div>
+      </div>
+
+      <button
+        class="toggle ${state.cardActive?"on":""}"
+        data-action="toggle-card">
+        <i></i>
+      </button>
+    </div>
+
+    <div class="toggle-row">
+      <div>
+        <div style="font-size:13px;font-weight:700">Daily spending limit</div>
+        <div style="font-size:10px;color:#888;margin-top:3px">
+          ${money(state.cardLimit)}
+        </div>
+      </div>
+
+      <button
+        style="
+          padding:8px 12px;
+          background:#f0edff;
+          color:#7357ff;
+          border-radius:10px;
+          font-size:11px;
+          font-weight:700;
+        "
+        data-action="limit">
+        Change
+      </button>
+    </div>
+
+    <button class="secondary" data-action="card-details">
+      View card details
+    </button>
+  `);
+}
+
+function changeLimitModal(){
+  openModal(`
+    <div class="sheet-head">
+      <div class="sheet-title">Spending limit</div>
+      <button class="close" data-action="close">×</button>
+    </div>
+
+    <label class="input-label">Daily limit</label>
+    <input id="limitInput"
+      class="input amount-input"
+      type="number"
+      value="${state.cardLimit}">
+
+    <button class="primary purple" data-action="limit-save">
+      Save limit
+    </button>
+  `);
+}
+
+function cardDetailsModal(){
+  openModal(`
+    <div class="sheet-head">
+      <div class="sheet-title">Card details</div>
+      <button class="close" data-action="close">×</button>
+    </div>
+
+    <div class="review">
+      <div class="review-row">
+        <span>Card number</span>
+        <strong>•••• 2841</strong>
+      </div>
+
+      <div class="review-row">
+        <span>Expiry</span>
+        <strong>09/29</strong>
+      </div>
+
+      <div class="review-row">
+        <span>CVV</span>
+        <strong>•••</strong>
+      </div>
+
+      <div class="review-row">
+        <span>Status</span>
+        <strong>${state.cardActive?"Active":"Frozen"}</strong>
+      </div>
+    </div>
+
+    <button class="primary" data-action="close">
+      Done
+    </button>
+  `);
+}
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+document.addEventListener("click",e=>{
+  const nav=e.target.closest("[data-nav]");
+  if(nav){
+    navigate(nav.dataset.nav);
+    return;
+  }
+
+  const filter=e.target.closest("[data-filter]");
+  if(filter){
+    state.filter=filter.dataset.filter;
+    saveState();
+    updateFilters();
+    renderActivity();
+    return;
+  }
+
+  const action=e.target.closest("[data-action]");
+  if(!action)return;
+
+  const a=action.dataset.action;
+
+  switch(a){
+
+    case "close":
+      closeModal();
+      break;
+
+    case "toggle-balance":
+      state.balanceHidden=!state.balanceHidden;
+      saveState();
+      renderBalance();
+      break;
+
+    case "send":
+      sendModal();
+      break;
+
+    case "send-review":
+      sendReview();
+      break;
+
+    case "confirm-send":
+      confirmSend();
+      break;
+
+    case "request":
+      requestModal();
+      break;
+
+    case "request-submit":
+      requestSubmit();
+      break;
+
+    case "pay":
+      payModal();
+      break;
+
+    case "pay-review":
+      payReview();
+      break;
+
+    case "confirm-pay":
+      confirmPay(action);
+      break;
+
+    case "add":
+      addMoneyModal();
+      break;
+
+    case "add-submit":
+      addSubmit();
+      break;
+
+    case "create-space":
+      createSpaceModal();
+      break;
+
+    case "create-space-submit":
+      createSpaceSubmit();
+      break;
+
+    case "space":
+      openSpace(action.dataset.id);
+      break;
+
+    case "space-add":
+      addToSpaceModal();
+      break;
+
+    case "space-add-submit":
+      addToSpaceSubmit();
+      break;
+
+    case "space-move":
+      moveFromSpace();
+      break;
+
+    case "space-move-submit":
+      moveFromSpaceSubmit();
+      break;
+
+    case "transaction":
+      transactionDetails(action.dataset.id);
+      break;
+
+    case "notifications":
+      notificationsModal();
+      break;
+
+    case "search":
+      searchModal();
+      break;
+
+    case "card-controls":
+      cardControlsModal();
+      break;
+
+    case "toggle-card":
+      state.cardActive=!state.cardActive;
+      saveState();
+      cardControlsModal();
+      showToast(
+        state.cardActive
+          ? "Card is active"
+          : "Card frozen"
+      );
+      break;
+
+    case "limit":
+      changeLimitModal();
+      break;
+
+    case "limit-save":{
+      const value=Number(
+        document.getElementById("limitInput").value
+      );
+
+      if(!value || value<=0){
+        showToast("Enter a valid limit");
+        return;
+      }
+
+      state.cardLimit=value;
+      saveState();
+      cardControlsModal();
+      showToast("Spending limit updated");
+      break;
+    }
+
+    case "card-details":
+      cardDetailsModal();
+      break;
+
+    case "copy-receipt":
+      if(selectedTransaction){
+        navigator.clipboard?.writeText(
+          selectedTransaction.id
+        );
+
+        showToast("Transaction ID copied");
+      }
+      break;
+
+    case "security":
+      showToast("Security settings coming next");
+      break;
+
+    case "personal":
+      showToast("Personal information coming next");
+      break;
+
+    case "help":
+      showToast("Support center coming next");
+      break;
+  }
+});
+
+document.addEventListener("input",e=>{
+  if(e.target.id==="searchInput"){
+    runSearch(e.target.value);
+  }
+});
+
+document.getElementById("overlay").addEventListener("click",e=>{
+  if(e.target.id==="overlay"){
+    closeModal();
+  }
+});
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    closeModal();
+  }
+});
+
 renderAll();
 </script>
+
 </body>
 </html>
