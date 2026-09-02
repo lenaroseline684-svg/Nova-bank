@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#f5f5f7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
 <title>NOVA — Money, beautifully simple.</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,17 +18,14 @@
   --bg:#f5f5f7;
   --surface:#fff;
   --surface2:#f0f0f3;
-  --surface3:#e9e9ed;
   --text:#111116;
-  --muted:#7d7d86;
+  --muted:#80808a;
   --line:rgba(17,17,22,.075);
   --accent:#6945ff;
-  --accent-deep:#4e31d8;
+  --accent2:#4e31d8;
   --green:#1da567;
   --red:#df5159;
-  --yellow:#e2a832;
-  --shadow:0 16px 45px rgba(25,22,40,.075);
-  --nav:76px;
+  --shadow:0 18px 50px rgba(25,22,40,.08);
 }
 
 *{
@@ -36,19 +34,26 @@
   -webkit-tap-highlight-color:transparent;
 }
 
-html{
+html,body{
+  width:100%;
+  min-height:100%;
   background:var(--bg);
 }
 
 body{
-  width:100%;
-  min-height:100%;
-  overflow-x:hidden;
-  background:var(--bg);
   color:var(--text);
   font-family:"DM Sans",sans-serif;
-  padding-bottom:calc(var(--nav) + env(safe-area-inset-bottom));
-  transition:background .25s,color .25s;
+  overflow-x:hidden;
+  padding-bottom:90px;
+}
+
+body.dark{
+  --bg:#0c0c0f;
+  --surface:#17171c;
+  --surface2:#222229;
+  --text:#f5f5f7;
+  --muted:#9999a4;
+  --line:rgba(255,255,255,.08);
 }
 
 button,input{
@@ -57,9 +62,8 @@ button,input{
 
 button{
   border:0;
-  color:inherit;
   cursor:pointer;
-  touch-action:manipulation;
+  color:inherit;
 }
 
 button:active{
@@ -68,11 +72,6 @@ button:active{
 
 input{
   outline:none;
-  border:0;
-}
-
-svg{
-  display:block;
 }
 
 .app{
@@ -86,8 +85,8 @@ svg{
 .screen{
   display:none;
   min-height:100vh;
-  padding:20px 18px 112px;
-  animation:screenIn .26s ease;
+  padding:20px 18px 105px;
+  animation:screenIn .25s ease;
 }
 
 .screen.active{
@@ -105,12 +104,152 @@ svg{
   }
 }
 
+/* LOGIN */
+
+#loginScreen{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  padding:25px;
+  background:
+    radial-gradient(circle at 80% 10%,rgba(112,78,255,.22),transparent 30%),
+    radial-gradient(circle at 0 90%,rgba(70,46,170,.16),transparent 35%),
+    var(--bg);
+}
+
+#loginScreen.hidden{
+  display:none;
+}
+
+.login-wrap{
+  width:100%;
+  max-width:410px;
+  text-align:center;
+}
+
+.login-logo{
+  width:67px;
+  height:67px;
+  display:grid;
+  place-items:center;
+  margin:0 auto 22px;
+  border-radius:22px;
+  color:#fff;
+  font-family:"Space Grotesk";
+  font-size:28px;
+  font-weight:700;
+  background:linear-gradient(135deg,#17151d,#593ce2 65%,#9883ff);
+  box-shadow:0 20px 45px rgba(105,69,255,.25);
+}
+
+.login-title{
+  font-family:"Space Grotesk";
+  font-size:29px;
+  letter-spacing:-1.3px;
+}
+
+.login-sub{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.5;
+}
+
+.login-box{
+  margin-top:30px;
+  padding:22px;
+  border-radius:27px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+
+.pin-title{
+  font-size:12px;
+  font-weight:700;
+}
+
+.pin-sub{
+  color:var(--muted);
+  font-size:9px;
+  margin-top:5px;
+}
+
+.pin-dots{
+  display:flex;
+  justify-content:center;
+  gap:13px;
+  margin:22px 0;
+}
+
+.pin-dot{
+  width:13px;
+  height:13px;
+  border-radius:50%;
+  background:var(--surface2);
+  border:1px solid var(--line);
+  transition:.15s;
+}
+
+.pin-dot.filled{
+  background:var(--accent);
+  border-color:var(--accent);
+  transform:scale(1.08);
+}
+
+.pin-error{
+  min-height:16px;
+  margin-top:-9px;
+  margin-bottom:10px;
+  color:var(--red);
+  font-size:9px;
+  font-weight:600;
+}
+
+.pin-pad{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+}
+
+.pin-key{
+  height:53px;
+  border-radius:16px;
+  background:var(--surface2);
+  font-family:"Space Grotesk";
+  font-size:17px;
+  font-weight:600;
+}
+
+.pin-key.special{
+  font-family:"DM Sans";
+  font-size:14px;
+}
+
+.forgot{
+  margin-top:17px;
+  background:none;
+  color:var(--accent);
+  font-size:10px;
+  font-weight:700;
+}
+
+.demo-note{
+  margin-top:17px;
+  color:var(--muted);
+  font-size:8px;
+}
+
 /* TOP */
 
 .topbar{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   margin-bottom:21px;
 }
 
@@ -158,18 +297,7 @@ svg{
   height:19px;
 }
 
-.badge{
-  position:absolute;
-  width:7px;
-  height:7px;
-  right:6px;
-  top:6px;
-  border-radius:50%;
-  background:#ff4e61;
-  border:2px solid var(--surface);
-}
-
-/* HERO BALANCE */
+/* BALANCE */
 
 .balance-card{
   min-height:222px;
@@ -196,30 +324,18 @@ svg{
   border-radius:50%;
 }
 
-.balance-card:after{
-  content:"";
-  position:absolute;
-  width:180px;
-  height:180px;
-  left:-125px;
-  bottom:-105px;
-  border:1px solid rgba(255,255,255,.06);
-  border-radius:50%;
-}
-
 .balance-top{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   color:rgba(255,255,255,.68);
   font-size:12px;
 }
 
 .eye-btn{
+  padding:5px;
   background:none;
   color:#fff;
-  opacity:.82;
-  padding:5px;
 }
 
 .balance-amount{
@@ -228,8 +344,6 @@ svg{
   font-size:40px;
   line-height:1;
   letter-spacing:-2.4px;
-  position:relative;
-  z-index:2;
 }
 
 .balance-hidden{
@@ -250,7 +364,6 @@ svg{
   padding:4px 7px;
   border-radius:8px;
   background:rgba(255,255,255,.1);
-  color:#fff;
 }
 
 .balance-bottom{
@@ -258,7 +371,6 @@ svg{
   left:24px;
   right:24px;
   bottom:22px;
-  z-index:2;
   display:flex;
   justify-content:space-between;
   align-items:flex-end;
@@ -271,8 +383,8 @@ svg{
 
 .account strong{
   display:block;
-  color:#fff;
   margin-top:4px;
+  color:#fff;
   font-size:12px;
   letter-spacing:.7px;
 }
@@ -282,18 +394,6 @@ svg{
   height:32px;
   border-radius:8px;
   background:linear-gradient(135deg,#f1e2ae,#a18d5c);
-  opacity:.92;
-  position:relative;
-  overflow:hidden;
-}
-
-.card-chip:after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(90deg,transparent 48%,rgba(0,0,0,.18) 49%,transparent 51%),
-    linear-gradient(transparent 47%,rgba(0,0,0,.18) 48%,transparent 51%);
 }
 
 /* QUICK */
@@ -316,12 +416,6 @@ svg{
   background:var(--surface);
   border:1px solid var(--line);
   box-shadow:0 6px 20px rgba(0,0,0,.025);
-  transition:transform .18s,box-shadow .18s;
-}
-
-.quick:hover{
-  transform:translateY(-2px);
-  box-shadow:var(--shadow);
 }
 
 .quick-icon{
@@ -341,7 +435,7 @@ svg{
   font-weight:700;
 }
 
-/* SECTION */
+/* SECTIONS */
 
 .section-head{
   display:flex;
@@ -399,8 +493,8 @@ svg{
 }
 
 .person span{
-  font-size:10px;
   color:var(--muted);
+  font-size:10px;
 }
 
 /* INSIGHT */
@@ -413,7 +507,6 @@ svg{
   border-radius:22px;
   background:var(--surface);
   border:1px solid var(--line);
-  box-shadow:0 5px 20px rgba(0,0,0,.018);
 }
 
 .insight-icon{
@@ -425,7 +518,6 @@ svg{
   border-radius:14px;
   background:#eeeaff;
   color:var(--accent);
-  font-size:17px;
 }
 
 .insight h3{
@@ -439,7 +531,7 @@ svg{
   line-height:1.55;
 }
 
-/* PULSE */
+/* ANALYTICS */
 
 .analytics{
   padding:18px;
@@ -478,7 +570,6 @@ svg{
 .period button.active{
   background:var(--surface);
   color:var(--text);
-  box-shadow:0 2px 7px rgba(0,0,0,.06);
 }
 
 .chart{
@@ -501,7 +592,6 @@ svg{
   min-height:8px;
   border-radius:8px 8px 4px 4px;
   background:linear-gradient(180deg,#927bff,#6341e7);
-  transition:height .5s cubic-bezier(.2,.8,.2,1);
 }
 
 .chart-labels{
@@ -526,11 +616,6 @@ svg{
   padding:14px 2px;
   border-bottom:1px solid var(--line);
   cursor:pointer;
-  transition:background .15s;
-}
-
-.transaction:active{
-  background:var(--surface2);
 }
 
 .tx-icon{
@@ -576,7 +661,7 @@ svg{
   color:var(--green);
 }
 
-/* HEADINGS */
+/* PAGE */
 
 .page-kicker{
   color:var(--muted);
@@ -591,7 +676,7 @@ svg{
   letter-spacing:-1.1px;
 }
 
-/* ACTIVITY */
+/* SEARCH */
 
 .search{
   height:49px;
@@ -624,10 +709,6 @@ svg{
   scrollbar-width:none;
 }
 
-.filters::-webkit-scrollbar{
-  display:none;
-}
-
 .filter{
   padding:8px 13px;
   white-space:nowrap;
@@ -653,7 +734,6 @@ svg{
   scroll-snap-type:x mandatory;
   padding:2px 1px 9px;
   scrollbar-width:none;
-  overscroll-behavior-x:contain;
 }
 
 .card-scroller::-webkit-scrollbar{
@@ -693,20 +773,8 @@ svg{
   backface-visibility:hidden;
   background:
     radial-gradient(circle at 82% 19%,rgba(255,255,255,.18),transparent 28%),
-    radial-gradient(circle at 0% 100%,rgba(100,70,220,.28),transparent 35%),
     linear-gradient(135deg,#15141b,#312356 61%,#6b45ff);
   box-shadow:0 21px 42px rgba(32,24,71,.2);
-}
-
-.card-face:after{
-  content:"";
-  position:absolute;
-  width:290px;
-  height:290px;
-  right:-155px;
-  top:-105px;
-  border:1px solid rgba(255,255,255,.065);
-  border-radius:50%;
 }
 
 .card-back{
@@ -714,16 +782,16 @@ svg{
   transform:rotateY(180deg);
 }
 
-.card-name{
-  font-family:"Space Grotesk";
-  font-size:13px;
-  letter-spacing:.8px;
-}
-
 .card-chip-row{
   display:flex;
   align-items:center;
   justify-content:space-between;
+}
+
+.card-name{
+  font-family:"Space Grotesk";
+  font-size:13px;
+  letter-spacing:.8px;
 }
 
 .card-number{
@@ -764,7 +832,6 @@ svg{
   color:#111;
   text-align:right;
   font-size:11px;
-  font-weight:700;
   letter-spacing:2px;
 }
 
@@ -786,7 +853,6 @@ svg{
   height:6px;
   border-radius:50%;
   background:#c9c9cf;
-  transition:.2s;
 }
 
 .dot.active{
@@ -811,12 +877,6 @@ svg{
   font-weight:700;
 }
 
-.tool svg{
-  width:18px;
-  height:18px;
-  margin:0 auto 6px;
-}
-
 /* SPACES */
 
 .space{
@@ -825,7 +885,6 @@ svg{
   border-radius:23px;
   background:var(--surface);
   border:1px solid var(--line);
-  box-shadow:0 5px 20px rgba(0,0,0,.018);
 }
 
 .space-head{
@@ -847,7 +906,6 @@ svg{
   margin-right:10px;
   border-radius:14px;
   background:var(--surface2);
-  font-size:16px;
 }
 
 .space-title strong{
@@ -856,9 +914,9 @@ svg{
 
 .space-title span{
   display:block;
-  margin-top:3px;
   color:var(--muted);
   font-size:9px;
+  margin-top:3px;
 }
 
 .space-total{
@@ -879,7 +937,6 @@ svg{
   height:100%;
   border-radius:8px;
   background:linear-gradient(90deg,#6b45ff,#9b87ff);
-  transition:width .45s ease;
 }
 
 .space-foot{
@@ -972,15 +1029,19 @@ svg{
   left:50%;
   bottom:0;
   width:min(540px,100%);
-  min-height:var(--nav);
+  min-height:76px;
   transform:translateX(-50%);
   padding:8px 15px calc(8px + env(safe-area-inset-bottom));
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  background:rgba(255,255,255,.89);
+  background:rgba(255,255,255,.9);
   border-top:1px solid var(--line);
   backdrop-filter:blur(22px);
   -webkit-backdrop-filter:blur(22px);
+}
+
+body.dark .bottom-nav{
+  background:rgba(23,23,28,.9);
 }
 
 .nav-btn{
@@ -993,21 +1054,15 @@ svg{
   color:#9a9aa2;
   font-size:8px;
   font-weight:700;
-  transition:.2s;
 }
 
 .nav-btn svg{
   width:20px;
   height:20px;
-  transition:.2s;
 }
 
 .nav-btn.active{
   color:var(--accent);
-}
-
-.nav-btn.active svg{
-  transform:translateY(-1px) scale(1.04);
 }
 
 /* MODAL */
@@ -1025,12 +1080,6 @@ svg{
 
 .modal.open{
   display:flex;
-  animation:fade .18s ease;
-}
-
-@keyframes fade{
-  from{opacity:0}
-  to{opacity:1}
 }
 
 .sheet{
@@ -1067,7 +1116,6 @@ svg{
 .sheet-head h3{
   font-family:"Space Grotesk";
   font-size:18px;
-  letter-spacing:-.4px;
 }
 
 .close{
@@ -1101,10 +1149,6 @@ svg{
   font-size:12px;
 }
 
-.field input:focus{
-  border-color:rgba(105,69,255,.38);
-}
-
 .amount-input{
   text-align:center;
   font-family:"Space Grotesk";
@@ -1125,7 +1169,6 @@ svg{
 
 .primary.purple{
   background:linear-gradient(135deg,#6d49ff,#4d31d8);
-  box-shadow:0 10px 22px rgba(105,69,255,.19);
 }
 
 .secondary{
@@ -1138,7 +1181,7 @@ svg{
   font-weight:700;
 }
 
-/* CONTACTS */
+/* CONTACT */
 
 .contact-list{
   display:flex;
@@ -1154,10 +1197,6 @@ svg{
   background:none;
   border-bottom:1px solid var(--line);
   text-align:left;
-}
-
-.contact:last-child{
-  border-bottom:0;
 }
 
 .contact .avatar{
@@ -1198,7 +1237,6 @@ svg{
   margin:12px 0;
   font-family:"Space Grotesk";
   font-size:39px;
-  letter-spacing:-1px;
 }
 
 .keys{
@@ -1230,6 +1268,69 @@ svg{
   font-weight:700;
 }
 
+/* PIN CONFIRM */
+
+.confirm-amount{
+  text-align:center;
+  padding:8px 0 19px;
+}
+
+.confirm-amount strong{
+  display:block;
+  font-family:"Space Grotesk";
+  font-size:31px;
+  letter-spacing:-1px;
+}
+
+.confirm-amount span{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px;
+}
+
+.confirm-lock{
+  width:54px;
+  height:54px;
+  display:grid;
+  place-items:center;
+  margin:0 auto 12px;
+  border-radius:18px;
+  background:#eeeaff;
+  color:var(--accent);
+  font-size:21px;
+}
+
+/* SUCCESS */
+
+.success{
+  padding:14px 0 5px;
+  text-align:center;
+}
+
+.success-icon{
+  width:70px;
+  height:70px;
+  display:grid;
+  place-items:center;
+  margin:5px auto 17px;
+  border-radius:50%;
+  background:#e7f8f0;
+  color:var(--green);
+  font-size:25px;
+}
+
+.success h2{
+  font-family:"Space Grotesk";
+  font-size:21px;
+}
+
+.success p{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:11px;
+}
+
 /* QR */
 
 .qr-box{
@@ -1251,7 +1352,6 @@ svg{
   background:
     linear-gradient(90deg,#111 10px,transparent 10px) 0 0/30px 30px,
     linear-gradient(#111 10px,transparent 10px) 0 0/30px 30px;
-  opacity:.88;
 }
 
 .scan-line{
@@ -1267,48 +1367,6 @@ svg{
 @keyframes scan{
   0%,100%{top:25px}
   50%{top:185px}
-}
-
-/* SUCCESS */
-
-.success{
-  padding:14px 0 5px;
-  text-align:center;
-}
-
-.success-icon{
-  width:70px;
-  height:70px;
-  display:grid;
-  place-items:center;
-  margin:5px auto 17px;
-  border-radius:50%;
-  background:#e7f8f0;
-  color:var(--green);
-  font-size:25px;
-  animation:pop .45s cubic-bezier(.2,1.5,.5,1);
-}
-
-@keyframes pop{
-  from{
-    transform:scale(.5);
-    opacity:0;
-  }
-  to{
-    transform:scale(1);
-    opacity:1;
-  }
-}
-
-.success h2{
-  font-family:"Space Grotesk";
-  font-size:21px;
-}
-
-.success p{
-  margin-top:6px;
-  color:var(--muted);
-  font-size:11px;
 }
 
 /* EMPTY */
@@ -1338,48 +1396,33 @@ svg{
 
 .empty p{
   font-size:10px;
-  line-height:1.5;
 }
 
-/* DARK */
+/* TOAST */
 
-body.dark{
-  --bg:#0c0c0f;
-  --surface:#17171c;
-  --surface2:#222229;
-  --surface3:#292930;
-  --text:#f5f5f7;
-  --muted:#9999a4;
-  --line:rgba(255,255,255,.08);
-  --shadow:0 18px 45px rgba(0,0,0,.28);
+.toast{
+  position:fixed;
+  z-index:700;
+  left:50%;
+  bottom:94px;
+  transform:translate(-50%,15px);
+  opacity:0;
+  pointer-events:none;
+  max-width:calc(100% - 40px);
+  padding:11px 15px;
+  border-radius:13px;
+  background:#17171c;
+  color:#fff;
+  font-size:10px;
+  font-weight:600;
+  box-shadow:0 12px 30px rgba(0,0,0,.2);
+  transition:.25s;
 }
 
-body.dark .bottom-nav{
-  background:rgba(23,23,28,.9);
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
 }
-
-body.dark .filter.active{
-  background:#fff;
-  color:#111;
-}
-
-body.dark .insight-icon{
-  background:#2b2349;
-}
-
-body.dark .success-icon{
-  background:#183b2c;
-}
-
-body.dark .qr-box{
-  background:#fff;
-}
-
-body.dark .search input::placeholder{
-  color:#74747d;
-}
-
-/* DESKTOP */
 
 @media(min-width:541px){
   body{
@@ -1396,99 +1439,259 @@ body.dark .search input::placeholder{
 
 <body>
 
-<div class="app">
+<!-- LOGIN -->
+
+<div id="loginScreen">
+
+  <div class="login-wrap">
+
+    <div class="login-logo">N</div>
+
+    <h1 class="login-title">
+      Welcome to NOVA
+    </h1>
+
+    <p class="login-sub">
+      Your money, beautifully simple.
+    </p>
+
+    <div class="login-box">
+
+      <div class="pin-title">
+        Enter your 4-digit PIN
+      </div>
+
+      <div class="pin-sub">
+        Unlock your NOVA account
+      </div>
+
+      <div class="pin-dots" id="loginDots">
+
+        <i class="pin-dot"></i>
+        <i class="pin-dot"></i>
+        <i class="pin-dot"></i>
+        <i class="pin-dot"></i>
+
+      </div>
+
+      <div
+        class="pin-error"
+        id="loginError"
+      ></div>
+
+      <div class="pin-pad">
+
+        <button class="pin-key" data-login-key="1">1</button>
+        <button class="pin-key" data-login-key="2">2</button>
+        <button class="pin-key" data-login-key="3">3</button>
+
+        <button class="pin-key" data-login-key="4">4</button>
+        <button class="pin-key" data-login-key="5">5</button>
+        <button class="pin-key" data-login-key="6">6</button>
+
+        <button class="pin-key" data-login-key="7">7</button>
+        <button class="pin-key" data-login-key="8">8</button>
+        <button class="pin-key" data-login-key="9">9</button>
+
+        <button
+          class="pin-key special"
+          data-login-key="clear"
+        >
+          C
+        </button>
+
+        <button class="pin-key" data-login-key="0">
+          0
+        </button>
+
+        <button
+          class="pin-key special"
+          data-login-key="back"
+        >
+          ⌫
+        </button>
+
+      </div>
+
+      <button
+        class="forgot"
+        id="forgotPin"
+      >
+        Forgot PIN?
+      </button>
+
+    </div>
+
+    <div class="demo-note">
+      NOVA v22 • Fictional prototype • Demo PIN: 2580
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="app" id="mainApp">
 
 <!-- HOME -->
+
 <section class="screen active" id="home">
 
   <div class="topbar">
+
     <div class="brand">
+
       <div class="logo">N</div>
-      <div class="brand-name">NOVA</div>
+
+      <div class="brand-name">
+        NOVA
+      </div>
+
     </div>
 
-    <button class="icon-btn" data-action="notifications" aria-label="Notifications">
+    <button
+      class="icon-btn"
+      data-action="notifications"
+      aria-label="Notifications"
+    >
+
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>
       </svg>
-      <i class="badge" id="notificationBadge"></i>
+
     </button>
+
   </div>
+
 
   <div class="balance-card">
 
     <div class="balance-top">
+
       <span>Total balance</span>
 
-      <button class="eye-btn" data-action="toggle-balance" aria-label="Toggle balance visibility">
-        <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-          <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/>
-          <circle cx="12" cy="12" r="2.5"/>
-        </svg>
+      <button
+        class="eye-btn"
+        data-action="toggle-balance"
+      >
+        ◉
       </button>
+
     </div>
 
-    <div class="balance-amount" id="balanceAmount">$24,860.40</div>
+    <div
+      class="balance-amount"
+      id="balanceAmount"
+    >
+      $24,860.40
+    </div>
 
     <div class="balance-change">
-      <span class="change-pill">+8.4%</span>
-      <span>this month</span>
+
+      <span class="change-pill">
+        +8.4%
+      </span>
+
+      <span>
+        this month
+      </span>
+
     </div>
 
     <div class="balance-bottom">
+
       <div class="account">
+
         Personal account
-        <strong>•••• 2846</strong>
+
+        <strong>
+          •••• 2846
+        </strong>
+
       </div>
+
       <div class="card-chip"></div>
+
     </div>
 
   </div>
 
+
   <div class="quick-actions">
 
-    <button class="quick" data-action="send">
+    <button
+      class="quick"
+      data-action="send"
+    >
       <div class="quick-icon">↑</div>
       <span>Send</span>
     </button>
 
-    <button class="quick" data-action="request">
+    <button
+      class="quick"
+      data-action="request"
+    >
       <div class="quick-icon">↓</div>
       <span>Request</span>
     </button>
 
-    <button class="quick" data-action="qr">
+    <button
+      class="quick"
+      data-action="qr"
+    >
       <div class="quick-icon">⌗</div>
       <span>QR Pay</span>
     </button>
 
-    <button class="quick" data-action="add">
+    <button
+      class="quick"
+      data-action="add"
+    >
       <div class="quick-icon">+</div>
       <span>Add</span>
     </button>
 
   </div>
 
+
   <div class="section-head">
     <h2>Send again</h2>
-    <button data-action="people">See all</button>
+    <button data-action="people">
+      See all
+    </button>
   </div>
 
-  <div class="people" id="people"></div>
+  <div
+    class="people"
+    id="people"
+  ></div>
+
 
   <div class="section-head">
     <h2>NOVA Insight</h2>
   </div>
 
   <div class="insight">
-    <div class="insight-icon">✦</div>
-    <div>
-      <h3 id="insightTitle">You're spending smoothly</h3>
-      <p id="insightText">
-        Your recent activity looks balanced. Keep an eye on recurring expenses this week.
-      </p>
+
+    <div class="insight-icon">
+      ✦
     </div>
+
+    <div>
+
+      <h3 id="insightTitle">
+        You're spending smoothly
+      </h3>
+
+      <p id="insightText">
+        Your recent activity looks balanced.
+        Keep an eye on recurring expenses this week.
+      </p>
+
+    </div>
+
   </div>
+
 
   <div class="section-head">
     <h2>Money Pulse</h2>
@@ -1497,17 +1700,37 @@ body.dark .search input::placeholder{
   <div class="analytics">
 
     <div class="analytics-top">
-      <strong id="pulseAmount">$3,240</strong>
+
+      <strong id="pulseAmount">
+        $3,240
+      </strong>
 
       <div class="period">
-        <button data-period="week" class="active">Week</button>
-        <button data-period="month">Month</button>
+
+        <button
+          data-period="week"
+          class="active"
+        >
+          Week
+        </button>
+
+        <button
+          data-period="month"
+        >
+          Month
+        </button>
+
       </div>
+
     </div>
 
-    <div class="chart" id="chart"></div>
+    <div
+      class="chart"
+      id="chart"
+    ></div>
 
     <div class="chart-labels">
+
       <span>Mon</span>
       <span>Tue</span>
       <span>Wed</span>
@@ -1515,124 +1738,247 @@ body.dark .search input::placeholder{
       <span>Fri</span>
       <span>Sat</span>
       <span>Sun</span>
+
     </div>
 
   </div>
 
+
   <div class="section-head">
+
     <h2>Recent activity</h2>
-    <button data-screen="activity">See all</button>
+
+    <button data-screen="activity">
+      See all
+    </button>
+
   </div>
 
-  <div class="transactions" id="homeTransactions"></div>
+  <div
+    class="transactions"
+    id="homeTransactions"
+  ></div>
 
 </section>
 
 
 <!-- ACTIVITY -->
-<section class="screen" id="activity">
+
+<section
+  class="screen"
+  id="activity"
+>
 
   <div class="topbar">
+
     <div>
-      <div class="page-kicker">Your money</div>
-      <h1 class="page-title">Activity</h1>
+
+      <div class="page-kicker">
+        Your money
+      </div>
+
+      <h1 class="page-title">
+        Activity
+      </h1>
+
     </div>
 
-    <button class="icon-btn" data-action="add">+</button>
+    <button
+      class="icon-btn"
+      data-action="add"
+    >
+      +
+    </button>
+
   </div>
+
 
   <div class="search">
 
     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-      <circle cx="11" cy="11" r="7"></circle>
-      <path d="m20 20-4-4"></path>
+      <circle cx="11" cy="11" r="7"/>
+      <path d="m20 20-4-4"/>
     </svg>
 
-    <input id="activitySearch" placeholder="Search transactions...">
+    <input
+      id="activitySearch"
+      placeholder="Search transactions..."
+    >
 
   </div>
+
 
   <div class="filters">
-    <button class="filter active" data-filter="all">All</button>
-    <button class="filter" data-filter="payments">Payments</button>
-    <button class="filter" data-filter="income">Income</button>
-    <button class="filter" data-filter="spaces">Spaces</button>
+
+    <button
+      class="filter active"
+      data-filter="all"
+    >
+      All
+    </button>
+
+    <button
+      class="filter"
+      data-filter="payments"
+    >
+      Payments
+    </button>
+
+    <button
+      class="filter"
+      data-filter="income"
+    >
+      Income
+    </button>
+
+    <button
+      class="filter"
+      data-filter="spaces"
+    >
+      Spaces
+    </button>
+
   </div>
 
-  <div class="transactions" id="activityTransactions"></div>
+
+  <div
+    class="transactions"
+    id="activityTransactions"
+  ></div>
 
 </section>
 
 
 <!-- CARDS -->
-<section class="screen" id="cards">
+
+<section
+  class="screen"
+  id="cards"
+>
 
   <div class="topbar">
+
     <div>
-      <div class="page-kicker">NOVA Wallet</div>
-      <h1 class="page-title">Your cards</h1>
+
+      <div class="page-kicker">
+        NOVA Wallet
+      </div>
+
+      <h1 class="page-title">
+        Your cards
+      </h1>
+
     </div>
 
-    <button class="icon-btn" data-action="add-card">+</button>
+    <button
+      class="icon-btn"
+      data-action="add-card"
+    >
+      +
+    </button>
+
   </div>
 
-  <div class="card-scroller" id="cardScroller"></div>
 
-  <div class="card-dots" id="cardDots"></div>
+  <div
+    class="card-scroller"
+    id="cardScroller"
+  ></div>
+
+  <div
+    class="card-dots"
+    id="cardDots"
+  ></div>
+
 
   <div class="card-tools">
 
-    <button class="tool" data-action="freeze">
-      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-        <path d="M12 2v20M4.9 5.5l14.2 13M19.1 5.5 4.9 18.5M2 12h20"/>
-      </svg>
+    <button
+      class="tool"
+      data-action="freeze"
+    >
+      ❄
+      <br>
       Freeze
     </button>
 
-    <button class="tool" data-action="limit">
-      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-        <path d="M4 19V5M20 19V5M8 19V9M16 19V7"/>
-      </svg>
+    <button
+      class="tool"
+      data-action="limit"
+    >
+      ↕
+      <br>
       Limit
     </button>
 
-    <button class="tool" data-action="details">
-      <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="9"/>
-        <path d="M12 10v6M12 7h.01"/>
-      </svg>
+    <button
+      class="tool"
+      data-action="details"
+    >
+      ⓘ
+      <br>
       Details
     </button>
 
   </div>
+
 
   <div class="section-head">
     <h2>Card security</h2>
   </div>
 
   <div class="insight">
-    <div class="insight-icon">✓</div>
-    <div>
-      <h3>Protected by NOVA</h3>
-      <p>
-        Freeze cards, adjust spending limits and view card details whenever you need them.
-      </p>
+
+    <div class="insight-icon">
+      ✓
     </div>
+
+    <div>
+
+      <h3>
+        Protected by NOVA
+      </h3>
+
+      <p>
+        Freeze cards, adjust spending limits
+        and view card details whenever you need them.
+      </p>
+
+    </div>
+
   </div>
 
 </section>
 
 
 <!-- SPACES -->
-<section class="screen" id="spaces">
+
+<section
+  class="screen"
+  id="spaces"
+>
 
   <div class="topbar">
+
     <div>
-      <div class="page-kicker">Organize your money</div>
-      <h1 class="page-title">Spaces</h1>
+
+      <div class="page-kicker">
+        Organize your money
+      </div>
+
+      <h1 class="page-title">
+        Spaces
+      </h1>
+
     </div>
 
-    <button class="icon-btn" data-action="create-space">+</button>
+    <button
+      class="icon-btn"
+      data-action="create-space"
+    >
+      +
+    </button>
+
   </div>
 
   <div id="spacesList"></div>
@@ -1641,58 +1987,121 @@ body.dark .search input::placeholder{
 
 
 <!-- PROFILE -->
-<section class="screen" id="profile">
+
+<section
+  class="screen"
+  id="profile"
+>
 
   <div class="topbar">
+
     <div>
-      <div class="page-kicker">NOVA account</div>
-      <h1 class="page-title">Profile</h1>
+
+      <div class="page-kicker">
+        NOVA account
+      </div>
+
+      <h1 class="page-title">
+        Profile
+      </h1>
+
     </div>
+
   </div>
 
+
   <div class="profile-card">
+
     <div class="profile-main">
 
-      <div class="profile-avatar" id="profileAvatar">N</div>
+      <div
+        class="profile-avatar"
+        id="profileAvatar"
+      >
+        N
+      </div>
 
       <div>
-        <strong id="profileName">NOVA Member</strong>
-        <span>Personal account •••• 2846</span>
+
+        <strong id="profileName">
+          NOVA Member
+        </strong>
+
+        <span>
+          Personal account •••• 2846
+        </span>
+
       </div>
 
     </div>
+
   </div>
+
 
   <div class="menu-list">
 
-    <button class="menu-row" data-action="edit-profile">
+    <button
+      class="menu-row"
+      data-action="edit-profile"
+    >
       <span>Profile details</span>
       <small>›</small>
     </button>
 
-    <button class="menu-row" data-action="security">
+    <button
+      class="menu-row"
+      data-action="change-pin"
+    >
+      <span>Change PIN</span>
+      <small>••••</small>
+    </button>
+
+    <button
+      class="menu-row"
+      data-action="security"
+    >
       <span>Security</span>
       <small>Protected</small>
     </button>
 
-    <button class="menu-row" data-action="appearance">
+    <button
+      class="menu-row"
+      data-action="appearance"
+    >
       <span>Appearance</span>
       <small id="appearanceLabel">Light</small>
     </button>
 
-    <button class="menu-row" data-action="notifications">
+    <button
+      class="menu-row"
+      data-action="notifications"
+    >
       <span>Notifications</span>
       <small>Manage</small>
     </button>
 
-    <button class="menu-row" data-action="help">
+    <button
+      class="menu-row"
+      data-action="help"
+    >
       <span>Help & support</span>
       <small>›</small>
     </button>
 
-    <button class="menu-row" data-action="about">
+    <button
+      class="menu-row"
+      data-action="about"
+    >
       <span>About NOVA</span>
-      <small>v21.0</small>
+      <small>v22.0</small>
+    </button>
+
+    <button
+      class="menu-row"
+      data-action="lock"
+    >
+      <span>Lock NOVA</span>
+      <small>🔒</small>
     </button>
 
   </div>
@@ -1702,10 +2111,14 @@ body.dark .search input::placeholder{
 </div>
 
 
-<!-- NAV -->
+<!-- BOTTOM NAV -->
+
 <nav class="bottom-nav">
 
-  <button class="nav-btn active" data-screen="home">
+  <button
+    class="nav-btn active"
+    data-screen="home"
+  >
     <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
       <path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"/>
       <path d="M9 21v-7h6v7"/>
@@ -1713,14 +2126,20 @@ body.dark .search input::placeholder{
     Home
   </button>
 
-  <button class="nav-btn" data-screen="activity">
+  <button
+    class="nav-btn"
+    data-screen="activity"
+  >
     <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
       <path d="M4 5h16M4 12h16M4 19h10"/>
     </svg>
     Activity
   </button>
 
-  <button class="nav-btn" data-screen="cards">
+  <button
+    class="nav-btn"
+    data-screen="cards"
+  >
     <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
       <rect x="3" y="5" width="18" height="14" rx="2"/>
       <path d="M3 10h18"/>
@@ -1728,14 +2147,20 @@ body.dark .search input::placeholder{
     Cards
   </button>
 
-  <button class="nav-btn" data-screen="spaces">
+  <button
+    class="nav-btn"
+    data-screen="spaces"
+  >
     <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
       <path d="M5 7h14v12H5zM8 4h8v3H8z"/>
     </svg>
     Spaces
   </button>
 
-  <button class="nav-btn" data-screen="profile">
+  <button
+    class="nav-btn"
+    data-screen="profile"
+  >
     <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
       <circle cx="12" cy="8" r="3"/>
       <path d="M5 21a7 7 0 0 1 14 0"/>
@@ -1747,9 +2172,16 @@ body.dark .search input::placeholder{
 
 
 <!-- MODAL -->
-<div class="modal" id="modal">
 
-  <div class="sheet" id="sheet">
+<div
+  class="modal"
+  id="modal"
+>
+
+  <div
+    class="sheet"
+    id="sheet"
+  >
 
     <div class="handle"></div>
 
@@ -1759,12 +2191,23 @@ body.dark .search input::placeholder{
 
 </div>
 
-<div class="toast" id="toast"></div>
+
+<div
+  class="toast"
+  id="toast"
+></div>
 
 
 <script>
 
-const KEY="nova-v21-state";
+/* =========================
+   NOVA v22 STATE
+========================= */
+
+const KEY="nova-v22-state";
+const OLD_KEY="nova-v21-state";
+
+const DEFAULT_PIN="2580";
 
 const defaults={
 
@@ -1785,6 +2228,12 @@ const defaults={
   flipped:false,
 
   chartPeriod:"week",
+
+  pin:DEFAULT_PIN,
+
+  failedAttempts:0,
+
+  lockUntil:0,
 
   contacts:[
     {
@@ -1929,26 +2378,54 @@ const defaults={
 };
 
 
-function cloneDefaults(){
-  return JSON.parse(JSON.stringify(defaults));
+/* =========================
+   STATE
+========================= */
+
+function clone(obj){
+  return JSON.parse(JSON.stringify(obj));
 }
 
-
-function load(){
+function loadState(){
 
   try{
 
-    const saved=JSON.parse(localStorage.getItem(KEY));
+    let saved=
+      JSON.parse(
+        localStorage.getItem(KEY)
+      );
+
+    /* Migrate v21 automatically */
 
     if(!saved){
-      return cloneDefaults();
+
+      const old=
+        JSON.parse(
+          localStorage.getItem(OLD_KEY)
+        );
+
+      if(old){
+
+        saved=old;
+
+      }
+
     }
 
-    const base=cloneDefaults();
+    if(!saved){
+
+      return clone(defaults);
+
+    }
+
+    const base=clone(defaults);
 
     return {
       ...base,
       ...saved,
+      pin:saved.pin||DEFAULT_PIN,
+      failedAttempts:Number(saved.failedAttempts||0),
+      lockUntil:Number(saved.lockUntil||0),
       contacts:saved.contacts||base.contacts,
       cards:saved.cards||base.cards,
       transactions:saved.transactions||base.transactions,
@@ -1958,27 +2435,469 @@ function load(){
 
   }catch{
 
-    return cloneDefaults();
+    return clone(defaults);
+
+  }
+
+}
+
+let state=loadState();
+
+
+function save(){
+
+  localStorage.setItem(
+    KEY,
+    JSON.stringify(state)
+  );
+
+}
+
+
+/* =========================
+   AUTH STATE
+========================= */
+
+let loginPIN="";
+
+let confirmPIN="";
+
+let pendingTransfer=null;
+
+let pinMode="login";
+
+
+function isLocked(){
+
+  return Date.now()<state.lockUntil;
+
+}
+
+
+function remainingLock(){
+
+  return Math.ceil(
+    (state.lockUntil-Date.now())/1000
+  );
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function updateLoginDots(){
+
+  document
+    .querySelectorAll("#loginDots .pin-dot")
+    .forEach((dot,i)=>{
+
+      dot.classList.toggle(
+        "filled",
+        i<loginPIN.length
+      );
+
+    });
+
+}
+
+
+function loginKey(key){
+
+  if(isLocked()){
+
+    showLoginError(
+      `Try again in ${remainingLock()}s`
+    );
+
+    return;
+
+  }
+
+
+  if(key==="clear"){
+
+    loginPIN="";
+
+  }
+
+  else if(key==="back"){
+
+    loginPIN=
+      loginPIN.slice(0,-1);
+
+  }
+
+  else{
+
+    if(loginPIN.length>=4){
+      return;
+    }
+
+    loginPIN+=key;
+
+  }
+
+
+  updateLoginDots();
+
+  document.getElementById(
+    "loginError"
+  ).textContent="";
+
+
+  if(loginPIN.length===4){
+
+    setTimeout(
+      checkLoginPIN,
+      120
+    );
 
   }
 
 }
 
 
-let state=load();
+function showLoginError(text){
 
+  const error=
+    document.getElementById(
+      "loginError"
+    );
 
-function save(){
-  localStorage.setItem(KEY,JSON.stringify(state));
+  error.textContent=text;
+
 }
 
 
+function checkLoginPIN(){
+
+  if(loginPIN===state.pin){
+
+    state.failedAttempts=0;
+
+    save();
+
+    document
+      .getElementById("loginScreen")
+      .classList.add("hidden");
+
+    loginPIN="";
+
+    updateLoginDots();
+
+    showScreen("home");
+
+    return;
+
+  }
+
+
+  state.failedAttempts++;
+
+  loginPIN="";
+
+  updateLoginDots();
+
+
+  if(state.failedAttempts>=3){
+
+    state.lockUntil=
+      Date.now()+30000;
+
+    state.failedAttempts=0;
+
+    save();
+
+    showLoginError(
+      "Too many attempts. Locked for 30 seconds."
+    );
+
+    startLockTimer();
+
+    return;
+
+  }
+
+
+  const left=
+    3-state.failedAttempts;
+
+  showLoginError(
+    `Incorrect PIN. ${left} attempt${left===1?"":"s"} remaining.`
+  );
+
+}
+
+
+function startLockTimer(){
+
+  clearInterval(
+    window.lockTimer
+  );
+
+  window.lockTimer=
+    setInterval(()=>{
+
+      if(!isLocked()){
+
+        clearInterval(
+          window.lockTimer
+        );
+
+        showLoginError("");
+
+        return;
+
+      }
+
+      showLoginError(
+        `Too many attempts. Try again in ${remainingLock()}s.`
+      );
+
+    },500);
+
+}
+
+
+function lockNOVA(){
+
+  document
+    .getElementById("loginScreen")
+    .classList.remove("hidden");
+
+  loginPIN="";
+
+  updateLoginDots();
+
+  showLoginError(
+    "NOVA is locked."
+  );
+
+}
+
+
+/* =========================
+   RESET PIN
+========================= */
+
+function forgotPIN(){
+
+  openModal(`
+
+    <div class="sheet-head">
+
+      <h3>Reset demo PIN</h3>
+
+      <button
+        class="close"
+        onclick="closeModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div class="insight">
+
+      <div class="insight-icon">
+        ?
+      </div>
+
+      <div>
+
+        <h3>
+          Demo recovery
+        </h3>
+
+        <p>
+          This is a fictional NOVA prototype.
+          You can reset the demo PIN without
+          connecting to a real banking service.
+        </p>
+
+      </div>
+
+    </div>
+
+    <button
+      class="primary purple"
+      onclick="resetPIN()"
+    >
+      Reset to 2580
+    </button>
+
+  `);
+
+}
+
+
+function resetPIN(){
+
+  state.pin=DEFAULT_PIN;
+  state.failedAttempts=0;
+  state.lockUntil=0;
+
+  save();
+
+  closeModal();
+
+  loginPIN="";
+
+  updateLoginDots();
+
+  showLoginError(
+    "Demo PIN reset. Enter 2580."
+  );
+
+}
+
+
+/* =========================
+   CHANGE PIN
+========================= */
+
+function openChangePIN(){
+
+  openModal(`
+
+    <div class="sheet-head">
+
+      <h3>Change PIN</h3>
+
+      <button
+        class="close"
+        onclick="closeModal()"
+      >
+        ×
+      </button>
+
+    </div>
+
+    <div class="field">
+
+      <label>CURRENT PIN</label>
+
+      <input
+        id="currentPIN"
+        type="password"
+        inputmode="numeric"
+        maxlength="4"
+        placeholder="••••"
+      >
+
+    </div>
+
+    <div class="field">
+
+      <label>NEW PIN</label>
+
+      <input
+        id="newPIN"
+        type="password"
+        inputmode="numeric"
+        maxlength="4"
+        placeholder="4 digits"
+      >
+
+    </div>
+
+    <div class="field">
+
+      <label>CONFIRM NEW PIN</label>
+
+      <input
+        id="confirmNewPIN"
+        type="password"
+        inputmode="numeric"
+        maxlength="4"
+        placeholder="4 digits"
+      >
+
+    </div>
+
+    <button
+      class="primary purple"
+      onclick="saveNewPIN()"
+    >
+      Update PIN
+    </button>
+
+  `);
+
+}
+
+
+function saveNewPIN(){
+
+  const current=
+    document.getElementById(
+      "currentPIN"
+    ).value;
+
+  const next=
+    document.getElementById(
+      "newPIN"
+    ).value;
+
+  const confirm=
+    document.getElementById(
+      "confirmNewPIN"
+    ).value;
+
+
+  if(current!==state.pin){
+
+    toast("Current PIN is incorrect");
+
+    return;
+
+  }
+
+
+  if(!/^\d{4}$/.test(next)){
+
+    toast("New PIN must be 4 digits");
+
+    return;
+
+  }
+
+
+  if(next!==confirm){
+
+    toast("PINs do not match");
+
+    return;
+
+  }
+
+
+  state.pin=next;
+
+  save();
+
+  closeModal();
+
+  toast("PIN updated successfully");
+
+}
+
+
+/* =========================
+   GENERIC HELPERS
+========================= */
+
 function money(n){
 
-  return new Intl.NumberFormat("en-US",{
-    style:"currency",
-    currency:"USD"
-  }).format(n);
+  return new Intl.NumberFormat(
+    "en-US",
+    {
+      style:"currency",
+      currency:"USD"
+    }
+  ).format(n);
 
 }
 
@@ -1997,26 +2916,36 @@ function initials(name){
 
 function toast(text){
 
-  const el=document.getElementById("toast");
+  const el=
+    document.getElementById("toast");
 
   el.textContent=text;
 
   el.classList.add("show");
 
-  clearTimeout(window.toastTimer);
+  clearTimeout(
+    window.toastTimer
+  );
 
-  window.toastTimer=setTimeout(()=>{
-    el.classList.remove("show");
-  },2300);
+  window.toastTimer=
+    setTimeout(()=>{
+
+      el.classList.remove("show");
+
+    },2300);
 
 }
 
 
 function openModal(html){
 
-  document.getElementById("modalContent").innerHTML=html;
+  document.getElementById(
+    "modalContent"
+  ).innerHTML=html;
 
-  document.getElementById("modal").classList.add("open");
+  document
+    .getElementById("modal")
+    .classList.add("open");
 
   document.body.style.overflow="hidden";
 
@@ -2025,76 +2954,63 @@ function openModal(html){
 
 function closeModal(){
 
-  document.getElementById("modal").classList.remove("open");
+  document
+    .getElementById("modal")
+    .classList.remove("open");
 
   document.body.style.overflow="";
 
 }
 
 
+/* =========================
+   NAV
+========================= */
+
 function showScreen(name){
 
-  document.querySelectorAll(".screen").forEach(screen=>{
-    screen.classList.toggle("active",screen.id===name);
-  });
+  document
+    .querySelectorAll(".screen")
+    .forEach(screen=>{
 
-  document.querySelectorAll(".nav-btn").forEach(button=>{
-    button.classList.toggle(
-      "active",
-      button.dataset.screen===name
-    );
-  });
+      screen.classList.toggle(
+        "active",
+        screen.id===name
+      );
+
+    });
+
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(button=>{
+
+      button.classList.toggle(
+        "active",
+        button.dataset.screen===name
+      );
+
+    });
+
 
   window.scrollTo({
     top:0,
     behavior:"smooth"
   });
 
-  if(name==="activity"){
-
-    requestAnimationFrame(()=>{
-
-      const input=document.getElementById("activitySearch");
-
-      if(input){
-        input.value=state.search;
-      }
-
-    });
-
-  }
-
 }
 
 
-/* RENDER PEOPLE */
-
-function renderPeople(){
-
-  document.getElementById("people").innerHTML=
-    state.contacts.map(c=>`
-
-      <button class="person" data-contact="${c.name}">
-
-        <div
-          class="avatar"
-          style="background:${c.tone}"
-        >${c.initials}</div>
-
-        <span>${c.name}</span>
-
-      </button>
-
-    `).join("");
-
-}
-
-
-/* BALANCE */
+/* =========================
+   RENDER
+========================= */
 
 function renderBalance(){
 
-  const amount=document.getElementById("balanceAmount");
+  const amount=
+    document.getElementById(
+      "balanceAmount"
+    );
 
   amount.textContent=
     state.balanceVisible
@@ -2109,28 +3025,71 @@ function renderBalance(){
 }
 
 
-/* INSIGHT */
+function renderPeople(){
+
+  document.getElementById(
+    "people"
+  ).innerHTML=
+
+    state.contacts.map(c=>`
+
+      <button
+        class="person"
+        data-contact="${c.name}"
+      >
+
+        <div
+          class="avatar"
+          style="background:${c.tone}"
+        >
+          ${c.initials}
+        </div>
+
+        <span>
+          ${c.name}
+        </span>
+
+      </button>
+
+    `).join("");
+
+}
+
 
 function renderInsight(){
 
-  const outgoing=state.transactions
-    .filter(t=>t.amount<0)
-    .reduce((total,t)=>total+Math.abs(t.amount),0);
+  const outgoing=
+    state.transactions
+      .filter(t=>t.amount<0)
+      .reduce(
+        (total,t)=>
+          total+Math.abs(t.amount),
+        0
+      );
+
 
   if(outgoing>5000){
 
-    document.getElementById("insightTitle").textContent=
+    document.getElementById(
+      "insightTitle"
+    ).textContent=
       "Spending is picking up";
 
-    document.getElementById("insightText").textContent=
+    document.getElementById(
+      "insightText"
+    ).textContent=
       "Your recent outflow is higher than usual. A quick look through Activity may help.";
 
   }else{
 
-    document.getElementById("insightTitle").textContent=
+    document.getElementById(
+      "insightTitle"
+    ).textContent=
       "You're spending smoothly";
 
-    document.getElementById("insightText").textContent=
+    document.getElementById(
+      "insightText"
+    ).textContent=
       "Your recent activity looks balanced. Keep an eye on recurring expenses this week.";
 
   }
@@ -2138,62 +3097,61 @@ function renderInsight(){
 }
 
 
-/* CHART */
-
-function chartData(){
-
-  if(state.chartPeriod==="month"){
-
-    return [38,55,44,72,63,81,67];
-
-  }
-
-  return [38,61,48,76,58,86,69];
-
-}
-
-
 function renderChart(){
 
-  const data=chartData();
+  const data=
+    state.chartPeriod==="month"
+      ? [38,55,44,72,63,81,67]
+      : [38,61,48,76,58,86,69];
 
   const max=Math.max(...data);
 
-  document.getElementById("chart").innerHTML=
+
+  document.getElementById(
+    "chart"
+  ).innerHTML=
+
     data.map(value=>`
 
       <div class="bar-wrap">
 
         <div
           class="bar"
-          style="height:${Math.max(
-            10,
-            (value/max)*100
-          )}%"
+          style="
+            height:${Math.max(
+              10,
+              value/max*100
+            )}%
+          "
         ></div>
 
       </div>
 
     `).join("");
 
-  document.querySelectorAll("[data-period]").forEach(button=>{
 
-    button.classList.toggle(
-      "active",
-      button.dataset.period===state.chartPeriod
-    );
+  document
+    .querySelectorAll("[data-period]")
+    .forEach(button=>{
 
-  });
+      button.classList.toggle(
+        "active",
+        button.dataset.period===
+          state.chartPeriod
+      );
 
-  document.getElementById("pulseAmount").textContent=
+    });
+
+
+  document.getElementById(
+    "pulseAmount"
+  ).textContent=
     state.chartPeriod==="week"
       ? "$3,240"
       : "$12,840";
 
 }
 
-
-/* TRANSACTIONS */
 
 function transactionHTML(t,index){
 
@@ -2206,11 +3164,15 @@ function transactionHTML(t,index){
       data-tx="${index}"
     >
 
-      <div class="tx-icon">${t.icon}</div>
+      <div class="tx-icon">
+        ${t.icon}
+      </div>
 
       <div class="tx-main">
 
-        <strong>${t.name}</strong>
+        <strong>
+          ${t.name}
+        </strong>
 
         <span>
           ${t.category} · ${t.date}
@@ -2218,7 +3180,9 @@ function transactionHTML(t,index){
 
       </div>
 
-      <div class="tx-amount ${positive?"in":""}">
+      <div
+        class="tx-amount ${positive?"in":""}"
+      >
         ${positive?"+":""}${money(t.amount)}
       </div>
 
@@ -2231,7 +3195,11 @@ function transactionHTML(t,index){
 
 function filteredTransactions(){
 
-  const q=state.search.trim().toLowerCase();
+  const q=
+    state.search
+      .trim()
+      .toLowerCase();
+
 
   return state.transactions
     .map((t,index)=>({t,index}))
@@ -2258,64 +3226,89 @@ function filteredTransactions(){
 
 function renderTransactions(){
 
-  const filtered=filteredTransactions();
+  const filtered=
+    filteredTransactions();
 
-  const html=filtered.length
-
-    ? filtered
-        .map(item=>transactionHTML(item.t,item.index))
-        .join("")
-
-    : `
-
-      <div class="empty">
-
-        <div class="empty-icon">⌕</div>
-
-        <strong>No activity found</strong>
-
-        <p>
-          Try another search or filter.
-        </p>
-
-      </div>
-
-    `;
 
   document.getElementById(
     "activityTransactions"
-  ).innerHTML=html;
+  ).innerHTML=
+
+    filtered.length
+
+      ?
+
+      filtered
+        .map(
+          item=>
+            transactionHTML(
+              item.t,
+              item.index
+            )
+        )
+        .join("")
+
+      :
+
+      `
+
+        <div class="empty">
+
+          <div class="empty-icon">
+            ⌕
+          </div>
+
+          <strong>
+            No activity found
+          </strong>
+
+          <p>
+            Try another search or filter.
+          </p>
+
+        </div>
+
+      `;
+
 
   document.getElementById(
     "homeTransactions"
   ).innerHTML=
+
     state.transactions
       .slice(0,4)
-      .map((t,index)=>transactionHTML(t,index))
+      .map(
+        (t,index)=>
+          transactionHTML(t,index)
+      )
       .join("");
 
-  document.querySelectorAll("[data-filter]").forEach(button=>{
 
-    button.classList.toggle(
-      "active",
-      button.dataset.filter===state.filter
-    );
+  document
+    .querySelectorAll("[data-filter]")
+    .forEach(button=>{
 
-  });
+      button.classList.toggle(
+        "active",
+        button.dataset.filter===
+          state.filter
+      );
+
+    });
 
 }
 
 
-/* CARDS */
-
 function renderCards(){
 
   const scroller=
-    document.getElementById("cardScroller");
+    document.getElementById(
+      "cardScroller"
+    );
 
-  const previousScroll=scroller.scrollLeft;
 
   scroller.innerHTML=
+
     state.cards.map((c,i)=>`
 
       <div class="card-item">
@@ -2326,12 +3319,15 @@ function renderCards(){
         >
 
           <div
-            class="card-inner ${
-              state.flipped &&
-              i===state.selectedCard
-                ? "flipped"
-                : ""
-            }"
+            class="
+              card-inner
+              ${
+                state.flipped &&
+                i===state.selectedCard
+                  ? "flipped"
+                  : ""
+              }
+            "
           >
 
             <div class="card-face">
@@ -2347,7 +3343,8 @@ function renderCards(){
               </div>
 
               <div class="card-number">
-                ${c.number.replace(/\d(?=\d{4})/g,"•")}
+                ${c.number
+                  .replace(/\d(?=\d{4})/g,"•")}
               </div>
 
               <div class="card-meta">
@@ -2364,7 +3361,9 @@ function renderCards(){
 
                 <div>
                   <small>STATUS</small>
-                  <span>${c.frozen?"FROZEN":"ACTIVE"}</span>
+                  <span>
+                    ${c.frozen?"FROZEN":"ACTIVE"}
+                  </span>
                 </div>
 
               </div>
@@ -2395,51 +3394,37 @@ function renderCards(){
     `).join("");
 
 
-  document.getElementById("cardDots").innerHTML=
+  document.getElementById(
+    "cardDots"
+  ).innerHTML=
+
     state.cards.map((_,i)=>`
 
       <i
-        class="dot ${i===state.selectedCard?"active":""}"
+        class="dot ${
+          i===state.selectedCard
+            ? "active"
+            : ""
+        }"
       ></i>
 
     `).join("");
 
-
-  requestAnimationFrame(()=>{
-
-    if(previousScroll>0){
-
-      scroller.scrollLeft=previousScroll;
-
-    }else{
-
-      const cards=scroller.querySelectorAll(".card-item");
-
-      if(cards[state.selectedCard]){
-
-        scroller.scrollLeft=
-          cards[state.selectedCard].offsetLeft;
-
-      }
-
-    }
-
-  });
-
 }
 
 
-/* SPACES */
-
 function renderSpaces(){
 
-  document.getElementById("spacesList").innerHTML=
+  document.getElementById(
+    "spacesList"
+  ).innerHTML=
+
     state.spaces.map((s,i)=>{
 
       const percent=
         Math.min(
           100,
-          (s.current/s.target)*100
+          s.current/s.target*100
         );
 
       return `
@@ -2455,11 +3440,15 @@ function renderSpaces(){
               </div>
 
               <div>
-                <strong>${s.name}</strong>
+
+                <strong>
+                  ${s.name}
+                </strong>
 
                 <span>
                   ${percent.toFixed(0)}% of goal
                 </span>
+
               </div>
 
             </div>
@@ -2471,12 +3460,21 @@ function renderSpaces(){
           </div>
 
           <div class="progress">
-            <i style="width:${percent}%"></i>
+            <i
+              style="width:${percent}%"
+            ></i>
           </div>
 
           <div class="space-foot">
-            <span>${money(s.current)} saved</span>
-            <span>${money(s.target)} goal</span>
+
+            <span>
+              ${money(s.current)} saved
+            </span>
+
+            <span>
+              ${money(s.target)} goal
+            </span>
+
           </div>
 
           <div
@@ -2515,12 +3513,10 @@ function renderSpaces(){
 }
 
 
-/* PROFILE */
-
 function renderProfile(){
 
   const name=
-    state.profileName ||
+    state.profileName||
     "NOVA Member";
 
   document.getElementById(
@@ -2529,7 +3525,8 @@ function renderProfile(){
 
   document.getElementById(
     "profileAvatar"
-  ).textContent=initials(name);
+  ).textContent=
+    initials(name);
 
   document.getElementById(
     "appearanceLabel"
@@ -2540,27 +3537,6 @@ function renderProfile(){
 
 }
 
-
-/* BADGE */
-
-function renderBadge(){
-
-  const unread=
-    state.notifications.filter(
-      n=>!n.read
-    ).length;
-
-  document.getElementById(
-    "notificationBadge"
-  ).style.display=
-    unread
-      ? "block"
-      : "none";
-
-}
-
-
-/* FULL RENDER */
 
 function render(){
 
@@ -2577,448 +3553,15 @@ function render(){
   renderCards();
   renderSpaces();
   renderProfile();
-  renderBadge();
 
   save();
 
 }
 
 
-/* NAVIGATION */
-
-document.addEventListener("click",e=>{
-
-  const screenButton=
-    e.target.closest("[data-screen]");
-
-  if(screenButton){
-
-    showScreen(
-      screenButton.dataset.screen
-    );
-
-    return;
-
-  }
-
-
-  const actionButton=
-    e.target.closest("[data-action]");
-
-  if(actionButton){
-
-    handleAction(
-      actionButton.dataset.action
-    );
-
-    return;
-
-  }
-
-
-  const filter=
-    e.target.closest("[data-filter]");
-
-  if(filter){
-
-    state.filter=
-      filter.dataset.filter;
-
-    renderTransactions();
-
-    save();
-
-    return;
-
-  }
-
-
-  const period=
-    e.target.closest("[data-period]");
-
-  if(period){
-
-    state.chartPeriod=
-      period.dataset.period;
-
-    renderChart();
-
-    save();
-
-    return;
-
-  }
-
-
-  const person=
-    e.target.closest("[data-contact]");
-
-  if(person){
-
-    openSend(
-      person.dataset.contact
-    );
-
-    return;
-
-  }
-
-
-  const tx=
-    e.target.closest("[data-tx]");
-
-  if(tx){
-
-    openTransaction(
-      Number(tx.dataset.tx)
-    );
-
-    return;
-
-  }
-
-
-  const spaceAdd=
-    e.target.closest("[data-space-add]");
-
-  if(spaceAdd){
-
-    spaceAmount(
-      Number(spaceAdd.dataset.spaceAdd),
-      "add"
-    );
-
-    return;
-
-  }
-
-
-  const spaceWithdraw=
-    e.target.closest("[data-space-withdraw]");
-
-  if(spaceWithdraw){
-
-    spaceAmount(
-      Number(spaceWithdraw.dataset.spaceWithdraw),
-      "withdraw"
-    );
-
-    return;
-
-  }
-
-
-  const card=
-    e.target.closest("[data-card]");
-
-  if(card){
-
-    const index=
-      Number(card.dataset.card);
-
-    if(index===state.selectedCard){
-
-      state.flipped=!state.flipped;
-
-      const inner=
-        card.querySelector(".card-inner");
-
-      if(inner){
-        inner.classList.toggle(
-          "flipped",
-          state.flipped
-        );
-      }
-
-    }else{
-
-      state.selectedCard=index;
-      state.flipped=false;
-
-      const scroller=
-        document.getElementById("cardScroller");
-
-      const item=
-        card.closest(".card-item");
-
-      if(item){
-
-        scroller.scrollTo({
-          left:item.offsetLeft,
-          behavior:"smooth"
-        });
-
-      }
-
-      document.querySelectorAll(".dot")
-        .forEach((dot,i)=>{
-          dot.classList.toggle(
-            "active",
-            i===index
-          );
-        });
-
-    }
-
-    save();
-
-  }
-
-});
-
-
-/* SEARCH */
-
-document.addEventListener("input",e=>{
-
-  if(e.target.id==="activitySearch"){
-
-    state.search=
-      e.target.value;
-
-    renderTransactions();
-
-    save();
-
-  }
-
-});
-
-
-/* CARD SCROLL */
-
-document
-  .getElementById("cardScroller")
-  .addEventListener("scroll",()=>{
-
-    const scroller=
-      document.getElementById("cardScroller");
-
-    const cards=[
-      ...scroller.querySelectorAll(".card-item")
-    ];
-
-    if(!cards.length)return;
-
-    let closest=0;
-    let distance=Infinity;
-
-    cards.forEach((card,i)=>{
-
-      const d=
-        Math.abs(
-          card.offsetLeft -
-          scroller.scrollLeft
-        );
-
-      if(d<distance){
-
-        distance=d;
-        closest=i;
-
-      }
-
-    });
-
-    if(closest!==state.selectedCard){
-
-      state.selectedCard=closest;
-      state.flipped=false;
-
-      document.querySelectorAll(".dot")
-        .forEach((dot,i)=>{
-          dot.classList.toggle(
-            "active",
-            i===closest
-          );
-        });
-
-      save();
-
-    }
-
-  });
-
-
-/* MODAL CLOSE */
-
-document
-  .getElementById("modal")
-  .addEventListener("click",e=>{
-
-    if(e.target.id==="modal"){
-      closeModal();
-    }
-
-  });
-
-
-/* ACTION HANDLER */
-
-function handleAction(action){
-
-  if(action==="toggle-balance"){
-
-    state.balanceVisible=
-      !state.balanceVisible;
-
-    renderBalance();
-    save();
-
-    return;
-
-  }
-
-
-  if(action==="notifications"){
-
-    openNotifications();
-
-    return;
-
-  }
-
-
-  if(action==="send"){
-
-    openSend();
-
-    return;
-
-  }
-
-
-  if(action==="request"){
-
-    openRequest();
-
-    return;
-
-  }
-
-
-  if(action==="add"){
-
-    openAddMoney();
-
-    return;
-
-  }
-
-
-  if(action==="qr"){
-
-    openQR();
-
-    return;
-
-  }
-
-
-  if(action==="people"){
-
-    openPeople();
-
-    return;
-
-  }
-
-
-  if(action==="add-card"){
-
-    toast(
-      "New demo cards are coming soon."
-    );
-
-    return;
-
-  }
-
-
-  if(action==="freeze"){
-
-    toggleFreeze();
-
-    return;
-
-  }
-
-
-  if(action==="limit"){
-
-    openLimit();
-
-    return;
-
-  }
-
-
-  if(action==="details"){
-
-    openCardDetails();
-
-    return;
-
-  }
-
-
-  if(action==="create-space"){
-
-    openCreateSpace();
-
-    return;
-
-  }
-
-
-  if(action==="edit-profile"){
-
-    openEditProfile();
-
-    return;
-
-  }
-
-
-  if(action==="security"){
-
-    openSecurity();
-
-    return;
-
-  }
-
-
-  if(action==="appearance"){
-
-    openAppearance();
-
-    return;
-
-  }
-
-
-  if(action==="help"){
-
-    openHelp();
-
-    return;
-
-  }
-
-
-  if(action==="about"){
-
-    openAbout();
-
-    return;
-
-  }
-
-}
-
-
-/* PEOPLE MODAL */
+/* =========================
+   PEOPLE
+========================= */
 
 function openPeople(){
 
@@ -3031,7 +3574,9 @@ function openPeople(){
       <button
         class="close"
         onclick="closeModal()"
-      >×</button>
+      >
+        ×
+      </button>
 
     </div>
 
@@ -3047,13 +3592,19 @@ function openPeople(){
           <div
             class="avatar"
             style="background:${c.tone}"
-          >${c.initials}</div>
+          >
+            ${c.initials}
+          </div>
 
           <div>
 
-            <strong>${c.name}</strong>
+            <strong>
+              ${c.name}
+            </strong>
 
-            <span>Send money</span>
+            <span>
+              Send money
+            </span>
 
           </div>
 
@@ -3068,7 +3619,9 @@ function openPeople(){
 }
 
 
-/* SEND */
+/* =========================
+   SEND
+========================= */
 
 function openSend(personName=""){
 
@@ -3077,38 +3630,50 @@ function openSend(personName=""){
       c=>c.name===personName
     )||null;
 
+
   openModal(`
 
     <div class="sheet-head">
 
       <h3>
-        ${person
-          ? "Send to "+person.name
-          : "Send money"}
+        ${
+          person
+            ? "Send to "+person.name
+            : "Send money"
+        }
       </h3>
 
       <button
         class="close"
         onclick="closeModal()"
-      >×</button>
+      >
+        ×
+      </button>
 
     </div>
+
 
     ${
       person
 
-      ? `
+      ?
+
+      `
 
         <div class="selected-person">
 
           <div
             class="avatar"
             style="background:${person.tone}"
-          >${person.initials}</div>
+          >
+            ${person.initials}
+          </div>
 
           <div>
 
-            <strong>${person.name}</strong>
+            <strong>
+              ${person.name}
+            </strong>
 
             <div
               style="
@@ -3126,7 +3691,9 @@ function openSend(personName=""){
 
       `
 
-      : `
+      :
+
+      `
 
         <div class="contact-list">
 
@@ -3140,13 +3707,19 @@ function openSend(personName=""){
               <div
                 class="avatar"
                 style="background:${c.tone}"
-              >${c.initials}</div>
+              >
+                ${c.initials}
+              </div>
 
               <div>
 
-                <strong>${c.name}</strong>
+                <strong>
+                  ${c.name}
+                </strong>
 
-                <span>Tap to select</span>
+                <span>
+                  Tap to select
+                </span>
 
               </div>
 
@@ -3159,10 +3732,14 @@ function openSend(personName=""){
       `
     }
 
+
     <div
       class="keypad-amount"
       id="sendAmount"
-    >$0</div>
+    >
+      $0.00
+    </div>
+
 
     <div class="keys">
 
@@ -3186,21 +3763,21 @@ function openSend(personName=""){
 
     </div>
 
+
     <button
       class="primary purple"
       onclick="reviewSend('${person?person.name:""}')"
     >
-      Review transfer
+      Continue
     </button>
 
   `);
+
 
   window.sendValue="";
 
 }
 
-
-/* KEYPAD */
 
 function keyPress(k){
 
@@ -3229,11 +3806,16 @@ function keyPress(k){
 
   }
 
+
   const value=
     Number(window.sendValue||0);
 
+
   const element=
-    document.getElementById("sendAmount");
+    document.getElementById(
+      "sendAmount"
+    );
+
 
   if(element){
 
@@ -3245,12 +3827,15 @@ function keyPress(k){
 }
 
 
-/* REVIEW SEND */
+/* =========================
+   TRANSACTION PIN
+========================= */
 
 function reviewSend(name){
 
   const amount=
     Number(window.sendValue||0);
+
 
   if(!amount||amount<=0){
 
@@ -3260,6 +3845,7 @@ function reviewSend(name){
 
   }
 
+
   if(amount>state.balance){
 
     toast("Not enough available balance");
@@ -3268,65 +3854,138 @@ function reviewSend(name){
 
   }
 
+
+  pendingTransfer={
+    amount,
+    name:name||"NOVA contact"
+  };
+
+
+  confirmPIN="";
+
+
+  openTransferPIN();
+
+}
+
+
+function openTransferPIN(){
+
+  if(!pendingTransfer){
+
+    return;
+
+  }
+
+
   openModal(`
 
     <div class="sheet-head">
 
-      <h3>Review transfer</h3>
+      <h3>Confirm transfer</h3>
 
       <button
         class="close"
-        onclick="closeModal()"
-      >×</button>
+        onclick="cancelTransfer()"
+      >
+        ×
+      </button>
 
     </div>
+
+
+    <div class="confirm-lock">
+      🔒
+    </div>
+
+
+    <div class="confirm-amount">
+
+      <strong>
+        ${money(pendingTransfer.amount)}
+      </strong>
+
+      <span>
+        Sending to ${pendingTransfer.name}
+      </span>
+
+    </div>
+
 
     <div
       style="
-        background:var(--surface2);
-        border-radius:19px;
-        padding:18px;
-        margin-bottom:14px
+        text-align:center;
+        font-size:10px;
+        color:var(--muted);
+        margin-bottom:8px
       "
     >
+      Enter your 4-digit transaction PIN
+    </div>
 
-      <div
-        style="
-          font-size:9px;
-          color:var(--muted)
-        "
+
+    <div
+      class="pin-dots"
+      id="confirmDots"
+    >
+
+      <i class="pin-dot"></i>
+      <i class="pin-dot"></i>
+      <i class="pin-dot"></i>
+      <i class="pin-dot"></i>
+
+    </div>
+
+
+    <div
+      class="pin-error"
+      id="confirmError"
+      style="text-align:center"
+    ></div>
+
+
+    <div class="pin-pad">
+
+      <button class="pin-key" data-confirm-key="1">1</button>
+      <button class="pin-key" data-confirm-key="2">2</button>
+      <button class="pin-key" data-confirm-key="3">3</button>
+
+      <button class="pin-key" data-confirm-key="4">4</button>
+      <button class="pin-key" data-confirm-key="5">5</button>
+      <button class="pin-key" data-confirm-key="6">6</button>
+
+      <button class="pin-key" data-confirm-key="7">7</button>
+      <button class="pin-key" data-confirm-key="8">8</button>
+      <button class="pin-key" data-confirm-key="9">9</button>
+
+      <button
+        class="pin-key special"
+        data-confirm-key="clear"
       >
-        YOU'RE SENDING
-      </div>
+        C
+      </button>
 
-      <div
-        style="
-          font-family:'Space Grotesk';
-          font-size:30px;
-          margin:5px 0
-        "
+      <button
+        class="pin-key"
+        data-confirm-key="0"
       >
-        ${money(amount)}
-      </div>
+        0
+      </button>
 
-      <div style="font-size:11px">
-        ${name||"NOVA contact"}
-      </div>
+      <button
+        class="pin-key special"
+        data-confirm-key="back"
+      >
+        ⌫
+      </button>
 
     </div>
 
     <button
-      class="primary purple"
-      onclick="completeSend(${amount},'${name.replace(/'/g,"\\'")}')"
-    >
-      Confirm transfer
-    </button>
-
-    <button
       class="secondary"
-      onclick="closeModal()"
+      onclick="cancelTransfer()"
     >
-      Cancel
+      Cancel transfer
     </button>
 
   `);
@@ -3334,15 +3993,151 @@ function reviewSend(name){
 }
 
 
-/* COMPLETE SEND */
+function updateConfirmDots(){
+
+  document
+    .querySelectorAll("#confirmDots .pin-dot")
+    .forEach((dot,i)=>{
+
+      dot.classList.toggle(
+        "filled",
+        i<confirmPIN.length
+      );
+
+    });
+
+}
+
+
+function confirmKey(key){
+
+  if(key==="clear"){
+
+    confirmPIN="";
+
+  }
+
+  else if(key==="back"){
+
+    confirmPIN=
+      confirmPIN.slice(0,-1);
+
+  }
+
+  else{
+
+    if(confirmPIN.length>=4){
+      return;
+    }
+
+    confirmPIN+=key;
+
+  }
+
+
+  updateConfirmDots();
+
+  const error=
+    document.getElementById(
+      "confirmError"
+    );
+
+  if(error){
+    error.textContent="";
+  }
+
+
+  if(confirmPIN.length===4){
+
+    setTimeout(
+      verifyTransactionPIN,
+      120
+    );
+
+  }
+
+}
+
+
+function verifyTransactionPIN(){
+
+  if(!pendingTransfer){
+
+    return;
+
+  }
+
+
+  if(confirmPIN!==state.pin){
+
+    confirmPIN="";
+
+    updateConfirmDots();
+
+    const error=
+      document.getElementById(
+        "confirmError"
+      );
+
+    if(error){
+
+      error.textContent=
+        "Incorrect transaction PIN.";
+
+    }
+
+    return;
+
+  }
+
+
+  const transfer=
+    {...pendingTransfer};
+
+  pendingTransfer=null;
+  confirmPIN="";
+
+  completeSend(
+    transfer.amount,
+    transfer.name
+  );
+
+}
+
+
+function cancelTransfer(){
+
+  pendingTransfer=null;
+  confirmPIN="";
+
+  closeModal();
+
+  toast("Transfer cancelled");
+
+}
+
+
+/* =========================
+   COMPLETE TRANSFER
+========================= */
 
 function completeSend(amount,name){
 
+  if(amount>state.balance){
+
+    toast("Transfer could not be completed");
+
+    return;
+
+  }
+
+
   state.balance-=amount;
+
 
   state.transactions.unshift({
 
-    name:name||"NOVA contact",
+    name,
 
     category:"Transfer",
 
@@ -3352,11 +4147,10 @@ function completeSend(amount,name){
 
     type:"payments",
 
-    icon:name
-      ? initials(name)
-      : "N"
+    icon:initials(name)
 
   });
+
 
   state.notifications.unshift({
 
@@ -3369,9 +4163,11 @@ function completeSend(amount,name){
 
   });
 
+
   save();
 
   render();
+
 
   openModal(`
 
@@ -3381,7 +4177,9 @@ function completeSend(amount,name){
         ✓
       </div>
 
-      <h2>Transfer complete</h2>
+      <h2>
+        Transfer complete
+      </h2>
 
       <p>
         ${money(amount)}
@@ -3402,7 +4200,9 @@ function completeSend(amount,name){
 }
 
 
-/* REQUEST */
+/* =========================
+   REQUEST
+========================= */
 
 function openRequest(){
 
@@ -3410,18 +4210,24 @@ function openRequest(){
 
     <div class="sheet-head">
 
-      <h3>Request money</h3>
+      <h3>
+        Request money
+      </h3>
 
       <button
         class="close"
         onclick="closeModal()"
-      >×</button>
+      >
+        ×
+      </button>
 
     </div>
 
     <div class="field">
 
-      <label>FROM</label>
+      <label>
+        FROM
+      </label>
 
       <input
         id="requestName"
@@ -3432,7 +4238,9 @@ function openRequest(){
 
     <div class="field">
 
-      <label>AMOUNT</label>
+      <label>
+        AMOUNT
+      </label>
 
       <input
         id="requestAmount"
@@ -3445,7 +4253,9 @@ function openRequest(){
 
     <div class="field">
 
-      <label>NOTE</label>
+      <label>
+        NOTE
+      </label>
 
       <input
         id="requestNote"
@@ -3480,6 +4290,7 @@ function submitRequest(){
       ).value
     );
 
+
   if(!name){
 
     toast("Add a person's name");
@@ -3488,6 +4299,7 @@ function submitRequest(){
 
   }
 
+
   if(!amount||amount<=0){
 
     toast("Enter a valid amount");
@@ -3495,6 +4307,7 @@ function submitRequest(){
     return;
 
   }
+
 
   state.notifications.unshift({
 
@@ -3507,40 +4320,19 @@ function submitRequest(){
 
   });
 
+
   save();
 
-  renderBadge();
+  closeModal();
 
-  openModal(`
-
-    <div class="success">
-
-      <div class="success-icon">
-        ✓
-      </div>
-
-      <h2>Request sent</h2>
-
-      <p>
-        ${money(amount)}
-        requested from ${name}.
-      </p>
-
-      <button
-        class="primary purple"
-        onclick="closeModal()"
-      >
-        Done
-      </button>
-
-    </div>
-
-  `);
+  toast("Money request sent");
 
 }
 
 
-/* ADD MONEY */
+/* =========================
+   ADD MONEY
+========================= */
 
 function openAddMoney(){
 
@@ -3548,18 +4340,24 @@ function openAddMoney(){
 
     <div class="sheet-head">
 
-      <h3>Add money</h3>
+      <h3>
+        Add money
+      </h3>
 
       <button
         class="close"
         onclick="closeModal()"
-      >×</button>
+      >
+        ×
+      </button>
 
     </div>
 
     <div class="field">
 
-      <label>AMOUNT</label>
+      <label>
+        AMOUNT
+      </label>
 
       <input
         id="addAmount"
@@ -3632,6 +4430,7 @@ function submitAdd(){
       ).value
     );
 
+
   if(!amount||amount<=0){
 
     toast("Enter a valid amount");
@@ -3640,7 +4439,9 @@ function submitAdd(){
 
   }
 
+
   state.balance+=amount;
+
 
   state.transactions.unshift({
 
@@ -3658,9 +4459,11 @@ function submitAdd(){
 
   });
 
+
   save();
 
   render();
+
 
   openModal(`
 
@@ -3670,7 +4473,9 @@ function submitAdd(){
         +
       </div>
 
-      <h2>Balance updated</h2>
+      <h2>
+        Balance updated
+      </h2>
 
       <p>
         ${money(amount)}
@@ -3691,7 +4496,9 @@ function submitAdd(){
 }
 
 
-/* QR */
+/* =========================
+   QR
+========================= */
 
 function openQR(){
 
@@ -3699,12 +4506,16 @@ function openQR(){
 
     <div class="sheet-head">
 
-      <h3>QR Pay</h3>
+      <h3>
+        QR Pay
+      </h3>
 
       <button
         class="close"
         onclick="closeModal()"
-      >×</button>
+      >
+        ×
+      </button>
 
     </div>
 
@@ -3751,12 +4562,16 @@ function showMyQR(){
 
     <div class="sheet-head">
 
-      <h3>My NOVA QR</h3>
+      <h3>
+        My NOVA QR
+      </h3>
 
       <button
         class="close"
         onclick="closeModal()"
-      >×</button>
+      >
+        ×
+      </button>
 
     </div>
 
@@ -3788,7 +4603,9 @@ function showMyQR(){
 }
 
 
-/* TRANSACTION DETAIL */
+/* =========================
+   TRANSACTION DETAILS
+========================= */
 
 function openTransaction(index){
 
@@ -3797,16 +4614,21 @@ function openTransaction(index){
 
   if(!t)return;
 
+
   openModal(`
 
     <div class="sheet-head">
 
-      <h3>Transaction</h3>
+      <h3>
+        Transaction
+      </h3>
 
       <button
         class="close"
         onclick="closeModal()"
-      >×</button>
+      >
+        ×
+      </button>
 
     </div>
 
@@ -3850,29 +4672,44 @@ function openTransaction(index){
 
     </div>
 
-    <div
-      style="
-        background:var(--surface2);
-        border-radius:18px;
-        overflow:hidden
-      "
-    >
+    <div class="menu-list">
 
       <div class="menu-row">
-        <span>Category</span>
-        <small>${t.category}</small>
+
+        <span>
+          Category
+        </span>
+
+        <small>
+          ${t.category}
+        </small>
+
       </div>
 
       <div class="menu-row">
-        <span>Date</span>
-        <small>${t.date}</small>
+
+        <span>
+          Date
+        </span>
+
+        <small>
+          ${t.date}
+        </small>
+
       </div>
 
       <div class="menu-row">
-        <span>Status</span>
-        <small style="color:var(--green)">
+
+        <span>
+          Status
+        </span>
+
+        <small
+          style="color:var(--green)"
+        >
           Completed
         </small>
+
       </div>
 
     </div>
@@ -3882,7 +4719,9 @@ function openTransaction(index){
 }
 
 
-/* CARD ACTIONS */
+/* =========================
+   CARDS
+========================= */
 
 function selectedCard(){
 
@@ -3923,22 +4762,29 @@ function openLimit(){
   const card=
     selectedCard();
 
+
   openModal(`
 
     <div class="sheet-head">
 
-      <h3>Spending limit</h3>
+      <h3>
+        Spending limit
+      </h3>
 
       <button
         class="close"
         onclick="closeModal()"
-      >×</button>
+      >
+        ×
+      </button>
 
     </div>
 
     <div class="field">
 
-      <label>MONTHLY LIMIT</label>
+      <label>
+        MONTHLY LIMIT
+      </label>
 
       <input
         id="limitInput"
@@ -3969,6 +4815,7 @@ function saveLimit(){
       ).value
     );
 
+
   if(!value||value<=0){
 
     toast("Enter a valid limit");
@@ -3976,6 +4823,7 @@ function saveLimit(){
     return;
 
   }
+
 
   selectedCard().limit=value;
 
@@ -3995,16 +4843,21 @@ function openCardDetails(){
   const card=
     selectedCard();
 
+
   openModal(`
 
     <div class="sheet-head">
 
-      <h3>Card details</h3>
+      <h3>
+        Card details
+      </h3>
 
       <button
         class="close"
         onclick="closeModal()"
-      >×</button>
+      >
+        ×
+      </button>
 
     </div>
 
@@ -4048,7 +4901,9 @@ function openCardDetails(){
             EXPIRY
           </div>
 
-          <strong>${card.expiry}</strong>
+          <strong>
+            ${card.expiry}
+          </strong>
 
         </div>
 
@@ -4063,7 +4918,9 @@ function openCardDetails(){
             CVV
           </div>
 
-          <strong>${card.cvv}</strong>
+          <strong>
+            ${card.cvv}
+          </strong>
 
         </div>
 
@@ -4083,28 +4940,35 @@ function openCardDetails(){
 }
 
 
-/* SPACES */
+/* =========================
+   SPACES
+========================= */
 
 function spaceAmount(index,mode){
 
   const space=
     state.spaces[index];
 
+
   openModal(`
 
     <div class="sheet-head">
 
       <h3>
-        ${mode==="add"
-          ? "Add to "
-          : "Withdraw from "}
+        ${
+          mode==="add"
+            ? "Add to "
+            : "Withdraw from "
+        }
         ${space.name}
       </h3>
 
       <button
         class="close"
         onclick="closeModal()"
-      >×</button>
+      >
+        ×
+      </button>
 
     </div>
 
@@ -4122,7 +4986,9 @@ function spaceAmount(index,mode){
 
     <div class="field">
 
-      <label>AMOUNT</label>
+      <label>
+        AMOUNT
+      </label>
 
       <input
         id="spaceAmount"
@@ -4137,9 +5003,7 @@ function spaceAmount(index,mode){
       class="primary purple"
       onclick="submitSpace(${index},'${mode}')"
     >
-      ${mode==="add"
-        ? "Add money"
-        : "Withdraw"}
+      ${mode==="add"?"Add money":"Withdraw"}
     </button>
 
   `);
@@ -4159,6 +5023,7 @@ function submitSpace(index,mode){
   const space=
     state.spaces[index];
 
+
   if(!amount||amount<=0){
 
     toast("Enter a valid amount");
@@ -4166,6 +5031,7 @@ function submitSpace(index,mode){
     return;
 
   }
+
 
   if(mode==="add"){
 
@@ -4197,6 +5063,7 @@ function submitSpace(index,mode){
 
   }
 
+
   save();
 
   render();
@@ -4218,18 +5085,24 @@ function openCreateSpace(){
 
     <div class="sheet-head">
 
-      <h3>Create a Space</h3>
+      <h3>
+        Create a Space
+      </h3>
 
       <button
         class="close"
         onclick="closeModal()"
-      >×</button>
+      >
+        ×
+      </button>
 
     </div>
 
     <div class="field">
 
-      <label>NAME</label>
+      <label>
+        NAME
+      </label>
 
       <input
         id="spaceName"
@@ -4240,7 +5113,9 @@ function openCreateSpace(){
 
     <div class="field">
 
-      <label>GOAL</label>
+      <label>
+        GOAL
+      </label>
 
       <input
         id="spaceGoal"
@@ -4276,6 +5151,7 @@ function createSpace(){
       ).value
     );
 
+
   if(!name){
 
     toast("Give your Space a name");
@@ -4284,6 +5160,7 @@ function createSpace(){
 
   }
 
+
   if(!target||target<=0){
 
     toast("Enter a valid goal");
@@ -4291,6 +5168,7 @@ function createSpace(){
     return;
 
   }
+
 
   state.spaces.push({
 
@@ -4304,6 +5182,7 @@ function createSpace(){
 
   });
 
+
   save();
 
   renderSpaces();
@@ -4315,7 +5194,9 @@ function createSpace(){
 }
 
 
-/* PROFILE */
+/* =========================
+   PROFILE
+========================= */
 
 function openEditProfile(){
 
@@ -4323,18 +5204,24 @@ function openEditProfile(){
 
     <div class="sheet-head">
 
-      <h3>Profile details</h3>
+      <h3>
+        Profile details
+      </h3>
 
       <button
         class="close"
         onclick="closeModal()"
-      >×</button>
+      >
+        ×
+      </button>
 
     </div>
 
     <div class="field">
 
-      <label>DISPLAY NAME</label>
+      <label>
+        DISPLAY NAME
+      </label>
 
       <input
         id="profileInput"
@@ -4362,6 +5249,7 @@ function saveProfile(){
       "profileInput"
     ).value.trim();
 
+
   if(!value){
 
     toast("Enter a name");
@@ -4369,6 +5257,7 @@ function saveProfile(){
     return;
 
   }
+
 
   state.profileName=value;
 
@@ -4389,12 +5278,16 @@ function openSecurity(){
 
     <div class="sheet-head">
 
-      <h3>Security</h3>
+      <h3>
+        Security
+      </h3>
 
       <button
         class="close"
         onclick="closeModal()"
-      >×</button>
+      >
+        ×
+      </button>
 
     </div>
 
@@ -4403,14 +5296,19 @@ function openSecurity(){
       style="margin-bottom:10px"
     >
 
-      <div class="insight-icon">✓</div>
+      <div class="insight-icon">
+        ✓
+      </div>
 
       <div>
 
-        <h3>Everything looks good</h3>
+        <h3>
+          Security is active
+        </h3>
 
         <p>
-          Your demo security controls are active.
+          Login authentication and transaction
+          PIN confirmation are enabled.
         </p>
 
       </div>
@@ -4421,25 +5319,37 @@ function openSecurity(){
 
       <div class="menu-row">
 
-        <span>Passcode</span>
+        <span>
+          Account PIN
+        </span>
 
-        <small>Enabled</small>
-
-      </div>
-
-      <div class="menu-row">
-
-        <span>Biometrics</span>
-
-        <small>Available</small>
+        <small>
+          Enabled
+        </small>
 
       </div>
 
       <div class="menu-row">
 
-        <span>Card protection</span>
+        <span>
+          Transaction confirmation
+        </span>
 
-        <small>Active</small>
+        <small>
+          Required
+        </small>
+
+      </div>
+
+      <div class="menu-row">
+
+        <span>
+          Card protection
+        </span>
+
+        <small>
+          Active
+        </small>
 
       </div>
 
@@ -4450,7 +5360,9 @@ function openSecurity(){
 }
 
 
-/* APPEARANCE */
+/* =========================
+   APPEARANCE
+========================= */
 
 function openAppearance(){
 
@@ -4458,12 +5370,16 @@ function openAppearance(){
 
     <div class="sheet-head">
 
-      <h3>Appearance</h3>
+      <h3>
+        Appearance
+      </h3>
 
       <button
         class="close"
         onclick="closeModal()"
-      >×</button>
+      >
+        ×
+      </button>
 
     </div>
 
@@ -4478,7 +5394,9 @@ function openAppearance(){
         "
       >
 
-        <span>Light</span>
+        <span>
+          Light
+        </span>
 
         <small>
           ${!state.dark?"✓":""}
@@ -4495,7 +5413,9 @@ function openAppearance(){
         "
       >
 
-        <span>Dark</span>
+        <span>
+          Dark
+        </span>
 
         <small>
           ${state.dark?"✓":""}
@@ -4529,7 +5449,9 @@ function setTheme(dark){
 }
 
 
-/* HELP */
+/* =========================
+   HELP / ABOUT
+========================= */
 
 function openHelp(){
 
@@ -4537,12 +5459,16 @@ function openHelp(){
 
     <div class="sheet-head">
 
-      <h3>Help & support</h3>
+      <h3>
+        Help & support
+      </h3>
 
       <button
         class="close"
         onclick="closeModal()"
-      >×</button>
+      >
+        ×
+      </button>
 
     </div>
 
@@ -4552,7 +5478,9 @@ function openHelp(){
         class="menu-row"
         onclick="toast('Help centre opened')"
       >
-        <span>Help centre</span>
+        <span>
+          Help centre
+        </span>
         <small>›</small>
       </button>
 
@@ -4560,7 +5488,9 @@ function openHelp(){
         class="menu-row"
         onclick="toast('Support chat opened')"
       >
-        <span>Contact support</span>
+        <span>
+          Contact support
+        </span>
         <small>›</small>
       </button>
 
@@ -4568,7 +5498,9 @@ function openHelp(){
         class="menu-row"
         onclick="toast('FAQ opened')"
       >
-        <span>Frequently asked questions</span>
+        <span>
+          Frequently asked questions
+        </span>
         <small>›</small>
       </button>
 
@@ -4579,20 +5511,22 @@ function openHelp(){
 }
 
 
-/* ABOUT */
-
 function openAbout(){
 
   openModal(`
 
     <div class="sheet-head">
 
-      <h3>About NOVA</h3>
+      <h3>
+        About NOVA
+      </h3>
 
       <button
         class="close"
         onclick="closeModal()"
-      >×</button>
+      >
+        ×
+      </button>
 
     </div>
 
@@ -4631,23 +5565,28 @@ function openAbout(){
           margin-top:4px
         "
       >
-        Version 21.0
+        Version 22.0
       </p>
 
     </div>
 
     <div class="insight">
 
-      <div class="insight-icon">✦</div>
+      <div class="insight-icon">
+        ✦
+      </div>
 
       <div>
 
-        <h3>Premium fintech prototype</h3>
+        <h3>
+          Premium fintech prototype
+        </h3>
 
         <p>
           NOVA is a fictional interface prototype.
-          Balances, cards and transfers are simulated
-          locally and do not connect to real financial services.
+          Balances, cards, transfers and PINs are
+          simulated locally and do not connect to
+          real financial services.
         </p>
 
       </div>
@@ -4659,28 +5598,26 @@ function openAbout(){
 }
 
 
-/* NOTIFICATIONS */
+/* =========================
+   NOTIFICATIONS
+========================= */
 
 function openNotifications(){
-
-  state.notifications.forEach(
-    n=>n.read=true
-  );
-
-  save();
-
-  renderBadge();
 
   openModal(`
 
     <div class="sheet-head">
 
-      <h3>Notifications</h3>
+      <h3>
+        Notifications
+      </h3>
 
       <button
         class="close"
         onclick="closeModal()"
-      >×</button>
+      >
+        ×
+      </button>
 
     </div>
 
@@ -4710,7 +5647,7 @@ function openNotifications(){
               "
             ></div>
 
-            <div style="flex:1">
+            <div>
 
               <span
                 style="
@@ -4745,9 +5682,13 @@ function openNotifications(){
 
       <div class="empty">
 
-        <div class="empty-icon">✓</div>
+        <div class="empty-icon">
+          ✓
+        </div>
 
-        <strong>You're all caught up</strong>
+        <strong>
+          You're all caught up
+        </strong>
 
         <p>
           No new notifications.
@@ -4760,12 +5701,576 @@ function openNotifications(){
 
   `);
 
+
+  state.notifications.forEach(
+    n=>n.read=true
+  );
+
+  save();
+
 }
 
 
-/* START */
+/* =========================
+   EVENTS
+========================= */
+
+document.addEventListener(
+  "click",
+  e=>{
+
+    const loginKeyButton=
+      e.target.closest(
+        "[data-login-key]"
+      );
+
+    if(loginKeyButton){
+
+      loginKey(
+        loginKeyButton.dataset.loginKey
+      );
+
+      return;
+
+    }
+
+
+    const confirmKeyButton=
+      e.target.closest(
+        "[data-confirm-key]"
+      );
+
+    if(confirmKeyButton){
+
+      confirmKey(
+        confirmKeyButton.dataset.confirmKey
+      );
+
+      return;
+
+    }
+
+
+    const forgot=
+      e.target.closest("#forgotPin");
+
+    if(forgot){
+
+      forgotPIN();
+
+      return;
+
+    }
+
+
+    const nav=
+      e.target.closest("[data-screen]");
+
+    if(nav){
+
+      showScreen(
+        nav.dataset.screen
+      );
+
+      return;
+
+    }
+
+
+    const filter=
+      e.target.closest("[data-filter]");
+
+    if(filter){
+
+      state.filter=
+        filter.dataset.filter;
+
+      renderTransactions();
+
+      save();
+
+      return;
+
+    }
+
+
+    const period=
+      e.target.closest("[data-period]");
+
+    if(period){
+
+      state.chartPeriod=
+        period.dataset.period;
+
+      renderChart();
+
+      save();
+
+      return;
+
+    }
+
+
+    const contact=
+      e.target.closest("[data-contact]");
+
+    if(contact){
+
+      openSend(
+        contact.dataset.contact
+      );
+
+      return;
+
+    }
+
+
+    const action=
+      e.target.closest("[data-action]");
+
+    if(action){
+
+      handleAction(
+        action.dataset.action
+      );
+
+      return;
+
+    }
+
+
+    const tx=
+      e.target.closest("[data-tx]");
+
+    if(tx){
+
+      openTransaction(
+        Number(tx.dataset.tx)
+      );
+
+      return;
+
+    }
+
+
+    const addSpace=
+      e.target.closest("[data-space-add]");
+
+    if(addSpace){
+
+      spaceAmount(
+        Number(addSpace.dataset.spaceAdd),
+        "add"
+      );
+
+      return;
+
+    }
+
+
+    const withdrawSpace=
+      e.target.closest(
+        "[data-space-withdraw]"
+      );
+
+    if(withdrawSpace){
+
+      spaceAmount(
+        Number(
+          withdrawSpace.dataset.spaceWithdraw
+        ),
+        "withdraw"
+      );
+
+      return;
+
+    }
+
+
+    const card=
+      e.target.closest("[data-card]");
+
+    if(card){
+
+      const index=
+        Number(card.dataset.card);
+
+      if(index===state.selectedCard){
+
+        state.flipped=
+          !state.flipped;
+
+        const inner=
+          card.querySelector(".card-inner");
+
+        if(inner){
+
+          inner.classList.toggle(
+            "flipped",
+            state.flipped
+          );
+
+        }
+
+      }else{
+
+        state.selectedCard=index;
+
+        state.flipped=false;
+
+        const scroller=
+          document.getElementById(
+            "cardScroller"
+          );
+
+        const item=
+          card.closest(".card-item");
+
+        if(item){
+
+          scroller.scrollTo({
+            left:item.offsetLeft,
+            behavior:"smooth"
+          });
+
+        }
+
+        document
+          .querySelectorAll(".dot")
+          .forEach((dot,i)=>{
+
+            dot.classList.toggle(
+              "active",
+              i===index
+            );
+
+          });
+
+      }
+
+      save();
+
+    }
+
+  }
+);
+
+
+/* SEARCH */
+
+document.addEventListener(
+  "input",
+  e=>{
+
+    if(e.target.id==="activitySearch"){
+
+      state.search=
+        e.target.value;
+
+      renderTransactions();
+
+      save();
+
+    }
+
+  }
+);
+
+
+/* MODAL */
+
+document
+  .getElementById("modal")
+  .addEventListener(
+    "click",
+    e=>{
+
+      if(e.target.id==="modal"){
+
+        closeModal();
+
+      }
+
+    }
+  );
+
+
+/* =========================
+   ACTIONS
+========================= */
+
+function handleAction(action){
+
+  if(action==="toggle-balance"){
+
+    state.balanceVisible=
+      !state.balanceVisible;
+
+    renderBalance();
+
+    save();
+
+    return;
+
+  }
+
+
+  if(action==="notifications"){
+
+    openNotifications();
+
+    return;
+
+  }
+
+
+  if(action==="send"){
+
+    openSend();
+
+    return;
+
+  }
+
+
+  if(action==="request"){
+
+    openRequest();
+
+    return;
+
+  }
+
+
+  if(action==="add"){
+
+    openAddMoney();
+
+    return;
+
+  }
+
+
+  if(action==="qr"){
+
+    openQR();
+
+    return;
+
+  }
+
+
+  if(action==="people"){
+
+    openPeople();
+
+    return;
+
+  }
+
+
+  if(action==="change-pin"){
+
+    openChangePIN();
+
+    return;
+
+  }
+
+
+  if(action==="security"){
+
+    openSecurity();
+
+    return;
+
+  }
+
+
+  if(action==="appearance"){
+
+    openAppearance();
+
+    return;
+
+  }
+
+
+  if(action==="help"){
+
+    openHelp();
+
+    return;
+
+  }
+
+
+  if(action==="about"){
+
+    openAbout();
+
+    return;
+
+  }
+
+
+  if(action==="edit-profile"){
+
+    openEditProfile();
+
+    return;
+
+  }
+
+
+  if(action==="lock"){
+
+    lockNOVA();
+
+    return;
+
+  }
+
+
+  if(action==="freeze"){
+
+    toggleFreeze();
+
+    return;
+
+  }
+
+
+  if(action==="limit"){
+
+    openLimit();
+
+    return;
+
+  }
+
+
+  if(action==="details"){
+
+    openCardDetails();
+
+    return;
+
+  }
+
+
+  if(action==="create-space"){
+
+    openCreateSpace();
+
+    return;
+
+  }
+
+
+  if(action==="add-card"){
+
+    toast(
+      "New demo cards are coming soon."
+    );
+
+    return;
+
+  }
+
+}
+
+
+/* =========================
+   CARD SCROLL
+========================= */
+
+document
+  .getElementById("cardScroller")
+  .addEventListener(
+    "scroll",
+    ()=>{
+
+      const scroller=
+        document.getElementById(
+          "cardScroller"
+        );
+
+      const cards=[
+        ...scroller.querySelectorAll(
+          ".card-item"
+        )
+      ];
+
+      if(!cards.length)return;
+
+      let closest=0;
+      let distance=Infinity;
+
+
+      cards.forEach((card,i)=>{
+
+        const d=
+          Math.abs(
+            card.offsetLeft-
+            scroller.scrollLeft
+          );
+
+        if(d<distance){
+
+          distance=d;
+          closest=i;
+
+        }
+
+      });
+
+
+      if(
+        closest!==state.selectedCard
+      ){
+
+        state.selectedCard=
+          closest;
+
+        state.flipped=false;
+
+        document
+          .querySelectorAll(".dot")
+          .forEach((dot,i)=>{
+
+            dot.classList.toggle(
+              "active",
+              i===closest
+            );
+
+          });
+
+        save();
+
+      }
+
+    }
+  );
+
+
+/* =========================
+   START
+========================= */
 
 render();
+
+
+/* If already authenticated
+   during this browser session,
+   keep login screen visible only
+   until PIN is entered. */
+
+if(isLocked()){
+
+  startLockTimer();
+
+}
 
 </script>
 
