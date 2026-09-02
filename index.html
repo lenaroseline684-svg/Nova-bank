@@ -1,1 +1,853 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOVA — Money, reimagined.</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#f5f7fa;
+  --card:#ffffff;
+  --text:#101318;
+  --muted:#7b818b;
+  --line:#e9ecf0;
+  --accent:#635bff;
+  --accent2:#8d87ff;
+  --dark:#111318;
+  --green:#16a36a;
+  --red:#e05252;
+}
+
+body{
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"DM Sans",sans-serif;
+}
+
+button{
+  font:inherit;
+  border:0;
+  cursor:pointer;
+}
+
+.app{
+  width:min(1180px,100%);
+  margin:auto;
+  min-height:100vh;
+  padding:24px;
+}
+
+/* HEADER */
+
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:30px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.logo{
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  background:#111318;
+  color:white;
+  display:grid;
+  place-items:center;
+  font-family:"Space Grotesk";
+  font-weight:700;
+  font-size:19px;
+  box-shadow:0 8px 20px #11131820;
+}
+
+.brand-name{
+  font-family:"Space Grotesk";
+  font-weight:700;
+  font-size:21px;
+  letter-spacing:-.5px;
+}
+
+.profile{
+  width:43px;
+  height:43px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#d8dbe2,#979eaa);
+  display:grid;
+  place-items:center;
+  color:white;
+  font-weight:700;
+}
+
+/* GREETING */
+
+.greeting{
+  margin-bottom:22px;
+}
+
+.greeting p{
+  color:var(--muted);
+  font-size:14px;
+  margin-bottom:5px;
+}
+
+.greeting h1{
+  font-family:"Space Grotesk";
+  font-size:30px;
+  letter-spacing:-1.3px;
+}
+
+/* BALANCE */
+
+.balance-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:28px;
+  padding:27px;
+  color:white;
+  min-height:245px;
+  background:
+    radial-gradient(circle at 90% 10%,#827aff 0,transparent 28%),
+    radial-gradient(circle at 5% 100%,#4139c9 0,transparent 35%),
+    linear-gradient(135deg,#171925,#3931a4);
+  box-shadow:0 22px 50px #29257925;
+}
+
+.balance-card:after{
+  content:"";
+  position:absolute;
+  width:240px;
+  height:240px;
+  border:1px solid #ffffff18;
+  border-radius:50%;
+  right:-100px;
+  bottom:-120px;
+}
+
+.balance-label{
+  font-size:13px;
+  color:#ffffffa8;
+}
+
+.balance-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-top:8px;
+}
+
+.balance{
+  font-family:"Space Grotesk";
+  font-size:39px;
+  letter-spacing:-1.8px;
+}
+
+.eye{
+  background:#ffffff17;
+  color:white;
+  width:35px;
+  height:35px;
+  border-radius:50%;
+}
+
+.balance-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-top:43px;
+}
+
+.account{
+  color:#ffffff91;
+  font-size:12px;
+}
+
+.account strong{
+  color:white;
+  display:block;
+  font-size:14px;
+  margin-top:4px;
+}
+
+.income{
+  font-size:12px;
+  color:#ffffffa8;
+  text-align:right;
+}
+
+.income strong{
+  display:block;
+  color:#7dffbe;
+  font-size:14px;
+  margin-top:4px;
+}
+
+/* QUICK ACTIONS */
+
+.actions{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin:18px 0;
+}
+
+.action{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:17px 8px;
+  text-align:center;
+  transition:.2s;
+}
+
+.action:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 25px #1013180d;
+}
+
+.action-icon{
+  width:42px;
+  height:42px;
+  margin:auto auto 9px;
+  border-radius:14px;
+  background:#f0efff;
+  color:var(--accent);
+  display:grid;
+  place-items:center;
+  font-size:18px;
+}
+
+.action span{
+  font-size:12px;
+  font-weight:600;
+}
+
+/* GRID */
+
+.main-grid{
+  display:grid;
+  grid-template-columns:1.35fr .85fr;
+  gap:18px;
+}
+
+.card{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:25px;
+  padding:22px;
+}
+
+.card-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.card-title{
+  font-family:"Space Grotesk";
+  font-size:17px;
+  font-weight:700;
+}
+
+.card-link{
+  color:var(--accent);
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* PULSE */
+
+.pulse-number{
+  font-family:"Space Grotesk";
+  font-size:27px;
+  margin-bottom:3px;
+}
+
+.pulse-sub{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.chart{
+  height:125px;
+  display:flex;
+  align-items:end;
+  gap:9px;
+  margin-top:22px;
+}
+
+.bar{
+  flex:1;
+  border-radius:8px 8px 4px 4px;
+  background:#e9e7ff;
+  min-height:18px;
+  transition:.3s;
+}
+
+.bar.active{
+  background:var(--accent);
+}
+
+.days{
+  display:flex;
+  justify-content:space-between;
+  margin-top:8px;
+  color:#a1a6af;
+  font-size:10px;
+}
+
+/* SPACES */
+
+.spaces{
+  display:grid;
+  gap:11px;
+}
+
+.space{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:12px;
+  border-radius:17px;
+  background:#f7f8fa;
+}
+
+.space-icon{
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  background:white;
+  font-size:17px;
+}
+
+.space-info{
+  flex:1;
+}
+
+.space-name{
+  font-weight:700;
+  font-size:13px;
+}
+
+.space-value{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.space-bar{
+  width:60px;
+  height:5px;
+  border-radius:10px;
+  background:#e4e6ea;
+  overflow:hidden;
+}
+
+.space-fill{
+  height:100%;
+  width:72%;
+  background:var(--accent);
+  border-radius:10px;
+}
+
+/* TRANSACTIONS */
+
+.transactions{
+  margin-top:18px;
+}
+
+.transaction{
+  display:flex;
+  align-items:center;
+  padding:14px 0;
+  border-bottom:1px solid #f0f1f3;
+}
+
+.transaction:last-child{
+  border-bottom:0;
+}
+
+.tx-icon{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  background:#f3f4f6;
+  display:grid;
+  place-items:center;
+  margin-right:12px;
+}
+
+.tx-info{
+  flex:1;
+}
+
+.tx-name{
+  font-size:13px;
+  font-weight:700;
+}
+
+.tx-date{
+  color:#999fa8;
+  font-size:11px;
+  margin-top:3px;
+}
+
+.tx-amount{
+  font-size:13px;
+  font-weight:700;
+}
+
+.negative{
+  color:var(--red);
+}
+
+.positive{
+  color:var(--green);
+}
+
+/* INSIGHT */
+
+.insight{
+  margin-top:18px;
+  border-radius:25px;
+  padding:22px;
+  color:white;
+  background:linear-gradient(135deg,#111318,#292d39);
+}
+
+.insight-top{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:12px;
+}
+
+.spark{
+  width:29px;
+  height:29px;
+  border-radius:9px;
+  background:#ffffff15;
+  display:grid;
+  place-items:center;
+}
+
+.insight h3{
+  font-family:"Space Grotesk";
+  font-size:16px;
+}
+
+.insight p{
+  color:#ffffffaa;
+  font-size:12px;
+  line-height:1.6;
+}
+
+/* NAV */
+
+.bottom-nav{
+  display:none;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translate(-50%,20px);
+  background:#111318;
+  color:white;
+  padding:13px 18px;
+  border-radius:14px;
+  font-size:13px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* MOBILE */
+
+@media(max-width:760px){
+
+  .app{
+    padding:17px 15px 90px;
+  }
+
+  header{
+    margin-bottom:25px;
+  }
+
+  .greeting h1{
+    font-size:26px;
+  }
+
+  .balance-card{
+    min-height:225px;
+    padding:23px;
+    border-radius:24px;
+  }
+
+  .balance{
+    font-size:34px;
+  }
+
+  .actions{
+    gap:8px;
+  }
+
+  .action{
+    border-radius:17px;
+    padding:14px 5px;
+  }
+
+  .action-icon{
+    width:39px;
+    height:39px;
+  }
+
+  .main-grid{
+    grid-template-columns:1fr;
+  }
+
+  .card{
+    border-radius:22px;
+    padding:19px;
+  }
+
+  .bottom-nav{
+    position:fixed;
+    z-index:20;
+    display:flex;
+    left:12px;
+    right:12px;
+    bottom:12px;
+    height:67px;
+    background:#111318f7;
+    backdrop-filter:blur(20px);
+    border-radius:22px;
+    padding:7px;
+    box-shadow:0 15px 35px #00000022;
+  }
+
+  .nav-item{
+    flex:1;
+    border-radius:17px;
+    background:transparent;
+    color:#858992;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    font-size:10px;
+  }
+
+  .nav-item.active{
+    background:#ffffff12;
+    color:white;
+  }
+
+  .nav-item b{
+    font-size:18px;
+    line-height:18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+  <div class="brand">
+    <div class="logo">N</div>
+    <div class="brand-name">NOVA</div>
+  </div>
+
+  <div class="profile">J</div>
+</header>
+
+<section class="greeting">
+  <p>Wednesday, September 2</p>
+  <h1>Good afternoon, Jack.</h1>
+</section>
+
+<section class="balance-card">
+
+  <div class="balance-label">Available balance</div>
+
+  <div class="balance-row">
+    <div class="balance" id="balance">$24,860.40</div>
+    <button class="eye" onclick="toggleBalance()">◉</button>
+  </div>
+
+  <div class="balance-bottom">
+    <div class="account">
+      NOVA ACCOUNT
+      <strong>•••• 4821</strong>
+    </div>
+
+    <div class="income">
+      THIS MONTH
+      <strong>+$4,280.00</strong>
+    </div>
+  </div>
+
+</section>
+
+<div class="actions">
+
+  <button class="action" onclick="notify('Send money opened')">
+    <div class="action-icon">↑</div>
+    <span>Send</span>
+  </button>
+
+  <button class="action" onclick="notify('Request money opened')">
+    <div class="action-icon">↓</div>
+    <span>Request</span>
+  </button>
+
+  <button class="action" onclick="notify('Payment scanner opened')">
+    <div class="action-icon">⌁</div>
+    <span>Pay</span>
+  </button>
+
+  <button class="action" onclick="notify('Add money opened')">
+    <div class="action-icon">＋</div>
+    <span>Add</span>
+  </button>
+
+</div>
+
+<div class="main-grid">
+
+  <section class="card">
+
+    <div class="card-head">
+      <div class="card-title">Money Pulse</div>
+      <div class="card-link">This week</div>
+    </div>
+
+    <div class="pulse-number">$1,284.20</div>
+    <div class="pulse-sub">spent this week · 12% less than last week</div>
+
+    <div class="chart">
+      <div class="bar" style="height:38%"></div>
+      <div class="bar" style="height:62%"></div>
+      <div class="bar active" style="height:48%"></div>
+      <div class="bar" style="height:77%"></div>
+      <div class="bar" style="height:55%"></div>
+      <div class="bar" style="height:90%"></div>
+      <div class="bar active" style="height:43%"></div>
+    </div>
+
+    <div class="days">
+      <span>M</span>
+      <span>T</span>
+      <span>W</span>
+      <span>T</span>
+      <span>F</span>
+      <span>S</span>
+      <span>S</span>
+    </div>
+
+  </section>
+
+  <section class="card">
+
+    <div class="card-head">
+      <div class="card-title">Money Spaces</div>
+      <div class="card-link" onclick="notify('New Space created')">＋ New</div>
+    </div>
+
+    <div class="spaces">
+
+      <div class="space">
+        <div class="space-icon">⌂</div>
+        <div class="space-info">
+          <div class="space-name">Rent</div>
+          <div class="space-value">$1,420 / $1,800</div>
+        </div>
+        <div class="space-bar"><div class="space-fill" style="width:79%"></div></div>
+      </div>
+
+      <div class="space">
+        <div class="space-icon">◉</div>
+        <div class="space-info">
+          <div class="space-name">Travel</div>
+          <div class="space-value">$860 / $2,000</div>
+        </div>
+        <div class="space-bar"><div class="space-fill" style="width:43%"></div></div>
+      </div>
+
+      <div class="space">
+        <div class="space-icon">◇</div>
+        <div class="space-info">
+          <div class="space-name">Business</div>
+          <div class="space-value">$3,240 saved</div>
+        </div>
+        <div class="space-bar"><div class="space-fill" style="width:65%"></div></div>
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+<section class="card transactions">
+
+  <div class="card-head">
+    <div class="card-title">Recent activity</div>
+    <div class="card-link" onclick="notify('Showing all activity')">View all</div>
+  </div>
+
+  <div class="transaction">
+    <div class="tx-icon">☕</div>
+    <div class="tx-info">
+      <div class="tx-name">Blue Bottle Coffee</div>
+      <div class="tx-date">Today · 9:42 AM</div>
+    </div>
+    <div class="tx-amount negative">−$8.40</div>
+  </div>
+
+  <div class="transaction">
+    <div class="tx-icon">↗</div>
+    <div class="tx-info">
+      <div class="tx-name">Salary deposit</div>
+      <div class="tx-date">Yesterday · 8:00 AM</div>
+    </div>
+    <div class="tx-amount positive">+$4,280.00</div>
+  </div>
+
+  <div class="transaction">
+    <div class="tx-icon">⌂</div>
+    <div class="tx-info">
+      <div class="tx-name">Apartment rent</div>
+      <div class="tx-date">Aug 30 · 10:12 AM</div>
+    </div>
+    <div class="tx-amount negative">−$1,420.00</div>
+  </div>
+
+  <div class="transaction">
+    <div class="tx-icon">◎</div>
+    <div class="tx-info">
+      <div class="tx-name">Alex Morgan</div>
+      <div class="tx-date">Aug 29 · 7:34 PM</div>
+    </div>
+    <div class="tx-amount negative">−$120.00</div>
+  </div>
+
+</section>
+
+<section class="insight">
+
+  <div class="insight-top">
+    <div class="spark">✦</div>
+    <h3>Nova Insight</h3>
+  </div>
+
+  <p>
+    Your spending is trending lower this week. You're currently
+    <strong>12% below</strong> your usual weekly spending.
+    At this pace, you'll keep an extra $310 this month.
+  </p>
+
+</section>
+
+</div>
+
+<nav class="bottom-nav">
+
+  <button class="nav-item active" onclick="setNav(this)">
+    <b>⌂</b>
+    Home
+  </button>
+
+  <button class="nav-item" onclick="setNav(this)">
+    <b>◫</b>
+    Spaces
+  </button>
+
+  <button class="nav-item" onclick="setNav(this)">
+    <b>↕</b>
+    Activity
+  </button>
+
+  <button class="nav-item" onclick="setNav(this)">
+    <b>◯</b>
+    Profile
+  </button>
+
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+let visible=true;
+
+function toggleBalance(){
+
+  const balance=document.getElementById("balance");
+
+  visible=!visible;
+
+  balance.textContent=visible ? "$24,860.40" : "••••••••";
+
+}
+
+function notify(message){
+
+  const toast=document.getElementById("toast");
+
+  toast.textContent=message;
+  toast.classList.add("show");
+
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  },1800);
+
+}
+
+function setNav(element){
+
+  document.querySelectorAll(".nav-item")
+    .forEach(item=>item.classList.remove("active"));
+
+  element.classList.add("active");
+
+  notify(element.textContent.trim()+" selected");
+
+}
+
+</script>
+
+</body>
+</html>
