@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#f6f6f8">
-<title>NOVA — v16</title>
+<meta name="theme-color" content="#f5f5f7">
+<title>NOVA — v17</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,1606 +12,1494 @@
 
 <style>
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  -webkit-tap-highlight-color:transparent;
+ box-sizing:border-box;
+ margin:0;
+ padding:0;
+ -webkit-tap-highlight-color:transparent;
 }
 
 :root{
-  --bg:#f6f6f8;
-  --surface:#fff;
-  --surface2:#f0f0f3;
-  --text:#111114;
-  --muted:#85858d;
-  --line:#e7e7eb;
-  --purple:#7457ff;
-  --purple2:#9b82ff;
-  --green:#18a96b;
-  --red:#e14d61;
-  --dark:#111114;
-  --shadow:0 12px 35px rgba(20,20,30,.08);
+ --bg:#f5f5f7;
+ --surface:#fff;
+ --surface2:#f0f0f3;
+ --text:#111114;
+ --muted:#85858d;
+ --line:#e6e6eb;
+ --purple:#7355ff;
+ --purpleSoft:#eeeaff;
+ --green:#16a56a;
+ --red:#e34e63;
+ --dark:#111114;
+ --shadow:0 14px 38px rgba(20,20,30,.08);
 }
 
 html,body{
-  width:100%;
-  min-height:100%;
-  background:var(--bg);
-  color:var(--text);
-  font-family:"DM Sans",sans-serif;
+ min-height:100%;
+ background:var(--bg);
+ color:var(--text);
+ font-family:"DM Sans",sans-serif;
 }
 
 body{
-  overflow-x:hidden;
-  padding-bottom:calc(90px + env(safe-area-inset-bottom));
-  transition:.25s ease;
+ overflow-x:hidden;
+ padding-bottom:calc(92px + env(safe-area-inset-bottom));
 }
 
 button,input{
-  font:inherit;
-  border:0;
-  outline:0;
+ font:inherit;
+ border:0;
+ outline:0;
 }
 
 button{
-  cursor:pointer;
+ cursor:pointer;
 }
 
 .app{
-  width:100%;
-  max-width:540px;
-  margin:auto;
-  min-height:100vh;
-  padding:0 18px;
+ width:100%;
+ max-width:540px;
+ margin:auto;
+ padding:0 18px;
+ min-height:100vh;
 }
 
 .topbar{
-  padding-top:calc(18px + env(safe-area-inset-top));
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+ padding-top:calc(17px + env(safe-area-inset-top));
+ height:76px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
 }
 
-.brand{
-  font-family:"Space Grotesk";
-  font-size:21px;
-  font-weight:700;
-  letter-spacing:-.8px;
+.logo{
+ font-family:"Space Grotesk";
+ font-size:21px;
+ font-weight:700;
+ letter-spacing:-.8px;
 }
 
-.avatar{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  background:linear-gradient(135deg,#18181d,#55515f);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:700;
-  font-size:13px;
-  box-shadow:0 5px 16px rgba(0,0,0,.16);
+.profile-button{
+ width:42px;
+ height:42px;
+ border-radius:50%;
+ color:#fff;
+ background:linear-gradient(135deg,#16161a,#575260);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:12px;
+ font-weight:700;
+ box-shadow:0 7px 18px rgba(0,0,0,.15);
 }
 
 .screen{
-  display:none;
-  animation:screenIn .32s ease;
+ display:none;
+ animation:enter .32s ease;
 }
 
 .screen.active{
-  display:block;
+ display:block;
 }
 
-@keyframes screenIn{
-  from{
-    opacity:0;
-    transform:translateY(7px);
-  }
-  to{
-    opacity:1;
-    transform:none;
-  }
+@keyframes enter{
+ from{
+  opacity:0;
+  transform:translateY(9px);
+ }
+ to{
+  opacity:1;
+  transform:none;
+ }
 }
 
 .hero{
-  padding:30px 0 18px;
+ padding:25px 0 17px;
 }
 
-.hello{
-  color:var(--muted);
-  font-size:14px;
-  margin-bottom:7px;
+.eyebrow{
+ color:var(--muted);
+ font-size:13px;
+ margin-bottom:7px;
 }
 
 .hero h1{
-  font-family:"Space Grotesk";
-  font-size:29px;
-  letter-spacing:-1.4px;
+ font-family:"Space Grotesk";
+ font-size:30px;
+ letter-spacing:-1.5px;
 }
 
 .balance-card{
-  margin-top:20px;
-  padding:23px;
-  min-height:190px;
-  border-radius:27px;
-  color:#fff;
-  background:
-    radial-gradient(circle at 85% 15%,rgba(157,130,255,.55),transparent 34%),
-    linear-gradient(135deg,#18181d,#292631 65%,#4c3c70);
-  position:relative;
-  overflow:hidden;
-  box-shadow:0 20px 45px rgba(20,18,28,.2);
+ position:relative;
+ margin-top:20px;
+ min-height:193px;
+ border-radius:28px;
+ overflow:hidden;
+ padding:23px;
+ color:#fff;
+ background:
+ radial-gradient(circle at 90% 10%,rgba(166,137,255,.62),transparent 32%),
+ radial-gradient(circle at 20% 100%,rgba(116,85,255,.32),transparent 35%),
+ linear-gradient(135deg,#15151a,#2a2532 68%,#513c82);
+ box-shadow:0 22px 45px rgba(24,20,35,.22);
 }
 
 .balance-card:before{
-  content:"";
-  position:absolute;
-  width:190px;
-  height:190px;
-  right:-90px;
-  bottom:-100px;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:50%;
+ content:"";
+ position:absolute;
+ width:230px;
+ height:230px;
+ border:1px solid rgba(255,255,255,.1);
+ border-radius:50%;
+ right:-100px;
+ bottom:-130px;
 }
 
 .balance-label{
-  color:#bdbac6;
-  font-size:13px;
+ color:#bab7c1;
+ font-size:12px;
 }
 
 .balance{
-  margin-top:8px;
-  font-family:"Space Grotesk";
-  font-size:35px;
-  letter-spacing:-1.7px;
+ margin-top:7px;
+ font-family:"Space Grotesk";
+ font-size:36px;
+ letter-spacing:-1.8px;
 }
 
-.balance-tools{
-  position:absolute;
-  right:20px;
-  top:20px;
+.balance-eye{
+ position:absolute;
+ right:19px;
+ top:19px;
+ width:38px;
+ height:38px;
+ border-radius:50%;
+ color:#fff;
+ background:rgba(255,255,255,.1);
+ backdrop-filter:blur(10px);
 }
 
-.icon-btn{
-  width:39px;
-  height:39px;
-  border-radius:50%;
-  background:rgba(255,255,255,.1);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  backdrop-filter:blur(10px);
+.balance-meta{
+ position:absolute;
+ left:23px;
+ right:23px;
+ bottom:20px;
+ display:flex;
+ justify-content:space-between;
+ color:#aaa7b1;
+ font-size:10px;
 }
 
-.balance-bottom{
-  position:absolute;
-  bottom:20px;
-  left:23px;
-  right:23px;
-  display:flex;
-  justify-content:space-between;
-  color:#bbb8c2;
-  font-size:12px;
-}
-
-.balance-bottom strong{
-  color:#fff;
-  font-size:13px;
+.balance-meta strong{
+ color:#fff;
+ display:block;
+ margin-top:3px;
+ font-size:12px;
 }
 
 .quick-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  margin:19px 0 25px;
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:9px;
+ margin:18px 0 27px;
 }
 
 .quick{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:18px;
-  min-height:79px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  color:var(--text);
-  box-shadow:0 5px 18px rgba(20,20,30,.025);
-  transition:.18s;
+ min-height:78px;
+ border-radius:18px;
+ background:var(--surface);
+ border:1px solid var(--line);
+ color:var(--text);
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ gap:8px;
+ box-shadow:0 4px 16px rgba(20,20,30,.025);
+ transition:.16s;
 }
 
 .quick:active,
 .action:active,
-.contact:active,
-.nav-item:active{
-  transform:scale(.95);
+.nav-item:active,
+.contact:active{
+ transform:scale(.95);
 }
 
 .quick-icon{
-  width:30px;
-  height:30px;
-  border-radius:10px;
-  background:#f0edff;
-  color:var(--purple);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:700;
+ width:30px;
+ height:30px;
+ border-radius:10px;
+ background:var(--purpleSoft);
+ color:var(--purple);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-weight:700;
 }
 
 .quick span{
-  font-size:11px;
-  font-weight:600;
+ font-size:10px;
+ font-weight:700;
 }
 
 .section{
-  margin-top:25px;
+ margin-top:25px;
 }
 
 .section-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:13px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ margin-bottom:13px;
 }
 
 .section-title{
-  font-family:"Space Grotesk";
-  font-size:18px;
-  font-weight:600;
+ font-family:"Space Grotesk";
+ font-size:18px;
 }
 
-.section-link{
-  font-size:12px;
-  color:var(--purple);
-  font-weight:700;
+.section-sub{
+ color:var(--muted);
+ font-size:10px;
+ margin-top:4px;
 }
 
-.contacts{
-  display:flex;
-  gap:15px;
-  overflow-x:auto;
-  scrollbar-width:none;
-  padding:2px 2px 7px;
+.link{
+ color:var(--purple);
+ font-size:11px;
+ font-weight:700;
+ background:none;
 }
 
-.contacts::-webkit-scrollbar{
-  display:none;
+/* PEOPLE */
+
+.people{
+ display:flex;
+ gap:15px;
+ overflow-x:auto;
+ scrollbar-width:none;
+ padding:2px 2px 8px;
+}
+
+.people::-webkit-scrollbar{
+ display:none;
 }
 
 .contact{
-  min-width:66px;
-  background:none;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:7px;
-  color:var(--text);
+ min-width:62px;
+ background:none;
+ color:var(--text);
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ gap:7px;
 }
 
 .contact-avatar{
-  width:53px;
-  height:53px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
-  font-weight:700;
-  font-size:14px;
-  box-shadow:0 7px 16px rgba(0,0,0,.1);
+ width:52px;
+ height:52px;
+ border-radius:50%;
+ color:#fff;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-weight:700;
+ font-size:13px;
+ box-shadow:0 8px 18px rgba(0,0,0,.1);
 }
 
 .contact-name{
-  font-size:11px;
-  white-space:nowrap;
-  max-width:66px;
-  overflow:hidden;
-  text-overflow:ellipsis;
+ font-size:10px;
+ max-width:65px;
+ overflow:hidden;
+ text-overflow:ellipsis;
+ white-space:nowrap;
 }
 
-.pulse-card{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:24px;
-  padding:19px;
-  box-shadow:var(--shadow);
-}
-
-.chart-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-}
-
-.chart-number{
-  margin-top:4px;
-  font-family:"Space Grotesk";
-  font-size:25px;
-}
-
-.chart-change{
-  margin-top:4px;
-  color:var(--green);
-  font-size:12px;
-  font-weight:700;
-}
-
-.chart{
-  height:145px;
-  margin-top:16px;
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:8px;
-  border-bottom:1px solid var(--line);
-  position:relative;
-}
-
-.bar-wrap{
-  height:100%;
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  align-items:center;
-  gap:7px;
-}
-
-.bar{
-  width:100%;
-  max-width:27px;
-  border-radius:8px 8px 4px 4px;
-  background:#ded9ff;
-  transition:.25s;
-  position:relative;
-}
-
-.bar.selected{
-  background:var(--purple);
-}
-
-.bar:after{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:-24px;
-  transform:translateX(-50%);
-  background:#17171b;
-  color:#fff;
-  padding:4px 6px;
-  border-radius:6px;
-  font-size:9px;
-  opacity:0;
-  pointer-events:none;
-}
-
-.bar.selected:after{
-  content:attr(data-value);
-  opacity:1;
-}
-
-.day{
-  font-size:9px;
-  color:var(--muted);
-}
-
-.category-row{
-  display:flex;
-  gap:7px;
-  margin-top:15px;
-  overflow:auto;
-  scrollbar-width:none;
-}
-
-.category-row::-webkit-scrollbar{
-  display:none;
-}
-
-.category{
-  white-space:nowrap;
-  padding:8px 11px;
-  border-radius:12px;
-  background:var(--surface2);
-  color:var(--muted);
-  font-size:10px;
-  font-weight:700;
-}
-
-.category.active{
-  background:#eeeaff;
-  color:var(--purple);
-}
+/* INSIGHT */
 
 .insight{
-  margin-top:17px;
-  padding:17px;
-  border-radius:20px;
-  background:linear-gradient(135deg,#f0edff,#faf9ff);
-  border:1px solid #e6e0ff;
-  display:flex;
-  gap:13px;
+ background:linear-gradient(135deg,#efecff,#faf9ff);
+ border:1px solid #e3ddff;
+ border-radius:22px;
+ padding:17px;
+ display:flex;
+ gap:12px;
 }
 
 .insight-icon{
-  width:39px;
-  height:39px;
-  border-radius:13px;
-  background:var(--purple);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
+ width:40px;
+ height:40px;
+ flex-shrink:0;
+ border-radius:13px;
+ background:var(--purple);
+ color:#fff;
+ display:flex;
+ align-items:center;
+ justify-content:center;
 }
 
 .insight strong{
-  display:block;
-  font-size:13px;
-  margin-bottom:4px;
+ display:block;
+ font-size:12px;
+ margin-bottom:4px;
 }
 
 .insight p{
-  color:#77727f;
-  font-size:11px;
-  line-height:1.5;
+ color:#77737f;
+ font-size:10px;
+ line-height:1.55;
 }
 
-.transactions{
-  display:flex;
-  flex-direction:column;
-  gap:5px;
+/* TIMELINE */
+
+.timeline{
+ position:relative;
 }
 
-.tx{
-  padding:14px 4px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  border-bottom:1px solid var(--line);
+.timeline:before{
+ content:"";
+ position:absolute;
+ left:21px;
+ top:13px;
+ bottom:13px;
+ width:1px;
+ background:var(--line);
 }
 
-.tx-icon{
-  width:44px;
-  height:44px;
-  border-radius:15px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:700;
-  flex-shrink:0;
+.timeline-item{
+ position:relative;
+ display:flex;
+ gap:13px;
+ padding:8px 0 18px;
 }
 
-.tx-icon.out{
-  background:#f3f0f4;
+.timeline-icon{
+ position:relative;
+ z-index:2;
+ width:43px;
+ height:43px;
+ border-radius:15px;
+ background:var(--surface);
+ border:1px solid var(--line);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-weight:700;
+ flex-shrink:0;
 }
 
-.tx-icon.in{
-  background:#e9f8f1;
-  color:var(--green);
+.timeline-content{
+ flex:1;
+ min-width:0;
+ padding-top:2px;
 }
 
-.tx-main{
-  flex:1;
-  min-width:0;
+.timeline-top{
+ display:flex;
+ justify-content:space-between;
+ gap:10px;
 }
 
-.tx-title{
-  font-size:13px;
-  font-weight:700;
+.timeline-title{
+ font-size:12px;
+ font-weight:700;
 }
 
-.tx-sub{
-  margin-top:4px;
-  color:var(--muted);
-  font-size:10px;
+.timeline-amount{
+ font-size:12px;
+ font-weight:700;
+ white-space:nowrap;
 }
 
-.tx-amount{
-  text-align:right;
-  font-size:13px;
-  font-weight:700;
+.timeline-amount.in{
+ color:var(--green);
 }
 
-.tx-amount.in{
-  color:var(--green);
+.timeline-sub{
+ color:var(--muted);
+ font-size:9px;
+ margin-top:4px;
 }
 
-.empty{
-  text-align:center;
-  padding:35px 10px;
-  color:var(--muted);
-  font-size:13px;
+.timeline-status{
+ margin-top:6px;
+ display:inline-flex;
+ padding:4px 7px;
+ border-radius:7px;
+ background:#eaf8f1;
+ color:var(--green);
+ font-size:8px;
+ font-weight:700;
 }
 
 /* ACTIVITY */
 
 .page-title{
-  padding:30px 0 18px;
+ padding:28px 0 17px;
 }
 
 .page-title h1{
-  font-family:"Space Grotesk";
-  font-size:28px;
-  letter-spacing:-1.3px;
+ font-family:"Space Grotesk";
+ font-size:29px;
+ letter-spacing:-1.3px;
 }
 
-.searchbox{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:16px;
-  height:47px;
-  display:flex;
-  align-items:center;
-  padding:0 14px;
-  gap:9px;
-  margin-bottom:13px;
+.search{
+ height:47px;
+ border-radius:16px;
+ border:1px solid var(--line);
+ background:var(--surface);
+ display:flex;
+ align-items:center;
+ gap:9px;
+ padding:0 14px;
 }
 
-.searchbox span{
-  color:var(--muted);
+.search span{
+ color:var(--muted);
 }
 
-.searchbox input{
-  background:none;
-  width:100%;
-  color:var(--text);
-  font-size:13px;
+.search input{
+ width:100%;
+ background:none;
+ color:var(--text);
+ font-size:12px;
 }
 
 .filters{
-  display:flex;
-  gap:7px;
-  overflow:auto;
-  scrollbar-width:none;
-  margin-bottom:15px;
+ display:flex;
+ gap:7px;
+ overflow-x:auto;
+ scrollbar-width:none;
+ margin:13px 0 17px;
 }
 
 .filters::-webkit-scrollbar{
-  display:none;
+ display:none;
 }
 
 .filter{
-  padding:9px 13px;
-  border-radius:13px;
-  white-space:nowrap;
-  background:var(--surface);
-  color:var(--muted);
-  font-size:11px;
-  font-weight:700;
-  border:1px solid var(--line);
+ padding:9px 13px;
+ border-radius:12px;
+ border:1px solid var(--line);
+ background:var(--surface);
+ color:var(--muted);
+ font-size:10px;
+ font-weight:700;
+ white-space:nowrap;
 }
 
 .filter.active{
-  background:var(--dark);
-  color:#fff;
-  border-color:var(--dark);
+ background:var(--dark);
+ color:#fff;
+ border-color:var(--dark);
+}
+
+.activity-list{
+ display:flex;
+ flex-direction:column;
 }
 
 /* CARDS */
 
-.card-header{
-  padding:29px 0 17px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.cards-head{
+ padding:28px 0 18px;
+ display:flex;
+ justify-content:space-between;
+ align-items:end;
 }
 
-.card-header h1{
-  font-family:"Space Grotesk";
-  font-size:28px;
+.cards-head h1{
+ font-family:"Space Grotesk";
+ font-size:29px;
+ letter-spacing:-1.2px;
 }
 
-.card-wallet{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:4px;
+.cards-head p{
+ color:var(--muted);
+ font-size:10px;
+ margin-top:4px;
+}
+
+.add-card{
+ width:43px;
+ height:43px;
+ border-radius:14px;
+ background:var(--dark);
+ color:#fff;
+ font-size:22px;
 }
 
 .card-track{
-  display:flex;
-  gap:14px;
-  overflow-x:auto;
-  scroll-snap-type:x mandatory;
-  scrollbar-width:none;
-  padding:8px 5px 18px;
-  margin:0 -5px;
+ display:flex;
+ gap:16px;
+ overflow-x:auto;
+ scroll-snap-type:x mandatory;
+ scrollbar-width:none;
+ padding:8px 5px 19px;
+ margin:0 -5px;
 }
 
 .card-track::-webkit-scrollbar{
-  display:none;
+ display:none;
 }
 
 .bank-card{
-  min-width:calc(100vw - 48px);
-  max-width:450px;
-  aspect-ratio:1.58;
-  perspective:1000px;
-  scroll-snap-align:center;
+ min-width:calc(100vw - 47px);
+ max-width:450px;
+ aspect-ratio:1.58;
+ scroll-snap-align:center;
+ perspective:1000px;
+ transition:transform .25s;
+}
+
+.bank-card.active-card{
+ transform:scale(1.01);
 }
 
 .card-inner{
-  width:100%;
-  height:100%;
-  position:relative;
-  transform-style:preserve-3d;
-  transition:transform .65s cubic-bezier(.2,.75,.2,1);
+ width:100%;
+ height:100%;
+ position:relative;
+ transform-style:preserve-3d;
+ transition:transform .68s cubic-bezier(.2,.8,.2,1);
 }
 
 .bank-card.flipped .card-inner{
-  transform:rotateY(180deg);
+ transform:rotateY(180deg);
 }
 
 .card-face{
-  position:absolute;
-  inset:0;
-  border-radius:26px;
-  overflow:hidden;
-  backface-visibility:hidden;
-  color:#fff;
-  padding:22px;
-  box-shadow:0 18px 38px rgba(25,20,35,.2);
+ position:absolute;
+ inset:0;
+ border-radius:27px;
+ overflow:hidden;
+ backface-visibility:hidden;
+ color:#fff;
+ padding:22px;
+ box-shadow:0 20px 40px rgba(25,20,35,.2);
 }
 
 .card-front{
-  background:
-    radial-gradient(circle at 85% 18%,rgba(172,146,255,.7),transparent 31%),
-    linear-gradient(135deg,#151419,#342a45 65%,#6b4ee5);
-}
-
-.card-front:after{
-  content:"";
-  position:absolute;
-  width:180px;
-  height:180px;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:50%;
-  right:-75px;
-  bottom:-80px;
+ background:
+ radial-gradient(circle at 84% 15%,rgba(178,151,255,.72),transparent 32%),
+ linear-gradient(135deg,#15151a,#342a45 65%,#6549d8);
 }
 
 .card-back{
-  transform:rotateY(180deg);
-  background:linear-gradient(145deg,#17161b,#302a39);
+ transform:rotateY(180deg);
+ background:linear-gradient(145deg,#151419,#332c3c);
 }
 
 .card-brand{
-  font-family:"Space Grotesk";
-  font-size:18px;
-  font-weight:700;
+ font-family:"Space Grotesk";
+ font-size:18px;
+ font-weight:700;
 }
 
 .card-type{
-  margin-top:4px;
-  color:#c7c2ce;
-  font-size:10px;
+ color:#c2beca;
+ font-size:9px;
+ margin-top:3px;
 }
 
 .chip{
-  position:absolute;
-  top:69px;
-  left:22px;
-  width:43px;
-  height:32px;
-  border-radius:8px;
-  background:linear-gradient(135deg,#d8d2c0,#817a67);
+ position:absolute;
+ top:69px;
+ left:22px;
+ width:43px;
+ height:32px;
+ border-radius:8px;
+ background:linear-gradient(135deg,#e2dccb,#7f7867);
 }
 
 .contactless{
-  position:absolute;
-  top:76px;
-  right:23px;
-  font-size:21px;
-  transform:rotate(90deg);
-  opacity:.75;
+ position:absolute;
+ top:72px;
+ right:23px;
+ font-size:21px;
+ transform:rotate(90deg);
+ opacity:.7;
 }
 
 .card-number{
-  position:absolute;
-  left:22px;
-  bottom:64px;
-  font-family:"Space Grotesk";
-  letter-spacing:2px;
-  font-size:16px;
+ position:absolute;
+ left:22px;
+ bottom:63px;
+ font-family:"Space Grotesk";
+ letter-spacing:2px;
+ font-size:16px;
 }
 
 .card-holder{
-  position:absolute;
-  left:22px;
-  bottom:23px;
+ position:absolute;
+ left:22px;
+ bottom:22px;
+}
+
+.card-expiry{
+ position:absolute;
+ right:70px;
+ bottom:22px;
 }
 
 .card-holder small,
 .card-expiry small{
-  display:block;
-  color:#aaa5b1;
-  font-size:7px;
-  margin-bottom:2px;
+ display:block;
+ color:#aaa6b1;
+ font-size:7px;
+ margin-bottom:2px;
 }
 
 .card-holder strong,
 .card-expiry strong{
-  font-size:10px;
-  letter-spacing:.5px;
+ font-size:9px;
 }
 
-.card-expiry{
-  position:absolute;
-  right:70px;
-  bottom:23px;
-}
-
-.nova-symbol{
-  position:absolute;
-  right:22px;
-  bottom:21px;
-  width:35px;
-  height:25px;
-  border-radius:50%;
-  border:2px solid rgba(255,255,255,.8);
+.card-symbol{
+ position:absolute;
+ right:22px;
+ bottom:21px;
+ width:34px;
+ height:24px;
+ border-radius:50%;
+ border:2px solid rgba(255,255,255,.75);
 }
 
 .stripe{
-  height:42px;
-  background:#09090b;
-  margin:30px -22px 20px;
+ height:43px;
+ background:#09090b;
+ margin:30px -22px 20px;
 }
 
 .signature{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:#f4f4f4;
-  color:#111;
-  padding:8px 10px;
-  border-radius:5px;
-  font-size:9px;
+ background:#eee;
+ color:#111;
+ border-radius:5px;
+ height:29px;
+ padding:0 9px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ font-size:7px;
 }
 
 .cvv{
-  background:#fff;
-  padding:5px 8px;
-  border-radius:4px;
-  font-weight:700;
+ background:#fff;
+ border-radius:4px;
+ padding:5px 8px;
+ font-weight:700;
 }
 
 .back-number{
-  margin-top:28px;
-  font-family:"Space Grotesk";
-  font-size:14px;
-  letter-spacing:1.4px;
-  color:#ddd;
+ font-family:"Space Grotesk";
+ font-size:13px;
+ letter-spacing:1.3px;
+ margin-top:26px;
+ color:#ddd;
 }
 
 .back-note{
-  position:absolute;
-  bottom:22px;
-  left:22px;
-  right:22px;
-  color:#97929f;
-  font-size:8px;
-  line-height:1.5;
+ position:absolute;
+ left:22px;
+ right:22px;
+ bottom:21px;
+ color:#95919b;
+ font-size:8px;
+ line-height:1.5;
 }
 
 .card-dots{
-  display:flex;
-  justify-content:center;
-  gap:6px;
-  margin-bottom:16px;
+ display:flex;
+ justify-content:center;
+ gap:6px;
+ margin-bottom:17px;
 }
 
 .dot{
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:#d4d4d9;
-  transition:.2s;
+ width:6px;
+ height:6px;
+ border-radius:50%;
+ background:#d4d4d9;
+ transition:.2s;
 }
 
 .dot.active{
-  width:19px;
-  border-radius:5px;
-  background:var(--purple);
+ width:18px;
+ border-radius:6px;
+ background:var(--purple);
 }
 
 .card-actions{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:9px;
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:9px;
 }
 
 .card-action{
-  min-height:73px;
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:18px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:7px;
-  color:var(--text);
-  font-size:10px;
-  font-weight:700;
+ min-height:71px;
+ border-radius:18px;
+ background:var(--surface);
+ border:1px solid var(--line);
+ color:var(--text);
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ justify-content:center;
+ gap:7px;
+ font-size:10px;
+ font-weight:700;
 }
 
 .card-action span:first-child{
-  font-size:18px;
+ font-size:18px;
 }
 
-.card-detail{
-  margin-top:18px;
-  padding:18px;
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:21px;
+.card-info{
+ margin-top:18px;
+ padding:17px;
+ border-radius:21px;
+ background:var(--surface);
+ border:1px solid var(--line);
 }
 
-.detail-line{
-  display:flex;
-  justify-content:space-between;
-  padding:11px 0;
-  border-bottom:1px solid var(--line);
-  font-size:12px;
+.info-row{
+ display:flex;
+ justify-content:space-between;
+ padding:10px 0;
+ border-bottom:1px solid var(--line);
+ font-size:10px;
 }
 
-.detail-line:last-child{
-  border-bottom:0;
+.info-row:last-child{
+ border-bottom:0;
 }
 
-.detail-line span:last-child{
-  font-weight:700;
+.info-row span:first-child{
+ color:var(--muted);
+}
+
+.info-row strong{
+ font-size:10px;
 }
 
 /* SPACES */
 
-.space-hero{
-  padding:30px 0 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
+.spaces-head{
+ padding:28px 0 20px;
+ display:flex;
+ justify-content:space-between;
+ align-items:end;
 }
 
-.space-hero h1{
-  font-family:"Space Grotesk";
-  font-size:29px;
+.spaces-head h1{
+ font-family:"Space Grotesk";
+ font-size:29px;
 }
 
-.space-hero p{
-  margin-top:5px;
-  color:var(--muted);
-  font-size:12px;
+.spaces-head p{
+ color:var(--muted);
+ font-size:10px;
+ margin-top:5px;
 }
 
-.plus{
-  width:43px;
-  height:43px;
-  border-radius:14px;
-  background:var(--dark);
-  color:#fff;
-  font-size:22px;
+.space-add{
+ width:43px;
+ height:43px;
+ border-radius:14px;
+ background:var(--dark);
+ color:#fff;
+ font-size:22px;
 }
 
 .space-list{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
+ display:flex;
+ flex-direction:column;
+ gap:12px;
 }
 
-.space-card{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:23px;
-  padding:18px;
+.space{
+ background:var(--surface);
+ border:1px solid var(--line);
+ border-radius:23px;
+ padding:18px;
 }
 
 .space-top{
-  display:flex;
-  align-items:center;
-  gap:12px;
+ display:flex;
+ align-items:center;
+ gap:12px;
 }
 
 .space-icon{
-  width:45px;
-  height:45px;
-  border-radius:15px;
-  background:#f0edff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--purple);
-  font-size:19px;
+ width:46px;
+ height:46px;
+ border-radius:15px;
+ background:var(--purpleSoft);
+ color:var(--purple);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:19px;
 }
 
-.space-info{
-  flex:1;
+.space-copy{
+ flex:1;
 }
 
-.space-info strong{
-  display:block;
-  font-size:14px;
+.space-copy strong{
+ display:block;
+ font-size:13px;
 }
 
-.space-info span{
-  color:var(--muted);
-  font-size:10px;
+.space-copy span{
+ display:block;
+ color:var(--muted);
+ font-size:9px;
+ margin-top:4px;
 }
 
-.progress-ring{
-  width:52px;
-  height:52px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  position:relative;
-  background:conic-gradient(var(--purple) var(--progress),#ecebf0 0);
+.ring{
+ width:53px;
+ height:53px;
+ border-radius:50%;
+ display:grid;
+ place-items:center;
+ position:relative;
+ background:conic-gradient(var(--purple) var(--p),#e9e8ee 0);
 }
 
-.progress-ring:after{
-  content:"";
-  position:absolute;
-  inset:5px;
-  background:var(--surface);
-  border-radius:50%;
+.ring:after{
+ content:"";
+ position:absolute;
+ inset:5px;
+ background:var(--surface);
+ border-radius:50%;
 }
 
-.progress-ring span{
-  position:relative;
-  z-index:2;
-  font-size:9px;
-  font-weight:700;
+.ring b{
+ position:relative;
+ z-index:2;
+ font-size:9px;
 }
 
-.space-money{
-  margin-top:17px;
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
+.space-values{
+ display:flex;
+ justify-content:space-between;
+ align-items:end;
+ margin-top:17px;
 }
 
-.space-money strong{
-  font-family:"Space Grotesk";
-  font-size:20px;
+.space-values strong{
+ font-family:"Space Grotesk";
+ font-size:20px;
 }
 
-.space-money span{
-  color:var(--muted);
-  font-size:10px;
+.space-values span{
+ color:var(--muted);
+ font-size:9px;
 }
 
 .progress{
-  height:7px;
-  background:#ecebf0;
-  border-radius:10px;
-  overflow:hidden;
-  margin-top:13px;
+ height:7px;
+ background:#e9e8ee;
+ border-radius:10px;
+ margin-top:12px;
+ overflow:hidden;
 }
 
 .progress div{
-  height:100%;
-  border-radius:10px;
-  background:var(--purple);
-  transition:.4s ease;
+ height:100%;
+ background:var(--purple);
+ border-radius:10px;
 }
 
-.space-footer{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-top:13px;
+.space-bottom{
+ margin-top:13px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
 }
 
 .milestone{
-  color:var(--muted);
-  font-size:10px;
+ color:var(--muted);
+ font-size:9px;
 }
 
-.add-space-money{
-  padding:8px 11px;
-  border-radius:11px;
-  background:#eeeaff;
-  color:var(--purple);
-  font-size:10px;
-  font-weight:700;
+.space-money{
+ padding:8px 11px;
+ border-radius:11px;
+ background:var(--purpleSoft);
+ color:var(--purple);
+ font-size:9px;
+ font-weight:700;
 }
 
 /* PROFILE */
 
 .profile-head{
-  padding:30px 0 20px;
+ padding:28px 0 20px;
 }
 
 .profile-head h1{
-  font-family:"Space Grotesk";
-  font-size:29px;
+ font-family:"Space Grotesk";
+ font-size:29px;
 }
 
 .identity{
-  background:var(--dark);
-  color:#fff;
-  padding:21px;
-  border-radius:24px;
-  margin-bottom:17px;
-  display:flex;
-  align-items:center;
-  gap:14px;
+ background:var(--dark);
+ color:#fff;
+ border-radius:24px;
+ padding:20px;
+ display:flex;
+ align-items:center;
+ gap:14px;
+ margin-bottom:16px;
 }
 
-.identity .avatar{
-  width:53px;
-  height:53px;
+.identity-avatar{
+ width:55px;
+ height:55px;
+ border-radius:50%;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:14px;
+ font-weight:700;
+ background:linear-gradient(135deg,#7255ff,#a890ff);
 }
 
-.identity-info strong{
-  font-size:15px;
+.identity-copy strong{
+ font-size:14px;
 }
 
-.identity-info p{
-  color:#aaa7b0;
-  font-size:10px;
-  margin-top:4px;
+.identity-copy p{
+ color:#aaa7b1;
+ font-size:9px;
+ margin-top:4px;
 }
 
 .menu{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:22px;
-  overflow:hidden;
+ background:var(--surface);
+ border:1px solid var(--line);
+ border-radius:22px;
+ overflow:hidden;
 }
 
 .menu-title{
-  padding:15px 17px 7px;
-  color:var(--muted);
-  font-size:10px;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:.8px;
+ padding:15px 17px 7px;
+ color:var(--muted);
+ text-transform:uppercase;
+ letter-spacing:.8px;
+ font-size:9px;
+ font-weight:700;
 }
 
 .menu-row{
-  width:100%;
-  padding:15px 17px;
-  background:none;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  color:var(--text);
-  border-bottom:1px solid var(--line);
-  text-align:left;
+ width:100%;
+ background:none;
+ color:var(--text);
+ padding:14px 17px;
+ display:flex;
+ align-items:center;
+ gap:12px;
+ border-bottom:1px solid var(--line);
+ text-align:left;
 }
 
 .menu-row:last-child{
-  border-bottom:0;
+ border-bottom:0;
 }
 
 .menu-icon{
-  width:35px;
-  height:35px;
-  border-radius:11px;
-  background:var(--surface2);
-  display:flex;
-  align-items:center;
-  justify-content:center;
+ width:35px;
+ height:35px;
+ border-radius:11px;
+ background:var(--surface2);
+ display:flex;
+ align-items:center;
+ justify-content:center;
 }
 
 .menu-copy{
-  flex:1;
+ flex:1;
 }
 
 .menu-copy strong{
-  display:block;
-  font-size:12px;
+ display:block;
+ font-size:11px;
 }
 
 .menu-copy span{
-  display:block;
-  margin-top:3px;
-  color:var(--muted);
-  font-size:9px;
+ display:block;
+ color:var(--muted);
+ font-size:9px;
+ margin-top:3px;
 }
 
 .chevron{
-  color:#aaa;
+ color:#aaa;
 }
 
 /* NAV */
 
 .nav{
-  position:fixed;
-  z-index:30;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(540px,100%);
-  padding:9px 15px calc(9px + env(safe-area-inset-bottom));
-  background:rgba(255,255,255,.91);
-  backdrop-filter:blur(22px);
-  border-top:1px solid rgba(0,0,0,.06);
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
+ position:fixed;
+ z-index:50;
+ left:50%;
+ bottom:0;
+ transform:translateX(-50%);
+ width:min(540px,100%);
+ padding:9px 14px calc(9px + env(safe-area-inset-bottom));
+ background:rgba(255,255,255,.91);
+ backdrop-filter:blur(24px);
+ border-top:1px solid rgba(0,0,0,.05);
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
 }
 
 .nav-item{
-  background:none;
-  color:#9999a1;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:5px;
-  font-size:9px;
-  font-weight:600;
-  transition:.18s;
+ color:#9999a2;
+ background:none;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ gap:5px;
+ font-size:9px;
+ font-weight:600;
+ transition:.16s;
 }
 
-.nav-item .nav-icon{
-  width:30px;
-  height:30px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:11px;
-  font-size:17px;
+.nav-icon{
+ width:30px;
+ height:30px;
+ border-radius:11px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:17px;
 }
 
 .nav-item.active{
-  color:var(--purple);
+ color:var(--purple);
 }
 
 .nav-item.active .nav-icon{
-  background:#eeeaff;
+ background:var(--purpleSoft);
 }
 
 /* MODAL */
 
-.modal-layer{
-  position:fixed;
-  z-index:100;
-  inset:0;
-  background:rgba(0,0,0,.48);
-  opacity:0;
-  pointer-events:none;
-  transition:.22s;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
+.modal{
+ position:fixed;
+ z-index:100;
+ inset:0;
+ display:flex;
+ align-items:flex-end;
+ justify-content:center;
+ background:rgba(0,0,0,.5);
+ opacity:0;
+ pointer-events:none;
+ transition:.22s;
 }
 
-.modal-layer.open{
-  opacity:1;
-  pointer-events:auto;
+.modal.open{
+ opacity:1;
+ pointer-events:auto;
 }
 
 .sheet{
-  width:min(540px,100%);
-  max-height:91vh;
-  overflow:auto;
-  background:var(--surface);
-  border-radius:29px 29px 0 0;
-  padding:9px 19px calc(22px + env(safe-area-inset-bottom));
-  transform:translateY(30px);
-  transition:.32s cubic-bezier(.2,.8,.2,1);
+ width:min(540px,100%);
+ max-height:91vh;
+ overflow:auto;
+ background:var(--surface);
+ border-radius:30px 30px 0 0;
+ padding:8px 19px calc(23px + env(safe-area-inset-bottom));
+ transform:translateY(35px);
+ transition:.35s cubic-bezier(.2,.8,.2,1);
 }
 
-.modal-layer.open .sheet{
-  transform:none;
+.modal.open .sheet{
+ transform:none;
 }
 
 .handle{
-  width:39px;
-  height:4px;
-  border-radius:10px;
-  background:#d8d8dc;
-  margin:5px auto 20px;
+ width:38px;
+ height:4px;
+ border-radius:10px;
+ background:#d6d6db;
+ margin:5px auto 20px;
 }
 
 .sheet h2{
-  font-family:"Space Grotesk";
-  font-size:22px;
-  letter-spacing:-.7px;
+ font-family:"Space Grotesk";
+ font-size:22px;
+ letter-spacing:-.7px;
 }
 
 .sheet-sub{
-  margin-top:5px;
-  color:var(--muted);
-  font-size:11px;
+ color:var(--muted);
+ font-size:10px;
+ margin-top:5px;
 }
 
 .close{
-  position:absolute;
-  right:18px;
-  top:18px;
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  background:var(--surface2);
-  color:var(--text);
+ position:absolute;
+ top:17px;
+ right:18px;
+ width:34px;
+ height:34px;
+ border-radius:50%;
+ background:var(--surface2);
+ color:var(--text);
+ font-size:18px;
 }
 
-.form{
-  margin-top:19px;
+.field{
+ margin-top:18px;
 }
 
-.field-label{
-  color:var(--muted);
-  font-size:10px;
-  font-weight:700;
-  margin-bottom:7px;
+.label{
+ color:var(--muted);
+ font-size:9px;
+ font-weight:700;
+ margin-bottom:7px;
 }
 
 .input{
-  width:100%;
-  height:49px;
-  border-radius:15px;
-  background:var(--surface2);
-  padding:0 14px;
-  color:var(--text);
-  font-size:13px;
-}
-
-.big-amount{
-  text-align:center;
-  font-family:"Space Grotesk";
-  font-size:43px;
-  margin:15px 0 5px;
-}
-
-.amount-note{
-  text-align:center;
-  color:var(--muted);
-  font-size:10px;
-}
-
-.recipient{
-  background:var(--surface2);
-  padding:13px;
-  border-radius:17px;
-  display:flex;
-  align-items:center;
-  gap:11px;
-  margin-top:17px;
-}
-
-.recipient .contact-avatar{
-  width:43px;
-  height:43px;
-}
-
-.recipient-info{
-  flex:1;
-}
-
-.recipient-info strong{
-  display:block;
-  font-size:12px;
-}
-
-.recipient-info span{
-  display:block;
-  color:var(--muted);
-  font-size:9px;
-  margin-top:3px;
-}
-
-.quick-amounts{
-  display:flex;
-  gap:8px;
-  justify-content:center;
-  margin:15px 0;
-}
-
-.amount-chip{
-  padding:8px 13px;
-  border-radius:12px;
-  background:var(--surface2);
-  color:var(--text);
-  font-size:10px;
-  font-weight:700;
+ width:100%;
+ height:49px;
+ border-radius:15px;
+ background:var(--surface2);
+ padding:0 14px;
+ color:var(--text);
+ font-size:12px;
 }
 
 .primary{
-  width:100%;
-  height:53px;
-  border-radius:17px;
-  background:var(--dark);
-  color:#fff;
-  font-weight:700;
-  font-size:13px;
-  margin-top:15px;
-  transition:.18s;
+ width:100%;
+ height:53px;
+ border-radius:17px;
+ background:var(--dark);
+ color:#fff;
+ font-size:12px;
+ font-weight:700;
+ margin-top:17px;
+ transition:.15s;
 }
 
 .primary:active{
-  transform:scale(.98);
+ transform:scale(.98);
 }
 
 .secondary{
-  width:100%;
-  height:49px;
-  border-radius:16px;
-  background:var(--surface2);
-  color:var(--text);
-  font-weight:700;
-  font-size:12px;
-  margin-top:9px;
+ width:100%;
+ height:49px;
+ border-radius:16px;
+ background:var(--surface2);
+ color:var(--text);
+ font-size:11px;
+ font-weight:700;
+ margin-top:9px;
 }
 
-.summary{
-  background:var(--surface2);
-  border-radius:19px;
-  padding:15px;
-  margin-top:17px;
+.recipient{
+ margin-top:17px;
+ background:var(--surface2);
+ border-radius:17px;
+ padding:12px;
+ display:flex;
+ align-items:center;
+ gap:11px;
 }
 
-.summary-line{
-  display:flex;
-  justify-content:space-between;
-  padding:7px 0;
-  font-size:11px;
+.recipient .contact-avatar{
+ width:43px;
+ height:43px;
 }
 
-.summary-line span:first-child{
-  color:var(--muted);
+.recipient-copy{
+ flex:1;
 }
 
-.summary-line strong{
-  font-size:11px;
+.recipient-copy strong{
+ display:block;
+ font-size:12px;
 }
 
-.success{
-  text-align:center;
-  padding:22px 0 5px;
+.recipient-copy span{
+ display:block;
+ color:var(--muted);
+ font-size:9px;
+ margin-top:3px;
 }
 
-.success-icon{
-  width:72px;
-  height:72px;
-  border-radius:50%;
-  background:#e8f8f0;
-  color:var(--green);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:34px;
-  margin:0 auto 17px;
-  animation:pop .45s ease;
+.amount{
+ text-align:center;
+ font-family:"Space Grotesk";
+ font-size:43px;
+ margin-top:17px;
+ letter-spacing:-1.5px;
 }
 
-@keyframes pop{
-  0%{transform:scale(.5);opacity:0}
-  70%{transform:scale(1.1)}
-  100%{transform:scale(1);opacity:1}
+.amount-note{
+ text-align:center;
+ color:var(--muted);
+ font-size:9px;
+}
+
+.quick-amounts{
+ display:flex;
+ justify-content:center;
+ gap:7px;
+ margin:15px 0;
+}
+
+.amount-chip{
+ padding:8px 12px;
+ border-radius:11px;
+ background:var(--surface2);
+ color:var(--text);
+ font-size:9px;
+ font-weight:700;
 }
 
 .keypad{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:9px;
-  margin-top:18px;
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:8px;
+ margin-top:16px;
 }
 
 .key{
-  height:55px;
-  border-radius:15px;
-  background:var(--surface2);
-  color:var(--text);
-  font-family:"Space Grotesk";
-  font-size:18px;
-  font-weight:600;
+ height:54px;
+ border-radius:15px;
+ background:var(--surface2);
+ color:var(--text);
+ font-family:"Space Grotesk";
+ font-size:18px;
 }
 
-.pin-dots{
-  display:flex;
-  justify-content:center;
-  gap:9px;
-  margin-top:19px;
+.summary{
+ background:var(--surface2);
+ border-radius:18px;
+ padding:13px;
+ margin-top:17px;
 }
 
-.pin-dot{
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  background:#d8d8dd;
+.summary-row{
+ display:flex;
+ justify-content:space-between;
+ padding:7px 0;
+ font-size:10px;
 }
 
-.pin-dot.filled{
-  background:var(--purple);
+.summary-row span:first-child{
+ color:var(--muted);
+}
+
+.summary-row strong{
+ font-size:10px;
+}
+
+.success{
+ text-align:center;
+ padding:15px 0 4px;
+}
+
+.success-icon{
+ width:74px;
+ height:74px;
+ margin:0 auto 17px;
+ border-radius:50%;
+ background:#e8f8f0;
+ color:var(--green);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:34px;
+ animation:success .45s ease;
+}
+
+@keyframes success{
+ 0%{transform:scale(.5);opacity:0}
+ 70%{transform:scale(1.1)}
+ 100%{transform:scale(1);opacity:1}
+}
+
+/* QR */
+
+.qr-wrap{
+ display:flex;
+ justify-content:center;
+ padding:24px 0 10px;
+}
+
+.qr{
+ width:210px;
+ height:210px;
+ border-radius:20px;
+ background:
+ repeating-conic-gradient(#111 0 25%,#fff 0 50%) 50% / 18px 18px;
+ border:13px solid #fff;
+ box-shadow:0 10px 35px rgba(0,0,0,.12);
+ position:relative;
+ overflow:hidden;
+}
+
+.qr:after{
+ content:"N";
+ position:absolute;
+ width:52px;
+ height:52px;
+ border-radius:15px;
+ background:#111;
+ color:#fff;
+ font-family:"Space Grotesk";
+ font-weight:700;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ left:50%;
+ top:50%;
+ transform:translate(-50%,-50%);
+ border:7px solid #fff;
 }
 
 /* NOTIFICATIONS */
 
 .notification-list{
-  margin-top:18px;
+ margin-top:17px;
 }
 
 .notification{
-  padding:15px 2px;
-  display:flex;
-  gap:11px;
-  border-bottom:1px solid var(--line);
+ display:flex;
+ gap:11px;
+ padding:14px 2px;
+ border-bottom:1px solid var(--line);
 }
 
 .notification.unread{
-  background:#faf9ff;
-  margin:0 -10px;
-  padding-left:10px;
-  padding-right:10px;
-  border-radius:13px;
+ background:#faf9ff;
+ border-radius:13px;
+ padding-left:10px;
+ padding-right:10px;
+ margin:0 -10px;
 }
 
 .n-icon{
-  width:40px;
-  height:40px;
-  border-radius:13px;
-  background:#eeeaff;
-  color:var(--purple);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
+ width:40px;
+ height:40px;
+ border-radius:13px;
+ background:var(--purpleSoft);
+ color:var(--purple);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ flex-shrink:0;
 }
 
 .n-copy{
-  flex:1;
+ flex:1;
 }
 
 .n-copy strong{
-  font-size:11px;
+ font-size:11px;
 }
 
 .n-copy p{
-  margin-top:3px;
-  color:var(--muted);
-  font-size:10px;
-  line-height:1.4;
+ color:var(--muted);
+ font-size:9px;
+ line-height:1.45;
+ margin-top:3px;
 }
 
 .n-time{
-  color:#aaa;
-  font-size:8px;
-}
-
-/* RECEIPT */
-
-.receipt{
-  text-align:center;
-}
-
-.receipt-icon{
-  width:61px;
-  height:61px;
-  border-radius:20px;
-  background:#eeeaff;
-  color:var(--purple);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:24px;
-  margin:7px auto 13px;
-}
-
-.receipt-status{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  padding:6px 9px;
-  border-radius:10px;
-  background:#e9f8f1;
-  color:var(--green);
-  font-size:9px;
-  font-weight:700;
-}
-
-.receipt-amount{
-  font-family:"Space Grotesk";
-  font-size:35px;
-  margin-top:10px;
-}
-
-.receipt-card{
-  margin-top:18px;
-  padding:14px;
-  background:var(--surface2);
-  border-radius:17px;
-  text-align:left;
-}
-
-.receipt-row{
-  display:flex;
-  justify-content:space-between;
-  padding:8px 0;
-  font-size:10px;
-}
-
-.receipt-row span:first-child{
-  color:var(--muted);
+ color:#aaa;
+ font-size:8px;
 }
 
 /* TOAST */
 
 .toast{
-  position:fixed;
-  z-index:200;
-  left:50%;
-  bottom:calc(90px + env(safe-area-inset-bottom));
-  transform:translate(-50%,20px);
-  background:#17171b;
-  color:#fff;
-  padding:11px 15px;
-  border-radius:13px;
-  font-size:11px;
-  opacity:0;
-  pointer-events:none;
-  transition:.25s;
-  white-space:nowrap;
+ position:fixed;
+ z-index:200;
+ left:50%;
+ bottom:calc(92px + env(safe-area-inset-bottom));
+ transform:translate(-50%,18px);
+ padding:11px 15px;
+ border-radius:13px;
+ background:#17171b;
+ color:#fff;
+ font-size:10px;
+ opacity:0;
+ pointer-events:none;
+ transition:.25s;
+ white-space:nowrap;
 }
 
 .toast.show{
-  opacity:1;
-  transform:translate(-50%,0);
+ opacity:1;
+ transform:translate(-50%,0);
 }
 
 /* DARK */
 
 body.dark{
-  --bg:#0d0d10;
-  --surface:#17171b;
-  --surface2:#222228;
-  --text:#f7f7f8;
-  --muted:#96959e;
-  --line:#29292f;
-  --shadow:0 15px 35px rgba(0,0,0,.22);
+ --bg:#0d0d10;
+ --surface:#17171b;
+ --surface2:#222228;
+ --text:#f7f7f8;
+ --muted:#96959e;
+ --line:#29292f;
+ --shadow:0 15px 35px rgba(0,0,0,.24);
 }
 
 body.dark .nav{
-  background:rgba(20,20,24,.92);
-  border-color:#29292f;
+ background:rgba(20,20,24,.93);
+ border-color:#29292f;
 }
 
 body.dark .insight{
-  background:#201c2d;
-  border-color:#30284b;
+ background:#201c2d;
+ border-color:#30284b;
 }
 
 body.dark .filter.active,
 body.dark .primary{
-  background:#f5f5f7;
-  color:#111;
-}
-
-body.dark .bar{
-  background:#494259;
-}
-
-body.dark .bar.selected{
-  background:var(--purple);
+ background:#f5f5f7;
+ color:#111;
 }
 
 body.dark .notification.unread{
-  background:#1d1929;
+ background:#1d1929;
 }
 
-/* RESPONSIVE */
-
-@media(min-width:540px){
-  .bank-card{
-    min-width:430px;
-  }
-}
+/* SMALL */
 
 @media(max-width:360px){
-  .quick-grid{
-    gap:6px;
-  }
+ .balance{
+  font-size:31px;
+ }
 
-  .quick{
-    min-height:73px;
-  }
+ .quick-grid{
+  gap:6px;
+ }
 
-  .balance{
-    font-size:31px;
-  }
+ .quick{
+  min-height:73px;
+ }
+
+ .bank-card{
+  min-width:calc(100vw - 40px);
+ }
+}
+
+@media(min-width:540px){
+ .bank-card{
+  min-width:430px;
+ }
 }
 </style>
 </head>
@@ -1620,1771 +1508,2072 @@ body.dark .notification.unread{
 
 <div class="app">
 
-  <div class="topbar">
-    <div class="brand">NOVA</div>
-    <button class="avatar" data-action="profile">NV</button>
+<header class="topbar">
+ <div class="logo">NOVA</div>
+ <button class="profile-button" data-action="profile">NV</button>
+</header>
+
+<!-- HOME -->
+
+<section class="screen active" id="home">
+
+ <div class="hero">
+  <div class="eyebrow">Good evening</div>
+  <h1>Welcome back.</h1>
+
+  <div class="balance-card">
+
+   <div class="balance-label">Available balance</div>
+   <div class="balance" id="balance">$24,860.40</div>
+
+   <button class="balance-eye" data-action="toggle-balance">◉</button>
+
+   <div class="balance-meta">
+    <div>
+     Account
+     <strong>•••• 2846</strong>
+    </div>
+
+    <div style="text-align:right">
+     This month
+     <strong>+$4,280.20</strong>
+    </div>
+   </div>
+
+  </div>
+ </div>
+
+ <div class="quick-grid">
+
+  <button class="quick" data-action="send">
+   <div class="quick-icon">↗</div>
+   <span>Send</span>
+  </button>
+
+  <button class="quick" data-action="request">
+   <div class="quick-icon">↓</div>
+   <span>Request</span>
+  </button>
+
+  <button class="quick" data-action="qr">
+   <div class="quick-icon">▦</div>
+   <span>QR Pay</span>
+  </button>
+
+  <button class="quick" data-action="add">
+   <div class="quick-icon">+</div>
+   <span>Add</span>
+  </button>
+
+ </div>
+
+ <div class="section">
+
+  <div class="section-head">
+   <div>
+    <div class="section-title">People</div>
+    <div class="section-sub">Send money instantly</div>
+   </div>
+
+   <button class="link" data-action="send">View all</button>
   </div>
 
-  <!-- HOME -->
-  <section class="screen active" id="home">
+  <div class="people" id="people"></div>
 
-    <div class="hero">
-      <div class="hello">Good afternoon</div>
-      <h1>Welcome back.</h1>
+ </div>
 
-      <div class="balance-card">
-        <div class="balance-label">Available balance</div>
-        <div class="balance" id="balance">$24,860.40</div>
+ <div class="section">
 
-        <div class="balance-tools">
-          <button class="icon-btn" data-action="toggle-balance">◉</button>
-        </div>
+  <div class="section-head">
+   <div>
+    <div class="section-title">Your money</div>
+    <div class="section-sub">Recent activity</div>
+   </div>
 
-        <div class="balance-bottom">
-          <div>
-            <span>Account</span><br>
-            <strong>•••• 2846</strong>
-          </div>
-          <div style="text-align:right">
-            <span>This month</span><br>
-            <strong>+$4,280.20</strong>
-          </div>
-        </div>
-      </div>
-    </div>
+   <button class="link" data-screen="activity">See all</button>
+  </div>
 
-    <div class="quick-grid">
-      <button class="quick" data-action="send">
-        <div class="quick-icon">↗</div>
-        <span>Send</span>
-      </button>
+  <div class="timeline" id="homeTimeline"></div>
 
-      <button class="quick" data-action="request">
-        <div class="quick-icon">↓</div>
-        <span>Request</span>
-      </button>
+ </div>
 
-      <button class="quick" data-action="pay">
-        <div class="quick-icon">⌁</div>
-        <span>Pay</span>
-      </button>
+ <div class="section">
 
-      <button class="quick" data-action="add">
-        <div class="quick-icon">+</div>
-        <span>Add</span>
-      </button>
-    </div>
+  <div class="insight">
 
-    <div class="section">
-      <div class="section-head">
-        <div class="section-title">People</div>
-        <button class="section-link" data-action="send">View all</button>
-      </div>
+   <div class="insight-icon">✦</div>
 
-      <div class="contacts" id="contacts"></div>
-    </div>
+   <div>
+    <strong>NOVA Insight</strong>
+    <p id="insightText">
+     Your spending is looking healthy this week.
+    </p>
+   </div>
 
-    <div class="section">
-      <div class="section-head">
-        <div>
-          <div class="section-title">Money Pulse</div>
-          <div style="color:var(--muted);font-size:10px;margin-top:3px">Your spending this week</div>
-        </div>
-        <div style="font-size:10px;color:var(--muted)">7 days</div>
-      </div>
+  </div>
 
-      <div class="pulse-card">
-        <div class="chart-top">
-          <div>
-            <div style="font-size:10px;color:var(--muted)">Spent</div>
-            <div class="chart-number" id="chartTotal">$1,284</div>
-            <div class="chart-change">↓ 12.4% from last week</div>
-          </div>
-          <div style="font-size:22px">↗</div>
-        </div>
+ </div>
 
-        <div class="chart" id="chart"></div>
+</section>
 
-        <div class="category-row">
-          <button class="category active" data-category="All">All</button>
-          <button class="category" data-category="Food">Food</button>
-          <button class="category" data-category="Shopping">Shopping</button>
-          <button class="category" data-category="Transport">Transport</button>
-          <button class="category" data-category="Bills">Bills</button>
-        </div>
-      </div>
+<!-- ACTIVITY -->
 
-      <div class="insight">
-        <div class="insight-icon">✦</div>
-        <div>
-          <strong>NOVA Insight</strong>
-          <p id="insightText">You spent less this week than your usual pattern. Your biggest spending day was Tuesday.</p>
-        </div>
-      </div>
-    </div>
+<section class="screen" id="activity">
 
-    <div class="section">
-      <div class="section-head">
-        <div class="section-title">Recent activity</div>
-        <button class="section-link" data-screen="activity">See all</button>
-      </div>
+ <div class="page-title">
+  <h1>Activity</h1>
+ </div>
 
-      <div class="transactions" id="homeTransactions"></div>
-    </div>
+ <div class="search">
+  <span>⌕</span>
+  <input id="searchInput" placeholder="Search transactions">
+ </div>
 
-  </section>
+ <div class="filters">
+  <button class="filter active" data-filter="all">All</button>
+  <button class="filter" data-filter="payments">Payments</button>
+  <button class="filter" data-filter="income">Income</button>
+  <button class="filter" data-filter="spaces">Spaces</button>
+ </div>
 
-  <!-- ACTIVITY -->
-  <section class="screen" id="activity">
+ <div class="activity-list" id="activityList"></div>
 
-    <div class="page-title">
-      <h1>Activity</h1>
-    </div>
+</section>
 
-    <div class="searchbox">
-      <span>⌕</span>
-      <input id="activitySearch" placeholder="Search transactions">
-    </div>
+<!-- CARDS -->
 
-    <div class="filters">
-      <button class="filter active" data-filter="all">All</button>
-      <button class="filter" data-filter="payments">Payments</button>
-      <button class="filter" data-filter="income">Income</button>
-      <button class="filter" data-filter="spaces">Spaces</button>
-    </div>
+<section class="screen" id="cards">
 
-    <div class="transactions" id="activityTransactions"></div>
+ <div class="cards-head">
 
-  </section>
+  <div>
+   <h1>Your cards</h1>
+   <p>3 cards connected to NOVA</p>
+  </div>
 
-  <!-- CARDS -->
-  <section class="screen" id="cards">
+  <button class="add-card" data-action="add-card">+</button>
 
-    <div class="card-header">
-      <div>
-        <h1>Your cards</h1>
-        <div class="card-wallet">3 active cards</div>
-      </div>
-      <button class="plus" data-action="add-card">+</button>
-    </div>
+ </div>
 
-    <div class="card-track" id="cardTrack"></div>
+ <div class="card-track" id="cardTrack"></div>
 
-    <div class="card-dots" id="cardDots"></div>
+ <div class="card-dots" id="cardDots"></div>
 
-    <div class="card-actions">
-      <button class="card-action" data-action="flip-card">
-        <span>↻</span>
-        Details
-      </button>
+ <div class="card-actions">
 
-      <button class="card-action" data-action="freeze">
-        <span>❄</span>
-        <span id="freezeLabel">Freeze</span>
-      </button>
+  <button class="card-action" data-action="flip-card">
+   <span>↻</span>
+   Details
+  </button>
 
-      <button class="card-action" data-action="limit">
-        <span>◫</span>
-        Limit
-      </button>
-    </div>
+  <button class="card-action" data-action="freeze">
+   <span>❄</span>
+   <span id="freezeLabel">Freeze</span>
+  </button>
 
-    <div class="card-detail">
-      <div class="detail-line">
-        <span>Card status</span>
-        <span id="cardStatus">Active</span>
-      </div>
-      <div class="detail-line">
-        <span>Monthly limit</span>
-        <span id="limitText">$100,000</span>
-      </div>
-      <div class="detail-line">
-        <span>Online payments</span>
-        <span>Enabled</span>
-      </div>
-      <div class="detail-line">
-        <span>Contactless</span>
-        <span>Enabled</span>
-      </div>
-    </div>
+  <button class="card-action" data-action="limit">
+   <span>◫</span>
+   Limit
+  </button>
 
-  </section>
+ </div>
 
-  <!-- SPACES -->
-  <section class="screen" id="spaces">
+ <div class="card-info">
 
-    <div class="space-hero">
-      <div>
-        <h1>Spaces</h1>
-        <p>Give every goal its own place.</p>
-      </div>
-      <button class="plus" data-action="create-space">+</button>
-    </div>
+  <div class="info-row">
+   <span>Status</span>
+   <strong id="cardStatus">Active</strong>
+  </div>
 
-    <div class="space-list" id="spaceList"></div>
+  <div class="info-row">
+   <span>Monthly limit</span>
+   <strong id="limitText">$100,000</strong>
+  </div>
 
-  </section>
+  <div class="info-row">
+   <span>Online payments</span>
+   <strong>Enabled</strong>
+  </div>
 
-  <!-- PROFILE -->
-  <section class="screen" id="profile">
+  <div class="info-row">
+   <span>Contactless</span>
+   <strong>Enabled</strong>
+  </div>
 
-    <div class="profile-head">
-      <h1>Profile</h1>
-    </div>
+ </div>
 
-    <div class="identity">
-      <div class="avatar">NV</div>
-      <div class="identity-info">
-        <strong>NOVA Member</strong>
-        <p>Personal account · Member since 2026</p>
-      </div>
-    </div>
+</section>
 
-    <div class="menu">
+<!-- SPACES -->
 
-      <div class="menu-title">Account</div>
+<section class="screen" id="spaces">
 
-      <button class="menu-row" data-action="personal">
-        <div class="menu-icon">♙</div>
-        <div class="menu-copy">
-          <strong>Personal information</strong>
-          <span>Name, email and details</span>
-        </div>
-        <div class="chevron">›</div>
-      </button>
+ <div class="spaces-head">
 
-      <button class="menu-row" data-action="security">
-        <div class="menu-icon">⌾</div>
-        <div class="menu-copy">
-          <strong>Security</strong>
-          <span>Biometrics, PIN and devices</span>
-        </div>
-        <div class="chevron">›</div>
-      </button>
+  <div>
+   <h1>Spaces</h1>
+   <p>Every goal deserves a place.</p>
+  </div>
 
-      <div class="menu-title">Preferences</div>
+  <button class="space-add" data-action="create-space">+</button>
 
-      <button class="menu-row" data-action="appearance">
-        <div class="menu-icon">☾</div>
-        <div class="menu-copy">
-          <strong>Appearance</strong>
-          <span id="appearanceText">Light mode</span>
-        </div>
-        <div class="chevron">›</div>
-      </button>
+ </div>
 
-      <button class="menu-row" data-action="notifications">
-        <div class="menu-icon">♢</div>
-        <div class="menu-copy">
-          <strong>Notifications</strong>
-          <span>Manage alerts and updates</span>
-        </div>
-        <div class="chevron">›</div>
-      </button>
+ <div class="space-list" id="spaceList"></div>
 
-      <div class="menu-title">Support</div>
+</section>
 
-      <button class="menu-row" data-action="support">
-        <div class="menu-icon">?</div>
-        <div class="menu-copy">
-          <strong>Help & support</strong>
-          <span>We're here when you need us</span>
-        </div>
-        <div class="chevron">›</div>
-      </button>
+<!-- PROFILE -->
 
-      <button class="menu-row" data-action="about">
-        <div class="menu-icon">✦</div>
-        <div class="menu-copy">
-          <strong>About NOVA</strong>
-          <span>Version 16.0</span>
-        </div>
-        <div class="chevron">›</div>
-      </button>
+<section class="screen" id="profile">
 
-    </div>
+ <div class="profile-head">
+  <h1>Profile</h1>
+ </div>
 
-  </section>
+ <div class="identity">
+
+  <div class="identity-avatar" id="identityAvatar">NV</div>
+
+  <div class="identity-copy">
+   <strong id="profileName">NOVA Member</strong>
+   <p>Personal account · Member since 2026</p>
+  </div>
+
+ </div>
+
+ <div class="menu">
+
+  <div class="menu-title">Account</div>
+
+  <button class="menu-row" data-action="personal">
+   <div class="menu-icon">♙</div>
+   <div class="menu-copy">
+    <strong>Personal information</strong>
+    <span>Name, email and profile</span>
+   </div>
+   <div class="chevron">›</div>
+  </button>
+
+  <button class="menu-row" data-action="security">
+   <div class="menu-icon">⌾</div>
+   <div class="menu-copy">
+    <strong>Security</strong>
+    <span>PIN, biometrics and devices</span>
+   </div>
+   <div class="chevron">›</div>
+  </button>
+
+  <div class="menu-title">Preferences</div>
+
+  <button class="menu-row" data-action="appearance">
+   <div class="menu-icon">☾</div>
+   <div class="menu-copy">
+    <strong>Appearance</strong>
+    <span id="appearanceText">Light mode</span>
+   </div>
+   <div class="chevron">›</div>
+  </button>
+
+  <button class="menu-row" data-action="notifications">
+   <div class="menu-icon">♢</div>
+   <div class="menu-copy">
+    <strong>Notifications</strong>
+    <span>Alerts and account updates</span>
+   </div>
+   <div class="chevron">›</div>
+  </button>
+
+  <div class="menu-title">Support</div>
+
+  <button class="menu-row" data-action="support">
+   <div class="menu-icon">?</div>
+   <div class="menu-copy">
+    <strong>Help & support</strong>
+    <span>We're here when you need us</span>
+   </div>
+   <div class="chevron">›</div>
+  </button>
+
+  <button class="menu-row" data-action="about">
+   <div class="menu-icon">✦</div>
+   <div class="menu-copy">
+    <strong>About NOVA</strong>
+    <span>Version 17.0</span>
+   </div>
+   <div class="chevron">›</div>
+  </button>
+
+ </div>
+
+</section>
 
 </div>
 
 <!-- NAV -->
+
 <nav class="nav">
 
-  <button class="nav-item active" data-screen="home">
-    <div class="nav-icon">⌂</div>
-    Home
-  </button>
+ <button class="nav-item active" data-screen="home">
+  <div class="nav-icon">⌂</div>
+  Home
+ </button>
 
-  <button class="nav-item" data-screen="activity">
-    <div class="nav-icon">◷</div>
-    Activity
-  </button>
+ <button class="nav-item" data-screen="activity">
+  <div class="nav-icon">◷</div>
+  Activity
+ </button>
 
-  <button class="nav-item" data-screen="cards">
-    <div class="nav-icon">▭</div>
-    Cards
-  </button>
+ <button class="nav-item" data-screen="cards">
+  <div class="nav-icon">▭</div>
+  Cards
+ </button>
 
-  <button class="nav-item" data-screen="spaces">
-    <div class="nav-icon">◎</div>
-    Spaces
-  </button>
+ <button class="nav-item" data-screen="spaces">
+  <div class="nav-icon">◎</div>
+  Spaces
+ </button>
 
-  <button class="nav-item" data-screen="profile">
-    <div class="nav-icon">♙</div>
-    Profile
-  </button>
+ <button class="nav-item" data-screen="profile">
+  <div class="nav-icon">♙</div>
+  Profile
+ </button>
 
 </nav>
 
-<!-- MODAL -->
-<div class="modal-layer" id="modal"></div>
-
+<div class="modal" id="modal"></div>
 <div class="toast" id="toast"></div>
 
 <script>
-const defaultState={
-  balance:24860.40,
-  balanceVisible:true,
-  frozen:false,
-  dark:false,
-  filter:"all",
-  search:"",
-  limit:100000,
-  selectedCard:0,
-  flipped:false,
-  sendAmount:"",
-  selectedContact:0,
 
-  contacts:[
-    {name:"Maya",initials:"MA",color:"linear-gradient(135deg,#6d4aff,#a78cff)",last:320},
-    {name:"Daniel",initials:"DA",color:"linear-gradient(135deg,#1b7c68,#55c5a5)",last:85},
-    {name:"Sarah",initials:"SA",color:"linear-gradient(135deg,#d65b77,#f3a0ae)",last:120},
-    {name:"Alex",initials:"AL",color:"linear-gradient(135deg,#d98c35,#f3c46b)",last:460},
-    {name:"Jordan",initials:"JO",color:"linear-gradient(135deg,#4e6078,#9baac0)",last:50}
-  ],
+const defaults={
+ balance:24860.40,
+ balanceVisible:true,
+ frozen:false,
+ dark:false,
+ filter:"all",
+ search:"",
+ limit:100000,
+ selectedCard:0,
+ flipped:false,
+ selectedContact:0,
+ sendAmount:"",
+ profileName:"NOVA Member",
 
-  cards:[
-    {name:"NOVA Virtual",type:"VIRTUAL",number:"4284  ••••  ••••  2846",full:"4284 9031 7264 2846",expiry:"09/29",cvv:"248"},
-    {name:"NOVA Travel",type:"TRAVEL",number:"5291  ••••  ••••  7138",full:"5291 1842 6637 7138",expiry:"04/30",cvv:"514"},
-    {name:"NOVA Reserve",type:"RESERVE",number:"6019  ••••  ••••  4402",full:"6019 7251 3814 4402",expiry:"12/28",cvv:"731"}
-  ],
+ contacts:[
+  {name:"Maya",initials:"MA",color:"linear-gradient(135deg,#704cff,#a891ff)",last:320},
+  {name:"Daniel",initials:"DA",color:"linear-gradient(135deg,#197a65,#56c5a5)",last:85},
+  {name:"Sarah",initials:"SA",color:"linear-gradient(135deg,#d45a75,#f0a0ae)",last:120},
+  {name:"Alex",initials:"AL",color:"linear-gradient(135deg,#d58a32,#f1c16b)",last:460},
+  {name:"Jordan",initials:"JO",color:"linear-gradient(135deg,#4d6077,#9aaabd)",last:50}
+ ],
 
-  transactions:[
-    {id:1,title:"Maya",sub:"Transfer · Today, 10:42 AM",amount:-320,type:"payment",icon:"MA"},
-    {id:2,title:"Spotify",sub:"Subscription · Yesterday",amount:-12.99,type:"payment",icon:"S"},
-    {id:3,title:"Salary",sub:"Income · Aug 31",amount:4200,type:"income",icon:"$"},
-    {id:4,title:"Travel Fund",sub:"Space · Aug 30",amount:-500,type:"space",icon:"✈"},
-    {id:5,title:"Daniel",sub:"Transfer · Aug 29",amount:85,type:"income",icon:"DA"}
-  ],
+ cards:[
+  {
+   name:"NOVA Virtual",
+   type:"VIRTUAL",
+   number:"4284 •••• •••• 2846",
+   full:"4284 9031 7264 2846",
+   expiry:"09/29",
+   cvv:"248"
+  },
+  {
+   name:"NOVA Travel",
+   type:"TRAVEL",
+   number:"5291 •••• •••• 7138",
+   full:"5291 1842 6637 7138",
+   expiry:"04/30",
+   cvv:"514"
+  },
+  {
+   name:"NOVA Reserve",
+   type:"RESERVE",
+   number:"6019 •••• •••• 4402",
+   full:"6019 7251 3814 4402",
+   expiry:"12/28",
+   cvv:"731"
+  }
+ ],
 
-  spaces:[
-    {name:"Dream Trip",saved:4200,target:7500,icon:"✈"},
-    {name:"New MacBook",saved:1850,target:3000,icon:"⌘"},
-    {name:"Emergency",saved:6200,target:10000,icon:"✦"}
-  ],
+ transactions:[
+  {
+   id:1,
+   title:"Maya",
+   sub:"Transfer · Today, 10:42 PM",
+   amount:-320,
+   type:"payment",
+   icon:"MA"
+  },
+  {
+   id:2,
+   title:"Spotify",
+   sub:"Subscription · Today, 7:21 PM",
+   amount:-12.99,
+   type:"payment",
+   icon:"S"
+  },
+  {
+   id:3,
+   title:"Salary",
+   sub:"Income · Aug 31",
+   amount:4200,
+   type:"income",
+   icon:"$"
+  },
+  {
+   id:4,
+   title:"Dream Trip",
+   sub:"Space · Aug 30",
+   amount:-500,
+   type:"space",
+   icon:"✈"
+  },
+  {
+   id:5,
+   title:"Daniel",
+   sub:"Transfer · Aug 29",
+   amount:85,
+   type:"income",
+   icon:"DA"
+  }
+ ],
 
-  notifications:[
-    {title:"Transfer complete",text:"Your transfer to Maya was completed.",time:"2m",unread:true},
-    {title:"Space milestone",text:"Dream Trip reached 56% of its goal.",time:"3h",unread:true},
-    {title:"Card payment",text:"A $12.99 payment was made to Spotify.",time:"Yesterday",unread:false},
-    {title:"Welcome to NOVA",text:"Your account is ready to explore.",time:"Monday",unread:false}
-  ]
+ spaces:[
+  {
+   name:"Dream Trip",
+   saved:4200,
+   target:7500,
+   icon:"✈"
+  },
+  {
+   name:"New MacBook",
+   saved:1850,
+   target:3000,
+   icon:"⌘"
+  },
+  {
+   name:"Emergency",
+   saved:6200,
+   target:10000,
+   icon:"✦"
+  }
+ ],
+
+ notifications:[
+  {
+   title:"Transfer complete",
+   text:"Your transfer to Maya was completed.",
+   time:"2m",
+   unread:true
+  },
+  {
+   title:"Space milestone",
+   text:"Dream Trip reached 56% of its goal.",
+   time:"3h",
+   unread:true
+  },
+  {
+   title:"Card payment",
+   text:"A $12.99 payment was made to Spotify.",
+   time:"Yesterday",
+   unread:false
+  },
+  {
+   title:"Welcome to NOVA",
+   text:"Your account is ready to explore.",
+   time:"Monday",
+   unread:false
+  }
+ ]
 };
 
-let state=loadState();
+function load(){
 
-function loadState(){
-  try{
-    const saved=
-      localStorage.getItem("nova-v16-state") ||
-      localStorage.getItem("nova-v15-state") ||
-      localStorage.getItem("nova-v14-state") ||
-      localStorage.getItem("nova-v13-state");
+ try{
 
-    if(saved){
-      return {...defaultState,...JSON.parse(saved)};
-    }
-  }catch(e){}
-  return JSON.parse(JSON.stringify(defaultState));
+  const saved=
+   localStorage.getItem("nova-v17-state") ||
+   localStorage.getItem("nova-v16-state") ||
+   localStorage.getItem("nova-v15-state");
+
+  if(saved){
+   return {...defaults,...JSON.parse(saved)};
+  }
+
+ }catch(e){}
+
+ return JSON.parse(JSON.stringify(defaults));
 }
 
+let state=load();
+
 function save(){
-  localStorage.setItem("nova-v16-state",JSON.stringify(state));
+ localStorage.setItem("nova-v17-state",JSON.stringify(state));
 }
 
 function money(n){
-  return new Intl.NumberFormat("en-US",{
-    style:"currency",
-    currency:"USD",
-    minimumFractionDigits:2
-  }).format(Math.abs(n));
+
+ return new Intl.NumberFormat("en-US",{
+  style:"currency",
+  currency:"USD",
+  minimumFractionDigits:2
+ }).format(Math.abs(n));
+
 }
 
-function escapeHTML(str){
-  return String(str).replace(/[&<>"']/g,m=>({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#039;"
-  }[m]));
+function esc(x){
+
+ return String(x).replace(/[&<>"']/g,m=>({
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#039;"
+ }[m]));
+
 }
 
-function renderAll(){
-  document.body.classList.toggle("dark",state.dark);
+function render(){
 
-  renderBalance();
-  renderContacts();
-  renderTransactions();
-  renderChart();
-  renderCards();
-  renderSpaces();
+ document.body.classList.toggle("dark",state.dark);
 
-  document.getElementById("appearanceText").textContent=
-    state.dark ? "Dark mode" : "Light mode";
+ document.getElementById("balance").textContent=
+  state.balanceVisible
+   ? money(state.balance)
+   : "••••••";
 
-  document.getElementById("freezeLabel").textContent=
-    state.frozen ? "Unfreeze" : "Freeze";
+ document.getElementById("appearanceText").textContent=
+  state.dark?"Dark mode":"Light mode";
 
-  document.getElementById("cardStatus").textContent=
-    state.frozen ? "Frozen" : "Active";
+ document.getElementById("freezeLabel").textContent=
+  state.frozen?"Unfreeze":"Freeze";
 
-  document.getElementById("limitText").textContent=
-    money(state.limit);
+ document.getElementById("cardStatus").textContent=
+  state.frozen?"Frozen":"Active";
 
-  document.querySelectorAll("[data-filter]").forEach(b=>{
-    b.classList.toggle("active",b.dataset.filter===state.filter);
-  });
+ document.getElementById("limitText").textContent=
+  money(state.limit);
 
-  save();
+ document.getElementById("profileName").textContent=
+  state.profileName;
+
+ document.querySelectorAll("[data-filter]").forEach(b=>{
+  b.classList.toggle("active",b.dataset.filter===state.filter);
+ });
+
+ renderPeople();
+ renderTransactions();
+ renderCards();
+ renderSpaces();
+
+ save();
+
 }
 
-function renderBalance(){
-  const el=document.getElementById("balance");
+function renderPeople(){
 
-  el.textContent=state.balanceVisible
-    ? money(state.balance)
-    : "••••••";
+ document.getElementById("people").innerHTML=
+ state.contacts.map((c,i)=>`
 
-  el.style.letterSpacing=
-    state.balanceVisible ? "-1.7px" : "3px";
+  <button class="contact" data-contact="${i}">
+
+   <div
+    class="contact-avatar"
+    style="background:${c.color}">
+    ${esc(c.initials)}
+   </div>
+
+   <div class="contact-name">${esc(c.name)}</div>
+
+  </button>
+
+ `).join("");
+
 }
 
-function renderContacts(){
-  const el=document.getElementById("contacts");
+function timelineHTML(t){
 
-  el.innerHTML=state.contacts.map((c,i)=>`
-    <button class="contact" data-contact="${i}">
-      <div class="contact-avatar" style="background:${c.color}">
-        ${escapeHTML(c.initials)}
-      </div>
-      <div class="contact-name">${escapeHTML(c.name)}</div>
-    </button>
-  `).join("");
-}
+ const positive=t.amount>0;
 
-function transactionHTML(t){
-  const positive=t.amount>0;
+ return `
 
-  return `
-    <button class="tx" data-transaction="${t.id}">
-      <div class="tx-icon ${positive?"in":"out"}">${escapeHTML(t.icon)}</div>
+  <div class="timeline-item">
 
-      <div class="tx-main">
-        <div class="tx-title">${escapeHTML(t.title)}</div>
-        <div class="tx-sub">${escapeHTML(t.sub)}</div>
-      </div>
+   <div class="timeline-icon">
+    ${esc(t.icon)}
+   </div>
 
-      <div class="tx-amount ${positive?"in":""}">
-        ${positive?"+":"-"}${money(t.amount)}
-      </div>
-    </button>
-  `;
+   <div class="timeline-content">
+
+    <div class="timeline-top">
+
+     <div class="timeline-title">
+      ${esc(t.title)}
+     </div>
+
+     <div class="timeline-amount ${positive?"in":""}">
+      ${positive?"+":"-"}${money(t.amount)}
+     </div>
+
+    </div>
+
+    <div class="timeline-sub">
+     ${esc(t.sub)}
+    </div>
+
+    <div class="timeline-status">
+     ✓ Completed
+    </div>
+
+   </div>
+
+  </div>
+
+ `;
+
 }
 
 function renderTransactions(){
-  const search=state.search.toLowerCase();
 
-  let list=state.transactions.filter(t=>{
-    const matchesSearch=
-      !search ||
-      t.title.toLowerCase().includes(search) ||
-      t.sub.toLowerCase().includes(search);
+ const query=state.search.toLowerCase();
 
-    let matchesFilter=true;
+ const list=state.transactions.filter(t=>{
 
-    if(state.filter==="payments")
-      matchesFilter=t.type==="payment";
+  const searchMatch=
+   !query ||
+   t.title.toLowerCase().includes(query) ||
+   t.sub.toLowerCase().includes(query);
 
-    if(state.filter==="income")
-      matchesFilter=t.type==="income";
+  let filterMatch=true;
 
-    if(state.filter==="spaces")
-      matchesFilter=t.type==="space";
+  if(state.filter==="payments")
+   filterMatch=t.type==="payment";
 
-    return matchesSearch && matchesFilter;
-  });
+  if(state.filter==="income")
+   filterMatch=t.type==="income";
 
-  document.getElementById("activityTransactions").innerHTML=
-    list.length
-      ? list.map(transactionHTML).join("")
-      : `<div class="empty">No transactions found.</div>`;
+  if(state.filter==="spaces")
+   filterMatch=t.type==="space";
 
-  document.getElementById("homeTransactions").innerHTML=
-    state.transactions.slice(0,4).map(transactionHTML).join("");
-}
+  return searchMatch && filterMatch;
 
-const chartData={
-  All:[110,190,145,260,170,290,119],
-  Food:[55,120,80,140,75,160,50],
-  Shopping:[20,25,45,65,50,75,25],
-  Transport:[15,30,28,35,40,31,20],
-  Bills:[20,15,25,20,5,24,24]
-};
+ });
 
-let selectedCategory="All";
-let selectedDay=5;
+ document.getElementById("activityList").innerHTML=
+  list.length
+   ? list.map(t=>timelineHTML(t)).join("")
+   : `<div style="padding:40px 0;text-align:center;color:var(--muted);font-size:11px">No activity found.</div>`;
 
-function renderChart(){
-  const values=chartData[selectedCategory];
+ document.getElementById("homeTimeline").innerHTML=
+  state.transactions.slice(0,4).map(t=>timelineHTML(t)).join("");
 
-  const chart=document.getElementById("chart");
+ const spent=
+  state.transactions
+   .filter(t=>t.amount<0)
+   .reduce((a,t)=>a+Math.abs(t.amount),0);
 
-  chart.innerHTML=values.map((v,i)=>`
-    <div class="bar-wrap">
-      <div
-        class="bar ${i===selectedDay?"selected":""}"
-        style="height:${Math.max(12,v/3)}%"
-        data-value="$${v}"
-        data-day="${i}">
-      </div>
-      <div class="day">${["M","T","W","T","F","S","S"][i]}</div>
-    </div>
-  `).join("");
+ document.getElementById("insightText").textContent=
+  spent<1500
+   ? "Your spending is looking healthy this week. You are keeping your recent spending under control."
+   : "Your spending has increased recently. NOVA recommends reviewing your latest payments.";
 
-  document.querySelectorAll(".category").forEach(b=>{
-    b.classList.toggle("active",b.dataset.category===selectedCategory);
-  });
-
-  const total=values.reduce((a,b)=>a+b,0);
-  document.getElementById("chartTotal").textContent="$"+total.toLocaleString();
-
-  const biggest=Math.max(...values);
-  const day=values.indexOf(biggest);
-
-  const names=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
-
-  document.getElementById("insightText").textContent=
-    `You spent ${total<1300?"less":"more"} than your usual pattern. Your biggest spending day was ${names[day]}.`;
 }
 
 function renderCards(){
-  const track=document.getElementById("cardTrack");
 
-  track.innerHTML=state.cards.map((c,i)=>`
-    <div class="bank-card ${state.selectedCard===i && state.flipped?"flipped":""}" data-card-index="${i}">
-      <div class="card-inner">
+ const track=document.getElementById("cardTrack");
 
-        <div class="card-face card-front">
-          <div class="card-brand">NOVA</div>
-          <div class="card-type">${escapeHTML(c.type)}</div>
+ track.innerHTML=
+  state.cards.map((c,i)=>`
 
-          <div class="chip"></div>
-          <div class="contactless">⌁</div>
+   <div
+    class="bank-card ${i===state.selectedCard?"active-card":""} ${i===state.selectedCard&&state.flipped?"flipped":""}"
+    data-card-index="${i}">
 
-          <div class="card-number">${escapeHTML(c.number)}</div>
+    <div class="card-inner">
 
-          <div class="card-holder">
-            <small>CARD HOLDER</small>
-            <strong>NOVA MEMBER</strong>
-          </div>
+     <div class="card-face card-front">
 
-          <div class="card-expiry">
-            <small>VALID THRU</small>
-            <strong>${escapeHTML(c.expiry)}</strong>
-          </div>
+      <div class="card-brand">NOVA</div>
+      <div class="card-type">${esc(c.type)}</div>
 
-          <div class="nova-symbol"></div>
-        </div>
+      <div class="chip"></div>
+      <div class="contactless">⌁</div>
 
-        <div class="card-face card-back">
-          <div class="card-brand">NOVA</div>
-          <div class="stripe"></div>
-
-          <div class="signature">
-            <span>AUTHORIZED SIGNATURE</span>
-            <span class="cvv">${escapeHTML(c.cvv)}</span>
-          </div>
-
-          <div class="back-number">${escapeHTML(c.full)}</div>
-
-          <div class="back-note">
-            This card is issued for NOVA demonstration purposes.
-            Never share your card number, CVV or security credentials.
-          </div>
-        </div>
-
+      <div class="card-number">
+       ${esc(c.number)}
       </div>
+
+      <div class="card-holder">
+       <small>CARD HOLDER</small>
+       <strong>NOVA MEMBER</strong>
+      </div>
+
+      <div class="card-expiry">
+       <small>VALID THRU</small>
+       <strong>${esc(c.expiry)}</strong>
+      </div>
+
+      <div class="card-symbol"></div>
+
+     </div>
+
+     <div class="card-face card-back">
+
+      <div class="card-brand">NOVA</div>
+
+      <div class="stripe"></div>
+
+      <div class="signature">
+       <span>AUTHORIZED SIGNATURE</span>
+       <span class="cvv">${esc(c.cvv)}</span>
+      </div>
+
+      <div class="back-number">
+       ${esc(c.full)}
+      </div>
+
+      <div class="back-note">
+       NOVA demonstration card. Never share card credentials or security information.
+      </div>
+
+     </div>
+
     </div>
+
+   </div>
+
   `).join("");
 
-  const dots=document.getElementById("cardDots");
-
-  dots.innerHTML=state.cards.map((_,i)=>
-    `<div class="dot ${i===state.selectedCard?"active":""}"></div>`
+ document.getElementById("cardDots").innerHTML=
+  state.cards.map((_,i)=>
+   `<div class="dot ${i===state.selectedCard?"active":""}"></div>`
   ).join("");
+
 }
 
 function renderSpaces(){
-  const el=document.getElementById("spaceList");
 
-  el.innerHTML=state.spaces.map((s,i)=>{
-    const pct=Math.min(100,Math.round((s.saved/s.target)*100));
-    const remaining=Math.max(0,s.target-s.saved);
+ document.getElementById("spaceList").innerHTML=
+  state.spaces.map((s,i)=>{
 
-    return `
-      <div class="space-card">
+   const pct=Math.min(100,Math.round(s.saved/s.target*100));
+   const remaining=Math.max(0,s.target-s.saved);
 
-        <div class="space-top">
-          <div class="space-icon">${escapeHTML(s.icon)}</div>
+   let milestone=
+    pct===100
+     ?"Goal reached 🎉"
+     :pct>=75
+      ?"Almost there"
+      :pct>=50
+       ?"Halfway there"
+       :pct>=25
+        ?"Building momentum"
+        :"Just getting started";
 
-          <div class="space-info">
-            <strong>${escapeHTML(s.name)}</strong>
-            <span>Goal · ${money(s.target)}</span>
-          </div>
+   return `
 
-          <div class="progress-ring" style="--progress:${pct}%">
-            <span>${pct}%</span>
-          </div>
-        </div>
+    <div class="space">
 
-        <div class="space-money">
-          <strong>${money(s.saved)}</strong>
-          <span>${remaining>0?money(remaining)+" remaining":"Goal reached 🎉"}</span>
-        </div>
+     <div class="space-top">
 
-        <div class="progress">
-          <div style="width:${pct}%"></div>
-        </div>
+      <div class="space-icon">
+       ${esc(s.icon)}
+      </div>
 
-        <div class="space-footer">
-          <div class="milestone">
-            ${pct<25?"Just getting started":pct<50?"Building momentum":pct<75?"Halfway there":pct<100?"Almost there":"Goal reached"}
-          </div>
+      <div class="space-copy">
+       <strong>${esc(s.name)}</strong>
+       <span>Goal · ${money(s.target)}</span>
+      </div>
 
-          <button class="add-space-money" data-space-add="${i}">
-            + Add money
-          </button>
-        </div>
+      <div
+       class="ring"
+       style="--p:${pct}%">
+
+       <b>${pct}%</b>
 
       </div>
-    `;
+
+     </div>
+
+     <div class="space-values">
+      <strong>${money(s.saved)}</strong>
+      <span>
+       ${remaining?money(remaining)+" remaining":"Goal reached"}
+      </span>
+     </div>
+
+     <div class="progress">
+      <div style="width:${pct}%"></div>
+     </div>
+
+     <div class="space-bottom">
+
+      <div class="milestone">
+       ${milestone}
+      </div>
+
+      <button
+       class="space-money"
+       data-space-add="${i}">
+       + Add money
+      </button>
+
+     </div>
+
+    </div>
+
+   `;
+
   }).join("");
+
 }
 
 function showScreen(name){
-  document.querySelectorAll(".screen").forEach(s=>{
-    s.classList.toggle("active",s.id===name);
-  });
 
-  document.querySelectorAll(".nav-item").forEach(n=>{
-    n.classList.toggle("active",n.dataset.screen===name);
-  });
+ document.querySelectorAll(".screen").forEach(s=>{
+  s.classList.toggle("active",s.id===name);
+ });
 
-  window.scrollTo({top:0,behavior:"smooth"});
+ document.querySelectorAll(".nav-item").forEach(n=>{
+  n.classList.toggle("active",n.dataset.screen===name);
+ });
+
+ window.scrollTo({top:0,behavior:"smooth"});
+
 }
 
-function openModal(content){
-  const modal=document.getElementById("modal");
+function openModal(html){
 
-  modal.innerHTML=`
-    <div class="sheet">
-      <div class="handle"></div>
-      ${content}
-    </div>
-  `;
+ const modal=document.getElementById("modal");
 
-  modal.classList.add("open");
-  document.body.style.overflow="hidden";
+ modal.innerHTML=`
+  <div class="sheet">
+   <div class="handle"></div>
+   ${html}
+  </div>
+ `;
+
+ modal.classList.add("open");
+
+ document.body.style.overflow="hidden";
+
 }
 
 function closeModal(){
-  const modal=document.getElementById("modal");
-  modal.classList.remove("open");
-  document.body.style.overflow="";
-  setTimeout(()=>modal.innerHTML="",250);
+
+ const modal=document.getElementById("modal");
+
+ modal.classList.remove("open");
+
+ document.body.style.overflow="";
+
+ setTimeout(()=>{
+  modal.innerHTML="";
+ },250);
+
 }
 
-function toast(message){
-  const el=document.getElementById("toast");
+function toast(text){
 
-  el.textContent=message;
-  el.classList.add("show");
+ const el=document.getElementById("toast");
 
-  clearTimeout(window.toastTimer);
+ el.textContent=text;
 
-  window.toastTimer=setTimeout(()=>{
-    el.classList.remove("show");
-  },2200);
+ el.classList.add("show");
+
+ clearTimeout(window.toastTimer);
+
+ window.toastTimer=setTimeout(()=>{
+  el.classList.remove("show");
+ },2200);
+
 }
 
 function contactPicker(){
-  return `
-    <div style="margin-top:17px">
-      <div class="field-label">SEND TO</div>
 
-      <div class="contacts" style="gap:13px">
-        ${state.contacts.map((c,i)=>`
-          <button class="contact" data-pick-contact="${i}">
-            <div class="contact-avatar" style="background:${c.color}">
-              ${escapeHTML(c.initials)}
-            </div>
-            <div class="contact-name">${escapeHTML(c.name)}</div>
-          </button>
-        `).join("")}
+ return `
+
+  <div style="margin-top:18px">
+
+   <div class="label">SEND TO</div>
+
+   <div class="people">
+
+    ${state.contacts.map((c,i)=>`
+
+     <button
+      class="contact"
+      data-pick="${i}">
+
+      <div
+       class="contact-avatar"
+       style="background:${c.color}">
+       ${esc(c.initials)}
       </div>
-    </div>
-  `;
+
+      <div class="contact-name">${esc(c.name)}</div>
+
+     </button>
+
+    `).join("")}
+
+   </div>
+
+  </div>
+
+ `;
+
 }
 
 function sendModal(){
-  state.sendAmount="";
 
-  openModal(`
-    <button class="close" data-action="close">×</button>
+ state.sendAmount="";
 
-    <h2>Send money</h2>
-    <div class="sheet-sub">Move money instantly to someone you trust.</div>
+ const c=state.contacts[state.selectedContact];
 
-    <div id="sendBody">
+ openModal(`
 
-      ${contactPicker()}
+  <button class="close" data-action="close">×</button>
 
-      <div class="recipient" id="selectedRecipient">
-        <div class="contact-avatar" style="background:${state.contacts[0].color}">
-          ${state.contacts[0].initials}
-        </div>
-        <div class="recipient-info">
-          <strong>${state.contacts[0].name}</strong>
-          <span>Recent transfer · ${money(state.contacts[0].last)}</span>
-        </div>
-        <span style="color:var(--muted)">›</span>
-      </div>
+  <h2>Send money</h2>
 
-      <div class="big-amount" id="sendAmount">$0.00</div>
-      <div class="amount-note">Available · ${money(state.balance)}</div>
+  <div class="sheet-sub">
+   Fast, simple and instant.
+  </div>
 
-      <div class="quick-amounts">
-        <button class="amount-chip" data-send-amount="25">$25</button>
-        <button class="amount-chip" data-send-amount="50">$50</button>
-        <button class="amount-chip" data-send-amount="100">$100</button>
-        <button class="amount-chip" data-send-amount="250">$250</button>
-      </div>
+  ${contactPicker()}
 
-      <div class="keypad">
-        ${["1","2","3","4","5","6","7","8","9",".","0","⌫"].map(k=>
-          `<button class="key" data-key="${k}">${k}</button>`
-        ).join("")}
-      </div>
+  <div class="recipient" id="recipient">
 
-      <button class="primary" data-action="send-review">
-        Continue
-      </button>
+   <div
+    class="contact-avatar"
+    style="background:${c.color}">
+    ${c.initials}
+   </div>
 
-    </div>
-  `);
+   <div class="recipient-copy">
+    <strong>${esc(c.name)}</strong>
+    <span>Recent transfer · ${money(c.last)}</span>
+   </div>
+
+   <span style="color:var(--muted)">›</span>
+
+  </div>
+
+  <div class="amount" id="sendAmount">
+   $0.00
+  </div>
+
+  <div class="amount-note">
+   Available · ${money(state.balance)}
+  </div>
+
+  <div class="quick-amounts">
+
+   <button class="amount-chip" data-send="25">$25</button>
+   <button class="amount-chip" data-send="50">$50</button>
+   <button class="amount-chip" data-send="100">$100</button>
+   <button class="amount-chip" data-send="250">$250</button>
+
+  </div>
+
+  <div class="keypad">
+
+   ${["1","2","3","4","5","6","7","8","9",".","0","⌫"]
+    .map(k=>`
+     <button class="key" data-key="${k}">
+      ${k}
+     </button>
+    `).join("")}
+
+  </div>
+
+  <button class="primary" data-action="review-send">
+   Continue
+  </button>
+
+ `);
+
 }
 
-function updateSendAmount(){
-  let amount=state.sendAmount;
+function updateAmount(){
 
-  if(!amount) amount="0";
+ const n=parseFloat(state.sendAmount)||0;
 
-  const n=parseFloat(amount)||0;
+ document.getElementById("sendAmount").textContent=
+  "$"+n.toLocaleString("en-US",{
+   minimumFractionDigits:2,
+   maximumFractionDigits:2
+  });
 
-  document.getElementById("sendAmount").textContent=
-    "$"+n.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
 }
 
-function sendReview(){
-  const amount=parseFloat(state.sendAmount);
+function reviewSend(){
 
-  if(!amount || amount<=0){
-    toast("Enter an amount first");
-    return;
-  }
+ const amount=parseFloat(state.sendAmount)||0;
 
-  if(amount>state.balance){
-    toast("Not enough available balance");
-    return;
-  }
+ if(!amount){
+  toast("Enter an amount first");
+  return;
+ }
 
-  const c=state.contacts[state.selectedContact];
+ if(amount>state.balance){
+  toast("Not enough available balance");
+  return;
+ }
 
-  openModal(`
-    <button class="close" data-action="close">×</button>
+ const c=state.contacts[state.selectedContact];
 
-    <h2>Review transfer</h2>
-    <div class="sheet-sub">Everything looks ready.</div>
+ openModal(`
 
-    <div class="recipient">
-      <div class="contact-avatar" style="background:${c.color}">
-        ${c.initials}
-      </div>
+  <button class="close" data-action="close">×</button>
 
-      <div class="recipient-info">
-        <strong>${escapeHTML(c.name)}</strong>
-        <span>Personal transfer</span>
-      </div>
-    </div>
+  <h2>Review transfer</h2>
 
-    <div class="big-amount">${money(amount)}</div>
-    <div class="amount-note">Instant transfer</div>
+  <div class="sheet-sub">
+   Check the details before confirming.
+  </div>
 
-    <div class="summary">
-      <div class="summary-line">
-        <span>Transfer</span>
-        <strong>${money(amount)}</strong>
-      </div>
-      <div class="summary-line">
-        <span>Fee</span>
-        <strong>$0.00</strong>
-      </div>
-      <div class="summary-line">
-        <span>Arrival</span>
-        <strong>Instant</strong>
-      </div>
-      <div class="summary-line">
-        <span>From</span>
-        <strong>•••• 2846</strong>
-      </div>
-    </div>
+  <div class="recipient">
 
-    <button class="primary" data-action="confirm-send">
-      Confirm transfer
-    </button>
+   <div
+    class="contact-avatar"
+    style="background:${c.color}">
+    ${c.initials}
+   </div>
 
-    <button class="secondary" data-action="close">
-      Cancel
-    </button>
-  `);
+   <div class="recipient-copy">
+    <strong>${esc(c.name)}</strong>
+    <span>Instant personal transfer</span>
+   </div>
+
+  </div>
+
+  <div class="amount">
+   ${money(amount)}
+  </div>
+
+  <div class="amount-note">
+   Arrives instantly
+  </div>
+
+  <div class="summary">
+
+   <div class="summary-row">
+    <span>Amount</span>
+    <strong>${money(amount)}</strong>
+   </div>
+
+   <div class="summary-row">
+    <span>Fee</span>
+    <strong>$0.00</strong>
+   </div>
+
+   <div class="summary-row">
+    <span>From</span>
+    <strong>•••• 2846</strong>
+   </div>
+
+   <div class="summary-row">
+    <span>Arrival</span>
+    <strong>Instant</strong>
+   </div>
+
+  </div>
+
+  <button class="primary" data-action="confirm-send">
+   Confirm transfer
+  </button>
+
+  <button class="secondary" data-action="close">
+   Cancel
+  </button>
+
+ `);
+
 }
 
 function confirmSend(){
-  const amount=parseFloat(state.sendAmount)||0;
-  const c=state.contacts[state.selectedContact];
 
-  if(!amount || amount>state.balance){
-    toast("Transfer could not be completed");
-    return;
-  }
+ const amount=parseFloat(state.sendAmount)||0;
+ const c=state.contacts[state.selectedContact];
 
-  state.balance-=amount;
+ if(!amount||amount>state.balance){
+  toast("Transfer failed");
+  return;
+ }
 
-  state.transactions.unshift({
-    id:Date.now(),
-    title:c.name,
-    sub:"Transfer · Just now",
-    amount:-amount,
-    type:"payment",
-    icon:c.initials
-  });
+ state.balance-=amount;
 
-  state.notifications.unshift({
-    title:"Transfer complete",
-    text:`Your transfer to ${c.name} was completed.`,
-    time:"now",
-    unread:true
-  });
+ state.transactions.unshift({
+  id:Date.now(),
+  title:c.name,
+  sub:"Transfer · Just now",
+  amount:-amount,
+  type:"payment",
+  icon:c.initials
+ });
 
-  save();
+ state.notifications.unshift({
+  title:"Transfer complete",
+  text:`Your transfer to ${c.name} was completed.`,
+  time:"now",
+  unread:true
+ });
 
-  openModal(`
-    <div class="success">
-      <div class="success-icon">✓</div>
-      <h2>Transfer complete</h2>
-      <div class="sheet-sub">Your money is on its way instantly.</div>
+ render();
 
-      <div class="big-amount">${money(amount)}</div>
+ openModal(`
 
-      <div class="summary">
-        <div class="summary-line">
-          <span>To</span>
-          <strong>${escapeHTML(c.name)}</strong>
-        </div>
-        <div class="summary-line">
-          <span>Reference</span>
-          <strong>NOVA-${Math.floor(100000+Math.random()*899999)}</strong>
-        </div>
-      </div>
+  <div class="success">
 
-      <button class="primary" data-action="close">
-        Done
-      </button>
+   <div class="success-icon">✓</div>
+
+   <h2>Transfer complete</h2>
+
+   <div class="sheet-sub">
+    Your money has been sent successfully.
+   </div>
+
+   <div class="amount">
+    ${money(amount)}
+   </div>
+
+   <div class="summary">
+
+    <div class="summary-row">
+     <span>Recipient</span>
+     <strong>${esc(c.name)}</strong>
     </div>
-  `);
 
-  renderAll();
+    <div class="summary-row">
+     <span>Status</span>
+     <strong style="color:var(--green)">Completed</strong>
+    </div>
+
+    <div class="summary-row">
+     <span>Reference</span>
+     <strong>NOVA-${Math.floor(100000+Math.random()*899999)}</strong>
+    </div>
+
+   </div>
+
+   <button class="primary" data-action="close">
+    Done
+   </button>
+
+  </div>
+
+ `);
+
 }
 
 function requestModal(){
-  openModal(`
-    <button class="close" data-action="close">×</button>
-    <h2>Request money</h2>
-    <div class="sheet-sub">Create a simple request.</div>
 
-    <div class="form">
-      <div class="field-label">FROM</div>
-      ${contactPicker()}
+ openModal(`
 
-      <div class="field-label" style="margin-top:17px">AMOUNT</div>
-      <input class="input" id="requestAmount" type="number" placeholder="$0.00">
+  <button class="close" data-action="close">×</button>
 
-      <div class="field-label" style="margin-top:14px">NOTE</div>
-      <input class="input" id="requestNote" placeholder="What's it for?">
+  <h2>Request money</h2>
 
-      <button class="primary" data-action="confirm-request">
-        Create request
-      </button>
-    </div>
-  `);
+  <div class="sheet-sub">
+   Ask someone to send you money.
+  </div>
+
+  ${contactPicker()}
+
+  <div class="field">
+   <div class="label">AMOUNT</div>
+   <input class="input" id="requestAmount" type="number" placeholder="$0.00">
+  </div>
+
+  <div class="field">
+   <div class="label">NOTE</div>
+   <input class="input" id="requestNote" placeholder="What's it for?">
+  </div>
+
+  <button class="primary" data-action="confirm-request">
+   Create request
+  </button>
+
+ `);
+
 }
 
-function payModal(){
-  openModal(`
-    <button class="close" data-action="close">×</button>
-    <h2>Pay</h2>
-    <div class="sheet-sub">Pay a merchant or enter a payment reference.</div>
+function qrModal(){
 
-    <div class="form">
-      <div class="field-label">MERCHANT</div>
-      <input class="input" id="merchant" placeholder="Merchant name">
+ openModal(`
 
-      <div class="field-label" style="margin-top:14px">AMOUNT</div>
-      <input class="input" id="payAmount" type="number" placeholder="$0.00">
+  <button class="close" data-action="close">×</button>
 
-      <button class="primary" data-action="confirm-pay">
-        Continue
-      </button>
-    </div>
-  `);
+  <div style="text-align:center">
+
+   <h2>QR Pay</h2>
+
+   <div class="sheet-sub">
+    Scan to pay with NOVA
+   </div>
+
+   <div class="qr-wrap">
+    <div class="qr"></div>
+   </div>
+
+   <div style="font-size:11px;font-weight:700">
+    NOVA Member
+   </div>
+
+   <div class="sheet-sub">
+    Share this QR code to receive a payment.
+   </div>
+
+   <button class="primary" data-action="share-qr">
+    Share QR
+   </button>
+
+  </div>
+
+ `);
+
 }
 
 function addModal(){
-  openModal(`
-    <button class="close" data-action="close">×</button>
-    <h2>Add money</h2>
-    <div class="sheet-sub">Top up your NOVA balance.</div>
 
-    <div class="form">
-      <div class="field-label">AMOUNT</div>
-      <input class="input" id="addAmount" type="number" placeholder="$0.00">
+ openModal(`
 
-      <div class="quick-amounts">
-        <button class="amount-chip" data-add-amount="100">$100</button>
-        <button class="amount-chip" data-add-amount="500">$500</button>
-        <button class="amount-chip" data-add-amount="1000">$1,000</button>
-      </div>
+  <button class="close" data-action="close">×</button>
 
-      <button class="primary" data-action="confirm-add">
-        Add money
-      </button>
-    </div>
-  `);
+  <h2>Add money</h2>
+
+  <div class="sheet-sub">
+   Top up your NOVA balance.
+  </div>
+
+  <div class="field">
+   <div class="label">AMOUNT</div>
+   <input class="input" id="addAmount" type="number" placeholder="$0.00">
+  </div>
+
+  <div class="quick-amounts">
+   <button class="amount-chip" data-add="100">$100</button>
+   <button class="amount-chip" data-add="500">$500</button>
+   <button class="amount-chip" data-add="1000">$1,000</button>
+  </div>
+
+  <button class="primary" data-action="confirm-add">
+   Add money
+  </button>
+
+ `);
+
 }
 
-function receipt(t){
-  const positive=t.amount>0;
+function createSpace(){
 
-  openModal(`
-    <button class="close" data-action="close">×</button>
+ openModal(`
 
-    <div class="receipt">
+  <button class="close" data-action="close">×</button>
 
-      <div class="receipt-icon">${escapeHTML(t.icon)}</div>
+  <h2>Create a Space</h2>
 
-      <div class="receipt-status">
-        ● ${positive?"Received":"Completed"}
-      </div>
+  <div class="sheet-sub">
+   Give your next goal a home.
+  </div>
 
-      <div class="receipt-amount">
-        ${positive?"+":"-"}${money(t.amount)}
-      </div>
+  <div class="field">
+   <div class="label">NAME</div>
+   <input class="input" id="spaceName" placeholder="e.g. New Car">
+  </div>
 
-      <div class="sheet-sub">${escapeHTML(t.title)}</div>
+  <div class="field">
+   <div class="label">TARGET</div>
+   <input class="input" id="spaceTarget" type="number" placeholder="$5,000">
+  </div>
 
-      <div class="receipt-card">
-        <div class="receipt-row">
-          <span>Status</span>
-          <strong>Completed</strong>
-        </div>
-        <div class="receipt-row">
-          <span>Date</span>
-          <strong>${escapeHTML(t.sub)}</strong>
-        </div>
-        <div class="receipt-row">
-          <span>From / To</span>
-          <strong>${escapeHTML(t.title)}</strong>
-        </div>
-        <div class="receipt-row">
-          <span>Reference</span>
-          <strong>NOVA-${t.id}</strong>
-        </div>
-        <div class="receipt-row">
-          <span>Fee</span>
-          <strong>$0.00</strong>
-        </div>
-      </div>
+  <button class="primary" data-action="confirm-space">
+   Create Space
+  </button>
 
-      <button class="primary" data-action="share-receipt">
-        Share receipt
-      </button>
+ `);
 
-    </div>
-  `);
+}
+
+function addSpace(index){
+
+ const s=state.spaces[index];
+
+ openModal(`
+
+  <button class="close" data-action="close">×</button>
+
+  <h2>Add to ${esc(s.name)}</h2>
+
+  <div class="sheet-sub">
+   ${money(s.saved)} saved of ${money(s.target)}
+  </div>
+
+  <div class="quick-amounts">
+
+   <button class="amount-chip" data-space-amount="50">+$50</button>
+   <button class="amount-chip" data-space-amount="100">+$100</button>
+   <button class="amount-chip" data-space-amount="250">+$250</button>
+   <button class="amount-chip" data-space-amount="500">+$500</button>
+
+  </div>
+
+  <input
+   class="input"
+   id="spaceAmount"
+   type="number"
+   placeholder="Custom amount">
+
+  <button class="primary" data-space-confirm="${index}">
+   Add money
+  </button>
+
+ `);
+
+}
+
+function limitModal(){
+
+ openModal(`
+
+  <button class="close" data-action="close">×</button>
+
+  <h2>Spending limit</h2>
+
+  <div class="sheet-sub">
+   Set a monthly card spending limit.
+  </div>
+
+  <div class="field">
+
+   <div class="label">LIMIT</div>
+
+   <input
+    class="input"
+    id="limitAmount"
+    type="number"
+    value="${state.limit}">
+
+  </div>
+
+  <button class="primary" data-action="save-limit">
+   Save limit
+  </button>
+
+ `);
+
 }
 
 function notifications(){
-  state.notifications.forEach(n=>n.unread=false);
-  save();
 
-  openModal(`
-    <button class="close" data-action="close">×</button>
+ state.notifications.forEach(n=>n.unread=false);
 
-    <h2>Notifications</h2>
-    <div class="sheet-sub">You're all caught up.</div>
+ save();
 
-    <div class="notification-list">
-      ${state.notifications.map(n=>`
-        <div class="notification ${n.unread?"unread":""}">
-          <div class="n-icon">✦</div>
+ openModal(`
 
-          <div class="n-copy">
-            <strong>${escapeHTML(n.title)}</strong>
-            <p>${escapeHTML(n.text)}</p>
-          </div>
+  <button class="close" data-action="close">×</button>
 
-          <div class="n-time">${escapeHTML(n.time)}</div>
-        </div>
-      `).join("")}
-    </div>
-  `);
-}
+  <h2>Notifications</h2>
 
-function createSpaceModal(){
-  openModal(`
-    <button class="close" data-action="close">×</button>
+  <div class="sheet-sub">
+   Your latest NOVA updates.
+  </div>
 
-    <h2>Create a Space</h2>
-    <div class="sheet-sub">Give your next goal a home.</div>
+  <div class="notification-list">
 
-    <div class="form">
-      <div class="field-label">NAME</div>
-      <input class="input" id="spaceName" placeholder="e.g. New Car">
+   ${state.notifications.map(n=>`
 
-      <div class="field-label" style="margin-top:14px">TARGET</div>
-      <input class="input" id="spaceTarget" type="number" placeholder="$5,000">
+    <div class="notification ${n.unread?"unread":""}">
 
-      <button class="primary" data-action="confirm-space">
-        Create Space
-      </button>
-    </div>
-  `);
-}
+     <div class="n-icon">✦</div>
 
-function addToSpace(index){
-  const s=state.spaces[index];
+     <div class="n-copy">
+      <strong>${esc(n.title)}</strong>
+      <p>${esc(n.text)}</p>
+     </div>
 
-  openModal(`
-    <button class="close" data-action="close">×</button>
+     <div class="n-time">${esc(n.time)}</div>
 
-    <h2>Add to ${escapeHTML(s.name)}</h2>
-    <div class="sheet-sub">${money(s.saved)} saved of ${money(s.target)}</div>
-
-    <div class="quick-amounts">
-      <button class="amount-chip" data-space-amount="50">+$50</button>
-      <button class="amount-chip" data-space-amount="100">+$100</button>
-      <button class="amount-chip" data-space-amount="250">+$250</button>
-      <button class="amount-chip" data-space-amount="500">+$500</button>
     </div>
 
-    <input class="input" id="spaceAmount" type="number" placeholder="Custom amount">
+   `).join("")}
 
-    <button class="primary" data-space-confirm="${index}">
-      Add money
-    </button>
-  `);
+  </div>
+
+ `);
+
 }
 
-function cardLimitModal(){
-  openModal(`
-    <button class="close" data-action="close">×</button>
+function personal(){
 
-    <h2>Spending limit</h2>
-    <div class="sheet-sub">Set your monthly card spending limit.</div>
+ openModal(`
 
-    <div class="form">
-      <div class="field-label">CURRENT LIMIT</div>
-      <input class="input" id="limitAmount" type="number" value="${state.limit}">
+  <button class="close" data-action="close">×</button>
 
-      <button class="primary" data-action="save-limit">
-        Save limit
-      </button>
-    </div>
-  `);
+  <h2>Personal information</h2>
+
+  <div class="sheet-sub">
+   Update your NOVA profile.
+  </div>
+
+  <div class="field">
+   <div class="label">FULL NAME</div>
+   <input class="input" id="profileInput" value="${esc(state.profileName)}">
+  </div>
+
+  <div class="field">
+   <div class="label">EMAIL</div>
+   <input class="input" value="member@nova.demo">
+  </div>
+
+  <button class="primary" data-action="save-profile">
+   Save changes
+  </button>
+
+ `);
+
 }
 
-function securityModal(){
-  openModal(`
-    <button class="close" data-action="close">×</button>
+function security(){
 
-    <h2>Security</h2>
-    <div class="sheet-sub">Protect your NOVA experience.</div>
+ openModal(`
 
-    <div class="summary">
-      <div class="summary-line">
-        <span>Security score</span>
-        <strong style="color:var(--green)">Excellent</strong>
-      </div>
-      <div class="summary-line">
-        <span>Passcode</span>
-        <strong>Enabled</strong>
-      </div>
-      <div class="summary-line">
-        <span>Biometrics</span>
-        <strong>Available</strong>
-      </div>
-      <div class="summary-line">
-        <span>Trusted devices</span>
-        <strong>1 device</strong>
-      </div>
-    </div>
+  <button class="close" data-action="close">×</button>
 
-    <button class="primary" data-action="biometric">
-      Enable Face ID
-    </button>
+  <h2>Security</h2>
 
-    <button class="secondary" data-action="change-pin">
-      Change PIN
-    </button>
-  `);
+  <div class="sheet-sub">
+   Manage your NOVA security settings.
+  </div>
+
+  <div class="summary">
+
+   <div class="summary-row">
+    <span>Security score</span>
+    <strong style="color:var(--green)">Excellent</strong>
+   </div>
+
+   <div class="summary-row">
+    <span>Passcode</span>
+    <strong>Enabled</strong>
+   </div>
+
+   <div class="summary-row">
+    <span>Face ID</span>
+    <strong>Available</strong>
+   </div>
+
+   <div class="summary-row">
+    <span>Trusted devices</span>
+    <strong>1</strong>
+   </div>
+
+  </div>
+
+  <button class="primary" data-action="biometric">
+   Enable Face ID
+  </button>
+
+  <button class="secondary" data-action="pin">
+   Change PIN
+  </button>
+
+ `);
+
 }
 
-function pinModal(){
-  let entered="";
+function appearance(){
 
-  openModal(`
-    <button class="close" data-action="close">×</button>
+ openModal(`
 
-    <div style="text-align:center">
-      <h2>New PIN</h2>
-      <div class="sheet-sub">Create a 4-digit demonstration PIN.</div>
+  <button class="close" data-action="close">×</button>
 
-      <div class="pin-dots" id="pinDots">
-        <div class="pin-dot"></div>
-        <div class="pin-dot"></div>
-        <div class="pin-dot"></div>
-        <div class="pin-dot"></div>
-      </div>
+  <h2>Appearance</h2>
 
-      <div class="keypad">
-        ${["1","2","3","4","5","6","7","8","9","","0","⌫"].map(k=>
-          k
-          ? `<button class="key" data-pin="${k}">${k}</button>`
-          : `<div></div>`
-        ).join("")}
-      </div>
-    </div>
-  `);
+  <div class="sheet-sub">
+   Choose how NOVA looks.
+  </div>
 
-  window.pinValue=()=>entered;
+  <button class="primary" data-action="toggle-dark">
+   ${state.dark?"Switch to light mode":"Switch to dark mode"}
+  </button>
 
-  document.getElementById("modal").addEventListener("click",function(e){
-    const btn=e.target.closest("[data-pin]");
-    if(!btn)return;
+ `);
 
-    const key=btn.dataset.pin;
-
-    if(key==="⌫"){
-      entered=entered.slice(0,-1);
-    }else if(entered.length<4){
-      entered+=key;
-    }
-
-    document.querySelectorAll("#pinDots .pin-dot").forEach((d,i)=>{
-      d.classList.toggle("filled",i<entered.length);
-    });
-
-    if(entered.length===4){
-      setTimeout(()=>{
-        openModal(`
-          <div class="success">
-            <div class="success-icon">✓</div>
-            <h2>PIN updated</h2>
-            <div class="sheet-sub">Your demonstration PIN has been changed.</div>
-            <button class="primary" data-action="close">Done</button>
-          </div>
-        `);
-      },250);
-    }
-  });
 }
 
-function personalModal(){
-  openModal(`
-    <button class="close" data-action="close">×</button>
+function support(){
 
-    <h2>Personal information</h2>
-    <div class="sheet-sub">Manage your profile details.</div>
+ openModal(`
 
-    <div class="form">
-      <div class="field-label">FULL NAME</div>
-      <input class="input" value="NOVA Member">
+  <button class="close" data-action="close">×</button>
 
-      <div class="field-label" style="margin-top:14px">EMAIL</div>
-      <input class="input" value="member@nova.demo">
+  <h2>Help & support</h2>
 
-      <button class="primary" data-action="save-profile">
-        Save changes
-      </button>
-    </div>
-  `);
+  <div class="sheet-sub">
+   We're here when you need us.
+  </div>
+
+  <div class="summary">
+
+   <div class="summary-row">
+    <span>Help center</span>
+    <strong>›</strong>
+   </div>
+
+   <div class="summary-row">
+    <span>Contact support</span>
+    <strong>›</strong>
+   </div>
+
+   <div class="summary-row">
+    <span>Report an issue</span>
+    <strong>›</strong>
+   </div>
+
+  </div>
+
+  <button class="primary" data-action="support-chat">
+   Start support chat
+  </button>
+
+ `);
+
 }
 
-function appearanceModal(){
-  openModal(`
-    <button class="close" data-action="close">×</button>
+function about(){
 
-    <h2>Appearance</h2>
-    <div class="sheet-sub">Choose how NOVA looks.</div>
+ openModal(`
 
-    <button class="primary" data-action="toggle-dark">
-      ${state.dark?"Switch to light mode":"Switch to dark mode"}
-    </button>
-  `);
-}
+  <button class="close" data-action="close">×</button>
 
-function supportModal(){
-  openModal(`
-    <button class="close" data-action="close">×</button>
+  <div style="text-align:center">
 
-    <h2>Help & support</h2>
-    <div class="sheet-sub">How can we help?</div>
+   <div style="font-family:'Space Grotesk';font-size:31px;font-weight:700">
+    NOVA
+   </div>
 
-    <div class="summary">
-      <div class="summary-line">
-        <span>Help center</span>
-        <strong>›</strong>
-      </div>
-      <div class="summary-line">
-        <span>Contact support</span>
-        <strong>›</strong>
-      </div>
-      <div class="summary-line">
-        <span>Report an issue</span>
-        <strong>›</strong>
-      </div>
+   <div class="sheet-sub">
+    Version 17.0
+   </div>
+
+   <div class="summary" style="text-align:left">
+
+    <div class="summary-row">
+     <span>Experience</span>
+     <strong>Premium</strong>
     </div>
 
-    <button class="primary" data-action="support-chat">
-      Start support chat
-    </button>
-  `);
-}
-
-function aboutModal(){
-  openModal(`
-    <button class="close" data-action="close">×</button>
-
-    <div style="text-align:center;padding:8px 0">
-      <div style="font-family:'Space Grotesk';font-size:30px;font-weight:700">NOVA</div>
-      <div class="sheet-sub">Version 16.0</div>
-
-      <div class="summary" style="text-align:left">
-        <div class="summary-line">
-          <span>Experience</span>
-          <strong>Premium</strong>
-        </div>
-        <div class="summary-line">
-          <span>Platform</span>
-          <strong>Web</strong>
-        </div>
-        <div class="summary-line">
-          <span>Build</span>
-          <strong>16.0.0</strong>
-        </div>
-      </div>
+    <div class="summary-row">
+     <span>Platform</span>
+     <strong>Web</strong>
     </div>
-  `);
+
+    <div class="summary-row">
+     <span>Build</span>
+     <strong>17.0.0</strong>
+    </div>
+
+   </div>
+
+  </div>
+
+ `);
+
 }
 
-/* GLOBAL EVENTS */
+/* EVENTS */
 
 document.addEventListener("click",e=>{
 
-  const screen=e.target.closest("[data-screen]");
-  if(screen){
-    showScreen(screen.dataset.screen);
-    return;
+ const screen=e.target.closest("[data-screen]");
+
+ if(screen){
+  showScreen(screen.dataset.screen);
+  return;
+ }
+
+ const filter=e.target.closest("[data-filter]");
+
+ if(filter){
+  state.filter=filter.dataset.filter;
+  render();
+  return;
+ }
+
+ const contact=e.target.closest("[data-contact]");
+
+ if(contact){
+  state.selectedContact=Number(contact.dataset.contact);
+  sendModal();
+  return;
+ }
+
+ const pick=e.target.closest("[data-pick]");
+
+ if(pick){
+
+  state.selectedContact=Number(pick.dataset.pick);
+
+  const c=state.contacts[state.selectedContact];
+  const r=document.getElementById("recipient");
+
+  if(r){
+
+   r.innerHTML=`
+
+    <div
+     class="contact-avatar"
+     style="background:${c.color}">
+     ${c.initials}
+    </div>
+
+    <div class="recipient-copy">
+     <strong>${esc(c.name)}</strong>
+     <span>Recent transfer · ${money(c.last)}</span>
+    </div>
+
+    <span style="color:var(--muted)">›</span>
+
+   `;
+
   }
 
-  const filter=e.target.closest("[data-filter]");
-  if(filter){
-    state.filter=filter.dataset.filter;
-    renderAll();
-    return;
+  return;
+ }
+
+ const key=e.target.closest("[data-key]");
+
+ if(key){
+
+  const k=key.dataset.key;
+
+  if(k==="⌫"){
+   state.sendAmount=state.sendAmount.slice(0,-1);
+  }
+  else if(k==="." && state.sendAmount.includes(".")){
+   return;
+  }
+  else if(state.sendAmount.length<9){
+   state.sendAmount+=k;
   }
 
-  const category=e.target.closest("[data-category]");
-  if(category){
-    selectedCategory=category.dataset.category;
-    selectedDay=5;
-    renderChart();
-    return;
+  updateAmount();
+  return;
+ }
+
+ const send=e.target.closest("[data-send]");
+
+ if(send){
+  state.sendAmount=send.dataset.send;
+  updateAmount();
+  return;
+ }
+
+ const add=e.target.closest("[data-add]");
+
+ if(add){
+  document.getElementById("addAmount").value=add.dataset.add;
+  return;
+ }
+
+ const spaceAmount=e.target.closest("[data-space-amount]");
+
+ if(spaceAmount){
+  document.getElementById("spaceAmount").value=spaceAmount.dataset.spaceAmount;
+  return;
+ }
+
+ const spaceAdd=e.target.closest("[data-space-add]");
+
+ if(spaceAdd){
+  addSpace(Number(spaceAdd.dataset.spaceAdd));
+  return;
+ }
+
+ const spaceConfirm=e.target.closest("[data-space-confirm]");
+
+ if(spaceConfirm){
+
+  const index=Number(spaceConfirm.dataset.spaceConfirm);
+  const amount=parseFloat(document.getElementById("spaceAmount").value);
+
+  if(!amount){
+   toast("Enter an amount");
+   return;
   }
 
-  const bar=e.target.closest("[data-day]");
-  if(bar){
-    selectedDay=Number(bar.dataset.day);
-    renderChart();
-    return;
+  if(amount>state.balance){
+   toast("Not enough balance");
+   return;
   }
 
-  const transaction=e.target.closest("[data-transaction]");
-  if(transaction){
-    const t=state.transactions.find(x=>String(x.id)===transaction.dataset.transaction);
-    if(t) receipt(t);
-    return;
-  }
-
-  const contact=e.target.closest("[data-contact]");
-  if(contact){
-    state.selectedContact=Number(contact.dataset.contact);
-    sendModal();
-    return;
-  }
-
-  const pick=e.target.closest("[data-pick-contact]");
-  if(pick){
-    state.selectedContact=Number(pick.dataset.pickContact);
-
-    const c=state.contacts[state.selectedContact];
-    const el=document.getElementById("selectedRecipient");
-
-    if(el){
-      el.innerHTML=`
-        <div class="contact-avatar" style="background:${c.color}">
-          ${c.initials}
-        </div>
-        <div class="recipient-info">
-          <strong>${escapeHTML(c.name)}</strong>
-          <span>Recent transfer · ${money(c.last)}</span>
-        </div>
-        <span style="color:var(--muted)">›</span>
-      `;
-    }
-
-    return;
-  }
-
-  const key=e.target.closest("[data-key]");
-  if(key){
-    const k=key.dataset.key;
-
-    if(k==="⌫"){
-      state.sendAmount=state.sendAmount.slice(0,-1);
-    }else if(k==="." && state.sendAmount.includes(".")){
-      return;
-    }else if(state.sendAmount.length<8){
-      state.sendAmount+=k;
-    }
-
-    updateSendAmount();
-    return;
-  }
-
-  const sendAmount=e.target.closest("[data-send-amount]");
-  if(sendAmount){
-    state.sendAmount=sendAmount.dataset.sendAmount;
-    updateSendAmount();
-    return;
-  }
-
-  const addAmount=e.target.closest("[data-add-amount]");
-  if(addAmount){
-    document.getElementById("addAmount").value=addAmount.dataset.addAmount;
-    return;
-  }
-
-  const spaceAmount=e.target.closest("[data-space-amount]");
-  if(spaceAmount){
-    document.getElementById("spaceAmount").value=spaceAmount.dataset.spaceAmount;
-    return;
-  }
-
-  const spaceAdd=e.target.closest("[data-space-add]");
-  if(spaceAdd){
-    addToSpace(Number(spaceAdd.dataset.spaceAdd));
-    return;
-  }
-
-  const spaceConfirm=e.target.closest("[data-space-confirm]");
-  if(spaceConfirm){
-    const index=Number(spaceConfirm.dataset.spaceConfirm);
-    const input=document.getElementById("spaceAmount");
-    const amount=parseFloat(input.value);
-
-    if(!amount || amount<=0){
-      toast("Enter an amount");
-      return;
-    }
-
-    if(amount>state.balance){
-      toast("Not enough balance");
-      return;
-    }
-
-    const s=state.spaces[index];
-
-    state.balance-=amount;
-    s.saved=Math.min(s.target,s.saved+amount);
-
-    state.transactions.unshift({
-      id:Date.now(),
-      title:s.name,
-      sub:"Space · Just now",
-      amount:-amount,
-      type:"space",
-      icon:s.icon
-    });
-
-    closeModal();
-    renderAll();
-
-    setTimeout(()=>{
-      toast(`${money(amount)} added to ${s.name}`);
-    },300);
-
-    return;
-  }
-
-  const card=e.target.closest("[data-card-index]");
-  if(card && !e.target.closest("button")){
-    state.selectedCard=Number(card.dataset.cardIndex);
-    state.flipped=false;
-    renderCards();
-    return;
-  }
-
-  const action=e.target.closest("[data-action]");
-  if(!action)return;
-
-  const a=action.dataset.action;
-
-  if(a==="close"){
-    closeModal();
-    return;
-  }
-
-  if(a==="toggle-balance"){
-    state.balanceVisible=!state.balanceVisible;
-    renderBalance();
-    save();
-    return;
-  }
-
-  if(a==="send"){
-    sendModal();
-    return;
-  }
-
-  if(a==="request"){
-    requestModal();
-    return;
-  }
-
-  if(a==="pay"){
-    payModal();
-    return;
-  }
-
-  if(a==="add"){
-    addModal();
-    return;
-  }
-
-  if(a==="send-review"){
-    sendReview();
-    return;
-  }
-
-  if(a==="confirm-send"){
-    confirmSend();
-    return;
-  }
-
-  if(a==="confirm-request"){
-    const amount=parseFloat(document.getElementById("requestAmount").value);
-
-    if(!amount || amount<=0){
-      toast("Enter an amount");
-      return;
-    }
-
-    closeModal();
-
-    setTimeout(()=>{
-      toast("Money request created");
-    },250);
-
-    return;
-  }
-
-  if(a==="confirm-pay"){
-    const merchant=document.getElementById("merchant").value.trim();
-    const amount=parseFloat(document.getElementById("payAmount").value);
-
-    if(!merchant || !amount){
-      toast("Complete the payment details");
-      return;
-    }
-
-    closeModal();
-
-    setTimeout(()=>{
-      toast("Payment ready for confirmation");
-    },250);
-
-    return;
-  }
-
-  if(a==="confirm-add"){
-    const amount=parseFloat(document.getElementById("addAmount").value);
-
-    if(!amount || amount<=0){
-      toast("Enter an amount");
-      return;
-    }
-
-    state.balance+=amount;
-
-    state.transactions.unshift({
-      id:Date.now(),
-      title:"Cash deposit",
-      sub:"Income · Just now",
-      amount:amount,
-      type:"income",
-      icon:"+"
-    });
-
-    state.notifications.unshift({
-      title:"Money added",
-      text:`${money(amount)} was added to your balance.`,
-      time:"now",
-      unread:true
-    });
-
-    closeModal();
-    renderAll();
-
-    setTimeout(()=>{
-      toast(`${money(amount)} added successfully`);
-    },250);
-
-    return;
-  }
-
-  if(a==="flip-card"){
-    state.flipped=!state.flipped;
-
-    const selected=document.querySelector(
-      `.bank-card[data-card-index="${state.selectedCard}"]`
-    );
-
-    if(selected){
-      selected.classList.toggle("flipped",state.flipped);
-    }
-
-    return;
-  }
-
-  if(a==="freeze"){
-    state.frozen=!state.frozen;
-    renderAll();
-    toast(state.frozen?"Card frozen":"Card unfrozen");
-    return;
-  }
-
-  if(a==="limit"){
-    cardLimitModal();
-    return;
-  }
-
-  if(a==="save-limit"){
-    const amount=parseFloat(document.getElementById("limitAmount").value);
-
-    if(!amount || amount<=0){
-      toast("Enter a valid limit");
-      return;
-    }
-
-    state.limit=amount;
-    closeModal();
-    renderAll();
-    toast("Spending limit updated");
-    return;
-  }
-
-  if(a==="add-card"){
-    toast("New card setup is coming soon");
-    return;
-  }
-
-  if(a==="create-space"){
-    createSpaceModal();
-    return;
-  }
-
-  if(a==="confirm-space"){
-    const name=document.getElementById("spaceName").value.trim();
-    const target=parseFloat(document.getElementById("spaceTarget").value);
-
-    if(!name || !target){
-      toast("Complete the space details");
-      return;
-    }
-
-    state.spaces.push({
-      name,
-      saved:0,
-      target,
-      icon:"✦"
-    });
-
-    closeModal();
-    renderAll();
-
-    setTimeout(()=>{
-      toast("Space created");
-    },250);
-
-    return;
-  }
-
-  if(a==="profile"){
-    showScreen("profile");
-    return;
-  }
-
-  if(a==="personal"){
-    personalModal();
-    return;
-  }
-
-  if(a==="security"){
-    securityModal();
-    return;
-  }
-
-  if(a==="appearance"){
-    appearanceModal();
-    return;
-  }
-
-  if(a==="toggle-dark"){
-    state.dark=!state.dark;
-    closeModal();
-    renderAll();
-    return;
-  }
-
-  if(a==="notifications"){
-    notifications();
-    return;
-  }
-
-  if(a==="support"){
-    supportModal();
-    return;
-  }
-
-  if(a==="support-chat"){
-    closeModal();
-    setTimeout(()=>toast("Support chat opened"),250);
-    return;
-  }
-
-  if(a==="about"){
-    aboutModal();
-    return;
-  }
-
-  if(a==="biometric"){
-    toast("Face ID enabled for this demo");
-    return;
-  }
-
-  if(a==="change-pin"){
-    pinModal();
-    return;
-  }
-
-  if(a==="save-profile"){
-    closeModal();
-    setTimeout(()=>toast("Profile updated"),250);
-    return;
-  }
-
-  if(a==="share-receipt"){
-    toast("Receipt ready to share");
-    return;
-  }
-});
-
-document.getElementById("activitySearch").addEventListener("input",e=>{
-  state.search=e.target.value;
-  renderTransactions();
-});
-
-document.getElementById("cardTrack").addEventListener("scroll",()=>{
-  const cards=[...document.querySelectorAll(".bank-card")];
-  if(!cards.length)return;
-
-  const track=document.getElementById("cardTrack");
-  const center=track.scrollLeft+track.clientWidth/2;
-
-  let closest=0;
-  let distance=Infinity;
-
-  cards.forEach((card,i)=>{
-    const cardCenter=card.offsetLeft+card.offsetWidth/2;
-    const d=Math.abs(cardCenter-center);
-
-    if(d<distance){
-      distance=d;
-      closest=i;
-    }
+  const s=state.spaces[index];
+
+  state.balance-=amount;
+  s.saved=Math.min(s.target,s.saved+amount);
+
+  state.transactions.unshift({
+   id:Date.now(),
+   title:s.name,
+   sub:"Space · Just now",
+   amount:-amount,
+   type:"space",
+   icon:s.icon
   });
 
-  if(state.selectedCard!==closest){
-    state.selectedCard=closest;
-    state.flipped=false;
+  render();
+  closeModal();
 
-    document.querySelectorAll(".dot").forEach((d,i)=>{
-      d.classList.toggle("active",i===closest);
-    });
+  setTimeout(()=>{
+   toast(`${money(amount)} added to ${s.name}`);
+  },250);
+
+  return;
+ }
+
+ const card=e.target.closest("[data-card-index]");
+
+ if(card && !e.target.closest("button")){
+
+  state.selectedCard=Number(card.dataset.cardIndex);
+  state.flipped=false;
+
+  renderCards();
+
+  return;
+ }
+
+ const action=e.target.closest("[data-action]");
+
+ if(!action)return;
+
+ const a=action.dataset.action;
+
+ if(a==="close"){
+  closeModal();
+  return;
+ }
+
+ if(a==="toggle-balance"){
+  state.balanceVisible=!state.balanceVisible;
+  render();
+  return;
+ }
+
+ if(a==="send"){
+  sendModal();
+  return;
+ }
+
+ if(a==="request"){
+  requestModal();
+  return;
+ }
+
+ if(a==="qr"){
+  qrModal();
+  return;
+ }
+
+ if(a==="add"){
+  addModal();
+  return;
+ }
+
+ if(a==="review-send"){
+  reviewSend();
+  return;
+ }
+
+ if(a==="confirm-send"){
+  confirmSend();
+  return;
+ }
+
+ if(a==="confirm-request"){
+
+  const amount=parseFloat(
+   document.getElementById("requestAmount").value
+  );
+
+  if(!amount){
+   toast("Enter an amount");
+   return;
   }
+
+  closeModal();
+
+  setTimeout(()=>{
+   toast("Money request created");
+  },250);
+
+  return;
+ }
+
+ if(a==="confirm-add"){
+
+  const amount=parseFloat(
+   document.getElementById("addAmount").value
+  );
+
+  if(!amount){
+   toast("Enter an amount");
+   return;
+  }
+
+  state.balance+=amount;
+
+  state.transactions.unshift({
+   id:Date.now(),
+   title:"Cash deposit",
+   sub:"Income · Just now",
+   amount,
+   type:"income",
+   icon:"+"
+  });
+
+  state.notifications.unshift({
+   title:"Money added",
+   text:`${money(amount)} was added to your balance.`,
+   time:"now",
+   unread:true
+  });
+
+  render();
+  closeModal();
+
+  setTimeout(()=>{
+   toast(`${money(amount)} added successfully`);
+  },250);
+
+  return;
+ }
+
+ if(a==="share-qr"){
+  toast("QR ready to share");
+  return;
+ }
+
+ if(a==="flip-card"){
+
+  state.flipped=!state.flipped;
+
+  const card=document.querySelector(
+   `.bank-card[data-card-index="${state.selectedCard}"]`
+  );
+
+  if(card){
+   card.classList.toggle("flipped",state.flipped);
+  }
+
+  return;
+ }
+
+ if(a==="freeze"){
+
+  state.frozen=!state.frozen;
+
+  render();
+
+  toast(state.frozen?"Card frozen":"Card unfrozen");
+
+  return;
+ }
+
+ if(a==="limit"){
+  limitModal();
+  return;
+ }
+
+ if(a==="save-limit"){
+
+  const amount=parseFloat(
+   document.getElementById("limitAmount").value
+  );
+
+  if(!amount){
+   toast("Enter a valid limit");
+   return;
+  }
+
+  state.limit=amount;
+
+  render();
+  closeModal();
+
+  setTimeout(()=>{
+   toast("Spending limit updated");
+  },250);
+
+  return;
+ }
+
+ if(a==="add-card"){
+  toast("New card setup is coming soon");
+  return;
+ }
+
+ if(a==="create-space"){
+  createSpace();
+  return;
+ }
+
+ if(a==="profile"){
+  showScreen("profile");
+  return;
+ }
+
+ if(a==="personal"){
+  personal();
+  return;
+ }
+
+ if(a==="security"){
+  security();
+  return;
+ }
+
+ if(a==="appearance"){
+  appearance();
+  return;
+ }
+
+ if(a==="toggle-dark"){
+
+  state.dark=!state.dark;
+
+  render();
+  closeModal();
+
+  return;
+ }
+
+ if(a==="notifications"){
+  notifications();
+  return;
+ }
+
+ if(a==="support"){
+  support();
+  return;
+ }
+
+ if(a==="support-chat"){
+
+  closeModal();
+
+  setTimeout(()=>{
+   toast("Support chat opened");
+  },250);
+
+  return;
+ }
+
+ if(a==="about"){
+  about();
+  return;
+ }
+
+ if(a==="biometric"){
+  toast("Face ID enabled for this demo");
+  return;
+ }
+
+ if(a==="pin"){
+  toast("PIN settings opened");
+  return;
+ }
+
+ if(a==="save-profile"){
+
+  const input=document.getElementById("profileInput");
+
+  if(input && input.value.trim()){
+   state.profileName=input.value.trim();
+  }
+
+  render();
+  closeModal();
+
+  setTimeout(()=>{
+   toast("Profile updated");
+  },250);
+
+  return;
+ }
+
 });
+
+/* SEARCH */
+
+document.getElementById("searchInput").addEventListener("input",e=>{
+ state.search=e.target.value;
+ renderTransactions();
+});
+
+/* CARD SCROLL */
+
+document.getElementById("cardTrack").addEventListener("scroll",()=>{
+
+ const track=document.getElementById("cardTrack");
+ const cards=[...document.querySelectorAll(".bank-card")];
+
+ if(!cards.length)return;
+
+ const center=track.scrollLeft+track.clientWidth/2;
+
+ let closest=0;
+ let distance=Infinity;
+
+ cards.forEach((card,i)=>{
+
+  const cardCenter=
+   card.offsetLeft+card.offsetWidth/2;
+
+  const d=Math.abs(cardCenter-center);
+
+  if(d<distance){
+   distance=d;
+   closest=i;
+  }
+
+ });
+
+ if(closest!==state.selectedCard){
+
+  state.selectedCard=closest;
+  state.flipped=false;
+
+  document.querySelectorAll(".dot").forEach((dot,i)=>{
+   dot.classList.toggle("active",i===closest);
+  });
+
+  document.querySelectorAll(".bank-card").forEach((card,i)=>{
+   card.classList.toggle("active-card",i===closest);
+   card.classList.remove("flipped");
+  });
+
+ }
+
+});
+
+/* MODAL BACKDROP */
 
 document.getElementById("modal").addEventListener("click",e=>{
-  if(e.target.id==="modal"){
-    closeModal();
-  }
+
+ if(e.target.id==="modal"){
+  closeModal();
+ }
+
 });
 
-renderAll();
+render();
+
 </script>
 
 </body>
