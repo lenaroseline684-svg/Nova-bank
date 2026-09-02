@@ -2,29 +2,23 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>NOVA — Money, reimagined.</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 :root{
   --bg:#f5f7fa;
-  --card:#ffffff;
+  --card:#fff;
   --text:#101318;
-  --muted:#7b818b;
-  --line:#e9ecf0;
+  --muted:#7d838d;
+  --line:#e8ebef;
   --accent:#635bff;
-  --accent2:#8d87ff;
-  --dark:#111318;
-  --green:#16a36a;
-  --red:#e05252;
+  --green:#18a66d;
+  --red:#df5656;
 }
 
 body{
@@ -34,8 +28,11 @@ body{
   font-family:"DM Sans",sans-serif;
 }
 
-button{
+button,input{
   font:inherit;
+}
+
+button{
   border:0;
   cursor:pointer;
 }
@@ -44,7 +41,7 @@ button{
   width:min(1180px,100%);
   margin:auto;
   min-height:100vh;
-  padding:24px;
+  padding:24px 24px 100px;
 }
 
 /* HEADER */
@@ -65,33 +62,31 @@ header{
 .logo{
   width:42px;
   height:42px;
-  border-radius:13px;
-  background:#111318;
-  color:white;
   display:grid;
   place-items:center;
+  border-radius:13px;
+  color:white;
+  background:#111318;
   font-family:"Space Grotesk";
   font-weight:700;
-  font-size:19px;
-  box-shadow:0 8px 20px #11131820;
+  box-shadow:0 9px 24px #0002;
 }
 
 .brand-name{
   font-family:"Space Grotesk";
-  font-weight:700;
   font-size:21px;
-  letter-spacing:-.5px;
+  font-weight:700;
 }
 
 .profile{
   width:43px;
   height:43px;
-  border-radius:50%;
-  background:linear-gradient(135deg,#d8dbe2,#979eaa);
   display:grid;
   place-items:center;
+  border-radius:50%;
   color:white;
   font-weight:700;
+  background:linear-gradient(135deg,#d9dce2,#969da8);
 }
 
 /* GREETING */
@@ -117,31 +112,20 @@ header{
 .balance-card{
   position:relative;
   overflow:hidden;
-  border-radius:28px;
-  padding:27px;
-  color:white;
   min-height:245px;
+  padding:27px;
+  border-radius:28px;
+  color:white;
   background:
-    radial-gradient(circle at 90% 10%,#827aff 0,transparent 28%),
-    radial-gradient(circle at 5% 100%,#4139c9 0,transparent 35%),
+    radial-gradient(circle at 90% 10%,#8179ff 0,transparent 28%),
+    radial-gradient(circle at 5% 100%,#4038c8 0,transparent 35%),
     linear-gradient(135deg,#171925,#3931a4);
   box-shadow:0 22px 50px #29257925;
 }
 
-.balance-card:after{
-  content:"";
-  position:absolute;
-  width:240px;
-  height:240px;
-  border:1px solid #ffffff18;
-  border-radius:50%;
-  right:-100px;
-  bottom:-120px;
-}
-
 .balance-label{
-  font-size:13px;
   color:#ffffffa8;
+  font-size:13px;
 }
 
 .balance-row{
@@ -158,46 +142,37 @@ header{
 }
 
 .eye{
-  background:#ffffff17;
-  color:white;
   width:35px;
   height:35px;
   border-radius:50%;
+  color:white;
+  background:#ffffff18;
 }
 
 .balance-bottom{
   display:flex;
-  justify-content:space-between;
   align-items:end;
+  justify-content:space-between;
   margin-top:43px;
 }
 
-.account{
+.account,.income{
   color:#ffffff91;
   font-size:12px;
 }
 
-.account strong{
-  color:white;
-  display:block;
-  font-size:14px;
-  margin-top:4px;
-}
-
-.income{
-  font-size:12px;
-  color:#ffffffa8;
-  text-align:right;
-}
-
+.account strong,
 .income strong{
   display:block;
-  color:#7dffbe;
-  font-size:14px;
   margin-top:4px;
+  color:white;
+  font-size:14px;
 }
 
-/* QUICK ACTIONS */
+.income{text-align:right}
+.income strong{color:#7dffbe}
+
+/* ACTIONS */
 
 .actions{
   display:grid;
@@ -207,10 +182,10 @@ header{
 }
 
 .action{
-  background:white;
+  padding:17px 8px;
   border:1px solid var(--line);
   border-radius:20px;
-  padding:17px 8px;
+  background:white;
   text-align:center;
   transition:.2s;
 }
@@ -223,21 +198,21 @@ header{
 .action-icon{
   width:42px;
   height:42px;
-  margin:auto auto 9px;
-  border-radius:14px;
-  background:#f0efff;
-  color:var(--accent);
   display:grid;
   place-items:center;
+  margin:0 auto 9px;
+  border-radius:14px;
+  color:var(--accent);
+  background:#f0efff;
   font-size:18px;
 }
 
 .action span{
   font-size:12px;
-  font-weight:600;
+  font-weight:700;
 }
 
-/* GRID */
+/* CONTENT */
 
 .main-grid{
   display:grid;
@@ -246,16 +221,16 @@ header{
 }
 
 .card{
-  background:white;
+  padding:22px;
   border:1px solid var(--line);
   border-radius:25px;
-  padding:22px;
+  background:white;
 }
 
 .card-head{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   margin-bottom:20px;
 }
 
@@ -272,15 +247,15 @@ header{
   cursor:pointer;
 }
 
-/* PULSE */
+/* CHART */
 
 .pulse-number{
   font-family:"Space Grotesk";
   font-size:27px;
-  margin-bottom:3px;
 }
 
 .pulse-sub{
+  margin-top:3px;
   color:var(--muted);
   font-size:12px;
 }
@@ -295,15 +270,12 @@ header{
 
 .bar{
   flex:1;
+  min-height:18px;
   border-radius:8px 8px 4px 4px;
   background:#e9e7ff;
-  min-height:18px;
-  transition:.3s;
 }
 
-.bar.active{
-  background:var(--accent);
-}
+.bar.active{background:var(--accent)}
 
 .days{
   display:flex;
@@ -332,41 +304,37 @@ header{
 .space-icon{
   width:38px;
   height:38px;
-  border-radius:12px;
   display:grid;
   place-items:center;
+  border-radius:12px;
   background:white;
-  font-size:17px;
 }
 
-.space-info{
-  flex:1;
-}
+.space-info{flex:1}
 
 .space-name{
-  font-weight:700;
   font-size:13px;
+  font-weight:700;
 }
 
 .space-value{
+  margin-top:3px;
   color:var(--muted);
   font-size:11px;
-  margin-top:3px;
 }
 
 .space-bar{
   width:60px;
   height:5px;
+  overflow:hidden;
   border-radius:10px;
   background:#e4e6ea;
-  overflow:hidden;
 }
 
 .space-fill{
   height:100%;
-  width:72%;
-  background:var(--accent);
   border-radius:10px;
+  background:var(--accent);
 }
 
 /* TRANSACTIONS */
@@ -382,23 +350,19 @@ header{
   border-bottom:1px solid #f0f1f3;
 }
 
-.transaction:last-child{
-  border-bottom:0;
-}
+.transaction:last-child{border:0}
 
 .tx-icon{
   width:42px;
   height:42px;
-  border-radius:14px;
-  background:#f3f4f6;
   display:grid;
   place-items:center;
   margin-right:12px;
+  border-radius:14px;
+  background:#f3f4f6;
 }
 
-.tx-info{
-  flex:1;
-}
+.tx-info{flex:1}
 
 .tx-name{
   font-size:13px;
@@ -406,9 +370,9 @@ header{
 }
 
 .tx-date{
+  margin-top:3px;
   color:#999fa8;
   font-size:11px;
-  margin-top:3px;
 }
 
 .tx-amount{
@@ -416,20 +380,15 @@ header{
   font-weight:700;
 }
 
-.negative{
-  color:var(--red);
-}
-
-.positive{
-  color:var(--green);
-}
+.negative{color:var(--red)}
+.positive{color:var(--green)}
 
 /* INSIGHT */
 
 .insight{
   margin-top:18px;
-  border-radius:25px;
   padding:22px;
+  border-radius:25px;
   color:white;
   background:linear-gradient(135deg,#111318,#292d39);
 }
@@ -444,10 +403,10 @@ header{
 .spark{
   width:29px;
   height:29px;
-  border-radius:9px;
-  background:#ffffff15;
   display:grid;
   place-items:center;
+  border-radius:9px;
+  background:#ffffff15;
 }
 
 .insight h3{
@@ -461,7 +420,7 @@ header{
   line-height:1.6;
 }
 
-/* NAV */
+/* BOTTOM NAV */
 
 .bottom-nav{
   display:none;
@@ -471,16 +430,17 @@ header{
 
 .toast{
   position:fixed;
+  z-index:100;
   left:50%;
   bottom:25px;
-  transform:translate(-50%,20px);
-  background:#111318;
-  color:white;
   padding:13px 18px;
   border-radius:14px;
+  color:white;
+  background:#111318;
   font-size:13px;
   opacity:0;
   pointer-events:none;
+  transform:translate(-50%,20px);
   transition:.25s;
 }
 
@@ -489,21 +449,225 @@ header{
   transform:translate(-50%,0);
 }
 
+/* SEND MODAL */
+
+.modal{
+  position:fixed;
+  z-index:50;
+  inset:0;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding:15px;
+  background:#05060980;
+  backdrop-filter:blur(9px);
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+}
+
+.modal.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.sheet{
+  width:min(520px,100%);
+  max-height:90vh;
+  overflow:auto;
+  padding:24px;
+  border-radius:30px 30px 22px 22px;
+  background:white;
+  transform:translateY(35px);
+  transition:.3s;
+}
+
+.modal.open .sheet{
+  transform:translateY(0);
+}
+
+.sheet-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:24px;
+}
+
+.sheet-title{
+  font-family:"Space Grotesk";
+  font-size:22px;
+  font-weight:700;
+}
+
+.close{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:#f1f2f4;
+}
+
+.field-label{
+  display:block;
+  margin-bottom:9px;
+  color:#737984;
+  font-size:12px;
+  font-weight:700;
+}
+
+.amount-box{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:18px;
+  margin-bottom:20px;
+  border:1px solid var(--line);
+  border-radius:18px;
+}
+
+.amount-box span{
+  color:#8b9098;
+  font-size:22px;
+}
+
+.amount-input{
+  width:100%;
+  border:0;
+  outline:0;
+  color:var(--text);
+  font-family:"Space Grotesk";
+  font-size:30px;
+  font-weight:700;
+}
+
+.recipient-list{
+  display:grid;
+  gap:9px;
+  margin-bottom:20px;
+}
+
+.recipient{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  padding:12px;
+  border:1px solid transparent;
+  border-radius:17px;
+  background:#f7f8fa;
+  text-align:left;
+}
+
+.recipient.selected{
+  border-color:#635bff55;
+  background:#f0efff;
+}
+
+.avatar{
+  width:40px;
+  height:40px;
+  display:grid;
+  place-items:center;
+  flex:none;
+  border-radius:50%;
+  color:white;
+  background:linear-gradient(135deg,#242833,#747b88);
+  font-weight:700;
+}
+
+.recipient-info{flex:1}
+
+.recipient-name{
+  font-size:13px;
+  font-weight:700;
+}
+
+.recipient-tag{
+  margin-top:2px;
+  color:#969ba4;
+  font-size:11px;
+}
+
+.check{
+  display:none;
+  color:var(--accent);
+  font-weight:700;
+}
+
+.recipient.selected .check{display:block}
+
+.primary{
+  width:100%;
+  padding:16px;
+  border-radius:17px;
+  color:white;
+  background:#111318;
+  font-weight:700;
+}
+
+.primary:disabled{
+  opacity:.35;
+  cursor:not-allowed;
+}
+
+/* CONFIRMATION */
+
+.confirm{
+  display:none;
+}
+
+.confirm.show{display:block}
+
+.confirm-icon{
+  width:68px;
+  height:68px;
+  display:grid;
+  place-items:center;
+  margin:5px auto 18px;
+  border-radius:50%;
+  color:#08764a;
+  background:#dff7ec;
+  font-size:28px;
+}
+
+.confirm-title{
+  text-align:center;
+  font-family:"Space Grotesk";
+  font-size:24px;
+}
+
+.confirm-sub{
+  margin:8px 0 24px;
+  color:var(--muted);
+  text-align:center;
+  font-size:13px;
+}
+
+.summary{
+  padding:17px;
+  margin-bottom:18px;
+  border-radius:18px;
+  background:#f7f8fa;
+}
+
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  padding:8px 0;
+  color:#737984;
+  font-size:12px;
+}
+
+.summary-row strong{color:var(--text)}
+
 /* MOBILE */
 
 @media(max-width:760px){
 
-  .app{
-    padding:17px 15px 90px;
-  }
+  .app{padding:17px 15px 95px}
 
-  header{
-    margin-bottom:25px;
-  }
+  header{margin-bottom:25px}
 
-  .greeting h1{
-    font-size:26px;
-  }
+  .greeting h1{font-size:26px}
 
   .balance-card{
     min-height:225px;
@@ -511,17 +675,13 @@ header{
     border-radius:24px;
   }
 
-  .balance{
-    font-size:34px;
-  }
+  .balance{font-size:34px}
 
-  .actions{
-    gap:8px;
-  }
+  .actions{gap:8px}
 
   .action{
-    border-radius:17px;
     padding:14px 5px;
+    border-radius:17px;
   }
 
   .action-icon{
@@ -529,13 +689,11 @@ header{
     height:39px;
   }
 
-  .main-grid{
-    grid-template-columns:1fr;
-  }
+  .main-grid{grid-template-columns:1fr}
 
   .card{
-    border-radius:22px;
     padding:19px;
+    border-radius:22px;
   }
 
   .bottom-nav{
@@ -546,34 +704,41 @@ header{
     right:12px;
     bottom:12px;
     height:67px;
+    padding:7px;
+    border-radius:22px;
     background:#111318f7;
     backdrop-filter:blur(20px);
-    border-radius:22px;
-    padding:7px;
-    box-shadow:0 15px 35px #00000022;
+    box-shadow:0 15px 35px #0003;
   }
 
   .nav-item{
     flex:1;
-    border-radius:17px;
-    background:transparent;
-    color:#858992;
     display:flex;
-    flex-direction:column;
     align-items:center;
     justify-content:center;
     gap:3px;
+    border-radius:17px;
+    color:#858992;
+    background:transparent;
     font-size:10px;
   }
 
   .nav-item.active{
-    background:#ffffff12;
     color:white;
+    background:#ffffff12;
   }
 
   .nav-item b{
     font-size:18px;
-    line-height:18px;
+  }
+
+  .modal{
+    padding:0;
+  }
+
+  .sheet{
+    border-radius:30px 30px 0 0;
+    padding:22px 18px 28px;
   }
 }
 </style>
@@ -588,7 +753,6 @@ header{
     <div class="logo">N</div>
     <div class="brand-name">NOVA</div>
   </div>
-
   <div class="profile">J</div>
 </header>
 
@@ -598,7 +762,6 @@ header{
 </section>
 
 <section class="balance-card">
-
   <div class="balance-label">Available balance</div>
 
   <div class="balance-row">
@@ -617,27 +780,26 @@ header{
       <strong>+$4,280.00</strong>
     </div>
   </div>
-
 </section>
 
 <div class="actions">
 
-  <button class="action" onclick="notify('Send money opened')">
+  <button class="action" onclick="openSend()">
     <div class="action-icon">↑</div>
     <span>Send</span>
   </button>
 
-  <button class="action" onclick="notify('Request money opened')">
+  <button class="action" onclick="notify('Request Money is coming next')">
     <div class="action-icon">↓</div>
     <span>Request</span>
   </button>
 
-  <button class="action" onclick="notify('Payment scanner opened')">
+  <button class="action" onclick="notify('NOVA Pay is coming next')">
     <div class="action-icon">⌁</div>
     <span>Pay</span>
   </button>
 
-  <button class="action" onclick="notify('Add money opened')">
+  <button class="action" onclick="notify('Add Money is coming next')">
     <div class="action-icon">＋</div>
     <span>Add</span>
   </button>
@@ -646,77 +808,78 @@ header{
 
 <div class="main-grid">
 
-  <section class="card">
+<section class="card">
 
-    <div class="card-head">
-      <div class="card-title">Money Pulse</div>
-      <div class="card-link">This week</div>
-    </div>
+  <div class="card-head">
+    <div class="card-title">Money Pulse</div>
+    <div class="card-link">This week</div>
+  </div>
 
-    <div class="pulse-number">$1,284.20</div>
-    <div class="pulse-sub">spent this week · 12% less than last week</div>
+  <div class="pulse-number">$1,284.20</div>
+  <div class="pulse-sub">spent this week · 12% less than last week</div>
 
-    <div class="chart">
-      <div class="bar" style="height:38%"></div>
-      <div class="bar" style="height:62%"></div>
-      <div class="bar active" style="height:48%"></div>
-      <div class="bar" style="height:77%"></div>
-      <div class="bar" style="height:55%"></div>
-      <div class="bar" style="height:90%"></div>
-      <div class="bar active" style="height:43%"></div>
-    </div>
+  <div class="chart">
+    <div class="bar" style="height:38%"></div>
+    <div class="bar" style="height:62%"></div>
+    <div class="bar active" style="height:48%"></div>
+    <div class="bar" style="height:77%"></div>
+    <div class="bar" style="height:55%"></div>
+    <div class="bar" style="height:90%"></div>
+    <div class="bar active" style="height:43%"></div>
+  </div>
 
-    <div class="days">
-      <span>M</span>
-      <span>T</span>
-      <span>W</span>
-      <span>T</span>
-      <span>F</span>
-      <span>S</span>
-      <span>S</span>
-    </div>
+  <div class="days">
+    <span>M</span><span>T</span><span>W</span><span>T</span>
+    <span>F</span><span>S</span><span>S</span>
+  </div>
 
-  </section>
+</section>
 
-  <section class="card">
+<section class="card">
 
-    <div class="card-head">
-      <div class="card-title">Money Spaces</div>
-      <div class="card-link" onclick="notify('New Space created')">＋ New</div>
-    </div>
+  <div class="card-head">
+    <div class="card-title">Money Spaces</div>
+    <div class="card-link" onclick="notify('New Space coming next')">＋ New</div>
+  </div>
 
-    <div class="spaces">
+  <div class="spaces">
 
-      <div class="space">
-        <div class="space-icon">⌂</div>
-        <div class="space-info">
-          <div class="space-name">Rent</div>
-          <div class="space-value">$1,420 / $1,800</div>
-        </div>
-        <div class="space-bar"><div class="space-fill" style="width:79%"></div></div>
+    <div class="space">
+      <div class="space-icon">⌂</div>
+      <div class="space-info">
+        <div class="space-name">Rent</div>
+        <div class="space-value">$1,420 / $1,800</div>
       </div>
-
-      <div class="space">
-        <div class="space-icon">◉</div>
-        <div class="space-info">
-          <div class="space-name">Travel</div>
-          <div class="space-value">$860 / $2,000</div>
-        </div>
-        <div class="space-bar"><div class="space-fill" style="width:43%"></div></div>
+      <div class="space-bar">
+        <div class="space-fill" style="width:79%"></div>
       </div>
-
-      <div class="space">
-        <div class="space-icon">◇</div>
-        <div class="space-info">
-          <div class="space-name">Business</div>
-          <div class="space-value">$3,240 saved</div>
-        </div>
-        <div class="space-bar"><div class="space-fill" style="width:65%"></div></div>
-      </div>
-
     </div>
 
-  </section>
+    <div class="space">
+      <div class="space-icon">◉</div>
+      <div class="space-info">
+        <div class="space-name">Travel</div>
+        <div class="space-value">$860 / $2,000</div>
+      </div>
+      <div class="space-bar">
+        <div class="space-fill" style="width:43%"></div>
+      </div>
+    </div>
+
+    <div class="space">
+      <div class="space-icon">◇</div>
+      <div class="space-info">
+        <div class="space-name">Business</div>
+        <div class="space-value">$3,240 saved</div>
+      </div>
+      <div class="space-bar">
+        <div class="space-fill" style="width:65%"></div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
 
 </div>
 
@@ -724,7 +887,7 @@ header{
 
   <div class="card-head">
     <div class="card-title">Recent activity</div>
-    <div class="card-link" onclick="notify('Showing all activity')">View all</div>
+    <div class="card-link" onclick="notify('All activity coming next')">View all</div>
   </div>
 
   <div class="transaction">
@@ -754,15 +917,6 @@ header{
     <div class="tx-amount negative">−$1,420.00</div>
   </div>
 
-  <div class="transaction">
-    <div class="tx-icon">◎</div>
-    <div class="tx-info">
-      <div class="tx-name">Alex Morgan</div>
-      <div class="tx-date">Aug 29 · 7:34 PM</div>
-    </div>
-    <div class="tx-amount negative">−$120.00</div>
-  </div>
-
 </section>
 
 <section class="insight">
@@ -773,8 +927,8 @@ header{
   </div>
 
   <p>
-    Your spending is trending lower this week. You're currently
-    <strong>12% below</strong> your usual weekly spending.
+    Your spending is trending lower this week.
+    You're currently <strong>12% below</strong> your usual weekly spending.
     At this pace, you'll keep an extra $310 this month.
   </p>
 
@@ -782,35 +936,148 @@ header{
 
 </div>
 
+<!-- BOTTOM NAV -->
+
 <nav class="bottom-nav">
 
   <button class="nav-item active" onclick="setNav(this)">
-    <b>⌂</b>
-    Home
+    <b>⌂</b>Home
   </button>
 
   <button class="nav-item" onclick="setNav(this)">
-    <b>◫</b>
-    Spaces
+    <b>◫</b>Spaces
   </button>
 
   <button class="nav-item" onclick="setNav(this)">
-    <b>↕</b>
-    Activity
+    <b>↕</b>Activity
   </button>
 
   <button class="nav-item" onclick="setNav(this)">
-    <b>◯</b>
-    Profile
+    <b>◯</b>Profile
   </button>
 
 </nav>
+
+<!-- SEND MONEY -->
+
+<div class="modal" id="sendModal" onclick="outsideClose(event)">
+
+  <div class="sheet">
+
+    <div id="sendForm">
+
+      <div class="sheet-head">
+        <div class="sheet-title">Send money</div>
+        <button class="close" onclick="closeSend()">×</button>
+      </div>
+
+      <label class="field-label">Amount</label>
+
+      <div class="amount-box">
+        <span>$</span>
+        <input
+          class="amount-input"
+          id="amount"
+          type="number"
+          min="1"
+          placeholder="0.00"
+          oninput="validateSend()"
+        >
+      </div>
+
+      <label class="field-label">Choose recipient</label>
+
+      <div class="recipient-list">
+
+        <button class="recipient" onclick="selectRecipient(this,'Alex Morgan')">
+          <div class="avatar">A</div>
+          <div class="recipient-info">
+            <div class="recipient-name">Alex Morgan</div>
+            <div class="recipient-tag">@alexm</div>
+          </div>
+          <div class="check">✓</div>
+        </button>
+
+        <button class="recipient" onclick="selectRecipient(this,'Sarah Williams')">
+          <div class="avatar">S</div>
+          <div class="recipient-info">
+            <div class="recipient-name">Sarah Williams</div>
+            <div class="recipient-tag">@sarahw</div>
+          </div>
+          <div class="check">✓</div>
+        </button>
+
+        <button class="recipient" onclick="selectRecipient(this,'Daniel Carter')">
+          <div class="avatar">D</div>
+          <div class="recipient-info">
+            <div class="recipient-name">Daniel Carter</div>
+            <div class="recipient-tag">@danielc</div>
+          </div>
+          <div class="check">✓</div>
+        </button>
+
+      </div>
+
+      <button class="primary" id="continueBtn" disabled onclick="showConfirmation()">
+        Continue
+      </button>
+
+    </div>
+
+    <div class="confirm" id="confirmation">
+
+      <div class="confirm-icon">✓</div>
+
+      <div class="confirm-title">Review transfer</div>
+
+      <div class="confirm-sub">
+        Check everything before sending.
+      </div>
+
+      <div class="summary">
+
+        <div class="summary-row">
+          <span>Recipient</span>
+          <strong id="confirmName">—</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Amount</span>
+          <strong id="confirmAmount">$0.00</strong>
+        </div>
+
+        <div class="summary-row">
+          <span>Fee</span>
+          <strong>$0.00</strong>
+        </div>
+
+      </div>
+
+      <button class="primary" onclick="completeTransfer()">
+        Send money
+      </button>
+
+      <button
+        class="primary"
+        style="margin-top:9px;background:#f1f2f4;color:#111318"
+        onclick="backToForm()"
+      >
+        Go back
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
 
 <div class="toast" id="toast"></div>
 
 <script>
 
 let visible=true;
+let selectedRecipient="";
+let currentAmount=0;
 
 function toggleBalance(){
 
@@ -818,7 +1085,8 @@ function toggleBalance(){
 
   visible=!visible;
 
-  balance.textContent=visible ? "$24,860.40" : "••••••••";
+  balance.textContent=
+    visible ? "$24,860.40" : "••••••••";
 
 }
 
@@ -832,6 +1100,146 @@ function notify(message){
   setTimeout(()=>{
     toast.classList.remove("show");
   },1800);
+
+}
+
+function openSend(){
+
+  document.getElementById("sendModal")
+    .classList.add("open");
+
+}
+
+function closeSend(){
+
+  document.getElementById("sendModal")
+    .classList.remove("open");
+
+  setTimeout(resetSend,250);
+
+}
+
+function outsideClose(event){
+
+  if(event.target.id==="sendModal"){
+    closeSend();
+  }
+
+}
+
+function selectRecipient(button,name){
+
+  document.querySelectorAll(".recipient")
+    .forEach(item=>item.classList.remove("selected"));
+
+  button.classList.add("selected");
+
+  selectedRecipient=name;
+
+  validateSend();
+
+}
+
+function validateSend(){
+
+  const amount=
+    parseFloat(document.getElementById("amount").value);
+
+  const btn=document.getElementById("continueBtn");
+
+  if(amount>0 && selectedRecipient){
+    btn.disabled=false;
+  }else{
+    btn.disabled=true;
+  }
+
+}
+
+function showConfirmation(){
+
+  currentAmount=
+    parseFloat(document.getElementById("amount").value);
+
+  document.getElementById("confirmName")
+    .textContent=selectedRecipient;
+
+  document.getElementById("confirmAmount")
+    .textContent="$"+currentAmount.toLocaleString(
+      "en-US",
+      {minimumFractionDigits:2}
+    );
+
+  document.getElementById("sendForm")
+    .style.display="none";
+
+  document.getElementById("confirmation")
+    .classList.add("show");
+
+}
+
+function backToForm(){
+
+  document.getElementById("confirmation")
+    .classList.remove("show");
+
+  document.getElementById("sendForm")
+    .style.display="block";
+
+}
+
+function completeTransfer(){
+
+  const balance=document.getElementById("balance");
+
+  let current=24860.40-currentAmount;
+
+  balance.textContent=
+    "$"+current.toLocaleString(
+      "en-US",
+      {minimumFractionDigits:2}
+    );
+
+  document.getElementById("confirmation")
+    .innerHTML=`
+
+      <div class="confirm-icon">✓</div>
+
+      <div class="confirm-title">
+        Money sent
+      </div>
+
+      <div class="confirm-sub">
+        $${currentAmount.toLocaleString(
+          "en-US",
+          {minimumFractionDigits:2}
+        )} was sent to ${selectedRecipient}.
+      </div>
+
+      <button
+        class="primary"
+        onclick="closeSend()"
+      >
+        Done
+      </button>
+  `;
+
+}
+
+function resetSend(){
+
+  selectedRecipient="";
+  currentAmount=0;
+
+  document.getElementById("amount").value="";
+
+  document.querySelectorAll(".recipient")
+    .forEach(item=>item.classList.remove("selected"));
+
+  document.getElementById("continueBtn").disabled=true;
+
+  document.getElementById("sendForm").style.display="block";
+
+  document.getElementById("confirmation").classList.remove("show");
 
 }
 
