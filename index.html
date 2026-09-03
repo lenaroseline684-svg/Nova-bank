@@ -11,7 +11,7 @@
 
 <link rel="manifest" href="./manifest.webmanifest">
 
-<title>NOVA — v25</title>
+<title>NOVA — v25.1</title>
 
 <style>
 *{
@@ -609,53 +609,82 @@ button{
 }
 
 .space{
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:17px;
+  background:linear-gradient(145deg,#13171c,#101318);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px;
+  padding:18px;
+  box-shadow:0 12px 35px rgba(0,0,0,.18);
+  position:relative;
+  overflow:hidden;
+}
+
+.space:before{
+  content:"";
+  position:absolute;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  background:rgba(185,255,98,.035);
+  right:-45px;
+  top:-55px;
 }
 
 .space-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  position:relative;
+  z-index:1;
 }
 
 .space-head strong{
-  font-size:14px;
+  font-size:15px;
+  letter-spacing:-.2px;
 }
 
 .space-head span{
-  color:var(--muted);
-  font-size:11px;
+  color:var(--green);
+  font-size:12px;
+  font-weight:750;
 }
 
 .space-amount{
-  margin-top:12px;
-  font-size:23px;
+  margin-top:13px;
+  font-size:25px;
   font-weight:800;
+  letter-spacing:-.7px;
+  position:relative;
+  z-index:1;
 }
 
 .progress{
-  height:7px;
+  height:8px;
   background:#252930;
   border-radius:20px;
   overflow:hidden;
-  margin-top:12px;
+  margin-top:13px;
+  position:relative;
+  z-index:1;
 }
 
 .progress div{
   height:100%;
+  width:0;
+  min-width:0;
+  max-width:100%;
   background:linear-gradient(90deg,var(--green2),var(--green));
   border-radius:20px;
+  transition:width .35s ease;
 }
 
 .space-foot{
-  margin-top:9px;
+  margin-top:10px;
   display:flex;
   justify-content:space-between;
   color:var(--muted);
   font-size:11px;
+  position:relative;
+  z-index:1;
 }
 
 /* =========================
@@ -782,7 +811,7 @@ button{
 }
 
 /* =========================
-   BOTTOM NAV
+   PREMIUM BOTTOM NAV
 ========================= */
 
 .bottom-nav{
@@ -792,19 +821,23 @@ button{
   bottom:0;
   transform:translateX(-50%);
   width:min(650px,100%);
-  padding:9px 12px calc(9px + env(safe-area-inset-bottom));
-  background:rgba(9,11,14,.91);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
+  padding:8px 10px calc(8px + env(safe-area-inset-bottom));
+  background:rgba(9,11,14,.92);
+  backdrop-filter:blur(24px) saturate(150%);
+  -webkit-backdrop-filter:blur(24px) saturate(150%);
   border-top:1px solid rgba(255,255,255,.07);
+  box-shadow:0 -15px 45px rgba(0,0,0,.22);
   display:grid;
   grid-template-columns:repeat(5,1fr);
+  gap:5px;
 }
 
 .nav-btn{
-  background:none;
+  position:relative;
+  min-height:60px;
+  border-radius:17px;
+  background:transparent;
   color:#747a84;
-  min-height:58px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -812,14 +845,57 @@ button{
   gap:5px;
   cursor:pointer;
   font-size:10px;
+  font-weight:550;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+  transition:
+    background .18s ease,
+    color .18s ease,
+    transform .12s ease;
 }
 
 .nav-btn span:first-child{
-  font-size:17px;
+  width:30px;
+  height:27px;
+  display:grid;
+  place-items:center;
+  font-size:19px;
+  line-height:1;
+  border-radius:10px;
+  transition:.18s ease;
+}
+
+.nav-btn span:last-child{
+  line-height:1;
+}
+
+.nav-btn:active{
+  transform:scale(.94);
 }
 
 .nav-btn.active{
   color:var(--green);
+  background:rgba(185,255,98,.075);
+  box-shadow:
+    inset 0 0 0 1px rgba(185,255,98,.08),
+    0 5px 20px rgba(185,255,98,.04);
+}
+
+.nav-btn.active span:first-child{
+  background:rgba(185,255,98,.12);
+  color:var(--green);
+  transform:translateY(-1px);
+}
+
+.nav-btn.active:after{
+  content:"";
+  position:absolute;
+  width:22px;
+  height:3px;
+  border-radius:20px;
+  background:var(--green);
+  bottom:4px;
+  box-shadow:0 0 12px rgba(185,255,98,.35);
 }
 
 /* =========================
@@ -1095,6 +1171,7 @@ button{
 ========================= */
 
 @media(max-width:380px){
+
   .amount{
     font-size:35px;
   }
@@ -1110,6 +1187,14 @@ button{
   .quick span:last-child{
     font-size:10px;
   }
+
+  .nav-btn{
+    min-height:57px;
+  }
+
+  .nav-btn span:first-child{
+    font-size:17px;
+  }
 }
 </style>
 </head>
@@ -1121,6 +1206,7 @@ button{
 ========================= -->
 
 <section id="loginScreen">
+
   <div class="login-box">
 
     <div class="logo">N</div>
@@ -1160,6 +1246,7 @@ button{
     </button>
 
   </div>
+
 </section>
 
 
@@ -1174,14 +1261,16 @@ button{
     <header class="topbar">
 
       <div class="brand">
+
         <div class="brand-mark">N</div>
 
         <div>
           <div class="brand-name">
             NOVA
-            <span class="brand-version">v25</span>
+            <span class="brand-version">v25.1</span>
           </div>
         </div>
+
       </div>
 
       <button class="icon-btn" onclick="openModal('notificationsModal')">
@@ -1859,7 +1948,7 @@ button{
 
     <div class="security-card">
 
-      <strong style="font-size:14px;">NOVA v25</strong>
+      <strong style="font-size:14px;">NOVA v25.1</strong>
 
       <p style="color:var(--muted);font-size:11px;line-height:1.7;margin-top:10px;">
         NOVA is a premium fintech interface prototype designed for mobile devices.
@@ -1901,7 +1990,8 @@ const STATE_KEY = "nova-v25-state";
 const AUTH_KEY = "nova-v23-auth";
 
 const defaultState = {
-  balance: 125430.75,
+
+  balance:125430.75,
 
   transactions:[
     {
@@ -1947,14 +2037,136 @@ const defaultState = {
   transactionPin:"7391"
 };
 
-let state = loadState();
 
-let loginInput = "";
-let transactionInput = "";
+/* =========================
+   SAFE NUMBER
+========================= */
 
-let pendingTransfer = null;
+function safeNumber(value,fallback=0){
 
-let balanceVisible = true;
+  const number=Number(value);
+
+  return Number.isFinite(number)
+    ? number
+    : fallback;
+
+}
+
+
+/* =========================
+   NORMALIZE STATE
+========================= */
+
+function normalizeState(raw){
+
+  const source =
+    raw && typeof raw === "object"
+      ? raw
+      : {};
+
+  const normalized={
+    ...defaultState,
+    ...source
+  };
+
+  normalized.balance=
+    safeNumber(
+      source.balance,
+      defaultState.balance
+    );
+
+  normalized.loginPin=
+    String(
+      source.loginPin || defaultState.loginPin
+    );
+
+  normalized.transactionPin=
+    String(
+      source.transactionPin || defaultState.transactionPin
+    );
+
+
+  /* Transactions */
+
+  if(!Array.isArray(source.transactions)){
+
+    normalized.transactions=
+      [...defaultState.transactions];
+
+  }else{
+
+    normalized.transactions=
+      source.transactions.map(item=>({
+
+        name:String(
+          item?.name || "Transaction"
+        ),
+
+        date:String(
+          item?.date || "Recently"
+        ),
+
+        amount:safeNumber(
+          item?.amount,
+          0
+        ),
+
+        type:
+          item?.type === "income"
+            ? "income"
+            : "expense"
+
+      }));
+
+  }
+
+
+  /* Spaces */
+
+  if(!Array.isArray(source.spaces)){
+
+    normalized.spaces=
+      [...defaultState.spaces];
+
+  }else{
+
+    normalized.spaces=
+      source.spaces.map((space,index)=>{
+
+        const amount=
+          safeNumber(
+            space?.amount,
+            0
+          );
+
+        const target=
+          safeNumber(
+            space?.target,
+            0
+          );
+
+        return{
+
+          name:String(
+            space?.name ||
+            `Space ${index+1}`
+          ),
+
+          amount:
+            Math.max(0,amount),
+
+          target:
+            Math.max(0,target)
+
+        };
+
+      });
+
+  }
+
+  return normalized;
+
+}
 
 
 /* =========================
@@ -1965,22 +2177,39 @@ function loadState(){
 
   try{
 
-    const current = localStorage.getItem(STATE_KEY);
+    const current=
+      localStorage.getItem(
+        STATE_KEY
+      );
 
     if(current){
-      return {
-        ...defaultState,
-        ...JSON.parse(current)
-      };
+
+      const normalized=
+        normalizeState(
+          JSON.parse(current)
+        );
+
+      localStorage.setItem(
+        STATE_KEY,
+        JSON.stringify(normalized)
+      );
+
+      return normalized;
+
     }
 
-    const old24 = localStorage.getItem("nova-v24-state");
+
+    const old24=
+      localStorage.getItem(
+        "nova-v24-state"
+      );
 
     if(old24){
-      const migrated = {
-        ...defaultState,
-        ...JSON.parse(old24)
-      };
+
+      const migrated=
+        normalizeState(
+          JSON.parse(old24)
+        );
 
       localStorage.setItem(
         STATE_KEY,
@@ -1988,15 +2217,21 @@ function loadState(){
       );
 
       return migrated;
+
     }
 
-    const old23 = localStorage.getItem("nova-v23-state");
+
+    const old23=
+      localStorage.getItem(
+        "nova-v23-state"
+      );
 
     if(old23){
-      const migrated = {
-        ...defaultState,
-        ...JSON.parse(old23)
-      };
+
+      const migrated=
+        normalizeState(
+          JSON.parse(old23)
+        );
 
       localStorage.setItem(
         STATE_KEY,
@@ -2004,17 +2239,32 @@ function loadState(){
       );
 
       return migrated;
+
     }
 
-  }catch(e){
-    console.warn("NOVA state load failed",e);
+  }catch(error){
+
+    console.warn(
+      "NOVA state load failed",
+      error
+    );
+
   }
 
-  return {...defaultState};
+  return normalizeState(
+    defaultState
+  );
+
 }
 
 
+let state=loadState();
+
+
 function saveState(){
+
+  state=
+    normalizeState(state);
 
   localStorage.setItem(
     STATE_KEY,
@@ -2030,6 +2280,9 @@ function saveState(){
 
 function money(value){
 
+  const safe=
+    safeNumber(value,0);
+
   return new Intl.NumberFormat(
     "en-NG",
     {
@@ -2037,7 +2290,7 @@ function money(value){
       currency:"NGN",
       minimumFractionDigits:2
     }
-  ).format(value);
+  ).format(safe);
 
 }
 
@@ -2048,50 +2301,59 @@ function money(value){
 
 function renderBalance(){
 
-  const amount =
-    document.getElementById("balanceAmount");
+  const amount=
+    document.getElementById(
+      "balanceAmount"
+    );
 
-  const eye =
-    document.getElementById("eye");
+  const eye=
+    document.getElementById(
+      "eye"
+    );
 
   if(!amount || !eye)return;
 
   if(balanceVisible){
 
-    amount.textContent =
+    amount.textContent=
       money(state.balance);
 
-    eye.textContent = "◉";
+    eye.textContent="◉";
 
     eye.setAttribute(
       "aria-label",
       "Hide balance"
     );
 
-    eye.title = "Hide balance";
+    eye.title=
+      "Hide balance";
 
   }else{
 
-    amount.textContent =
+    amount.textContent=
       "••••••";
 
-    eye.textContent = "○";
+    eye.textContent="○";
 
     eye.setAttribute(
       "aria-label",
       "Show balance"
     );
 
-    eye.title = "Show balance";
+    eye.title=
+      "Show balance";
 
   }
 
 }
 
 
+let balanceVisible=true;
+
+
 function toggleBalance(){
 
-  balanceVisible =
+  balanceVisible=
     !balanceVisible;
 
   renderBalance();
@@ -2103,15 +2365,19 @@ function toggleBalance(){
    LOGIN
 ========================= */
 
+let loginInput="";
+
+
 function loginKey(number){
 
-  if(loginInput.length >= 4)return;
+  if(loginInput.length>=4)
+    return;
 
-  loginInput += number;
+  loginInput+=number;
 
   renderLoginDots();
 
-  if(loginInput.length === 4){
+  if(loginInput.length===4){
 
     setTimeout(
       submitLogin,
@@ -2125,7 +2391,7 @@ function loginKey(number){
 
 function clearLogin(){
 
-  loginInput =
+  loginInput=
     loginInput.slice(0,-1);
 
   renderLoginDots();
@@ -2135,7 +2401,7 @@ function clearLogin(){
 
 function renderLoginDots(){
 
-  const dots =
+  const dots=
     document.querySelectorAll(
       "#loginDots .pin-dot"
     );
@@ -2156,41 +2422,48 @@ function renderLoginDots(){
 
 function submitLogin(){
 
-  if(loginInput.length !== 4){
+  if(loginInput.length!==4){
 
-    showToast("Enter your 4-digit PIN");
+    showToast(
+      "Enter your 4-digit PIN"
+    );
 
     return;
+
   }
 
-  if(loginInput === state.loginPin){
+  if(loginInput===state.loginPin){
 
     localStorage.setItem(
       AUTH_KEY,
       "true"
     );
 
-    loginInput = "";
+    loginInput="";
 
     renderLoginDots();
 
     document.getElementById(
       "loginScreen"
-    ).style.display = "none";
+    ).style.display="none";
 
     document.getElementById(
       "app"
-    ).style.display = "block";
+    ).style.display="block";
 
     renderAll();
 
-    showToast("Welcome back");
+    showToast(
+      "Welcome back"
+    );
 
   }else{
 
-    showToast("Incorrect login PIN");
+    showToast(
+      "Incorrect login PIN"
+    );
 
-    loginInput = "";
+    loginInput="";
 
     renderLoginDots();
 
@@ -2205,18 +2478,20 @@ function submitLogin(){
 
 function checkAuth(){
 
-  const authenticated =
-    localStorage.getItem(AUTH_KEY);
+  const authenticated=
+    localStorage.getItem(
+      AUTH_KEY
+    );
 
-  if(authenticated === "true"){
+  if(authenticated==="true"){
 
     document.getElementById(
       "loginScreen"
-    ).style.display = "none";
+    ).style.display="none";
 
     document.getElementById(
       "app"
-    ).style.display = "block";
+    ).style.display="block";
 
   }
 
@@ -2225,21 +2500,25 @@ function checkAuth(){
 
 function logout(){
 
-  localStorage.removeItem(AUTH_KEY);
+  localStorage.removeItem(
+    AUTH_KEY
+  );
 
   document.getElementById(
     "app"
-  ).style.display = "none";
+  ).style.display="none";
 
   document.getElementById(
     "loginScreen"
-  ).style.display = "flex";
+  ).style.display="flex";
 
-  loginInput = "";
+  loginInput="";
 
   renderLoginDots();
 
-  showToast("NOVA locked");
+  showToast(
+    "NOVA locked"
+  );
 
 }
 
@@ -2262,14 +2541,14 @@ function showPage(page){
       n=>n.classList.remove("active")
     );
 
-  const target =
+  const target=
     document.getElementById(
-      page + "Page"
+      page+"Page"
     );
 
-  const nav =
+  const nav=
     document.getElementById(
-      "nav-" + page
+      "nav-"+page
     );
 
   if(target)
@@ -2294,11 +2573,13 @@ function showPage(page){
 
 function transactionHTML(transaction){
 
-  const positive =
-    transaction.type === "income";
+  const positive=
+    transaction.type==="income";
 
-  const sign =
-    positive ? "+" : "−";
+  const sign=
+    positive
+      ? "+"
+      : "−";
 
   return `
 
@@ -2322,7 +2603,14 @@ function transactionHTML(transaction){
 
       <div class="transaction-amount ${positive ? "income" : "expense"}">
 
-        ${sign}${money(Math.abs(transaction.amount))}
+        ${sign}${money(
+          Math.abs(
+            safeNumber(
+              transaction.amount,
+              0
+            )
+          )
+        )}
 
       </div>
 
@@ -2338,34 +2626,38 @@ function renderTransactions(
   filter="all"
 ){
 
-  const container =
-    document.getElementById(targetId);
+  const container=
+    document.getElementById(
+      targetId
+    );
 
   if(!container)return;
 
-  let items =
+  let items=
     [...state.transactions];
 
-  if(filter !== "all"){
+  if(filter!=="all"){
 
-    items =
+    items=
       items.filter(
-        item=>item.type === filter
+        item=>item.type===filter
       );
 
   }
 
   if(!items.length){
 
-    container.innerHTML =
+    container.innerHTML=
       `<div class="empty">No activity yet.</div>`;
 
     return;
 
   }
 
-  container.innerHTML =
-    items.map(transactionHTML).join("");
+  container.innerHTML=
+    items.map(
+      transactionHTML
+    ).join("");
 
 }
 
@@ -2374,14 +2666,16 @@ function renderTransactions(
    FILTER
 ========================= */
 
-let currentActivityFilter = "all";
+let currentActivityFilter="all";
+
 
 function filterActivity(
   filter,
   button
 ){
 
-  currentActivityFilter = filter;
+  currentActivityFilter=
+    filter;
 
   document
     .querySelectorAll(".filter")
@@ -2407,73 +2701,83 @@ function openSend(){
 
   document.getElementById(
     "sendRecipient"
-  ).value = "";
+  ).value="";
 
   document.getElementById(
     "sendAmount"
-  ).value = "";
+  ).value="";
 
   document.getElementById(
     "sendNote"
-  ).value = "";
+  ).value="";
 
-  openModal("sendModal");
+  openModal(
+    "sendModal"
+  );
 
 }
 
 
 function startTransfer(){
 
-  const recipient =
+  const recipient=
     document.getElementById(
       "sendRecipient"
     ).value.trim();
 
-  const amount =
+  const amount=
     Number(
       document.getElementById(
         "sendAmount"
       ).value
     );
 
-  const note =
+  const note=
     document.getElementById(
       "sendNote"
     ).value.trim();
 
   if(!recipient){
 
-    showToast("Enter a recipient");
+    showToast(
+      "Enter a recipient"
+    );
 
     return;
 
   }
 
-  if(!amount || amount <= 0){
+  if(!amount || amount<=0){
 
-    showToast("Enter a valid amount");
-
-    return;
-
-  }
-
-  if(amount > state.balance){
-
-    showToast("Insufficient balance");
+    showToast(
+      "Enter a valid amount"
+    );
 
     return;
 
   }
 
-  pendingTransfer = {
+  if(amount>state.balance){
+
+    showToast(
+      "Insufficient balance"
+    );
+
+    return;
+
+  }
+
+  pendingTransfer={
     recipient,
     amount,
     note
   };
 
-  closeModal("sendModal");
+  closeModal(
+    "sendModal"
+  );
 
-  transactionInput = "";
+  transactionInput="";
 
   renderTransactionDots();
 
@@ -2484,16 +2788,24 @@ function startTransfer(){
 }
 
 
+/* =========================
+   TRANSACTION PIN
+========================= */
+
+let transactionInput="";
+let pendingTransfer=null;
+
+
 function transactionKey(number){
 
-  if(transactionInput.length >= 4)
+  if(transactionInput.length>=4)
     return;
 
-  transactionInput += number;
+  transactionInput+=number;
 
   renderTransactionDots();
 
-  if(transactionInput.length === 4){
+  if(transactionInput.length===4){
 
     setTimeout(
       verifyTransactionPin,
@@ -2507,7 +2819,7 @@ function transactionKey(number){
 
 function clearTransactionPin(){
 
-  transactionInput =
+  transactionInput=
     transactionInput.slice(0,-1);
 
   renderTransactionDots();
@@ -2517,7 +2829,7 @@ function clearTransactionPin(){
 
 function renderTransactionDots(){
 
-  const dots =
+  const dots=
     document.querySelectorAll(
       "#transactionDots .transaction-pin-dot"
     );
@@ -2527,7 +2839,7 @@ function renderTransactionDots(){
 
       dot.classList.toggle(
         "active",
-        index < transactionInput.length
+        index<transactionInput.length
       );
 
     }
@@ -2538,13 +2850,16 @@ function renderTransactionDots(){
 
 function verifyTransactionPin(){
 
-  if(transactionInput !== state.transactionPin){
+  if(
+    transactionInput!==
+    state.transactionPin
+  ){
 
     showToast(
       "Incorrect transaction PIN"
     );
 
-    transactionInput = "";
+    transactionInput="";
 
     renderTransactionDots();
 
@@ -2562,8 +2877,18 @@ function verifyTransactionPin(){
 
   }
 
-  state.balance -=
-    pendingTransfer.amount;
+  state.balance=
+    Math.max(
+      0,
+      safeNumber(
+        state.balance,
+        0
+      )-
+      safeNumber(
+        pendingTransfer.amount,
+        0
+      )
+    );
 
   state.transactions.unshift({
 
@@ -2574,7 +2899,10 @@ function verifyTransactionPin(){
       "Just now",
 
     amount:
-      -pendingTransfer.amount,
+      -safeNumber(
+        pendingTransfer.amount,
+        0
+      ),
 
     type:
       "expense"
@@ -2583,9 +2911,9 @@ function verifyTransactionPin(){
 
   saveState();
 
-  pendingTransfer = null;
+  pendingTransfer=null;
 
-  transactionInput = "";
+  transactionInput="";
 
   renderTransactionDots();
 
@@ -2604,9 +2932,9 @@ function verifyTransactionPin(){
 
 function cancelTransaction(){
 
-  pendingTransfer = null;
+  pendingTransfer=null;
 
-  transactionInput = "";
+  transactionInput="";
 
   renderTransactionDots();
 
@@ -2623,12 +2951,12 @@ function cancelTransaction(){
 
 function requestMoney(){
 
-  const from =
+  const from=
     document.getElementById(
       "requestFrom"
     ).value.trim();
 
-  const amount =
+  const amount=
     Number(
       document.getElementById(
         "requestAmount"
@@ -2637,21 +2965,27 @@ function requestMoney(){
 
   if(!from){
 
-    showToast("Enter who you're requesting from");
+    showToast(
+      "Enter who you're requesting from"
+    );
 
     return;
 
   }
 
-  if(!amount || amount <= 0){
+  if(!amount || amount<=0){
 
-    showToast("Enter a valid amount");
+    showToast(
+      "Enter a valid amount"
+    );
 
     return;
 
   }
 
-  closeModal("requestModal");
+  closeModal(
+    "requestModal"
+  );
 
   showToast(
     "Money request created"
@@ -2666,22 +3000,24 @@ function requestMoney(){
 
 function addMoney(){
 
-  const amount =
+  const amount=
     Number(
       document.getElementById(
         "addAmount"
       ).value
     );
 
-  if(!amount || amount <= 0){
+  if(!amount || amount<=0){
 
-    showToast("Enter a valid amount");
+    showToast(
+      "Enter a valid amount"
+    );
 
     return;
 
   }
 
-  state.balance += amount;
+  state.balance+=amount;
 
   state.transactions.unshift({
 
@@ -2699,7 +3035,7 @@ function addMoney(){
 
   document.getElementById(
     "addAmount"
-  ).value = "";
+  ).value="";
 
   closeModal(
     "addMoneyModal"
@@ -2708,7 +3044,7 @@ function addMoney(){
   renderAll();
 
   showToast(
-    money(amount) + " added"
+    money(amount)+" added"
   );
 
 }
@@ -2720,84 +3056,131 @@ function addMoney(){
 
 function renderSpaces(){
 
-  const container =
+  const container=
     document.getElementById(
       "spacesList"
     );
 
   if(!container)return;
 
+  if(!Array.isArray(state.spaces))
+    state.spaces=[];
+
   if(!state.spaces.length){
 
-    container.innerHTML =
+    container.innerHTML=
       `<div class="empty">No Spaces yet.</div>`;
 
     return;
 
   }
 
-  container.innerHTML =
-    state.spaces.map(space=>{
+  container.innerHTML=
+    state.spaces.map(
+      (space,index)=>{
 
-      const percent =
-        Math.min(
-          100,
-          (space.amount / space.target) * 100
-        );
+        const amount=
+          Math.max(
+            0,
+            safeNumber(
+              space?.amount,
+              0
+            )
+          );
 
-      return `
+        const target=
+          Math.max(
+            0,
+            safeNumber(
+              space?.target,
+              0
+            )
+          );
 
-        <div class="space">
+        let percent=0;
 
-          <div class="space-head">
+        if(target>0){
 
-            <strong>
-              ${escapeHTML(space.name)}
-            </strong>
+          percent=
+            Math.min(
+              100,
+              Math.max(
+                0,
+                (amount/target)*100
+              )
+            );
 
-            <span>
-              ${Math.round(percent)}%
-            </span>
+        }
+
+        const rounded=
+          Math.round(percent);
+
+        const name=
+          String(
+            space?.name ||
+            `Space ${index+1}`
+          );
+
+        return `
+
+          <div class="space">
+
+            <div class="space-head">
+
+              <strong>
+                ${escapeHTML(name)}
+              </strong>
+
+              <span>
+                ${rounded}%
+              </span>
+
+            </div>
+
+            <div class="space-amount">
+              ${money(amount)}
+            </div>
+
+            <div class="progress">
+              <div
+                style="width:${percent}%"
+              ></div>
+            </div>
+
+            <div class="space-foot">
+
+              <span>
+                Target
+              </span>
+
+              <span>
+                ${money(target)}
+              </span>
+
+            </div>
 
           </div>
 
-          <div class="space-amount">
-            ${money(space.amount)}
-          </div>
+        `;
 
-          <div class="progress">
-            <div style="width:${percent}%"></div>
-          </div>
-
-          <div class="space-foot">
-
-            <span>
-              Target
-            </span>
-
-            <span>
-              ${money(space.target)}
-            </span>
-
-          </div>
-
-        </div>
-
-      `;
-
-    }).join("");
+      }
+    ).join("");
 
 }
 
 
+/* =========================
+   CREATE SPACE
+========================= */
+
 function createSpace(){
 
-  const name =
+  const name=
     document.getElementById(
       "spaceName"
     ).value.trim();
 
-  const target =
+  const target=
     Number(
       document.getElementById(
         "spaceTarget"
@@ -2806,25 +3189,38 @@ function createSpace(){
 
   if(!name){
 
-    showToast("Enter a Space name");
+    showToast(
+      "Enter a Space name"
+    );
 
     return;
 
   }
 
-  if(!target || target <= 0){
+  if(!target || target<=0){
 
-    showToast("Enter a valid target");
+    showToast(
+      "Enter a valid target"
+    );
 
     return;
 
   }
+
+  if(!Array.isArray(state.spaces))
+    state.spaces=[];
 
   state.spaces.push({
 
-    name,
+    name:name,
+
     amount:0,
-    target
+
+    target:
+      safeNumber(
+        target,
+        0
+      )
 
   });
 
@@ -2832,11 +3228,11 @@ function createSpace(){
 
   document.getElementById(
     "spaceName"
-  ).value = "";
+  ).value="";
 
   document.getElementById(
     "spaceTarget"
-  ).value = "";
+  ).value="";
 
   closeModal(
     "spaceModal"
@@ -2857,7 +3253,7 @@ function createSpace(){
 
 function openModal(id){
 
-  const modal =
+  const modal=
     document.getElementById(id);
 
   if(modal)
@@ -2868,7 +3264,7 @@ function openModal(id){
 
 function closeModal(id){
 
-  const modal =
+  const modal=
     document.getElementById(id);
 
   if(modal)
@@ -2879,22 +3275,29 @@ function closeModal(id){
 
 document
   .querySelectorAll(".modal")
-  .forEach(modal=>{
+  .forEach(
+    modal=>{
 
-    modal.addEventListener(
-      "click",
-      event=>{
+      modal.addEventListener(
+        "click",
+        event=>{
 
-        if(event.target === modal){
+          if(
+            event.target===
+            modal
+          ){
 
-          modal.classList.remove("show");
+            modal.classList.remove(
+              "show"
+            );
+
+          }
 
         }
+      );
 
-      }
-    );
-
-  });
+    }
+  );
 
 
 /* =========================
@@ -2903,21 +3306,33 @@ document
 
 let toastTimer;
 
+
 function showToast(message){
 
-  const toast =
-    document.getElementById("toast");
+  const toast=
+    document.getElementById(
+      "toast"
+    );
 
-  toast.textContent = message;
+  toast.textContent=
+    message;
 
-  toast.classList.add("show");
+  toast.classList.add(
+    "show"
+  );
 
-  clearTimeout(toastTimer);
+  clearTimeout(
+    toastTimer
+  );
 
-  toastTimer =
+  toastTimer=
     setTimeout(
       ()=>{
-        toast.classList.remove("show");
+
+        toast.classList.remove(
+          "show"
+        );
+
       },
       2200
     );
@@ -2926,17 +3341,32 @@ function showToast(message){
 
 
 /* =========================
-   SECURITY
+   ESCAPE HTML
 ========================= */
 
 function escapeHTML(value){
 
   return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 
 }
 
@@ -2967,7 +3397,9 @@ function renderAll(){
    PWA
 ========================= */
 
-if("serviceWorker" in navigator){
+if(
+  "serviceWorker" in navigator
+){
 
   window.addEventListener(
     "load",
@@ -2977,18 +3409,22 @@ if("serviceWorker" in navigator){
         .register("./sw.js")
         .then(
           registration=>{
+
             console.log(
               "NOVA service worker registered",
               registration.scope
             );
+
           }
         )
         .catch(
           error=>{
+
             console.warn(
               "NOVA service worker registration failed",
               error
             );
+
           }
         );
 
