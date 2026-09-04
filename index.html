@@ -40,6 +40,7 @@ button,input{
 
 button{
   border:0;
+  -webkit-tap-highlight-color:transparent;
 }
 
 :root{
@@ -116,6 +117,7 @@ button{
   height:12px;
   border-radius:50%;
   background:#30343a;
+  transition:.15s ease;
 }
 
 .pin-dot.active{
@@ -141,6 +143,7 @@ button{
   font-weight:650;
   cursor:pointer;
   touch-action:manipulation;
+  user-select:none;
 }
 
 .key:active{
@@ -304,15 +307,21 @@ button{
 }
 
 .eye-btn{
-  width:34px;
-  height:34px;
-  margin:-5px 0 -5px;
-  border-radius:11px;
+  width:38px;
+  height:38px;
+  margin:-7px 0 -7px;
+  border-radius:12px;
   background:#1c2025;
   border:1px solid rgba(255,255,255,.08);
   color:var(--green);
   display:grid;
   place-items:center;
+  cursor:pointer;
+  touch-action:manipulation;
+}
+
+.eye-btn:active{
+  transform:scale(.92);
 }
 
 .amount{
@@ -366,6 +375,7 @@ button{
   justify-content:center;
   gap:8px;
   cursor:pointer;
+  touch-action:manipulation;
 }
 
 .quick:active{
@@ -471,6 +481,7 @@ button{
   text-align:right;
   font-size:13px;
   font-weight:750;
+  white-space:nowrap;
 }
 
 .income{
@@ -601,6 +612,8 @@ button{
   border-color:#d2ff91;
 }
 
+/* ACTIVITY DATE */
+
 .activity-date{
   color:#707681;
   font-size:10px;
@@ -706,6 +719,7 @@ button{
   display:flex;
   flex-direction:column;
   gap:11px;
+  margin-bottom:12px;
 }
 
 .space{
@@ -719,16 +733,23 @@ button{
 .space-head{
   display:flex;
   justify-content:space-between;
+  align-items:center;
+  gap:12px;
 }
 
 .space-head strong{
   font-size:15px;
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 
 .space-head span{
   color:var(--green);
   font-size:12px;
   font-weight:750;
+  flex:none;
 }
 
 .space-amount{
@@ -843,33 +864,33 @@ button{
   color:#626872;
 }
 
-/* NEW BOTTOM NAV */
+/* PREMIUM BOTTOM NAV */
 
 .bottom-nav{
   position:fixed;
   z-index:200;
   left:50%;
-  bottom:9px;
+  bottom:calc(8px + env(safe-area-inset-bottom));
   transform:translateX(-50%);
-  width:min(625px,calc(100% - 20px));
+  width:min(625px,calc(100% - 18px));
   padding:7px;
-  background:rgba(18,21,25,.94);
-  backdrop-filter:blur(26px) saturate(160%);
-  -webkit-backdrop-filter:blur(26px) saturate(160%);
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:24px;
+  background:rgba(18,21,25,.95);
+  backdrop-filter:blur(28px) saturate(170%);
+  -webkit-backdrop-filter:blur(28px) saturate(170%);
+  border:1px solid rgba(255,255,255,.095);
+  border-radius:25px;
   box-shadow:
-    0 18px 55px rgba(0,0,0,.45),
-    inset 0 1px 0 rgba(255,255,255,.04);
+    0 20px 60px rgba(0,0,0,.52),
+    inset 0 1px 0 rgba(255,255,255,.045);
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  gap:4px;
+  gap:3px;
 }
 
 .nav-btn{
   position:relative;
-  min-height:59px;
-  border-radius:18px;
+  min-height:61px;
+  border-radius:19px;
   background:transparent;
   color:#747a84;
   display:flex;
@@ -879,29 +900,47 @@ button{
   gap:5px;
   cursor:pointer;
   font-size:9px;
-  font-weight:600;
-  transition:.18s ease;
+  font-weight:650;
+  transition:
+    background .18s ease,
+    color .18s ease,
+    transform .18s ease;
+  touch-action:manipulation;
+  user-select:none;
+}
+
+.nav-btn:active{
+  transform:scale(.93);
 }
 
 .nav-icon{
-  width:30px;
-  height:28px;
+  width:32px;
+  height:30px;
   border-radius:11px;
   display:grid;
   place-items:center;
-  font-size:18px;
-  line-height:1;
-  transition:.18s ease;
+  transition:
+    background .18s ease,
+    transform .18s ease,
+    color .18s ease;
+}
+
+.nav-icon svg{
+  width:19px;
+  height:19px;
+  display:block;
+  stroke:currentColor;
 }
 
 .nav-label{
   line-height:1;
+  letter-spacing:-.05px;
 }
 
 .nav-btn.active{
   color:var(--green);
   background:rgba(185,255,98,.075);
-  box-shadow:inset 0 0 0 1px rgba(185,255,98,.07);
+  box-shadow:inset 0 0 0 1px rgba(185,255,98,.065);
 }
 
 .nav-btn.active .nav-icon{
@@ -931,6 +970,7 @@ button{
   justify-content:center;
   background:rgba(0,0,0,.58);
   backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
 }
 
 .modal.show{
@@ -1004,6 +1044,11 @@ button{
   padding:0 15px;
 }
 
+.field input:focus{
+  border-color:rgba(185,255,98,.35);
+  box-shadow:0 0 0 3px rgba(185,255,98,.055);
+}
+
 .primary{
   width:100%;
   height:53px;
@@ -1070,6 +1115,11 @@ button{
   border:1px solid var(--line);
   color:#eee;
   font-size:18px;
+  touch-action:manipulation;
+}
+
+.pin-key:active{
+  transform:scale(.95);
 }
 
 /* SECURITY */
@@ -1104,7 +1154,7 @@ button{
   position:fixed;
   z-index:1500;
   left:50%;
-  bottom:112px;
+  bottom:calc(112px + env(safe-area-inset-bottom));
   transform:translate(-50%,20px);
   background:#f1f3f4;
   color:#0b0d0e;
@@ -1117,6 +1167,9 @@ button{
   transition:.2s;
   white-space:nowrap;
   box-shadow:0 12px 35px rgba(0,0,0,.35);
+  max-width:calc(100% - 30px);
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
 #toast.show{
@@ -1132,11 +1185,45 @@ button{
 }
 
 @media(max-width:380px){
-  .amount{font-size:35px}
-  .quick-grid{gap:6px}
-  .quick{min-height:73px}
-  .quick span:last-child{font-size:10px}
-  .nav-btn{min-height:56px}
+
+  .amount{
+    font-size:35px;
+  }
+
+  .quick-grid{
+    gap:6px;
+  }
+
+  .quick{
+    min-height:73px;
+  }
+
+  .quick span:last-child{
+    font-size:10px;
+  }
+
+  .nav-btn{
+    min-height:57px;
+  }
+
+  .nav-icon{
+    width:30px;
+    height:28px;
+  }
+
+  .nav-icon svg{
+    width:18px;
+    height:18px;
+  }
+
+}
+
+@media(min-width:651px){
+
+  .bottom-nav{
+    bottom:14px;
+  }
+
 }
 </style>
 </head>
@@ -1164,25 +1251,25 @@ button{
 
 <div class="keypad">
 
-<button class="key" onclick="loginKey('1')">1</button>
-<button class="key" onclick="loginKey('2')">2</button>
-<button class="key" onclick="loginKey('3')">3</button>
+<button class="key" type="button" onclick="loginKey('1')">1</button>
+<button class="key" type="button" onclick="loginKey('2')">2</button>
+<button class="key" type="button" onclick="loginKey('3')">3</button>
 
-<button class="key" onclick="loginKey('4')">4</button>
-<button class="key" onclick="loginKey('5')">5</button>
-<button class="key" onclick="loginKey('6')">6</button>
+<button class="key" type="button" onclick="loginKey('4')">4</button>
+<button class="key" type="button" onclick="loginKey('5')">5</button>
+<button class="key" type="button" onclick="loginKey('6')">6</button>
 
-<button class="key" onclick="loginKey('7')">7</button>
-<button class="key" onclick="loginKey('8')">8</button>
-<button class="key" onclick="loginKey('9')">9</button>
+<button class="key" type="button" onclick="loginKey('7')">7</button>
+<button class="key" type="button" onclick="loginKey('8')">8</button>
+<button class="key" type="button" onclick="loginKey('9')">9</button>
 
-<button class="key special" onclick="clearLogin()">⌫</button>
-<button class="key" onclick="loginKey('0')">0</button>
-<button class="key special" onclick="submitLogin()">✓</button>
+<button class="key special" type="button" onclick="clearLogin()">⌫</button>
+<button class="key" type="button" onclick="loginKey('0')">0</button>
+<button class="key special" type="button" onclick="submitLogin()">✓</button>
 
 </div>
 
-<button class="forgot" onclick="showToast('Demo PIN: 2580')">
+<button class="forgot" type="button" onclick="showToast('Demo PIN: 2580')">
 Forgot PIN?
 </button>
 
@@ -1221,12 +1308,19 @@ NOVA Online
 
 <div class="top-actions">
 
-<button class="icon-btn" onclick="openModal('notificationsModal')">
-♢
+<button class="icon-btn" type="button" onclick="openModal('notificationsModal')" aria-label="Notifications">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+<path d="M10 21h4"/>
+</svg>
 </button>
 
-<button class="icon-btn" onclick="openOnlineModal()">
-☁
+<button class="icon-btn" type="button" onclick="openOnlineModal()" aria-label="Online account">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+<path d="M17.5 19H9a7 7 0 1 1 6.7-9"/>
+<path d="M17 12v7"/>
+<path d="M13.5 15.5 17 12l3.5 3.5"/>
+</svg>
 </button>
 
 </div>
@@ -1251,6 +1345,7 @@ type="button"
 class="eye-btn"
 id="eye"
 onclick="toggleBalance()"
+aria-label="Show or hide balance"
 >◉</button>
 
 </div>
@@ -1276,22 +1371,22 @@ NOVA account •••• 2841
 
 <div class="quick-grid">
 
-<button class="quick" onclick="openSend()">
+<button class="quick" type="button" onclick="openSend()">
 <span class="quick-icon">↗</span>
 <span>Send</span>
 </button>
 
-<button class="quick" onclick="openModal('requestModal')">
+<button class="quick" type="button" onclick="openModal('requestModal')">
 <span class="quick-icon">↙</span>
 <span>Request</span>
 </button>
 
-<button class="quick" onclick="openModal('qrModal')">
+<button class="quick" type="button" onclick="openModal('qrModal')">
 <span class="quick-icon">▦</span>
 <span>QR Pay</span>
 </button>
 
-<button class="quick" onclick="openModal('addMoneyModal')">
+<button class="quick" type="button" onclick="openModal('addMoneyModal')">
 <span class="quick-icon">＋</span>
 <span>Add</span>
 </button>
@@ -1303,7 +1398,7 @@ NOVA account •••• 2841
 
 <h3>Recent activity</h3>
 
-<button onclick="showPage('activity')">
+<button type="button" onclick="showPage('activity')">
 See all
 </button>
 
@@ -1378,7 +1473,7 @@ Total movement
 <input
 id="activitySearch"
 placeholder="Search activity..."
-oninput="renderActivity()"
+oninput="renderActivity"
 >
 
 </div>
@@ -1386,17 +1481,17 @@ oninput="renderActivity()"
 
 <div class="activity-filter">
 
-<button class="filter active"
+<button class="filter active" type="button"
 onclick="filterActivity('all',this)">
 All
 </button>
 
-<button class="filter"
+<button class="filter" type="button"
 onclick="filterActivity('income',this)">
 Money in
 </button>
 
-<button class="filter"
+<button class="filter" type="button"
 onclick="filterActivity('expense',this)">
 Money out
 </button>
@@ -1457,12 +1552,12 @@ Money out
 
 <div class="card-actions">
 
-<button class="small-action"
+<button class="small-action" type="button"
 onclick="showToast('Card details hidden')">
 Hide details
 </button>
 
-<button class="small-action green"
+<button class="small-action green" type="button"
 onclick="showToast('Card controls opened')">
 Manage
 </button>
@@ -1484,7 +1579,7 @@ Manage
 
 <div class="space-list" id="spacesList"></div>
 
-<button class="primary"
+<button class="primary" type="button"
 onclick="openModal('spaceModal')">
 ＋ Create a Space
 </button>
@@ -1511,8 +1606,8 @@ onclick="openModal('spaceModal')">
 
 <div class="profile-list">
 
-<button class="profile-item"
-onclick="openOnlineModal()">
+<button class="profile-item" type="button"
+onclick="openOnlineModal">
 
 <div class="profile-icon">☁</div>
 
@@ -1531,7 +1626,7 @@ Connect your cloud account
 </button>
 
 
-<button class="profile-item"
+<button class="profile-item" type="button"
 onclick="openModal('securityModal')">
 
 <div class="profile-icon">⌁</div>
@@ -1549,7 +1644,7 @@ onclick="openModal('securityModal')">
 </button>
 
 
-<button class="profile-item"
+<button class="profile-item" type="button"
 onclick="openModal('notificationsModal')">
 
 <div class="profile-icon">♢</div>
@@ -1567,7 +1662,7 @@ onclick="openModal('notificationsModal')">
 </button>
 
 
-<button class="profile-item"
+<button class="profile-item" type="button"
 onclick="openModal('helpModal')">
 
 <div class="profile-icon">?</div>
@@ -1585,7 +1680,7 @@ onclick="openModal('helpModal')">
 </button>
 
 
-<button class="profile-item"
+<button class="profile-item" type="button"
 onclick="logout()">
 
 <div class="profile-icon">↪</div>
@@ -1611,49 +1706,93 @@ onclick="logout()">
 
 <!-- BOTTOM NAV -->
 
-<nav class="bottom-nav">
+<nav class="bottom-nav" aria-label="Main navigation">
 
 <button class="nav-btn active"
 id="nav-home"
+type="button"
 onclick="showPage('home')">
 
-<span class="nav-icon">⌂</span>
+<span class="nav-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+<path d="m3 10.8 9-7 9 7"/>
+<path d="M5.5 9.5V20h13V9.5"/>
+<path d="M9.5 20v-5.5h5V20"/>
+</svg>
+</span>
+
 <span class="nav-label">Home</span>
 
 </button>
 
+
 <button class="nav-btn"
 id="nav-activity"
+type="button"
 onclick="showPage('activity')">
 
-<span class="nav-icon">◷</span>
+<span class="nav-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+<path d="M4 18V10"/>
+<path d="M9 18V6"/>
+<path d="M14 18v-8"/>
+<path d="M19 18V4"/>
+</svg>
+</span>
+
 <span class="nav-label">Activity</span>
 
 </button>
 
+
 <button class="nav-btn"
 id="nav-cards"
+type="button"
 onclick="showPage('cards')">
 
-<span class="nav-icon">▭</span>
+<span class="nav-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+<rect x="3" y="5" width="18" height="14" rx="2.5"/>
+<path d="M3 10h18"/>
+<path d="M7 15h4"/>
+</svg>
+</span>
+
 <span class="nav-label">Cards</span>
 
 </button>
 
+
 <button class="nav-btn"
 id="nav-spaces"
+type="button"
 onclick="showPage('spaces')">
 
-<span class="nav-icon">◇</span>
+<span class="nav-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+<path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/>
+<path d="m4 7.5 8 4.5 8-4.5"/>
+<path d="M12 12v9"/>
+</svg>
+</span>
+
 <span class="nav-label">Spaces</span>
 
 </button>
 
+
 <button class="nav-btn"
 id="nav-profile"
+type="button"
 onclick="showPage('profile')">
 
-<span class="nav-icon">●</span>
+<span class="nav-icon">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+<circle cx="12" cy="8" r="3.5"/>
+<path d="M5 20c.8-3.5 3.2-5.5 7-5.5s6.2 2 7 5.5"/>
+</svg>
+</span>
+
 <span class="nav-label">Profile</span>
 
 </button>
@@ -1675,7 +1814,7 @@ onclick="showPage('profile')">
 
 <h2>Send money</h2>
 
-<button class="close"
+<button class="close" type="button"
 onclick="closeModal('sendModal')">
 ×
 </button>
@@ -1718,7 +1857,7 @@ placeholder="What's this for?"
 
 </div>
 
-<button class="primary"
+<button class="primary" type="button"
 onclick="startTransfer()">
 Continue
 </button>
@@ -1740,7 +1879,7 @@ Continue
 
 <h2>Confirm transfer</h2>
 
-<button class="close"
+<button class="close" type="button"
 onclick="closeModal('transactionPinModal')">
 ×
 </button>
@@ -1763,21 +1902,21 @@ id="transactionDots">
 
 <div class="pin-keypad">
 
-<button class="pin-key" onclick="transactionKey('1')">1</button>
-<button class="pin-key" onclick="transactionKey('2')">2</button>
-<button class="pin-key" onclick="transactionKey('3')">3</button>
+<button class="pin-key" type="button" onclick="transactionKey('1')">1</button>
+<button class="pin-key" type="button" onclick="transactionKey('2')">2</button>
+<button class="pin-key" type="button" onclick="transactionKey('3')">3</button>
 
-<button class="pin-key" onclick="transactionKey('4')">4</button>
-<button class="pin-key" onclick="transactionKey('5')">5</button>
-<button class="pin-key" onclick="transactionKey('6')">6</button>
+<button class="pin-key" type="button" onclick="transactionKey('4')">4</button>
+<button class="pin-key" type="button" onclick="transactionKey('5')">5</button>
+<button class="pin-key" type="button" onclick="transactionKey('6')">6</button>
 
-<button class="pin-key" onclick="transactionKey('7')">7</button>
-<button class="pin-key" onclick="transactionKey('8')">8</button>
-<button class="pin-key" onclick="transactionKey('9')">9</button>
+<button class="pin-key" type="button" onclick="transactionKey('7')">7</button>
+<button class="pin-key" type="button" onclick="transactionKey('8')">8</button>
+<button class="pin-key" type="button" onclick="transactionKey('9')">9</button>
 
-<button class="pin-key" onclick="clearTransactionPin()">⌫</button>
-<button class="pin-key" onclick="transactionKey('0')">0</button>
-<button class="pin-key" onclick="cancelTransaction()">×</button>
+<button class="pin-key" type="button" onclick="clearTransactionPin()">⌫</button>
+<button class="pin-key" type="button" onclick="transactionKey('0')">0</button>
+<button class="pin-key" type="button" onclick="cancelTransaction()">×</button>
 
 </div>
 
@@ -1798,7 +1937,7 @@ id="transactionDots">
 
 <h2>Request money</h2>
 
-<button class="close"
+<button class="close" type="button"
 onclick="closeModal('requestModal')">
 ×
 </button>
@@ -1824,12 +1963,13 @@ placeholder="Name or account number"
 id="requestAmount"
 class="amount-input"
 type="number"
+inputmode="decimal"
 placeholder="₦0.00"
 >
 
 </div>
 
-<button class="primary"
+<button class="primary" type="button"
 onclick="requestMoney()">
 Create request
 </button>
@@ -1851,7 +1991,7 @@ Create request
 
 <h2>Add money</h2>
 
-<button class="close"
+<button class="close" type="button"
 onclick="closeModal('addMoneyModal')">
 ×
 </button>
@@ -1866,12 +2006,13 @@ onclick="closeModal('addMoneyModal')">
 id="addAmount"
 class="amount-input"
 type="number"
+inputmode="decimal"
 placeholder="₦0.00"
 >
 
 </div>
 
-<button class="primary"
+<button class="primary" type="button"
 onclick="addMoney()">
 Add to balance
 </button>
@@ -1893,7 +2034,7 @@ Add to balance
 
 <h2>Create Space</h2>
 
-<button class="close"
+<button class="close" type="button"
 onclick="closeModal('spaceModal')">
 ×
 </button>
@@ -1918,12 +2059,13 @@ placeholder="e.g. New car"
 <input
 id="spaceTarget"
 type="number"
+inputmode="decimal"
 placeholder="₦0.00"
 >
 
 </div>
 
-<button class="primary"
+<button class="primary" type="button"
 onclick="createSpace()">
 Create Space
 </button>
@@ -1945,7 +2087,7 @@ Create Space
 
 <h2>NOVA Online</h2>
 
-<button class="close"
+<button class="close" type="button"
 onclick="closeModal('onlineModal')">
 ×
 </button>
@@ -1990,17 +2132,17 @@ placeholder="Minimum 6 characters"
 
 </div>
 
-<button class="primary"
+<button class="primary" type="button"
 onclick="onlineSignIn()">
 Sign in
 </button>
 
-<button class="secondary"
+<button class="secondary" type="button"
 onclick="onlineSignUp()">
 Create online account
 </button>
 
-<button class="secondary"
+<button class="secondary" type="button"
 onclick="onlineSignOut()">
 Sign out
 </button>
@@ -2022,7 +2164,7 @@ Sign out
 
 <h2>Security & PINs</h2>
 
-<button class="close"
+<button class="close" type="button"
 onclick="closeModal('securityModal')">
 ×
 </button>
@@ -2053,7 +2195,7 @@ onclick="closeModal('securityModal')">
 Your local NOVA PIN unlocks the app. Supabase authentication handles the online account separately.
 </p>
 
-<button class="secondary"
+<button class="secondary" type="button"
 onclick="showToast('PIN management coming next')">
 Change PINs
 </button>
@@ -2075,7 +2217,7 @@ Change PINs
 
 <h2>Notifications</h2>
 
-<button class="close"
+<button class="close" type="button"
 onclick="closeModal('notificationsModal')">
 ×
 </button>
@@ -2116,7 +2258,7 @@ OFF
 
 </div>
 
-<button class="primary"
+<button class="primary" type="button"
 onclick="showToast('Preferences saved')">
 Save preferences
 </button>
@@ -2138,7 +2280,7 @@ Save preferences
 
 <h2>QR Pay</h2>
 
-<button class="close"
+<button class="close" type="button"
 onclick="closeModal('qrModal')">
 ×
 </button>
@@ -2161,7 +2303,7 @@ border:12px solid white;
 Scan this NOVA QR to simulate a payment.
 </p>
 
-<button class="primary"
+<button class="primary" type="button"
 onclick="showToast('QR scanner opened')">
 Scan QR
 </button>
@@ -2183,7 +2325,7 @@ Scan QR
 
 <h2>Help & information</h2>
 
-<button class="close"
+<button class="close" type="button"
 onclick="closeModal('helpModal')">
 ×
 </button>
@@ -2210,7 +2352,7 @@ Transfers, cards and balances in this prototype are simulated. Supabase provides
 
 </div>
 
-<button class="primary"
+<button class="primary" type="button"
 onclick="closeModal('helpModal')">
 Done
 </button>
@@ -2236,26 +2378,23 @@ Done
 const SUPABASE_URL =
 "https://zkwdgyjujammcclimisn.supabase.co";
 
-/*
- IMPORTANT:
- Paste your SUPABASE PUBLISHABLE KEY below.
-
- It begins with:
- sb_publishable_
-
- NEVER paste the sb_secret_ key here.
-*/
-
 const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_YqjtHf9bzXYEEGrQOfPYmg_ibWbXOG1";
 
-
 let supabaseClient=null;
+
+/*
+ FIX:
+ The old version compared the key against itself,
+ which prevented Supabase from initializing.
+
+ Now NOVA initializes whenever the Supabase library
+ and a publishable key are available.
+*/
 
 if(
   window.supabase &&
-  SUPABASE_PUBLISHABLE_KEY !==
-  "sb_publishable_YqjtHf9bzXYEEGrQOfPYmg_ibWbXOG1"
+  SUPABASE_PUBLISHABLE_KEY
 ){
 
   supabaseClient =
@@ -2343,9 +2482,51 @@ const defaultState={
 };
 
 
+/* =====================================================
+   ROBUST NUMBER PARSER
+===================================================== */
+
+/*
+ Handles:
+ 45000
+ "45000"
+ "₦45,000"
+ "₦45,000.50"
+ "45,000"
+ etc.
+
+ This prevents the old NaN problem when older
+ localStorage data contains formatted currency.
+*/
+
 function safeNumber(value,fallback=0){
 
-  const n=Number(value);
+  if(
+    value===null ||
+    value===undefined ||
+    value===""
+  ){
+
+    return fallback;
+
+  }
+
+  if(
+    typeof value==="number"
+  ){
+
+    return Number.isFinite(value)
+      ? value
+      : fallback;
+
+  }
+
+  const cleaned=
+    String(value)
+      .replace(/[^0-9.-]/g,"");
+
+  const n=
+    Number(cleaned);
 
   return Number.isFinite(n)
     ? n
@@ -2353,6 +2534,10 @@ function safeNumber(value,fallback=0){
 
 }
 
+
+/* =====================================================
+   STATE NORMALIZATION
+===================================================== */
 
 function normalizeState(raw){
 
@@ -2367,59 +2552,124 @@ function normalizeState(raw){
   };
 
   result.balance=
-    safeNumber(
-      source.balance,
-      defaultState.balance
+    Math.max(
+      0,
+      safeNumber(
+        source.balance,
+        defaultState.balance
+      )
     );
 
   result.loginPin=
     String(
       source.loginPin ||
       defaultState.loginPin
-    );
+    ).replace(/\D/g,"").slice(0,4);
+
+  if(
+    result.loginPin.length!==4
+  ){
+
+    result.loginPin=
+      defaultState.loginPin;
+
+  }
 
   result.transactionPin=
     String(
       source.transactionPin ||
       defaultState.transactionPin
-    );
+    ).replace(/\D/g,"").slice(0,4);
+
+  if(
+    result.transactionPin.length!==4
+  ){
+
+    result.transactionPin=
+      defaultState.transactionPin;
+
+  }
+
 
   result.transactions=
     Array.isArray(source.transactions)
-      ? source.transactions.map((x,index)=>({
+      ? source.transactions.map(
+          (x,index)=>({
 
-          id:String(
-            x?.id ||
-            "local-"+index
-          ),
+            id:String(
+              x?.id ||
+              "local-"+index
+            ),
 
-          name:String(
-            x?.name ||
-            "Transaction"
-          ),
+            name:String(
+              x?.name ||
+              "Transaction"
+            ),
 
-          date:String(
-            x?.date ||
-            "Recently"
-          ),
+            date:String(
+              x?.date ||
+              "Recently"
+            ),
 
-          amount:safeNumber(
-            x?.amount,
-            0
-          ),
+            amount:safeNumber(
+              x?.amount,
+              0
+            ),
 
-          type:
-            x?.type==="income"
-              ? "income"
-              : "expense"
+            type:
+              x?.type==="income"
+                ? "income"
+                : "expense"
 
-        }))
-      : [...defaultState.transactions];
+          })
+        )
+      : defaultState.transactions.map(
+          x=>({...x})
+        );
+
+
+  /*
+    FIX:
+    Normalize every Space individually.
+
+    This is what prevents:
+    ₦NaN
+    NaN%
+    invalid progress widths
+  */
 
   result.spaces=
     Array.isArray(source.spaces)
-      ? source.spaces
-      : [...defaultState.spaces];
+      ? source.spaces.map(
+          (space,index)=>({
+
+            name:String(
+              space?.name ||
+              "Space "+(index+1)
+            ),
+
+            amount:Math.max(
+              0,
+              safeNumber(
+                space?.amount,
+                0
+              )
+            ),
+
+            target:Math.max(
+              0,
+              safeNumber(
+                space?.target,
+                0
+              )
+            )
+
+          })
+        )
+      : defaultState.spaces.map(
+          space=>({...space})
+        );
+
 
   return result;
 
@@ -2435,10 +2685,28 @@ function loadState(){
         STATE_KEY
       );
 
-    if(saved)
-      return normalizeState(
-        JSON.parse(saved)
+    if(saved){
+
+      const parsed=
+        JSON.parse(saved);
+
+      const normalized=
+        normalizeState(parsed);
+
+      /*
+        Immediately save the repaired state.
+        This removes old malformed NaN-style data
+        from localStorage.
+      */
+
+      localStorage.setItem(
+        STATE_KEY,
+        JSON.stringify(normalized)
       );
+
+      return normalized;
+
+    }
 
   }catch(e){
 
@@ -2461,7 +2729,8 @@ let state=loadState();
 
 function saveState(){
 
-  state=normalizeState(state);
+  state=
+    normalizeState(state);
 
   localStorage.setItem(
     STATE_KEY,
@@ -2516,14 +2785,16 @@ function renderBalance(){
     amount.textContent=
       money(state.balance);
 
-    eye.textContent="◉";
+    if(eye)
+      eye.textContent="◉";
 
   }else{
 
     amount.textContent=
       "••••••";
 
-    eye.textContent="○";
+    if(eye)
+      eye.textContent="○";
 
   }
 
@@ -2554,10 +2825,12 @@ function renderLoginDots(){
     )
     .forEach(
       (dot,index)=>{
+
         dot.classList.toggle(
           "active",
           index<loginInput.length
         );
+
       }
     );
 
@@ -2569,7 +2842,7 @@ function loginKey(number){
   if(loginInput.length>=4)
     return;
 
-  loginInput+=number;
+  loginInput+=String(number);
 
   renderLoginDots();
 
@@ -2852,7 +3125,8 @@ function filterActivity(filter,button){
       b=>b.classList.remove("active")
     );
 
-  button.classList.add("active");
+  if(button)
+    button.classList.add("active");
 
   renderActivity();
 
@@ -2889,20 +3163,32 @@ function renderActivityStats(){
     }
   );
 
-  document.getElementById(
-    "activityIncome"
-  ).textContent=
-    money(income);
+  const incomeEl=
+    document.getElementById(
+      "activityIncome"
+    );
 
-  document.getElementById(
-    "activityExpense"
-  ).textContent=
-    money(expense);
+  const expenseEl=
+    document.getElementById(
+      "activityExpense"
+    );
 
-  document.getElementById(
-    "activityTotal"
-  ).textContent=
-    money(income+expense);
+  const totalEl=
+    document.getElementById(
+      "activityTotal"
+    );
+
+  if(incomeEl)
+    incomeEl.textContent=
+      money(income);
+
+  if(expenseEl)
+    expenseEl.textContent=
+      money(expense);
+
+  if(totalEl)
+    totalEl.textContent=
+      money(income+expense);
 
 }
 
@@ -2967,11 +3253,6 @@ function renderActivity(){
     return;
 
   }
-
-  /*
-    Grouping keeps the activity page
-    much cleaner on mobile.
-  */
 
   const groups={};
 
@@ -3084,7 +3365,7 @@ function startTransfer(){
 
   }
 
-  if(amount>state.balance){
+  if(amount>safeNumber(state.balance)){
 
     showToast(
       "Insufficient balance"
@@ -3120,7 +3401,7 @@ function transactionKey(number){
   if(transactionInput.length>=4)
     return;
 
-  transactionInput+=number;
+  transactionInput+=String(number);
 
   renderTransactionDots();
 
@@ -3154,11 +3435,13 @@ function renderTransactionDots(){
     )
     .forEach(
       (dot,index)=>{
+
         dot.classList.toggle(
           "active",
           index<
           transactionInput.length
         );
+
       }
     );
 
@@ -3202,7 +3485,7 @@ async function verifyTransactionPin(){
   state.balance=
     Math.max(
       0,
-      state.balance-amount
+      safeNumber(state.balance)-amount
     );
 
   const transaction={
@@ -3229,11 +3512,6 @@ async function verifyTransactionPin(){
   );
 
   saveState();
-
-  /*
-    If the user is signed into Supabase,
-    also save the transaction remotely.
-  */
 
   await saveTransactionOnline(
     transaction
@@ -3296,7 +3574,8 @@ async function addMoney(){
 
   }
 
-  state.balance+=amount;
+  state.balance=
+    safeNumber(state.balance)+amount;
 
   const transaction={
 
@@ -3310,7 +3589,6 @@ async function addMoney(){
       "Just now",
 
     amount:
-
       amount,
 
     type:
@@ -3387,6 +3665,14 @@ function requestMoney(){
     "requestModal"
   );
 
+  document.getElementById(
+    "requestFrom"
+  ).value="";
+
+  document.getElementById(
+    "requestAmount"
+  ).value="";
+
   showToast(
     "Money request created"
   );
@@ -3407,6 +3693,9 @@ function renderSpaces(){
 
   if(!container)return;
 
+  if(!Array.isArray(state.spaces))
+    state.spaces=[];
+
   if(!state.spaces.length){
 
     container.innerHTML=
@@ -3420,11 +3709,17 @@ function renderSpaces(){
     state.spaces.map(
       (space,index)=>{
 
+        /*
+          Always sanitize these values before
+          displaying them.
+        */
+
         const amount=
           Math.max(
             0,
             safeNumber(
-              space.amount
+              space?.amount,
+              0
             )
           );
 
@@ -3432,20 +3727,37 @@ function renderSpaces(){
           Math.max(
             0,
             safeNumber(
-              space.target
+              space?.target,
+              0
             )
           );
 
-        const percent=
-          target>0
-            ? Math.min(
-                100,
-                Math.max(
-                  0,
-                  amount/target*100
-                )
-              )
-            : 0;
+        let percent=0;
+
+        if(target>0){
+
+          percent=
+            (amount/target)*100;
+
+        }
+
+        if(!Number.isFinite(percent))
+          percent=0;
+
+        percent=
+          Math.min(
+            100,
+            Math.max(
+              0,
+              percent
+            )
+          );
+
+        const name=
+          String(
+            space?.name ||
+            "Space "+(index+1)
+          );
 
         return `
 
@@ -3454,10 +3766,7 @@ function renderSpaces(){
 <div class="space-head">
 
 <strong>
-${escapeHTML(
-  space.name ||
-  "Space "+(index+1)
-)}
+${escapeHTML(name)}
 </strong>
 
 <span>
@@ -3471,7 +3780,7 @@ ${money(amount)}
 </div>
 
 <div class="progress">
-<div style="width:${percent}%"></div>
+<div style="width:${percent.toFixed(2)}%"></div>
 </div>
 
 <div class="space-foot">
@@ -3535,7 +3844,7 @@ function createSpace(){
 
     amount:0,
 
-    target
+    target:safeNumber(target)
 
   });
 
@@ -3571,7 +3880,7 @@ async function onlineSignIn(){
   if(!supabaseClient){
 
     showToast(
-      "Add your publishable key first"
+      "Supabase is not configured"
     );
 
     return;
@@ -3635,7 +3944,7 @@ async function onlineSignUp(){
   if(!supabaseClient){
 
     showToast(
-      "Add your publishable key first"
+      "Supabase is not configured"
     );
 
     return;
@@ -3729,10 +4038,29 @@ async function onlineSignOut(){
 
   await supabaseClient.auth.signOut();
 
-  document.getElementById(
-    "onlineStatus"
-  ).textContent=
-    "Connect your cloud account";
+  const status=
+    document.getElementById(
+      "onlineStatus"
+    );
+
+  if(status){
+
+    status.textContent=
+      "Connect your cloud account";
+
+  }
+
+  const email=
+    document.getElementById(
+      "profileEmail"
+    );
+
+  if(email){
+
+    email.textContent=
+      "Personal account";
+
+  }
 
   showToast(
     "Online account signed out"
@@ -3750,13 +4078,26 @@ async function getOnlineUser(){
   if(!supabaseClient)
     return null;
 
-  const {
-    data
-  }=
-    await supabaseClient.auth
-      .getUser();
+  try{
 
-  return data?.user || null;
+    const {
+      data
+    }=
+      await supabaseClient.auth
+        .getUser();
+
+    return data?.user || null;
+
+  }catch(error){
+
+    console.warn(
+      "NOVA user lookup failed",
+      error
+    );
+
+    return null;
+
+  }
 
 }
 
@@ -3831,33 +4172,46 @@ async function syncSupabase(){
 
     if(!user){
 
-      document.getElementById(
-        "onlineStatus"
-      ).textContent=
-        "Connect your cloud account";
+      const status=
+        document.getElementById(
+          "onlineStatus"
+        );
+
+      if(status){
+
+        status.textContent=
+          "Connect your cloud account";
+
+      }
 
       return;
 
     }
 
-    document.getElementById(
-      "profileEmail"
-    ).textContent=
-      user.email ||
-      "Online account";
+    const email=
+      document.getElementById(
+        "profileEmail"
+      );
 
-    document.getElementById(
-      "onlineStatus"
-    ).textContent=
-      "Connected • cloud sync active";
+    if(email){
 
-    /*
-      Pull the user's cloud activity.
+      email.textContent=
+        user.email ||
+        "Online account";
 
-      The database policies already created
-      for NOVA only allow a signed-in user
-      to access their own rows.
-    */
+    }
+
+    const status=
+      document.getElementById(
+        "onlineStatus"
+      );
+
+    if(status){
+
+      status.textContent=
+        "Connected • cloud sync active";
+
+    }
 
     const {
       data,
@@ -4057,6 +4411,8 @@ function showToast(message){
       "toast"
     );
 
+  if(!toast)return;
+
   toast.textContent=
     message;
 
@@ -4071,9 +4427,11 @@ function showToast(message){
   toastTimer=
     setTimeout(
       ()=>{
+
         toast.classList.remove(
           "show"
         );
+
       },
       2400
     );
@@ -4130,10 +4488,12 @@ if(
         .register("./sw.js")
         .catch(
           error=>{
+
             console.warn(
               "NOVA service worker failed",
               error
             );
+
           }
         );
 
