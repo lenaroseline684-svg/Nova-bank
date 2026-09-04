@@ -1,4 +1,4 @@
-const CACHE_NAME = "nova-v26-cache-v2";
+const CACHE_NAME = "nova-v27-cache-v1";
 
 const APP_SHELL = [
   "./",
