@@ -6,595 +6,225 @@
 <meta name="theme-color" content="#090b0e">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
 <title>NOVA — v27</title>
+
 <link rel="manifest" href="./manifest.webmanifest">
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0
+}
+
+html,
+body{
+  width:100%;
+  min-height:100%;
+  background:#090b0e;
+  color:#f4f7f5;
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,Arial,sans-serif;
+  -webkit-tap-highlight-color:transparent
+}
+
+body{
+  overflow-x:hidden
+}
+
+button,
+input{
+  font:inherit
+}
+
+button{
+  border:0;
+  cursor:pointer
+}
+
+input{
+  outline:none
+}
+
 :root{
-  --bg:#080a0d;
+  --bg:#090b0e;
   --panel:#111419;
   --panel2:#171a20;
-  --line:rgba(255,255,255,.075);
-  --text:#f7f8fa;
-  --muted:#8e949e;
-  --green:#55e6a5;
-  --danger:#ff6262;
-  --gold:#e9c875
-}
-html,body{
-  min-height:100%;
-  background:var(--bg);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Inter,Arial,sans-serif
-}
-body{overflow-x:hidden}
-button,input{font:inherit}
-button{border:0;color:inherit;cursor:pointer}
-input{outline:0}
-.hidden{display:none!important}
-.page{
-  display:none;
-  max-width:720px;
-  margin:auto;
-  padding:20px 18px 110px;
-  animation:fade .2s ease
-}
-.page.active{display:block}
-
-@keyframes fade{
-  from{opacity:0;transform:translateY(5px)}
-  to{opacity:1;transform:none}
+  --border:rgba(255,255,255,.08);
+  --muted:#8f9792;
+  --text:#f5f7f6;
+  --green:#77f0a4;
+  --green2:#42d981;
+  --red:#ff6f72;
+  --blue:#73a8ff;
+  --shadow:0 25px 80px rgba(0,0,0,.42)
 }
 
-#loginScreen{
+.hidden{
+  display:none!important
+}
+
+/* APP */
+
+#app{
   min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  background:
-    radial-gradient(circle at 50% 5%,rgba(74,221,157,.1),transparent 32%),
-    var(--bg)
-}
-.loginWrap{width:100%;max-width:390px}
-.logo{
-  text-align:center;
-  font-size:32px;
-  font-weight:800;
-  letter-spacing:5px;
-  margin-bottom:8px
-}
-.loginSub{
-  text-align:center;
-  color:var(--muted);
-  font-size:14px;
-  margin-bottom:34px
-}
-.pinDots{
-  display:flex;
-  justify-content:center;
-  gap:14px;
-  margin-bottom:22px
-}
-.pinDot{
-  width:11px;
-  height:11px;
-  border:1px solid #6f757d;
-  border-radius:50%
-}
-.pinDot.filled{
-  background:#fff;
-  border-color:#fff
-}
-.pinError{
-  min-height:20px;
-  color:var(--danger);
-  text-align:center;
-  font-size:13px;
-  margin-bottom:8px
-}
-.keypad{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:13px
-}
-.key{
-  height:64px;
-  border-radius:20px;
-  background:#15181d;
-  border:1px solid rgba(255,255,255,.045);
-  font-size:23px
-}
-.key:active{
-  transform:scale(.94);
-  background:#20242b
-}
-.key.action{
-  font-size:13px;
-  color:var(--muted)
-}
-.loginLinks{
-  display:flex;
-  justify-content:center;
-  gap:22px;
-  margin-top:24px
-}
-.loginLinks button{
-  background:none;
-  color:var(--green);
-  font-size:14px
+  padding-bottom:90px
 }
 
 .topbar{
+  height:70px;
+  padding:18px 18px 8px;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  margin-bottom:28px
+  justify-content:space-between
 }
+
 .brand{
-  font-size:19px;
-  font-weight:800;
-  letter-spacing:3px
+  font-size:21px;
+  font-weight:900;
+  letter-spacing:-.8px
 }
-.version{
-  color:#747a84;
-  font-size:10px;
-  margin-left:5px;
-  letter-spacing:1px
+
+.brand span{
+  color:var(--green)
 }
+
 .status{
   display:flex;
   align-items:center;
   gap:7px;
+  padding:7px 10px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  background:rgba(255,255,255,.035);
+  color:var(--muted);
   font-size:11px;
-  color:var(--muted)
+  font-weight:700
 }
+
 .statusDot{
   width:7px;
   height:7px;
   border-radius:50%;
   background:#777
 }
-.statusDot.online{
+
+.status.online .statusDot{
   background:var(--green);
-  box-shadow:0 0 9px rgba(85,230,165,.5)
-}
-.greeting{
-  font-size:15px;
-  color:var(--muted);
-  margin-bottom:7px
-}
-.heroBalance{
-  font-size:43px;
-  line-height:1.05;
-  letter-spacing:-1.7px;
-  font-weight:750;
-  margin-bottom:25px
-}
-.balanceRow{
-  display:flex;
-  align-items:center;
-  gap:12px
-}
-.eyeBtn{
-  width:42px;
-  height:42px;
-  border-radius:13px;
-  background:#15181d;
-  display:grid;
-  place-items:center;
-  color:#c9cdd3;
-  font-size:18px
+  box-shadow:0 0 12px rgba(119,240,164,.65)
 }
 
-.card{
-  background:
-    linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),
-    var(--panel);
-  border:1px solid var(--line);
-  border-radius:24px;
-  padding:21px;
-  box-shadow:0 18px 50px rgba(0,0,0,.16)
-}
-.virtualCard{
-  position:relative;
-  min-height:205px;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 90% 5%,rgba(85,230,165,.25),transparent 30%),
-    linear-gradient(135deg,#1b211f,#0e1113 70%)
-}
-.virtualCard:after{
-  content:"";
-  position:absolute;
-  width:190px;
-  height:190px;
-  border:1px solid rgba(85,230,165,.13);
-  border-radius:50%;
-  right:-80px;
-  bottom:-80px
-}
-.novaCardTitle{
-  font-size:12px;
-  letter-spacing:3px;
-  color:#c8ccc9
-}
-.chip{
-  width:42px;
-  height:31px;
-  border-radius:8px;
-  background:linear-gradient(135deg,#c4aa67,#f0d58a,#a58a4d);
-  margin-top:42px
-}
-.cardNumber{
-  margin-top:21px;
-  font-size:19px;
-  letter-spacing:3px
-}
-.cardBottom{
-  display:flex;
-  justify-content:space-between;
-  margin-top:18px;
-  color:#bfc4c2;
-  font-size:11px
-}
+/* LOGIN */
 
-.quickGrid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  margin:18px 0
-}
-.quick{
-  min-height:78px;
-  background:#111419;
-  border:1px solid var(--line);
-  border-radius:19px;
+.screen{
+  min-height:100vh;
+  padding:25px 20px;
   display:flex;
   flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  color:#dfe2e6;
-  font-size:11px
-}
-.quickIcon{
-  width:30px;
-  height:30px;
-  border-radius:10px;
-  background:#1c2223;
-  display:grid;
-  place-items:center;
-  color:var(--green);
-  font-size:16px
-}
-
-.sectionTitle{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:27px 0 13px
-}
-.sectionTitle h2{font-size:18px}
-.sectionTitle button{
-  background:none;
-  color:var(--green);
-  font-size:12px
-}
-
-.tx{
-  display:flex;
-  align-items:center;
-  gap:13px;
-  padding:15px 0;
-  border-bottom:1px solid var(--line)
-}
-.tx:last-child{border-bottom:0}
-.txIcon{
-  width:43px;
-  height:43px;
-  border-radius:15px;
-  background:#191d22;
-  display:grid;
-  place-items:center;
-  font-size:17px
-}
-.txMain{
-  flex:1;
-  min-width:0
-}
-.txName{
-  font-size:14px;
-  font-weight:600
-}
-.txDate{
-  color:var(--muted);
-  font-size:11px;
-  margin-top:4px
-}
-.txAmount{
-  font-size:14px;
-  font-weight:650
-}
-.income{color:var(--green)}
-.expense{color:#eee}
-
-.search{
-  width:100%;
-  background:#12151a;
-  border:1px solid var(--line);
-  border-radius:17px;
-  padding:14px 16px;
-  color:white;
-  margin-bottom:14px
-}
-.filterRow{
-  display:flex;
-  gap:8px;
-  overflow:auto;
-  padding-bottom:5px
-}
-.filter{
-  white-space:nowrap;
-  padding:9px 14px;
-  border-radius:13px;
-  background:#13161b;
-  color:var(--muted);
-  border:1px solid var(--line);
-  font-size:12px
-}
-.filter.active{
-  background:#e9fff5;
-  color:#07120d
-}
-
-.cardList{
-  display:grid;
-  gap:12px
-}
-.bankCard{
-  padding:19px;
-  border:1px solid var(--line);
-  background:#111419;
-  border-radius:22px
-}
-.bankTop{
-  display:flex;
-  justify-content:space-between;
-  align-items:center
-}
-.brandPill{
-  font-weight:800;
-  font-size:13px;
-  letter-spacing:1px
-}
-.defaultPill{
-  color:#08130e;
-  background:var(--green);
-  border-radius:9px;
-  padding:5px 8px;
-  font-size:9px;
-  font-weight:800
-}
-.masked{
-  font-size:20px;
-  letter-spacing:3px;
-  margin:22px 0 17px
-}
-.bankMeta{
-  display:flex;
-  justify-content:space-between;
-  color:var(--muted);
-  font-size:11px
-}
-.cardActions{
-  display:flex;
-  gap:8px;
-  margin-top:16px
-}
-.smallBtn{
-  flex:1;
-  padding:10px;
-  border-radius:12px;
-  background:#191d22;
-  color:#cfd3d8;
-  font-size:11px
-}
-.smallBtn.danger{color:#ff7777}
-
-.space{
-  padding:18px;
-  background:#111419;
-  border:1px solid var(--line);
-  border-radius:21px;
-  margin-bottom:12px
-}
-.spaceTop{
-  display:flex;
-  justify-content:space-between
-}
-.spaceName{
-  font-size:14px;
-  font-weight:650
-}
-.spaceAmount{
-  font-size:17px;
-  font-weight:700;
-  margin-top:9px
-}
-.progress{
-  height:7px;
-  border-radius:99px;
-  background:#262a2f;
-  overflow:hidden;
-  margin-top:15px
-}
-.progress span{
-  display:block;
-  height:100%;
-  border-radius:99px;
-  background:var(--green);
-  width:0
-}
-.spaceTarget{
-  margin-top:8px;
-  color:var(--muted);
-  font-size:10px
-}
-
-.profileHero{
-  text-align:center;
-  padding:10px 0 23px
-}
-.avatar{
-  width:70px;
-  height:70px;
-  border-radius:25px;
-  margin:auto;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(145deg,#27302c,#121615);
-  color:var(--green);
-  font-size:27px;
-  font-weight:800;
-  border:1px solid rgba(85,230,165,.14)
-}
-.profileName{
-  font-size:20px;
-  font-weight:700;
-  margin-top:13px
-}
-.novaId{
-  color:var(--green);
-  font-size:12px;
-  margin-top:5px;
-  letter-spacing:1px
-}
-.profileMenu{
-  margin-top:15px;
-  overflow:hidden
-}
-.menuItem{
-  width:100%;
-  padding:17px 2px;
-  background:none;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  gap:13px;
-  text-align:left
-}
-.menuIcon{
-  width:37px;
-  height:37px;
-  border-radius:12px;
-  background:#191d22;
-  display:grid;
-  place-items:center;
-  color:var(--green)
-}
-.menuText{flex:1}
-.menuTitle{
-  font-size:13px;
-  font-weight:600
-}
-.menuSub{
-  color:var(--muted);
-  font-size:10px;
-  margin-top:3px
-}
-
-.bottomNav{
-  position:fixed;
-  z-index:20;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(100%,720px);
-  padding:9px 10px calc(9px + env(safe-area-inset-bottom));
-  background:rgba(9,11,14,.94);
-  backdrop-filter:blur(22px);
-  border-top:1px solid var(--line);
-  display:grid;
-  grid-template-columns:repeat(5,1fr)
-}
-.navBtn{
-  background:none;
-  color:#737984;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:5px;
-  font-size:9px
-}
-.navBtn svg{
-  width:20px;
-  height:20px;
-  stroke:currentColor;
-  fill:none;
-  stroke-width:1.8
-}
-.navBtn.active{color:var(--green)}
-
-.modal{
-  position:fixed;
-  z-index:50;
-  inset:0;
-  background:rgba(0,0,0,.62);
-  backdrop-filter:blur(8px);
-  display:none;
-  align-items:flex-end;
   justify-content:center
 }
-.modal.show{display:flex}
-.sheet{
-  width:min(100%,720px);
-  max-height:92vh;
-  overflow:auto;
-  background:#111419;
-  border:1px solid var(--line);
-  border-radius:28px 28px 0 0;
-  padding:22px 18px calc(24px + env(safe-area-inset-bottom));
-  animation:sheet .2s ease
-}
-.sheetTop{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:18px
-}
-.sheet h3{font-size:19px}
-.close{
-  width:36px;
-  height:36px;
-  border-radius:12px;
-  background:#1b1f25;
-  color:#bbb;
-  font-size:18px
-}
-.field{margin-bottom:13px}
-.field label{
-  display:block;
-  color:var(--muted);
-  font-size:11px;
-  margin:0 0 7px 3px
-}
-.field input{
-  width:100%;
-  padding:14px;
-  border-radius:15px;
-  border:1px solid var(--line);
-  background:#0d1014;
-  color:#fff
-}
-.row2{
+
+.loginLogo{
+  width:72px;
+  height:72px;
+  border-radius:24px;
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px
+  place-items:center;
+  margin:0 auto 22px;
+  background:linear-gradient(145deg,#8dffb3,#42d981);
+  color:#06120c;
+  font-size:32px;
+  font-weight:950;
+  box-shadow:0 18px 45px rgba(66,217,129,.22)
 }
+
+.loginTitle{
+  text-align:center;
+  font-size:34px;
+  letter-spacing:-1.6px;
+  font-weight:900
+}
+
+.loginSub{
+  text-align:center;
+  color:var(--muted);
+  margin-top:8px;
+  margin-bottom:32px;
+  font-size:14px
+}
+
+.pinDots{
+  display:flex;
+  justify-content:center;
+  gap:13px;
+  margin-bottom:30px
+}
+
+.pinDot{
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  border:1px solid #555d58;
+  transition:.15s
+}
+
+.pinDot.active{
+  background:var(--green);
+  border-color:var(--green);
+  box-shadow:0 0 14px rgba(119,240,164,.4)
+}
+
+.keypad{
+  width:min(350px,100%);
+  margin:auto
+}
+
+.keyRow{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+  margin-bottom:13px
+}
+
+.key{
+  height:64px;
+  border-radius:20px;
+  background:#15191e;
+  color:#f7f8f8;
+  border:1px solid rgba(255,255,255,.06);
+  font-size:22px;
+  font-weight:750;
+  transition:transform .1s ease,background .1s ease
+}
+
+.key:active{
+  transform:scale(.93);
+  background:#22282e
+}
+
+.key.empty{
+  background:transparent;
+  border:0
+}
+
+.loginActions{
+  display:flex;
+  justify-content:center;
+  margin-top:24px
+}
+
+.textBtn{
+  color:var(--green);
+  background:none;
+  font-size:13px;
+  font-weight:750
+}
+
+/* BUTTONS */
+
 .primary{
   width:100%;
   padding:14px;
@@ -602,108 +232,706 @@ input{outline:0}
   background:var(--green);
   color:#06120c;
   font-weight:800;
-  margin-top:5px
+  margin-top:5px;
+  transition:
+    transform .12s ease,
+    opacity .12s ease,
+    filter .12s ease,
+    box-shadow .12s ease;
+  -webkit-user-select:none;
+  user-select:none;
+  touch-action:manipulation;
+  box-shadow:0 10px 28px rgba(119,240,164,.08)
 }
+
+.primary:active{
+  transform:scale(.97);
+  filter:brightness(.9);
+  box-shadow:0 5px 15px rgba(119,240,164,.04)
+}
+
+.primary:disabled{
+  opacity:.55;
+  cursor:default;
+  transform:none;
+  filter:none
+}
+
 .secondary{
   width:100%;
   padding:13px;
   border-radius:15px;
-  background:#1a1e24;
-  color:#dce0e5;
-  margin-top:9px
+  background:#181c21;
+  color:#f2f5f3;
+  border:1px solid var(--border);
+  font-weight:750;
+  transition:transform .12s ease,background .12s ease,opacity .12s ease;
+  touch-action:manipulation
 }
-.dangerBtn{
-  width:100%;
-  padding:13px;
-  border-radius:15px;
-  background:#281517;
-  color:#ff8888;
-  margin-top:9px
+
+.secondary:active{
+  transform:scale(.97);
+  background:#22272d
 }
-.notice{
-  font-size:11px;
+
+.danger{
+  color:#ff8587!important
+}
+
+/* HOME */
+
+.page{
+  padding:5px 18px 0
+}
+
+.greeting{
+  margin-top:10px;
   color:var(--muted);
-  line-height:1.55;
-  background:#15191e;
-  border:1px solid var(--line);
-  padding:12px;
-  border-radius:14px;
-  margin-bottom:13px
+  font-size:13px
 }
-.success{color:var(--green)}
-.modalMsg{
-  min-height:17px;
-  text-align:center;
-  color:var(--danger);
+
+.homeName{
+  font-size:29px;
+  font-weight:900;
+  letter-spacing:-1.2px;
+  margin-top:3px
+}
+
+.balanceCard{
+  margin-top:22px;
+  padding:22px;
+  border-radius:26px;
+  background:
+    radial-gradient(circle at 90% 10%,rgba(119,240,164,.12),transparent 35%),
+    linear-gradient(145deg,#15191d,#0e1115);
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:var(--shadow)
+}
+
+.balanceLabel{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:var(--muted);
   font-size:12px;
-  margin:8px 0
+  font-weight:700
 }
-.qrBox{
-  background:#fff;
-  border-radius:18px;
-  width:220px;
-  height:220px;
-  margin:10px auto 16px;
+
+.eye{
+  width:34px;
+  height:34px;
+  border-radius:12px;
   display:grid;
   place-items:center;
-  padding:12px
+  background:#1b2025;
+  color:#e8ece9;
+  font-size:16px
 }
-.qrCaption{
-  text-align:center;
+
+.balance{
+  margin-top:12px;
+  font-size:38px;
+  font-weight:900;
+  letter-spacing:-2px
+}
+
+.accountMeta{
+  margin-top:9px;
   color:var(--muted);
-  font-size:12px;
-  line-height:1.5
+  font-size:12px
 }
-.scanVideo{
-  width:100%;
-  border-radius:18px;
-  background:#050607;
-  aspect-ratio:1/1;
-  object-fit:cover;
-  margin-bottom:12px
+
+.actionGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:16px
 }
-.idBox{
-  padding:15px;
+
+.action{
+  min-width:0;
+  padding:13px 5px;
+  border-radius:17px;
   background:#15191e;
-  border:1px solid var(--line);
-  border-radius:16px;
-  text-align:center;
-  margin:12px 0
+  color:#f2f4f3;
+  border:1px solid var(--border);
+  font-size:11px;
+  font-weight:750
 }
-.idBox b{
-  font-size:20px;
-  letter-spacing:2px
+
+.actionIcon{
+  width:37px;
+  height:37px;
+  margin:0 auto 7px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:#1e2521;
+  color:var(--green);
+  font-size:17px
 }
-.toast{
+
+.sectionTitle{
+  margin-top:28px;
+  margin-bottom:11px;
+  font-size:16px;
+  font-weight:850
+}
+
+.txList{
+  display:flex;
+  flex-direction:column;
+  gap:9px
+}
+
+.tx{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  border-radius:17px;
+  background:#12161a;
+  border:1px solid var(--border)
+}
+
+.txIcon{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:#1a201d;
+  font-size:17px
+}
+
+.txInfo{
+  min-width:0;
+  flex:1
+}
+
+.txName{
+  font-size:13px;
+  font-weight:800
+}
+
+.txDate{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:10px
+}
+
+.txAmount{
+  font-size:13px;
+  font-weight:850
+}
+
+.income{
+  color:var(--green)
+}
+
+.expense{
+  color:#f3f5f4
+}
+
+/* ACTIVITY */
+
+.search{
+  width:100%;
+  margin-top:15px;
+  padding:13px 15px;
+  border-radius:15px;
+  background:#15191e;
+  border:1px solid var(--border);
+  color:#fff
+}
+
+.filters{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  margin-top:12px;
+  padding-bottom:2px
+}
+
+.filter{
+  flex:none;
+  padding:8px 12px;
+  border-radius:999px;
+  background:#15191e;
+  color:var(--muted);
+  border:1px solid var(--border);
+  font-size:11px;
+  font-weight:750
+}
+
+.filter.active{
+  color:#07120c;
+  background:var(--green);
+  border-color:var(--green)
+}
+
+/* CARDS */
+
+.cardVisual{
+  margin-top:18px;
+  padding:22px;
+  min-height:205px;
+  border-radius:26px;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 80% 15%,rgba(119,240,164,.18),transparent 32%),
+    linear-gradient(145deg,#1b211f,#101318);
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:var(--shadow)
+}
+
+.cardVisual:after{
+  content:"";
+  position:absolute;
+  width:170px;
+  height:170px;
+  border-radius:50%;
+  right:-70px;
+  bottom:-70px;
+  border:1px solid rgba(119,240,164,.12)
+}
+
+.cardBrand{
+  font-size:18px;
+  font-weight:900
+}
+
+.cardChip{
+  margin-top:35px;
+  width:43px;
+  height:31px;
+  border-radius:8px;
+  background:linear-gradient(135deg,#d6d8cf,#868b82)
+}
+
+.cardNumber{
+  margin-top:18px;
+  font-size:16px;
+  letter-spacing:2px;
+  font-weight:700
+}
+
+.cardBottom{
+  display:flex;
+  justify-content:space-between;
+  margin-top:13px;
+  font-size:9px;
+  color:#aeb6b1
+}
+
+.cardList{
+  display:flex;
+  flex-direction:column;
+  gap:10px
+}
+
+.savedCard{
+  padding:16px;
+  border-radius:18px;
+  background:#12161a;
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:12px
+}
+
+.miniCard{
+  width:47px;
+  height:32px;
+  border-radius:8px;
+  background:#1d2520;
+  border:1px solid rgba(119,240,164,.2)
+}
+
+.savedInfo{
+  flex:1
+}
+
+.savedName{
+  font-size:13px;
+  font-weight:800
+}
+
+.savedMeta{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px
+}
+
+.defaultBadge{
+  padding:5px 8px;
+  border-radius:999px;
+  background:rgba(119,240,164,.1);
+  color:var(--green);
+  font-size:9px;
+  font-weight:800
+}
+
+/* SPACES */
+
+.space{
+  padding:17px;
+  border-radius:20px;
+  background:#12161a;
+  border:1px solid var(--border);
+  margin-bottom:10px
+}
+
+.spaceTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center
+}
+
+.spaceName{
+  font-size:14px;
+  font-weight:850
+}
+
+.spaceAmount{
+  font-size:13px;
+  color:var(--muted)
+}
+
+.progress{
+  height:7px;
+  border-radius:99px;
+  overflow:hidden;
+  margin-top:13px;
+  background:#252a2f
+}
+
+.progressBar{
+  height:100%;
+  border-radius:99px;
+  background:var(--green)
+}
+
+.spaceBottom{
+  display:flex;
+  justify-content:space-between;
+  margin-top:7px;
+  color:var(--muted);
+  font-size:10px
+}
+
+/* PROFILE */
+
+.profileHead{
+  margin-top:17px;
+  padding:20px;
+  border-radius:22px;
+  background:#12161a;
+  border:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:13px
+}
+
+.avatar{
+  width:52px;
+  height:52px;
+  border-radius:18px;
+  display:grid;
+  place-items:center;
+  background:#1d2721;
+  color:var(--green);
+  font-weight:900;
+  font-size:20px
+}
+
+.profileName{
+  font-size:15px;
+  font-weight:850
+}
+
+.profileId{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:10px
+}
+
+.menu{
+  margin-top:13px;
+  display:flex;
+  flex-direction:column;
+  gap:8px
+}
+
+.menuBtn{
+  width:100%;
+  padding:15px;
+  border-radius:17px;
+  background:#12161a;
+  border:1px solid var(--border);
+  color:#f2f4f3;
+  text-align:left;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:13px;
+  font-weight:750
+}
+
+.menuIcon{
+  width:35px;
+  height:35px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  background:#1a201e;
+  color:var(--green)
+}
+
+/* NAV */
+
+.bottomNav{
+  position:fixed;
+  z-index:50;
+  left:10px;
+  right:10px;
+  bottom:10px;
+  height:68px;
+  border-radius:23px;
+  background:rgba(17,20,25,.94);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.09);
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  box-shadow:0 15px 45px rgba(0,0,0,.5)
+}
+
+.navBtn{
+  background:none;
+  color:#6f7873;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  font-size:9px;
+  font-weight:750
+}
+
+.navBtn.active{
+  color:var(--green)
+}
+
+.navIcon{
+  width:22px;
+  height:22px
+}
+
+.navIcon svg{
+  width:100%;
+  height:100%;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.8;
+  stroke-linecap:round;
+  stroke-linejoin:round
+}
+
+/* MODAL */
+
+.modal{
   position:fixed;
   z-index:100;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding:10px
+}
+
+.modalBox{
+  width:min(500px,100%);
+  max-height:92vh;
+  overflow:auto;
+  border-radius:28px;
+  background:#111419;
+  border:1px solid rgba(255,255,255,.1);
+  padding:21px;
+  box-shadow:0 30px 100px rgba(0,0,0,.65);
+  animation:modalIn .18s ease
+}
+
+@keyframes modalIn{
+  from{
+    transform:translateY(25px);
+    opacity:0
+  }
+  to{
+    transform:translateY(0);
+    opacity:1
+  }
+}
+
+.modalTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:17px
+}
+
+.modalTitle{
+  font-size:19px;
+  font-weight:900
+}
+
+.close{
+  width:34px;
+  height:34px;
+  border-radius:12px;
+  background:#1b2025;
+  color:#aab2ad;
+  font-size:17px
+}
+
+.field{
+  margin-bottom:11px
+}
+
+.field label{
+  display:block;
+  margin:0 0 6px 3px;
+  color:#8f9792;
+  font-size:10px;
+  font-weight:750
+}
+
+.field input{
+  width:100%;
+  padding:13px 14px;
+  border-radius:14px;
+  background:#181c21;
+  border:1px solid var(--border);
+  color:#fff
+}
+
+.message{
+  min-height:17px;
+  margin:8px 2px;
+  color:#ff8587;
+  font-size:11px
+}
+
+/* OTP */
+
+.otpCode{
+  width:100%;
+  text-align:center;
+  letter-spacing:9px;
+  font-size:26px!important;
+  font-weight:900
+}
+
+.otpInfo{
+  color:var(--muted);
+  text-align:center;
+  font-size:12px;
+  line-height:1.5;
+  margin-bottom:15px
+}
+
+/* QR */
+
+.qrWrap{
+  display:flex;
+  justify-content:center;
+  padding:20px
+}
+
+#qrCanvas{
+  padding:15px;
+  background:#fff;
+  border-radius:18px
+}
+
+.novaIdBox{
+  text-align:center;
+  padding:13px;
+  border-radius:15px;
+  background:#181c21;
+  color:var(--green);
+  font-weight:850;
+  letter-spacing:1px
+}
+
+.scanner{
+  width:100%;
+  aspect-ratio:1;
+  background:#050606;
+  border-radius:20px;
+  overflow:hidden;
+  position:relative
+}
+
+#scannerVideo{
+  width:100%;
+  height:100%;
+  object-fit:cover
+}
+
+.scanLine{
+  position:absolute;
+  left:15%;
+  right:15%;
+  top:50%;
+  height:2px;
+  background:var(--green);
+  box-shadow:0 0 14px var(--green)
+}
+
+/* TOAST */
+
+#toast{
+  position:fixed;
+  z-index:300;
   left:50%;
-  bottom:96px;
-  transform:translateX(-50%) translateY(20px);
-  background:#f5fff9;
-  color:#07120d;
+  bottom:94px;
+  transform:translateX(-50%) translateY(15px);
+  background:#f4f7f5;
+  color:#09100c;
   padding:11px 15px;
   border-radius:14px;
   font-size:12px;
-  font-weight:700;
+  font-weight:800;
   opacity:0;
   pointer-events:none;
-  transition:.2s
+  transition:.2s;
+  max-width:90%;
+  text-align:center
 }
-.toast.show{
+
+#toast.show{
   opacity:1;
-  transform:translateX(-50%)
+  transform:translateX(-50%) translateY(0)
 }
-@keyframes sheet{
-  from{transform:translateY(40px);opacity:0}
-  to{transform:none;opacity:1}
-}
-@media(max-width:380px){
-  .heroBalance{font-size:37px}
-  .quick{font-size:10px}
-  .quickIcon{
-    width:27px;
-    height:27px
+
+/* RESPONSIVE */
+
+@media(max-width:360px){
+  .balance{
+    font-size:33px
+  }
+
+  .actionGrid{
+    gap:7px
+  }
+
+  .key{
+    height:58px
   }
 }
 </style>
@@ -711,172 +939,174 @@ input{outline:0}
 
 <body>
 
-<div id="loginScreen">
-  <div class="loginWrap">
+<!-- LOGIN -->
 
-    <div class="logo">NOVA</div>
+<section id="loginScreen" class="screen">
 
-    <div class="loginSub" id="loginSub">
-      Enter your 4-digit login PIN
+  <div class="loginLogo">N</div>
+
+  <div class="loginTitle">Welcome to NOVA</div>
+
+  <div class="loginSub">
+    Enter your login PIN to continue
+  </div>
+
+  <div id="pinDots" class="pinDots">
+    <div class="pinDot"></div>
+    <div class="pinDot"></div>
+    <div class="pinDot"></div>
+    <div class="pinDot"></div>
+  </div>
+
+  <div class="keypad">
+
+    <div class="keyRow">
+      <button class="key" onclick="pressPin('1')">1</button>
+      <button class="key" onclick="pressPin('2')">2</button>
+      <button class="key" onclick="pressPin('3')">3</button>
     </div>
 
-    <div class="pinDots" id="pinDots"></div>
-
-    <div class="pinError" id="pinError"></div>
-
-    <div class="keypad">
-
-      <button class="key" onclick="pinKey('1')">1</button>
-      <button class="key" onclick="pinKey('2')">2</button>
-      <button class="key" onclick="pinKey('3')">3</button>
-
-      <button class="key" onclick="pinKey('4')">4</button>
-      <button class="key" onclick="pinKey('5')">5</button>
-      <button class="key" onclick="pinKey('6')">6</button>
-
-      <button class="key" onclick="pinKey('7')">7</button>
-      <button class="key" onclick="pinKey('8')">8</button>
-      <button class="key" onclick="pinKey('9')">9</button>
-
-      <button class="key action" onclick="clearPin()">Clear</button>
-      <button class="key" onclick="pinKey('0')">0</button>
-      <button class="key action" onclick="backPin()">Delete</button>
-
+    <div class="keyRow">
+      <button class="key" onclick="pressPin('4')">4</button>
+      <button class="key" onclick="pressPin('5')">5</button>
+      <button class="key" onclick="pressPin('6')">6</button>
     </div>
 
-    <div class="loginLinks">
-      <button onclick="openModal('createAccountModal')">
-        Create account
-      </button>
+    <div class="keyRow">
+      <button class="key" onclick="pressPin('7')">7</button>
+      <button class="key" onclick="pressPin('8')">8</button>
+      <button class="key" onclick="pressPin('9')">9</button>
+    </div>
 
-      <button onclick="openForgotPin()">
-        Forgot PIN?
-      </button>
+    <div class="keyRow">
+      <button class="key empty"></button>
+      <button class="key" onclick="pressPin('0')">0</button>
+      <button class="key" onclick="deletePin()">⌫</button>
     </div>
 
   </div>
-</div>
 
-<div id="app" class="hidden">
+  <div class="loginActions">
+    <button class="textBtn" onclick="openModal('recoveryModal')">
+      Forgot login PIN?
+    </button>
+  </div>
 
-  <main id="homePage" class="page active">
+  <button
+    class="primary"
+    style="max-width:350px;margin:25px auto 0"
+    onclick="openModal('createModal')">
+    Create new account
+  </button>
 
-    <div class="topbar">
+</section>
 
-      <div>
-        <span class="brand">NOVA</span>
-        <span class="version">v27</span>
-      </div>
 
-      <div class="status">
-        <span id="statusDot" class="statusDot"></span>
-        <span id="statusText">Offline</span>
-      </div>
+<!-- APP -->
 
+<section id="app" class="hidden">
+
+  <div class="topbar">
+
+    <div class="brand">
+      N<span>OVA</span>
     </div>
 
-    <div class="greeting" id="greeting">
+    <div id="onlineStatus" class="status">
+      <span class="statusDot"></span>
+      <span id="statusText">Offline</span>
+    </div>
+
+  </div>
+
+
+  <!-- HOME -->
+
+  <main id="homePage" class="page">
+
+    <div class="greeting">
       Good evening
     </div>
 
-    <div class="balanceRow">
+    <div id="homeName" class="homeName">
+      Welcome
+    </div>
 
-      <div class="heroBalance" id="balance">
+    <div class="balanceCard">
+
+      <div class="balanceLabel">
+
+        <span>Available balance</span>
+
+        <button
+          id="balanceEye"
+          class="eye"
+          onclick="toggleBalance()">
+          ◉
+        </button>
+
+      </div>
+
+      <div id="balanceAmount" class="balance">
         ₦0.00
       </div>
 
-      <button
-        class="eyeBtn"
-        id="eyeBtn"
-        onclick="toggleBalance()">
-        ◉
-      </button>
-
-    </div>
-
-    <div class="card virtualCard">
-
-      <div class="novaCardTitle">
-        NOVA
-      </div>
-
-      <div class="chip"></div>
-
-      <div class="cardNumber">
-        ••••  ••••  ••••  4827
-      </div>
-
-      <div class="cardBottom">
-        <span id="virtualName">NOVA MEMBER</span>
-        <span>VIRTUAL</span>
+      <div id="accountMeta" class="accountMeta">
+        NOVA account
       </div>
 
     </div>
 
-    <div class="quickGrid">
 
-      <button
-        class="quick"
-        onclick="openModal('sendModal')">
-        <span class="quickIcon">↗</span>
+    <div class="actionGrid">
+
+      <button class="action" onclick="openModal('sendModal')">
+        <div class="actionIcon">↑</div>
         Send
       </button>
 
-      <button
-        class="quick"
-        onclick="openModal('requestModal')">
-        <span class="quickIcon">↙</span>
+      <button class="action" onclick="openModal('requestModal')">
+        <div class="actionIcon">↓</div>
         Request
       </button>
 
-      <button
-        class="quick"
-        onclick="openModal('addMoneyModal')">
-        <span class="quickIcon">＋</span>
-        Add money
+      <button class="action" onclick="openModal('addMoneyModal')">
+        <div class="actionIcon">+</div>
+        Add
       </button>
 
-      <button
-        class="quick"
-        onclick="openPersonalQR()">
-        <span class="quickIcon">⌁</span>
-        My QR
+      <button class="action" onclick="openQRModal()">
+        <div class="actionIcon">⌁</div>
+        QR
       </button>
 
     </div>
+
 
     <div class="sectionTitle">
-
-      <h2>
-        Recent activity
-      </h2>
-
-      <button onclick="showPage('activityPage')">
-        See all
-      </button>
-
+      Recent activity
     </div>
 
-    <div id="homeTransactions"></div>
+    <div id="homeTransactions" class="txList"></div>
 
   </main>
 
 
-  <main id="activityPage" class="page">
+  <!-- ACTIVITY -->
 
-    <div class="topbar">
-      <div>
-        <span class="brand">Activity</span>
-      </div>
+  <main id="activityPage" class="page hidden">
+
+    <div class="sectionTitle" style="margin-top:15px">
+      Activity
     </div>
 
     <input
       id="activitySearch"
       class="search"
-      placeholder="Search transactions..."
+      placeholder="Search transactions"
       oninput="renderActivity()">
 
-    <div class="filterRow">
+    <div class="filters">
 
       <button
         class="filter active"
@@ -887,70 +1117,75 @@ input{outline:0}
       <button
         class="filter"
         onclick="setFilter('income',this)">
-        Money in
+        Income
       </button>
 
       <button
         class="filter"
         onclick="setFilter('expense',this)">
-        Money out
+        Expenses
       </button>
 
     </div>
 
     <div
-      id="activityList"
+      id="activityTransactions"
+      class="txList"
       style="margin-top:14px">
     </div>
 
   </main>
 
 
-  <main id="cardsPage" class="page">
+  <!-- CARDS -->
 
-    <div class="topbar">
+  <main id="cardsPage" class="page hidden">
 
-      <div>
-        <span class="brand">Cards</span>
+    <div class="sectionTitle" style="margin-top:15px">
+      Bank cards
+    </div>
+
+    <div class="cardVisual">
+
+      <div class="cardBrand">
+        NOVA
       </div>
 
-      <button
-        class="smallBtn"
-        style="flex:0 0 auto"
-        onclick="openModal('addCardModal')">
-        ＋ Add
-      </button>
+      <div class="cardChip"></div>
+
+      <div class="cardNumber">
+        •••• •••• •••• 4821
+      </div>
+
+      <div class="cardBottom">
+        <span>NOVA MEMBER</span>
+        <span>12/29</span>
+      </div>
 
     </div>
 
-    <div class="notice">
-      For this prototype, NOVA stores only safe card metadata.
-      Full card numbers and CVV are never saved.
+    <button
+      class="primary"
+      style="margin-top:15px"
+      onclick="openModal('cardModal')">
+      + Add bank card
+    </button>
+
+    <div class="sectionTitle">
+      Saved cards
     </div>
 
-    <div
-      id="cardsList"
-      class="cardList">
-    </div>
+    <div id="savedCards" class="cardList"></div>
 
   </main>
 
 
-  <main id="spacesPage" class="page">
+  <!-- SPACES -->
 
-    <div class="topbar">
+  <main id="spacesPage" class="page hidden">
 
-      <div>
-        <span class="brand">Spaces</span>
-      </div>
-
-      <button
-        class="smallBtn"
-        style="flex:0 0 auto"
-        onclick="openModal('spaceModal')">
-        ＋ New
-      </button>
-
+    <div class="sectionTitle" style="margin-top:15px">
+      Spaces
     </div>
 
     <div id="spacesList"></div>
@@ -958,161 +1193,88 @@ input{outline:0}
   </main>
 
 
-  <main id="profilePage" class="page">
+  <!-- PROFILE -->
 
-    <div class="topbar">
-      <div>
-        <span class="brand">Profile</span>
-      </div>
+  <main id="profilePage" class="page hidden">
+
+    <div class="sectionTitle" style="margin-top:15px">
+      Profile
     </div>
 
-    <div class="profileHero">
+    <div class="profileHead">
 
-      <div
-        class="avatar"
-        id="avatar">
+      <div id="avatar" class="avatar">
         N
       </div>
 
-      <div
-        class="profileName"
-        id="profileName">
-        NOVA Member
-      </div>
+      <div>
 
-      <div
-        class="novaId"
-        id="profileNovaId">
-        NOVA-000000
+        <div id="profileName" class="profileName">
+          NOVA User
+        </div>
+
+        <div id="profileId" class="profileId">
+          NOVA ID
+        </div>
+
       </div>
 
     </div>
 
-    <div class="card profileMenu">
+
+    <div class="menu">
 
       <button
-        class="menuItem"
-        onclick="openPersonalQR()">
+        class="menuBtn"
+        onclick="openQRModal()">
 
-        <span class="menuIcon">
-          ⌁
-        </span>
+        <div class="menuIcon">⌁</div>
 
-        <span class="menuText">
-
-          <span class="menuTitle">
-            Personal QR
-          </span>
-
-          <span class="menuSub">
-            Let another NOVA user scan you
-          </span>
-
-        </span>
-
-        <span>›</span>
+        <span>My NOVA QR</span>
 
       </button>
 
 
       <button
-        class="menuItem"
+        class="menuBtn"
         onclick="openModal('securityModal')">
 
-        <span class="menuIcon">
-          ⌁
-        </span>
+        <div class="menuIcon">⌕</div>
 
-        <span class="menuText">
-
-          <span class="menuTitle">
-            Security & PINs
-          </span>
-
-          <span class="menuSub">
-            Change your login and transaction PINs
-          </span>
-
-        </span>
-
-        <span>›</span>
+        <span>Security & PINs</span>
 
       </button>
 
 
       <button
-        class="menuItem"
+        class="menuBtn"
         onclick="openModal('onlineModal')">
 
-        <span class="menuIcon">
-          ●
-        </span>
+        <div class="menuIcon">☁</div>
 
-        <span class="menuText">
-
-          <span class="menuTitle">
-            Online account
-          </span>
-
-          <span class="menuSub">
-            Cloud authentication and sync
-          </span>
-
-        </span>
-
-        <span>›</span>
+        <span>Online account</span>
 
       </button>
 
 
       <button
-        class="menuItem"
-        onclick="openModal('helpModal')">
+        class="menuBtn"
+        onclick="toast('Help centre coming soon')">
 
-        <span class="menuIcon">
-          ?
-        </span>
+        <div class="menuIcon">?</div>
 
-        <span class="menuText">
-
-          <span class="menuTitle">
-            Help
-          </span>
-
-          <span class="menuSub">
-            NOVA support and information
-          </span>
-
-        </span>
-
-        <span>›</span>
+        <span>Help & support</span>
 
       </button>
 
 
       <button
-        class="menuItem"
+        class="menuBtn danger"
         onclick="logout()">
 
-        <span
-          class="menuIcon"
-          style="color:#ff7777">
-          ↪
-        </span>
+        <div class="menuIcon">↪</div>
 
-        <span class="menuText">
-
-          <span class="menuTitle">
-            Log out
-          </span>
-
-          <span class="menuSub">
-            Lock this device
-          </span>
-
-        </span>
-
-        <span>›</span>
+        <span>Log out</span>
 
       </button>
 
@@ -1121,17 +1283,21 @@ input{outline:0}
   </main>
 
 
+  <!-- NAV -->
+
   <nav class="bottomNav">
 
     <button
       class="navBtn active"
       data-page="homePage"
-      onclick="showPage('homePage')">
+      onclick="showPage('homePage',this)">
 
-      <svg viewBox="0 0 24 24">
-        <path d="M3 10.5 12 3l9 7.5"/>
-        <path d="M5.5 9.5V21h13V9.5M9.5 21v-7h5v7"/>
-      </svg>
+      <span class="navIcon">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 11.5 12 4l9 7.5"/>
+          <path d="M5 10v10h14V10"/>
+        </svg>
+      </span>
 
       Home
 
@@ -1141,11 +1307,17 @@ input{outline:0}
     <button
       class="navBtn"
       data-page="activityPage"
-      onclick="showPage('activityPage')">
+      onclick="showPage('activityPage',this)">
 
-      <svg viewBox="0 0 24 24">
-        <path d="M5 12h3l2-6 4 12 2-6h3"/>
-      </svg>
+      <span class="navIcon">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 19V5"/>
+          <path d="M8 16v3"/>
+          <path d="M12 11v8"/>
+          <path d="M16 7v12"/>
+          <path d="M20 4v15"/>
+        </svg>
+      </span>
 
       Activity
 
@@ -1155,12 +1327,14 @@ input{outline:0}
     <button
       class="navBtn"
       data-page="cardsPage"
-      onclick="showPage('cardsPage')">
+      onclick="showPage('cardsPage',this)">
 
-      <svg viewBox="0 0 24 24">
-        <rect x="3" y="5" width="18" height="14" rx="2"/>
-        <path d="M3 10h18"/>
-      </svg>
+      <span class="navIcon">
+        <svg viewBox="0 0 24 24">
+          <rect x="3" y="5" width="18" height="14" rx="3"/>
+          <path d="M3 10h18"/>
+        </svg>
+      </span>
 
       Cards
 
@@ -1170,12 +1344,14 @@ input{outline:0}
     <button
       class="navBtn"
       data-page="spacesPage"
-      onclick="showPage('spacesPage')">
+      onclick="showPage('spacesPage',this)">
 
-      <svg viewBox="0 0 24 24">
-        <path d="M4 6h16v12H4z"/>
-        <path d="M8 6v12M8 10h8"/>
-      </svg>
+      <span class="navIcon">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="8"/>
+          <path d="M12 7v10M7 12h10"/>
+        </svg>
+      </span>
 
       Spaces
 
@@ -1185,12 +1361,14 @@ input{outline:0}
     <button
       class="navBtn"
       data-page="profilePage"
-      onclick="showPage('profilePage')">
+      onclick="showPage('profilePage',this)">
 
-      <svg viewBox="0 0 24 24">
-        <circle cx="12" cy="8" r="3.5"/>
-        <path d="M5 21c.7-4 3-6 7-6s6.3 2 7 6"/>
-      </svg>
+      <span class="navIcon">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 20c1.5-4 4.2-6 8-6s6.5 2 8 6"/>
+        </svg>
+      </span>
 
       Profile
 
@@ -1198,113 +1376,85 @@ input{outline:0}
 
   </nav>
 
-</div>
+</section>
 
 
-<!-- CREATE ACCOUNT -->
+<!-- CREATE ACCOUNT MODAL -->
 
-<div
-  id="createAccountModal"
-  class="modal">
+<div id="createModal" class="modal hidden">
 
-  <div class="sheet">
+  <div class="modalBox">
 
-    <div class="sheetTop">
+    <div class="modalTop">
 
-      <h3>
-        Create your NOVA account
-      </h3>
+      <div class="modalTitle">
+        Create NOVA account
+      </div>
 
       <button
         class="close"
-        onclick="closeModal('createAccountModal')">
+        onclick="closeModal('createModal')">
         ×
       </button>
 
     </div>
 
-    <div class="notice">
-      New accounts start at ₦0.00.
-      Your National ID is used only for the onboarding prototype
-      and is not stored in the browser profile.
-    </div>
 
     <div class="field">
-
-      <label>
-        Full name
-      </label>
-
+      <label>FULL NAME</label>
       <input
-        id="newName"
-        placeholder="Your full name">
-
+        id="createName"
+        placeholder="Your full name"
+        autocomplete="name">
     </div>
 
+
     <div class="field">
-
-      <label>
-        Phone number
-      </label>
-
+      <label>PHONE NUMBER</label>
       <input
-        id="newPhone"
+        id="createPhone"
+        placeholder="+2348012345678"
         type="tel"
-        placeholder="+2348012345678">
-
+        autocomplete="tel">
     </div>
+
 
     <div class="field">
-
-      <label>
-        National ID
-      </label>
-
+      <label>NATIONAL ID</label>
       <input
-        id="newNid"
+        id="createNationalId"
+        placeholder="National ID"
+        type="text">
+    </div>
+
+
+    <div class="field">
+      <label>LOGIN PIN</label>
+      <input
+        id="createLoginPin"
+        placeholder="4 digits"
+        maxlength="4"
         inputmode="numeric"
-        placeholder="National ID">
-
+        type="password">
     </div>
 
-    <div class="row2">
 
-      <div class="field">
-
-        <label>
-          Login PIN
-        </label>
-
-        <input
-          id="newLoginPin"
-          inputmode="numeric"
-          maxlength="4"
-          placeholder="4 digits">
-
-      </div>
-
-      <div class="field">
-
-        <label>
-          Transaction PIN
-        </label>
-
-        <input
-          id="newTxPin"
-          inputmode="numeric"
-          maxlength="4"
-          placeholder="4 digits">
-
-      </div>
-
+    <div class="field">
+      <label>TRANSACTION PIN</label>
+      <input
+        id="createTransactionPin"
+        placeholder="4 digits"
+        maxlength="4"
+        inputmode="numeric"
+        type="password">
     </div>
 
-    <div
-      id="createMsg"
-      class="modalMsg">
-    </div>
+
+    <div id="createMsg" class="message"></div>
+
 
     <button
+      id="createAccountBtn"
       class="primary"
       onclick="startAccountOTP()">
       Continue with phone OTP
@@ -1315,19 +1465,17 @@ input{outline:0}
 </div>
 
 
-<!-- OTP -->
+<!-- OTP MODAL -->
 
-<div
-  id="otpModal"
-  class="modal">
+<div id="otpModal" class="modal hidden">
 
-  <div class="sheet">
+  <div class="modalBox">
 
-    <div class="sheetTop">
+    <div class="modalTop">
 
-      <h3>
-        Verify your phone
-      </h3>
+      <div class="modalTitle">
+        Verify phone
+      </div>
 
       <button
         class="close"
@@ -1337,39 +1485,39 @@ input{outline:0}
 
     </div>
 
-    <div class="notice">
-      NOVA will verify the phone through Supabase Auth.
-      SMS delivery must be configured in your Supabase project.
+
+    <div id="otpInfo" class="otpInfo">
+      Enter the verification code sent to your phone.
     </div>
+
 
     <div class="field">
 
-      <label>
-        6-digit OTP
-      </label>
-
       <input
         id="otpCode"
-        inputmode="numeric"
+        class="otpCode"
         maxlength="6"
-        placeholder="000000">
+        inputmode="numeric"
+        placeholder="••••••">
 
     </div>
 
-    <div
-      id="otpMsg"
-      class="modalMsg">
-    </div>
+
+    <div id="otpMsg" class="message"></div>
+
 
     <button
+      id="verifyOtpBtn"
       class="primary"
       onclick="verifyAccountOTP()">
       Verify & create account
     </button>
 
+
     <button
       id="resendOtpBtn"
       class="secondary"
+      style="margin-top:9px"
       onclick="sendPhoneOTP()">
       Resend code
     </button>
@@ -1379,55 +1527,65 @@ input{outline:0}
 </div>
 
 
-<!-- FORGOT PIN -->
+<!-- RECOVERY MODAL -->
 
-<div
-  id="forgotModal"
-  class="modal">
+<div id="recoveryModal" class="modal hidden">
 
-  <div class="sheet">
+  <div class="modalBox">
 
-    <div class="sheetTop">
+    <div class="modalTop">
 
-      <h3>
-        Forgot PIN
-      </h3>
+      <div class="modalTitle">
+        Recover PIN
+      </div>
 
       <button
         class="close"
-        onclick="closeModal('forgotModal')">
+        onclick="closeModal('recoveryModal')">
         ×
       </button>
 
     </div>
 
-    <div class="notice">
-      Choose a PIN recovery path.
-      A real phone recovery requires Supabase phone authentication
-      to be configured.
-    </div>
 
     <div class="field">
 
-      <label>
-        Phone number
-      </label>
+      <label>PHONE NUMBER</label>
 
       <input
-        id="forgotPhone"
+        id="recoveryPhone"
         type="tel"
         placeholder="+2348012345678">
 
     </div>
 
-    <div
-      id="forgotMsg"
-      class="modalMsg">
+
+    <div class="field">
+
+      <label>WHAT DO YOU WANT TO RECOVER?</label>
+
+      <select
+        id="recoveryType"
+        style="
+          width:100%;
+          padding:13px;
+          border-radius:14px;
+          background:#181c21;
+          border:1px solid var(--border);
+          color:#fff">
+        <option value="login">Login PIN</option>
+        <option value="transaction">Transaction PIN</option>
+      </select>
+
     </div>
+
+
+    <div id="recoveryMsg" class="message"></div>
+
 
     <button
       class="primary"
-      onclick="startForgotOTP()">
+      onclick="startRecoveryOTP()">
       Send recovery OTP
     </button>
 
@@ -1436,78 +1594,62 @@ input{outline:0}
 </div>
 
 
-<div
-  id="forgotOtpModal"
-  class="modal">
+<!-- RECOVERY OTP -->
 
-  <div class="sheet">
+<div id="recoveryOtpModal" class="modal hidden">
 
-    <div class="sheetTop">
+  <div class="modalBox">
 
-      <h3>
+    <div class="modalTop">
+
+      <div class="modalTitle">
         Verify recovery
-      </h3>
+      </div>
 
       <button
         class="close"
-        onclick="closeModal('forgotOtpModal')">
+        onclick="closeModal('recoveryOtpModal')">
         ×
       </button>
 
     </div>
 
+
     <div class="field">
 
-      <label>
-        OTP
-      </label>
+      <label>OTP CODE</label>
 
       <input
-        id="forgotOtp"
+        id="recoveryOtp"
+        class="otpCode"
+        maxlength="6"
         inputmode="numeric"
-        maxlength="6">
+        placeholder="••••••">
 
     </div>
 
-    <div class="row2">
 
-      <div class="field">
+    <div class="field">
 
-        <label>
-          New login PIN
-        </label>
+      <label>NEW PIN</label>
 
-        <input
-          id="recoverLoginPin"
-          inputmode="numeric"
-          maxlength="4">
-
-      </div>
-
-      <div class="field">
-
-        <label>
-          New transaction PIN
-        </label>
-
-        <input
-          id="recoverTxPin"
-          inputmode="numeric"
-          maxlength="4">
-
-      </div>
+      <input
+        id="recoveryNewPin"
+        type="password"
+        maxlength="4"
+        inputmode="numeric"
+        placeholder="4 digits">
 
     </div>
 
-    <div
-      id="forgotOtpMsg"
-      class="modalMsg">
-    </div>
+
+    <div id="recoveryOtpMsg" class="message"></div>
+
 
     <button
       class="primary"
-      onclick="finishForgotOTP()">
-      Update PINs
+      onclick="finishRecovery()">
+      Change PIN
     </button>
 
   </div>
@@ -1517,17 +1659,15 @@ input{outline:0}
 
 <!-- SEND -->
 
-<div
-  id="sendModal"
-  class="modal">
+<div id="sendModal" class="modal hidden">
 
-  <div class="sheet">
+  <div class="modalBox">
 
-    <div class="sheetTop">
+    <div class="modalTop">
 
-      <h3>
+      <div class="modalTitle">
         Send money
-      </h3>
+      </div>
 
       <button
         class="close"
@@ -1537,45 +1677,44 @@ input{outline:0}
 
     </div>
 
+
     <div class="field">
 
-      <label>
-        Recipient NOVA ID
-      </label>
+      <label>RECIPIENT NOVA ID</label>
 
       <input
-        id="sendNovaId"
-        placeholder="NOVA-123456">
+        id="sendRecipient"
+        placeholder="NOVA-XXXXXX">
 
     </div>
 
-    <div class="field">
 
-      <label>
-        Amount
-      </label>
+    <button
+      class="secondary"
+      onclick="openScanner()">
+      Scan QR instead
+    </button>
+
+
+    <div class="field" style="margin-top:12px">
+
+      <label>AMOUNT</label>
 
       <input
         id="sendAmount"
-        inputmode="decimal"
+        type="number"
+        min="1"
         placeholder="₦0.00">
 
     </div>
 
-    <div
-      id="sendMsg"
-      class="modalMsg">
-    </div>
 
-    <button
-      class="secondary"
-      onclick="scanForRecipient()">
-      Scan recipient QR
-    </button>
+    <div id="sendMsg" class="message"></div>
+
 
     <button
       class="primary"
-      onclick="sendMoney()">
+      onclick="prepareSend()">
       Continue
     </button>
 
@@ -1586,56 +1725,50 @@ input{outline:0}
 
 <!-- TRANSACTION PIN -->
 
-<div
-  id="txPinModal"
-  class="modal">
+<div id="transactionPinModal" class="modal hidden">
 
-  <div class="sheet">
+  <div class="modalBox">
 
-    <div class="sheetTop">
+    <div class="modalTop">
 
-      <h3>
+      <div class="modalTitle">
         Confirm transaction
-      </h3>
+      </div>
 
       <button
         class="close"
-        onclick="closeModal('txPinModal')">
+        onclick="closeModal('transactionPinModal')">
         ×
       </button>
 
     </div>
 
-    <div
-      class="notice"
-      id="txConfirmText">
-      Enter your transaction PIN to continue.
+
+    <div class="otpInfo">
+      Enter your transaction PIN to confirm this transfer.
     </div>
+
 
     <div class="field">
 
-      <label>
-        Transaction PIN
-      </label>
-
       <input
-        id="txConfirmPin"
+        id="transactionPinInput"
+        class="otpCode"
         type="password"
-        inputmode="numeric"
         maxlength="4"
+        inputmode="numeric"
         placeholder="••••">
 
     </div>
 
-    <div
-      id="txPinMsg"
-      class="modalMsg">
-    </div>
+
+    <div id="transactionPinMsg" class="message"></div>
+
 
     <button
       class="primary"
-      onclick="confirmTransfer()">
-      Confirm
+      onclick="confirmSend()">
+      Confirm transfer
     </button>
 
   </div>
@@ -1645,17 +1778,15 @@ input{outline:0}
 
 <!-- REQUEST -->
 
-<div
-  id="requestModal"
-  class="modal">
+<div id="requestModal" class="modal hidden">
 
-  <div class="sheet">
+  <div class="modalBox">
 
-    <div class="sheetTop">
+    <div class="modalTop">
 
-      <h3>
+      <div class="modalTitle">
         Request money
-      </h3>
+      </div>
 
       <button
         class="close"
@@ -1665,35 +1796,29 @@ input{outline:0}
 
     </div>
 
+
     <div class="field">
 
-      <label>
-        From NOVA ID
-      </label>
+      <label>FROM NOVA ID</label>
 
       <input
-        id="requestNovaId"
-        placeholder="NOVA-123456">
+        id="requestFrom"
+        placeholder="NOVA-XXXXXX">
 
     </div>
 
+
     <div class="field">
 
-      <label>
-        Amount
-      </label>
+      <label>AMOUNT</label>
 
       <input
         id="requestAmount"
-        inputmode="decimal"
+        type="number"
         placeholder="₦0.00">
 
     </div>
 
-    <div
-      id="requestMsg"
-      class="modalMsg">
-    </div>
 
     <button
       class="primary"
@@ -1708,17 +1833,15 @@ input{outline:0}
 
 <!-- ADD MONEY -->
 
-<div
-  id="addMoneyModal"
-  class="modal">
+<div id="addMoneyModal" class="modal hidden">
 
-  <div class="sheet">
+  <div class="modalBox">
 
-    <div class="sheetTop">
+    <div class="modalTop">
 
-      <h3>
+      <div class="modalTitle">
         Add money
-      </h3>
+      </div>
 
       <button
         class="close"
@@ -1728,34 +1851,23 @@ input{outline:0}
 
     </div>
 
-    <div class="notice">
-      Demo funding only.
-      Connect a regulated payment processor such as
-      Paystack/Flutterwave/Stripe before using real money.
-    </div>
 
     <div class="field">
 
-      <label>
-        Amount
-      </label>
+      <label>AMOUNT</label>
 
       <input
-        id="fundAmount"
-        inputmode="decimal"
+        id="addMoneyAmount"
+        type="number"
         placeholder="₦0.00">
 
     </div>
 
-    <div
-      id="fundMsg"
-      class="modalMsg">
-    </div>
 
     <button
       class="primary"
-      onclick="demoFund()">
-      Add demo money
+      onclick="addMoney()">
+      Add money
     </button>
 
   </div>
@@ -1763,67 +1875,56 @@ input{outline:0}
 </div>
 
 
-<!-- CARDS -->
+<!-- CARD -->
 
-<div
-  id="addCardModal"
-  class="modal">
+<div id="cardModal" class="modal hidden">
 
-  <div class="sheet">
+  <div class="modalBox">
 
-    <div class="sheetTop">
+    <div class="modalTop">
 
-      <h3>
+      <div class="modalTitle">
         Add bank card
-      </h3>
+      </div>
 
       <button
         class="close"
-        onclick="closeModal('addCardModal')">
+        onclick="closeModal('cardModal')">
         ×
       </button>
 
     </div>
 
-    <div class="notice">
-      Prototype-safe mode:
-      only holder name, brand, nickname, last 4 digits and expiry
-      are retained. Full PAN and CVV are discarded immediately.
-    </div>
 
     <div class="field">
 
-      <label>
-        Card holder
-      </label>
+      <label>CARDHOLDER NAME</label>
 
       <input
         id="cardHolder"
-        placeholder="NAME ON CARD">
+        placeholder="Name on card">
 
     </div>
 
+
     <div class="field">
 
-      <label>
-        Card number
-      </label>
+      <label>CARD NUMBER</label>
 
       <input
         id="cardNumberInput"
         inputmode="numeric"
         maxlength="19"
-        placeholder="0000 0000 0000 0000">
+        placeholder="1234 5678 9012 3456">
 
     </div>
 
-    <div class="row2">
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
 
       <div class="field">
 
-        <label>
-          Expiry
-        </label>
+        <label>EXPIRY</label>
 
         <input
           id="cardExpiry"
@@ -1832,107 +1933,41 @@ input{outline:0}
 
       </div>
 
+
       <div class="field">
 
-        <label>
-          CVV
-        </label>
+        <label>CVV</label>
 
         <input
-          id="cardCvv"
+          id="cardCVV"
+          type="password"
           inputmode="numeric"
           maxlength="4"
-          type="password"
-          placeholder="•••">
+          placeholder="CVV">
 
       </div>
 
     </div>
 
+
     <div class="field">
 
-      <label>
-        Nickname
-      </label>
+      <label>NICKNAME</label>
 
       <input
         id="cardNickname"
-        placeholder="Main card">
+        placeholder="My main card">
 
     </div>
 
-    <div
-      id="cardMsg"
-      class="modalMsg">
-    </div>
+
+    <div id="cardMsg" class="message"></div>
+
 
     <button
       class="primary"
-      onclick="addBankCard()">
+      onclick="saveCard()">
       Save card
-    </button>
-
-  </div>
-
-</div>
-
-
-<!-- SPACES -->
-
-<div
-  id="spaceModal"
-  class="modal">
-
-  <div class="sheet">
-
-    <div class="sheetTop">
-
-      <h3>
-        New Space
-      </h3>
-
-      <button
-        class="close"
-        onclick="closeModal('spaceModal')">
-        ×
-      </button>
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        Name
-      </label>
-
-      <input
-        id="spaceNameInput"
-        placeholder="Emergency fund">
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        Target
-      </label>
-
-      <input
-        id="spaceTargetInput"
-        inputmode="decimal"
-        placeholder="₦150000">
-
-    </div>
-
-    <div
-      id="spaceMsg"
-      class="modalMsg">
-    </div>
-
-    <button
-      class="primary"
-      onclick="addSpace()">
-      Create Space
     </button>
 
   </div>
@@ -1942,17 +1977,15 @@ input{outline:0}
 
 <!-- QR -->
 
-<div
-  id="qrModal"
-  class="modal">
+<div id="qrModal" class="modal hidden">
 
-  <div class="sheet">
+  <div class="modalBox">
 
-    <div class="sheetTop">
+    <div class="modalTop">
 
-      <h3>
+      <div class="modalTitle">
         My NOVA QR
-      </h3>
+      </div>
 
       <button
         class="close"
@@ -1962,30 +1995,22 @@ input{outline:0}
 
     </div>
 
+
+    <div class="qrWrap">
+      <div id="qrCanvas"></div>
+    </div>
+
+
+    <div id="myNovaId" class="novaIdBox">
+      NOVA-XXXXXX
+    </div>
+
+
     <div
-      class="qrBox"
-      id="qrBox">
+      class="otpInfo"
+      style="margin-top:12px">
+      Let another NOVA user scan this code to send money to you.
     </div>
-
-    <div
-      class="idBox">
-
-      <b id="qrNovaId">
-        NOVA-000000
-      </b>
-
-    </div>
-
-    <div class="qrCaption">
-      This QR contains only your public NOVA identifier.
-      It does not contain your balance, PIN or bank-card information.
-    </div>
-
-    <button
-      class="primary"
-      onclick="copyNovaId()">
-      Copy NOVA ID
-    </button>
 
   </div>
 
@@ -1994,17 +2019,15 @@ input{outline:0}
 
 <!-- SCANNER -->
 
-<div
-  id="scannerModal"
-  class="modal">
+<div id="scannerModal" class="modal hidden">
 
-  <div class="sheet">
+  <div class="modalBox">
 
-    <div class="sheetTop">
+    <div class="modalTop">
 
-      <h3>
+      <div class="modalTitle">
         Scan NOVA QR
-      </h3>
+      </div>
 
       <button
         class="close"
@@ -2014,20 +2037,28 @@ input{outline:0}
 
     </div>
 
-    <video
-      id="scanVideo"
-      class="scanVideo"
-      playsinline>
-    </video>
 
-    <div
-      id="scanMsg"
-      class="modalMsg">
+    <div class="scanner">
+
+      <video
+        id="scannerVideo"
+        autoplay
+        playsinline>
+      </video>
+
+      <div class="scanLine"></div>
+
     </div>
+
+
+    <div class="otpInfo" style="margin-top:12px">
+      Point your camera at a NOVA QR code.
+    </div>
+
 
     <button
       class="secondary"
-      onclick="manualRecipient()">
+      onclick="manualNovaId()">
       Enter NOVA ID manually
     </button>
 
@@ -2038,17 +2069,15 @@ input{outline:0}
 
 <!-- SECURITY -->
 
-<div
-  id="securityModal"
-  class="modal">
+<div id="securityModal" class="modal hidden">
 
-  <div class="sheet">
+  <div class="modalBox">
 
-    <div class="sheetTop">
+    <div class="modalTop">
 
-      <h3>
+      <div class="modalTitle">
         Security & PINs
-      </h3>
+      </div>
 
       <button
         class="close"
@@ -2058,71 +2087,18 @@ input{outline:0}
 
     </div>
 
-    <div class="field">
-
-      <label>
-        Current login PIN
-      </label>
-
-      <input
-        id="oldLoginPin"
-        type="password"
-        inputmode="numeric"
-        maxlength="4">
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        New login PIN
-      </label>
-
-      <input
-        id="newLoginPin2"
-        type="password"
-        inputmode="numeric"
-        maxlength="4">
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        Current transaction PIN
-      </label>
-
-      <input
-        id="oldTxPin"
-        type="password"
-        inputmode="numeric"
-        maxlength="4">
-
-    </div>
-
-    <div class="field">
-
-      <label>
-        New transaction PIN
-      </label>
-
-      <input
-        id="newTxPin2"
-        type="password"
-        inputmode="numeric"
-        maxlength="4">
-
-    </div>
-
-    <div
-      id="securityMsg"
-      class="modalMsg">
-    </div>
 
     <button
-      class="primary"
-      onclick="changePins()">
-      Save PIN changes
+      class="menuBtn"
+      onclick="changePIN('login')">
+      Change login PIN
+    </button>
+
+    <button
+      class="menuBtn"
+      style="margin-top:8px"
+      onclick="changePIN('transaction')">
+      Change transaction PIN
     </button>
 
   </div>
@@ -2132,17 +2108,15 @@ input{outline:0}
 
 <!-- ONLINE -->
 
-<div
-  id="onlineModal"
-  class="modal">
+<div id="onlineModal" class="modal hidden">
 
-  <div class="sheet">
+  <div class="modalBox">
 
-    <div class="sheetTop">
+    <div class="modalTop">
 
-      <h3>
+      <div class="modalTitle">
         Online account
-      </h3>
+      </div>
 
       <button
         class="close"
@@ -2152,16 +2126,10 @@ input{outline:0}
 
     </div>
 
-    <div class="notice">
-      Cloud status means NOVA can reach your Supabase
-      authentication service. It is not a bank-account balance guarantee.
-    </div>
 
     <div class="field">
 
-      <label>
-        Email (optional legacy login)
-      </label>
+      <label>EMAIL</label>
 
       <input
         id="onlineEmail"
@@ -2170,11 +2138,10 @@ input{outline:0}
 
     </div>
 
+
     <div class="field">
 
-      <label>
-        Password
-      </label>
+      <label>PASSWORD</label>
 
       <input
         id="onlinePassword"
@@ -2183,21 +2150,14 @@ input{outline:0}
 
     </div>
 
-    <div
-      id="onlineMsg"
-      class="modalMsg">
-    </div>
+
+    <div id="onlineMsg" class="message"></div>
+
 
     <button
       class="primary"
       onclick="onlineSignIn()">
-      Sign in online
-    </button>
-
-    <button
-      class="secondary"
-      onclick="onlineSignUp()">
-      Create online login
+      Sign in / create account
     </button>
 
   </div>
@@ -2205,59 +2165,21 @@ input{outline:0}
 </div>
 
 
-<!-- HELP -->
-
-<div
-  id="helpModal"
-  class="modal">
-
-  <div class="sheet">
-
-    <div class="sheetTop">
-
-      <h3>
-        NOVA Help
-      </h3>
-
-      <button
-        class="close"
-        onclick="closeModal('helpModal')">
-        ×
-      </button>
-
-    </div>
-
-    <div class="notice">
-      NOVA v27 is a fintech interface prototype.
-      Real payments, KYC, card tokenization, fraud controls
-      and regulated money movement require a production backend
-      and approved providers.
-    </div>
-
-    <button
-      class="secondary"
-      onclick="closeModal('helpModal')">
-      Close
-    </button>
-
-  </div>
-
-</div>
-
-
-<div
-  id="toast"
-  class="toast">
-</div>
+<div id="toast"></div>
 
 
 <script>
+
+/* ================================
+   NOVA V27
+================================ */
 
 const SUPABASE_URL =
 "https://zkwdgyjujammcclimisn.supabase.co";
 
 const SUPABASE_PUBLISHABLE_KEY =
 "sb_publishable_YqjtHf9bzXYEEGrQOfPYmg_ibWbXOG1";
+
 
 let supabaseClient=null;
 
@@ -2282,20 +2204,85 @@ if(
 }
 
 
+/* STORAGE */
+
 const STATE_KEY =
 "nova-v27-state";
 
 const AUTH_KEY =
 "nova-v27-auth";
 
-const USERS_KEY =
-"nova-v27-users";
+const USER_KEY =
+"nova-v27-user";
 
-const CURRENT_USER_KEY =
-"nova-v27-current-user";
+const BALANCE_EYE_KEY =
+"nova-v27-balance-eye";
 
-const EYE_KEY =
-"nova-v27-eye";
+
+/* DEFAULT */
+
+const defaultState={
+
+  balance:125430.75,
+
+  transactions:[
+    {
+      name:"Salary",
+      date:"Today • 09:12",
+      amount:520000,
+      type:"income"
+    },
+    {
+      name:"Food & groceries",
+      date:"Yesterday • 18:42",
+      amount:-8450,
+      type:"expense"
+    },
+    {
+      name:"Transfer from Ada",
+      date:"Yesterday • 13:20",
+      amount:25000,
+      type:"income"
+    },
+    {
+      name:"Internet",
+      date:"Aug 30 • 10:04",
+      amount:-12500,
+      type:"expense"
+    }
+  ],
+
+  spaces:[
+    {
+      name:"Emergency fund",
+      amount:45000,
+      target:150000
+    },
+    {
+      name:"New phone",
+      amount:72000,
+      target:250000
+    }
+  ],
+
+  cards:[],
+
+  loginPin:"2580",
+
+  transactionPin:"7391",
+
+  name:"NOVA User",
+
+  phone:"",
+
+  novaId:""
+
+};
+
+
+let state={
+  ...defaultState
+};
 
 
 let pinBuffer="";
@@ -2316,36 +2303,14 @@ let otpRequestInProgress=false;
 
 let otpCooldownUntil=0;
 
-
-const defaultState={
-
-  balance:0,
-
-  name:"NOVA Member",
-
-  phone:"",
-
-  novaId:"",
-
-  loginPin:"2580",
-
-  transactionPin:"7391",
-
-  transactions:[],
-
-  spaces:[],
-
-  cards:[],
-
-  eyeHidden:false
-
-};
+let otpCooldownTimer=null;
 
 
-function safeNumber(
-  value,
-  fallback=0
-){
+/* ================================
+   HELPERS
+================================ */
+
+function safeNumber(value,fallback=0){
 
   if(
     value===null ||
@@ -2363,11 +2328,11 @@ function safeNumber(
 
   }
 
-  const n =
-    Number(
-      String(value)
-        .replace(/[^0-9.-]/g,"")
-    );
+  const cleaned =
+    String(value)
+      .replace(/[^0-9.-]/g,"");
+
+  const n=Number(cleaned);
 
   return Number.isFinite(n)
     ? n
@@ -2376,105 +2341,92 @@ function safeNumber(
 }
 
 
-function clone(x){
+function money(value){
 
-  return JSON.parse(
-    JSON.stringify(x)
+  const n=safeNumber(value,0);
+
+  return new Intl.NumberFormat(
+    "en-NG",
+    {
+      style:"currency",
+      currency:"NGN",
+      minimumFractionDigits:2
+    }
+  ).format(n);
+
+}
+
+
+function makeNovaId(){
+
+  const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+  let out="";
+
+  for(let i=0;i<6;i++){
+
+    out +=
+      chars[
+        Math.floor(
+          Math.random()*chars.length
+        )
+      ];
+
+  }
+
+  return "NOVA-"+out;
+
+}
+
+
+function toast(message){
+
+  const el=
+    document.getElementById("toast");
+
+  el.textContent=message;
+
+  el.classList.add("show");
+
+  clearTimeout(
+    toast.timer
+  );
+
+  toast.timer=setTimeout(
+    ()=>{
+      el.classList.remove("show");
+    },
+    2500
   );
 
 }
 
 
-function loadState(){
+function openModal(id){
 
-  try{
+  const el=
+    document.getElementById(id);
 
-    const raw =
-      JSON.parse(
-        localStorage.getItem(
-          STATE_KEY
-        ) || "null"
-      );
-
-    if(!raw){
-
-      return clone(defaultState);
-
-    }
-
-    return {
-
-      ...clone(defaultState),
-
-      ...raw,
-
-      balance:
-        Math.max(
-          0,
-          safeNumber(raw.balance)
-        ),
-
-      transactions:
-        Array.isArray(raw.transactions)
-          ? raw.transactions
-          : [],
-
-      spaces:
-        Array.isArray(raw.spaces)
-          ? raw.spaces
-          : [],
-
-      cards:
-        Array.isArray(raw.cards)
-          ? raw.cards
-          : []
-
-    };
-
-  }catch(e){
-
-    return clone(defaultState);
-
+  if(el){
+    el.classList.remove("hidden");
   }
 
 }
 
 
-let state=loadState();
+function closeModal(id){
+
+  const el=
+    document.getElementById(id);
+
+  if(el){
+    el.classList.add("hidden");
+  }
+
+}
 
 
 function saveState(){
-
-  state.balance =
-    Math.max(
-      0,
-      safeNumber(state.balance)
-    );
-
-  state.spaces =
-    state.spaces.map(
-      s=>({
-
-        name:
-          String(
-            s.name ||
-            "Space"
-          ),
-
-        amount:
-          Math.max(
-            0,
-            safeNumber(s.amount)
-          ),
-
-        target:
-          Math.max(
-            0,
-            safeNumber(s.target)
-          )
-
-      })
-    );
 
   localStorage.setItem(
     STATE_KEY,
@@ -2486,270 +2438,247 @@ function saveState(){
 }
 
 
-function userRegistry(){
+function loadState(){
 
   try{
 
-    return JSON.parse(
+    const raw=
       localStorage.getItem(
-        USERS_KEY
-      ) || "{}"
-    );
+        STATE_KEY
+      );
+
+    if(raw){
+
+      const parsed=
+        JSON.parse(raw);
+
+      state={
+        ...defaultState,
+        ...parsed
+      };
+
+    }
 
   }catch(e){
 
-    return {};
+    console.warn(
+      "State load failed",
+      e
+    );
 
   }
 
 }
 
 
-function saveRegistry(r){
+function normalizeState(){
 
-  localStorage.setItem(
-    USERS_KEY,
-    JSON.stringify(r)
-  );
+  state.balance=
+    Math.max(
+      0,
+      safeNumber(
+        state.balance,
+        0
+      )
+    );
+
+  state.transactions=
+    Array.isArray(
+      state.transactions
+    )
+      ? state.transactions
+      : [];
+
+  state.spaces=
+    Array.isArray(
+      state.spaces
+    )
+      ? state.spaces.map(
+          (space,index)=>({
+
+            name:String(
+              space?.name ||
+              "Space "+(index+1)
+            ),
+
+            amount:Math.max(
+              0,
+              safeNumber(
+                space?.amount,
+                0
+              )
+            ),
+
+            target:Math.max(
+              0,
+              safeNumber(
+                space?.target,
+                0
+              )
+            )
+
+          })
+        )
+      : [];
+
+  state.cards=
+    Array.isArray(state.cards)
+      ? state.cards
+      : [];
+
+  state.loginPin=
+    /^\d{4}$/.test(
+      String(state.loginPin)
+    )
+      ? String(state.loginPin)
+      : "2580";
+
+  state.transactionPin=
+    /^\d{4}$/.test(
+      String(state.transactionPin)
+    )
+      ? String(state.transactionPin)
+      : "7391";
+
+  state.name=
+    String(
+      state.name ||
+      "NOVA User"
+    );
+
+  state.novaId=
+    state.novaId ||
+    makeNovaId();
 
 }
 
 
-function makeNovaId(){
+function formatLast4(number){
 
-  let r="";
+  const clean=
+    String(number)
+      .replace(/\D/g,"");
+
+  return clean.slice(-4);
+
+}
+
+
+function luhn(number){
+
+  const clean=
+    String(number)
+      .replace(/\D/g,"");
+
+  if(
+    clean.length<12 ||
+    clean.length>19
+  ){
+    return false;
+  }
+
+  let sum=0;
+
+  let alternate=false;
 
   for(
-    let i=0;
-    i<6;
-    i++
+    let i=clean.length-1;
+    i>=0;
+    i--
   ){
 
-    r +=
-      Math.floor(
-        Math.random()*10
-      );
+    let n=
+      Number(clean[i]);
+
+    if(alternate){
+
+      n*=2;
+
+      if(n>9){
+        n-=9;
+      }
+
+    }
+
+    sum+=n;
+
+    alternate=!alternate;
 
   }
 
-  return "NOVA-"+r;
+  return sum%10===0;
 
 }
 
 
-function ensureIdentity(){
+/* ================================
+   AUTH
+================================ */
 
-  if(!state.novaId){
+function checkAuth(){
 
-    state.novaId =
-      makeNovaId();
+  const authenticated=
+    localStorage.getItem(
+      AUTH_KEY
+    )==="true";
+
+  if(authenticated){
+
+    showApp();
+
+  }else{
+
+    showLogin();
 
   }
 
-  if(!state.name){
-
-    state.name =
-      "NOVA Member";
-
-  }
-
-  saveState();
-
 }
 
 
-function formatNaira(n){
-
-  return "₦"+
-    safeNumber(n)
-      .toLocaleString(
-        "en-NG",
-        {
-          minimumFractionDigits:2,
-          maximumFractionDigits:2
-        }
-      );
-
-}
-
-
-function initials(name){
-
-  return String(
-    name || "N"
-  )
-  .trim()
-  .split(/\s+/)
-  .slice(0,2)
-  .map(
-    x=>x[0]
-  )
-  .join("")
-  .toUpperCase() || "N";
-
-}
-
-
-function esc(s){
-
-  return String(
-    s ?? ""
-  ).replace(
-    /[&<>"']/g,
-    m=>({
-      "&":"&amp;",
-      "<":"&lt;",
-      ">":"&gt;",
-      '"':"&quot;",
-      "'":"&#39;"
-    }[m])
-  );
-
-}
-
-
-function toast(msg){
-
-  const t =
-    document.getElementById(
-      "toast"
-    );
-
-  t.textContent =
-    msg;
-
-  t.classList.add(
-    "show"
-  );
-
-  setTimeout(
-    ()=>{
-      t.classList.remove(
-        "show"
-      );
-    },
-    2200
-  );
-
-}
-
-
-function openModal(id){
+function showLogin(){
 
   document
-    .getElementById(id)
-    .classList
-    .add("show");
+    .getElementById("loginScreen")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("app")
+    .classList.add("hidden");
 
 }
 
 
-function closeModal(id){
+function showApp(){
 
   document
-    .getElementById(id)
-    .classList
-    .remove("show");
-
-}
-
-
-function showPage(id){
+    .getElementById("loginScreen")
+    .classList.add("hidden");
 
   document
-    .querySelectorAll(".page")
-    .forEach(
-      p=>
-        p.classList.remove(
-          "active"
-        )
-    );
-
-  document
-    .getElementById(id)
-    .classList.add(
-      "active"
-    );
-
-  document
-    .querySelectorAll(".navBtn")
-    .forEach(
-      b=>
-        b.classList.toggle(
-          "active",
-          b.dataset.page===id
-        )
-    );
+    .getElementById("app")
+    .classList.remove("hidden");
 
   renderAll();
 
-  window.scrollTo(
-    0,
-    0
-  );
+  updateOnlineStatus();
 
 }
 
 
-function renderDots(){
+function pressPin(digit){
 
-  const box =
-    document.getElementById(
-      "pinDots"
-    );
-
-  box.innerHTML="";
-
-  for(
-    let i=0;
-    i<4;
-    i++
-  ){
-
-    const d =
-      document.createElement(
-        "span"
-      );
-
-    d.className =
-      "pinDot"+
-      (
-        i<pinBuffer.length
-          ? " filled"
-          : ""
-      );
-
-    box.appendChild(d);
-
-  }
-
-}
-
-
-function pinKey(k){
-
-  if(
-    pinBuffer.length>=4
-  ){
+  if(pinBuffer.length>=4){
     return;
   }
 
-  pinBuffer += k;
+  pinBuffer+=digit;
 
-  renderDots();
+  renderPinDots();
 
-  document
-    .getElementById(
-      "pinError"
-    )
-    .textContent="";
-
-  if(
-    pinBuffer.length===4
-  ){
+  if(pinBuffer.length===4){
 
     setTimeout(
-      checkPin,
+      checkLoginPin,
       120
     );
 
@@ -2758,35 +2687,45 @@ function pinKey(k){
 }
 
 
-function backPin(){
+function deletePin(){
 
-  pinBuffer =
+  pinBuffer=
     pinBuffer.slice(
       0,
       -1
     );
 
-  renderDots();
+  renderPinDots();
 
 }
 
 
-function clearPin(){
+function renderPinDots(){
 
-  pinBuffer="";
+  const dots=
+    document.querySelectorAll(
+      "#pinDots .pinDot"
+    );
 
-  renderDots();
+  dots.forEach(
+    (dot,index)=>{
+
+      dot.classList.toggle(
+        "active",
+        index<pinBuffer.length
+      );
+
+    }
+  );
 
 }
 
 
-function checkPin(){
+function checkLoginPin(){
 
   if(
-    pinBuffer ===
-    String(
-      state.loginPin
-    )
+    pinBuffer===
+    String(state.loginPin)
   ){
 
     localStorage.setItem(
@@ -2796,1672 +2735,165 @@ function checkPin(){
 
     pinBuffer="";
 
-    renderDots();
+    renderPinDots();
 
-    enterApp();
+    showApp();
+
+    toast("Welcome back");
 
   }else{
 
-    document
-      .getElementById(
-        "pinError"
-      )
-      .textContent =
-      "Incorrect login PIN";
+    toast("Incorrect login PIN");
 
     pinBuffer="";
 
-    renderDots();
+    renderPinDots();
 
   }
 
 }
 
 
-function enterApp(){
-
-  ensureIdentity();
-
-  document
-    .getElementById(
-      "loginScreen"
-    )
-    .classList
-    .add("hidden");
-
-  document
-    .getElementById(
-      "app"
-    )
-    .classList
-    .remove("hidden");
-
-  updateStatus();
-
-  renderAll();
-
-}
-
-
-function logout(){
-
-  localStorage.removeItem(
-    AUTH_KEY
-  );
-
-  pinBuffer="";
-
-  renderDots();
-
-  document
-    .getElementById(
-      "app"
-    )
-    .classList
-    .add("hidden");
-
-  document
-    .getElementById(
-      "loginScreen"
-    )
-    .classList
-    .remove("hidden");
-
-  document
-    .getElementById(
-      "pinError"
-    )
-    .textContent="";
-
-  renderDots();
-
-}
-
-
-function toggleBalance(){
-
-  state.eyeHidden =
-    !state.eyeHidden;
-
-  localStorage.setItem(
-    EYE_KEY,
-    state.eyeHidden
-      ? "1"
-      : "0"
-  );
-
-  saveState();
-
-}
-
-
-function renderBalance(){
-
-  const hidden =
-    state.eyeHidden;
-
-  document
-    .getElementById(
-      "balance"
-    )
-    .textContent =
-    hidden
-      ? "₦••••••"
-      : formatNaira(
-          state.balance
-        );
-
-  document
-    .getElementById(
-      "eyeBtn"
-    )
-    .textContent =
-    hidden
-      ? "○"
-      : "◉";
-
-}
-
-
-function renderAll(){
-
-  if(
-    document
-      .getElementById("app")
-      .classList
-      .contains("hidden")
-  ){
-
-    return;
-
-  }
-
-  renderBalance();
-
-  document
-    .getElementById(
-      "greeting"
-    )
-    .textContent =
-    "Good evening";
-
-  document
-    .getElementById(
-      "virtualName"
-    )
-    .textContent =
-    String(
-      state.name ||
-      "NOVA MEMBER"
-    )
-    .toUpperCase();
-
-  document
-    .getElementById(
-      "profileName"
-    )
-    .textContent =
-    state.name ||
-    "NOVA Member";
-
-  document
-    .getElementById(
-      "profileNovaId"
-    )
-    .textContent =
-    state.novaId ||
-    "NOVA-000000";
-
-  document
-    .getElementById(
-      "avatar"
-    )
-    .textContent =
-    initials(
-      state.name
-    );
-
-  renderTransactions(
-    "homeTransactions",
-    3
-  );
-
-  renderActivity();
-
-  renderCards();
-
-  renderSpaces();
-
-  document
-    .getElementById(
-      "qrNovaId"
-    )
-    .textContent =
-    state.novaId ||
-    "NOVA-000000";
-
-}
-
-
-function txIcon(t){
-
-  return t.type==="income"
-    ? "↓"
-    : "↑";
-
-}
-
-
-function renderTransactions(
-  id,
-  limit=999
-){
-
-  const el =
-    document.getElementById(
-      id
-    );
-
-  if(!el)return;
-
-  const arr =
-    state.transactions
-      .slice(
-        0,
-        limit
-      );
-
-  el.innerHTML =
-    arr.length
-
-      ? arr.map(
-          t=>`
-          <div class="tx">
-
-            <div class="txIcon">
-              ${txIcon(t)}
-            </div>
-
-            <div class="txMain">
-
-              <div class="txName">
-                ${esc(t.name)}
-              </div>
-
-              <div class="txDate">
-                ${esc(t.date)}
-              </div>
-
-            </div>
-
-            <div
-              class="txAmount ${
-                t.type==="income"
-                  ? "income"
-                  : "expense"
-              }">
-
-              ${
-                t.amount>=0
-                  ? "+"
-                  : "−"
-              }${formatNaira(
-                Math.abs(
-                  t.amount
-                )
-              )}
-
-            </div>
-
-          </div>
-          `
-        ).join("")
-
-      : `
-        <div class="notice">
-          No transactions yet.
-        </div>
-        `;
-
-}
-
-
-function renderActivity(){
-
-  const el =
-    document.getElementById(
-      "activityList"
-    );
-
-  if(!el)return;
-
-  const q =
-    (
-      document
-        .getElementById(
-          "activitySearch"
-        )
-        ?.value ||
-      ""
-    ).toLowerCase();
-
-  const arr =
-    state.transactions.filter(
-      t=>
-        (
-          activeFilter==="all" ||
-          t.type===activeFilter
-        ) &&
-        String(
-          t.name
-        )
-        .toLowerCase()
-        .includes(q)
-    );
-
-  el.innerHTML =
-    arr.length
-
-      ? arr.map(
-          t=>`
-          <div class="tx">
-
-            <div class="txIcon">
-              ${txIcon(t)}
-            </div>
-
-            <div class="txMain">
-
-              <div class="txName">
-                ${esc(t.name)}
-              </div>
-
-              <div class="txDate">
-                ${esc(t.date)}
-              </div>
-
-            </div>
-
-            <div
-              class="txAmount ${
-                t.type==="income"
-                  ? "income"
-                  : "expense"
-              }">
-
-              ${
-                t.amount>=0
-                  ? "+"
-                  : "−"
-              }${formatNaira(
-                Math.abs(
-                  t.amount
-                )
-              )}
-
-            </div>
-
-          </div>
-          `
-        ).join("")
-
-      : `
-        <div class="notice">
-          Nothing matches your search.
-        </div>
-        `;
-
-}
-
-
-function setFilter(
-  f,
-  btn
-){
-
-  activeFilter=f;
-
-  document
-    .querySelectorAll(
-      ".filter"
-    )
-    .forEach(
-      x=>
-        x.classList.remove(
-          "active"
-        )
-    );
-
-  btn.classList.add(
-    "active"
-  );
-
-  renderActivity();
-
-}
-
-
-function renderCards(){
-
-  const el =
-    document.getElementById(
-      "cardsList"
-    );
-
-  if(!el)return;
-
-  if(
-    !state.cards.length
-  ){
-
-    el.innerHTML =
-      `
-      <div class="notice">
-        No cards added yet.
-      </div>
-      `;
-
-    return;
-
-  }
-
-  el.innerHTML =
-    state.cards.map(
-      (c,i)=>`
-
-      <div class="bankCard">
-
-        <div class="bankTop">
-
-          <span class="brandPill">
-            ${esc(
-              c.nickname ||
-              c.brand ||
-              "BANK CARD"
-            )}
-          </span>
-
-          ${
-            c.isDefault
-              ? `
-                <span class="defaultPill">
-                  DEFAULT
-                </span>
-                `
-              : ""
-          }
-
-        </div>
-
-        <div class="masked">
-          ••••  ••••  ••••  ${esc(
-            c.last4
-          )}
-        </div>
-
-        <div class="bankMeta">
-
-          <span>
-            ${esc(c.holder)}
-          </span>
-
-          <span>
-            ${esc(c.expiry)}
-          </span>
-
-        </div>
-
-        <div class="cardActions">
-
-          ${
-            c.isDefault
-              ? ""
-              : `
-                <button
-                  class="smallBtn"
-                  onclick="setDefaultCard(${i})">
-                  Set default
-                </button>
-                `
-          }
-
-          <button
-            class="smallBtn danger"
-            onclick="removeCard(${i})">
-            Remove
-          </button>
-
-        </div>
-
-      </div>
-
-      `
-    ).join("");
-
-}
-
-
-function luhn(num){
-
-  let sum=0;
-
-  let dbl=false;
-
-  for(
-    let i=num.length-1;
-    i>=0;
-    i--
-  ){
-
-    let d=+num[i];
-
-    if(dbl){
-
-      d*=2;
-
-      if(d>9){
-        d-=9;
-      }
-
-    }
-
-    sum+=d;
-
-    dbl=!dbl;
-
-  }
-
-  return sum%10===0;
-
-}
-
-
-function addBankCard(){
-
-  const holder =
-    document
-      .getElementById(
-        "cardHolder"
-      )
-      .value
-      .trim();
-
-  const raw =
-    document
-      .getElementById(
-        "cardNumberInput"
-      )
-      .value
-      .replace(
-        /\D/g,
-        ""
-      );
-
-  const expiry =
-    document
-      .getElementById(
-        "cardExpiry"
-      )
-      .value
-      .trim();
-
-  const cvv =
-    document
-      .getElementById(
-        "cardCvv"
-      )
-      .value
-      .replace(
-        /\D/g,
-        ""
-      );
-
-  const nickname =
-    document
-      .getElementById(
-        "cardNickname"
-      )
-      .value
-      .trim() ||
-    "Bank card";
-
-  const msg =
-    document
-      .getElementById(
-        "cardMsg"
-      );
-
-
-  if(
-    raw.length<12 ||
-    raw.length>19 ||
-    !luhn(raw)
-  ){
-
-    msg.textContent =
-      "Enter a valid card number.";
-
-    return;
-
-  }
-
-
-  if(
-    !/^(0[1-9]|1[0-2])\/\d{2}$/
-      .test(expiry)
-  ){
-
-    msg.textContent =
-      "Use expiry format MM/YY.";
-
-    return;
-
-  }
-
-
-  if(
-    cvv.length<3
-  ){
-
-    msg.textContent =
-      "Enter a valid CVV.";
-
-    return;
-
-  }
-
-
-  state.cards.push({
-
-    holder:
-      holder ||
-      "CARD HOLDER",
-
-    last4:
-      raw.slice(-4),
-
-    expiry,
-
-    nickname,
-
-    brand:"BANK",
-
-    isDefault:
-      state.cards.length===0
-
-  });
-
-
-  saveState();
-
-
-  [
-    "cardHolder",
-    "cardNumberInput",
-    "cardExpiry",
-    "cardCvv",
-    "cardNickname"
-  ]
-  .forEach(
-    id=>
-      document
-        .getElementById(id)
-        .value=""
-  );
-
-
-  document
-    .getElementById(
-      "cardMsg"
-    )
-    .textContent="";
-
-
-  closeModal(
-    "addCardModal"
-  );
-
-  toast(
-    "Card saved safely"
-  );
-
-}
-
-
-function setDefaultCard(i){
-
-  state.cards.forEach(
-    (c,n)=>
-      c.isDefault =
-        n===i
-  );
-
-  saveState();
-
-  toast(
-    "Default card updated"
-  );
-
-}
-
-
-function removeCard(i){
-
-  if(
-    !confirm(
-      "Remove this saved card?"
-    )
-  ){
-
-    return;
-
-  }
-
-  state.cards.splice(
-    i,
-    1
-  );
-
-  if(
-    state.cards[0]
-  ){
-
-    state.cards[0]
-      .isDefault=true;
-
-  }
-
-  saveState();
-
-  toast(
-    "Card removed"
-  );
-
-}
-
-
-function renderSpaces(){
-
-  const el =
-    document.getElementById(
-      "spacesList"
-    );
-
-  if(!el)return;
-
-  if(
-    !state.spaces.length
-  ){
-
-    el.innerHTML =
-      `
-      <div class="notice">
-        Create your first savings Space.
-      </div>
-      `;
-
-    return;
-
-  }
-
-
-  el.innerHTML =
-    state.spaces.map(
-      s=>{
-
-        const pct =
-          s.target>0
-            ? Math.min(
-                100,
-                (
-                  s.amount /
-                  s.target
-                )*100
-              )
-            : 0;
-
-        return `
-
-        <div class="space">
-
-          <div class="spaceTop">
-
-            <span class="spaceName">
-              ${esc(s.name)}
-            </span>
-
-            <span class="spaceTarget">
-              ${pct.toFixed(0)}%
-            </span>
-
-          </div>
-
-          <div class="spaceAmount">
-            ${formatNaira(
-              s.amount
-            )}
-          </div>
-
-          <div class="progress">
-
-            <span
-              style="width:${pct}%">
-            </span>
-
-          </div>
-
-          <div class="spaceTarget">
-            Target ${formatNaira(
-              s.target
-            )}
-          </div>
-
-        </div>
-
-        `;
-
-      }
-    ).join("");
-
-}
-
-
-function addSpace(){
-
-  const name =
-    document
-      .getElementById(
-        "spaceNameInput"
-      )
-      .value
-      .trim();
-
-  const target =
-    safeNumber(
-      document
-        .getElementById(
-          "spaceTargetInput"
-        )
-        .value
-    );
-
-  const msg =
-    document
-      .getElementById(
-        "spaceMsg"
-      );
-
-
-  if(
-    !name ||
-    target<=0
-  ){
-
-    msg.textContent =
-      "Enter a name and target.";
-
-    return;
-
-  }
-
-
-  state.spaces.push({
-
-    name,
-
-    amount:0,
-
-    target
-
-  });
-
-
-  saveState();
-
-
-  document
-    .getElementById(
-      "spaceNameInput"
-    )
-    .value="";
-
-  document
-    .getElementById(
-      "spaceTargetInput"
-    )
-    .value="";
-
-  msg.textContent="";
-
-  closeModal(
-    "spaceModal"
-  );
-
-  toast(
-    "Space created"
-  );
-
-}
-
-
-function beginTransfer(){
-
-  const id =
-    document
-      .getElementById(
-        "sendNovaId"
-      )
-      .value
-      .trim()
-      .toUpperCase();
-
-  const amount =
-    safeNumber(
-      document
-        .getElementById(
-          "sendAmount"
-        )
-        .value
-    );
-
-  const msg =
-    document
-      .getElementById(
-        "sendMsg"
-      );
-
-
-  if(
-    !/^NOVA-\d{6}$/.test(id)
-  ){
-
-    msg.textContent =
-      "Enter a valid NOVA ID.";
-
-    return;
-
-  }
-
-
-  if(
-    id===state.novaId
-  ){
-
-    msg.textContent =
-      "You cannot send to yourself.";
-
-    return;
-
-  }
-
-
-  if(
-    amount<=0 ||
-    amount>state.balance
-  ){
-
-    msg.textContent =
-      "Check the amount and available balance.";
-
-    return;
-
-  }
-
-
-  pendingTransfer={
-    id,
-    amount
-  };
-
-
-  document
-    .getElementById(
-      "txConfirmText"
-    )
-    .textContent =
-    `Confirm sending ${formatNaira(
-      amount
-    )} to ${id}.`;
-
-
-  closeModal(
-    "sendModal"
-  );
-
-  openModal(
-    "txPinModal"
-  );
-
-}
-
-
-function sendMoney(){
-
-  beginTransfer();
-
-}
-
-
-function confirmTransfer(){
-
-  if(
-    !pendingTransfer
-  ){
-
-    return;
-
-  }
-
-
-  const pin =
-    document
-      .getElementById(
-        "txConfirmPin"
-      )
-      .value;
-
-  const msg =
-    document
-      .getElementById(
-        "txPinMsg"
-      );
-
-
-  if(
-    pin!==String(
-      state.transactionPin
-    )
-  ){
-
-    msg.textContent =
-      "Incorrect transaction PIN.";
-
-    return;
-
-  }
-
-
-  const r =
-    userRegistry();
-
-  const recipient =
-    r[
-      pendingTransfer.id
-    ];
-
-
-  state.balance -=
-    pendingTransfer.amount;
-
-
-  const now =
-    new Date()
-      .toLocaleString(
-        "en-NG",
-        {
-          month:"short",
-          day:"numeric",
-          hour:"2-digit",
-          minute:"2-digit"
-        }
-      );
-
-
-  state.transactions.unshift({
-
-    name:
-      "Transfer to "+
-      pendingTransfer.id,
-
-    date:now,
-
-    amount:
-      -pendingTransfer.amount,
-
-    type:"expense"
-
-  });
-
-
-  if(recipient){
-
-    recipient.balance =
-      safeNumber(
-        recipient.balance
-      ) +
-      pendingTransfer.amount;
-
-
-    recipient.transactions =
-      Array.isArray(
-        recipient.transactions
-      )
-        ? recipient.transactions
-        : [];
-
-
-    recipient.transactions.unshift({
-
-      name:
-        "Transfer from "+
-        state.novaId,
-
-      date:now,
-
-      amount:
-        pendingTransfer.amount,
-
-      type:"income"
-
-    });
-
-
-    r[
-      pendingTransfer.id
-    ] =
-      recipient;
-
-
-    saveRegistry(r);
-
-  }
-
-
-  saveState();
-
-  pendingTransfer=null;
-
-  document
-    .getElementById(
-      "txConfirmPin"
-    )
-    .value="";
-
-  document
-    .getElementById(
-      "txPinMsg"
-    )
-    .textContent="";
-
-  closeModal(
-    "txPinModal"
-  );
-
-
-  toast(
-    recipient
-      ? "Money sent"
-      : "Transfer recorded in prototype"
-  );
-
-}
-
-
-function requestMoney(){
-
-  const id =
-    document
-      .getElementById(
-        "requestNovaId"
-      )
-      .value
-      .trim()
-      .toUpperCase();
-
-  const amount =
-    safeNumber(
-      document
-        .getElementById(
-          "requestAmount"
-        )
-        .value
-    );
-
-  const msg =
-    document
-      .getElementById(
-        "requestMsg"
-      );
-
-
-  if(
-    !/^NOVA-\d{6}$/.test(id) ||
-    amount<=0
-  ){
-
-    msg.textContent =
-      "Enter a valid NOVA ID and amount.";
-
-    return;
-
-  }
-
-
-  state.transactions.unshift({
-
-    name:
-      "Request from "+id,
-
-    date:
-      "Just now",
-
-    amount:0,
-
-    type:"expense",
-
-    request:true,
-
-    requested:amount
-
-  });
-
-
-  saveState();
-
-  closeModal(
-    "requestModal"
-  );
-
-  toast(
-    "Money request created"
-  );
-
-}
-
-
-function demoFund(){
-
-  const amount =
-    safeNumber(
-      document
-        .getElementById(
-          "fundAmount"
-        )
-        .value
-    );
-
-  const msg =
-    document
-      .getElementById(
-        "fundMsg"
-      );
-
-
-  if(
-    amount<=0
-  ){
-
-    msg.textContent =
-      "Enter an amount.";
-
-    return;
-
-  }
-
-
-  state.balance +=
-    amount;
-
-
-  state.transactions.unshift({
-
-    name:
-      "Demo funding",
-
-    date:
-      "Just now",
-
-    amount,
-
-    type:"income"
-
-  });
-
-
-  saveState();
-
-
-  document
-    .getElementById(
-      "fundAmount"
-    )
-    .value="";
-
-  msg.textContent="";
-
-
-  closeModal(
-    "addMoneyModal"
-  );
-
-
-  toast(
-    "Demo money added"
-  );
-
-}
-
-
-function openPersonalQR(){
-
-  openModal(
-    "qrModal"
-  );
-
-
-  const box =
-    document.getElementById(
-      "qrBox"
-    );
-
-  box.innerHTML="";
-
-
-  if(window.QRCode){
-
-    new QRCode(
-      box,
-      {
-        text:
-          "NOVA:"+
-          state.novaId,
-
-        width:196,
-
-        height:196,
-
-        colorDark:
-          "#07120d",
-
-        colorLight:
-          "#ffffff"
-      }
-    );
-
-  }
-
-}
-
-
-async function copyNovaId(){
-
-  try{
-
-    await navigator.clipboard
-      .writeText(
-        state.novaId
-      );
-
-    toast(
-      "NOVA ID copied"
-    );
-
-  }catch(e){
-
-    toast(
-      state.novaId
-    );
-
-  }
-
-}
-
-
-async function scanForRecipient(){
-
-  closeModal(
-    "sendModal"
-  );
-
-  openModal(
-    "scannerModal"
-  );
-
-
-  const video =
-    document.getElementById(
-      "scanVideo"
-    );
-
-  const msg =
-    document.getElementById(
-      "scanMsg"
-    );
-
-
-  if(
-    !("BarcodeDetector" in window)
-  ){
-
-    msg.textContent =
-      "QR scanning is not supported here. Enter the NOVA ID manually.";
-
-    return;
-
-  }
-
-
-  try{
-
-    scannerStream =
-      await navigator.mediaDevices
-        .getUserMedia({
-          video:{
-            facingMode:
-              "environment"
-          },
-          audio:false
-        });
-
-
-    video.srcObject =
-      scannerStream;
-
-    await video.play();
-
-
-    const detector =
-      new BarcodeDetector({
-        formats:[
-          "qr_code"
-        ]
-      });
-
-
-    const scan =
-      async()=>{
-
-        if(
-          !scannerStream
-        ){
-
-          return;
-
-        }
-
-
-        try{
-
-          const codes =
-            await detector.detect(
-              video
-            );
-
-
-          if(
-            codes[0]?.rawValue
-          ){
-
-            const raw =
-              codes[0]
-                .rawValue
-                .trim();
-
-
-            const id =
-              raw.startsWith(
-                "NOVA:"
-              )
-                ? raw.slice(5)
-                : raw;
-
-
-            if(
-              /^NOVA-\d{6}$/.test(
-                id
-              )
-            ){
-
-              document
-                .getElementById(
-                  "sendNovaId"
-                )
-                .value=id;
-
-
-              closeScanner();
-
-
-              openModal(
-                "sendModal"
-              );
-
-
-              toast(
-                "Recipient loaded"
-              );
-
-
-              return;
-
-            }
-
-          }
-
-        }catch(e){}
-
-
-        scannerTimer =
-          requestAnimationFrame(
-            scan
-          );
-
-      };
-
-
-    scan();
-
-
-  }catch(e){
-
-    msg.textContent =
-      "Camera access was unavailable. Enter the NOVA ID manually.";
-
-  }
-
-}
-
-
-function closeScanner(){
-
-  if(
-    scannerTimer
-  ){
-
-    cancelAnimationFrame(
-      scannerTimer
-    );
-
-  }
-
-  scannerTimer=null;
-
-
-  if(
-    scannerStream
-  ){
-
-    scannerStream
-      .getTracks()
-      .forEach(
-        t=>t.stop()
-      );
-
-  }
-
-
-  scannerStream=null;
-
-
-  const video =
-    document.getElementById(
-      "scanVideo"
-    );
-
-  if(video){
-
-    video.srcObject=null;
-
-  }
-
-
-  closeModal(
-    "scannerModal"
-  );
-
-}
-
-
-function manualRecipient(){
-
-  closeScanner();
-
-  openModal(
-    "sendModal"
-  );
-
-  document
-    .getElementById(
-      "sendNovaId"
-    )
-    .focus();
-
-}
-
+/* ================================
+   CREATE ACCOUNT
+================================ */
 
 async function startAccountOTP(){
 
-  const name =
+  const button=
+    document.getElementById(
+      "createAccountBtn"
+    );
+
+  const name=
     document
-      .getElementById(
-        "newName"
-      )
+      .getElementById("createName")
       .value
       .trim();
 
-  const phone =
+  const phone=
     document
-      .getElementById(
-        "newPhone"
-      )
+      .getElementById("createPhone")
       .value
       .trim();
 
-  const nid =
+  const nationalId=
     document
-      .getElementById(
-        "newNid"
-      )
+      .getElementById("createNationalId")
       .value
       .trim();
 
-  const lp =
+  const loginPin=
     document
-      .getElementById(
-        "newLoginPin"
-      )
+      .getElementById("createLoginPin")
       .value
       .trim();
 
-  const tp =
+  const transactionPin=
     document
-      .getElementById(
-        "newTxPin"
-      )
+      .getElementById("createTransactionPin")
       .value
       .trim();
 
-  const msg =
-    document
-      .getElementById(
-        "createMsg"
-      );
+  const msg=
+    document.getElementById(
+      "createMsg"
+    );
 
 
-  if(
-    !name ||
-    !phone ||
-    !nid ||
-    !/^\d{4}$/.test(lp) ||
-    !/^\d{4}$/.test(tp)
-  ){
+  msg.textContent="";
 
-    msg.textContent =
-      "Complete all fields. PINs must be 4 digits.";
+
+  if(!name){
+
+    msg.textContent=
+      "Enter your full name.";
+
+    toast(
+      "Enter your full name"
+    );
 
     return;
 
   }
 
 
-  if(
-    !supabaseClient
-  ){
+  if(!phone){
 
-    msg.textContent =
-      "Supabase is unavailable.";
+    msg.textContent=
+      "Enter your phone number.";
+
+    toast(
+      "Enter your phone number"
+    );
 
     return;
+
+  }
+
+
+  if(!nationalId){
+
+    msg.textContent=
+      "Enter your National ID.";
+
+    toast(
+      "Enter your National ID"
+    );
+
+    return;
+
+  }
+
+
+  if(!/^\d{4}$/.test(loginPin)){
+
+    msg.textContent=
+      "Login PIN must be exactly 4 digits.";
+
+    toast(
+      "Login PIN must be 4 digits"
+    );
+
+    return;
+
+  }
+
+
+  if(!/^\d{4}$/.test(transactionPin)){
+
+    msg.textContent=
+      "Transaction PIN must be exactly 4 digits.";
+
+    toast(
+      "Transaction PIN must be 4 digits"
+    );
+
+    return;
+
+  }
+
+
+  if(!supabaseClient){
+
+    msg.textContent=
+      "Supabase phone authentication is not configured.";
+
+    toast(
+      "Phone authentication is not configured"
+    );
+
+    return;
+
+  }
+
+
+  if(button){
+
+    button.disabled=true;
+
+    button.textContent=
+      "Sending code…";
 
   }
 
@@ -4472,12 +2904,13 @@ async function startAccountOTP(){
 
     phone,
 
-    nidLast4:
-      nid.slice(-4),
+    nationalId,
 
-    loginPin:lp,
+    loginPin,
 
-    transactionPin:tp
+    transactionPin,
+
+    novaId:makeNovaId()
 
   };
 
@@ -4486,59 +2919,65 @@ async function startAccountOTP(){
 
     const {
       error
-    } =
-      await supabaseClient
-        .auth
-        .signInWithOtp({
+    }=
+      await supabaseClient.auth.signInWithOtp({
 
-          phone,
+        phone,
 
-          options:{
+        options:{
 
-            shouldCreateUser:
-              true,
+          shouldCreateUser:true,
 
-            data:{
-
-              name,
-
-              nova_id:
-                makeNovaId()
-
-            }
-
+          data:{
+            name,
+            nova_id:
+              pendingAccount.novaId
           }
 
-        });
+        }
+
+      });
 
 
     if(error){
 
-      throw error;
+      console.warn(
+        "OTP request failed:",
+        error
+      );
+
+      msg.textContent=
+        error.message;
+
+      toast(
+        "OTP: "+error.message
+      );
+
+      pendingAccount=null;
+
+      return;
 
     }
 
 
-    msg.textContent="";
-
-
     closeModal(
-      "createAccountModal"
+      "createModal"
     );
 
-
     document
-      .getElementById(
-        "otpCode"
-      )
+      .getElementById("otpCode")
       .value="";
 
+    document
+      .getElementById("otpMsg")
+      .textContent="";
+
 
     document
-      .getElementById(
-        "otpMsg"
-      )
-      .textContent="";
+      .getElementById("otpInfo")
+      .textContent=
+        "Enter the 6-digit code sent to "+
+        phone;
 
 
     openModal(
@@ -4546,203 +2985,50 @@ async function startAccountOTP(){
     );
 
 
-  }catch(e){
+    startOtpCooldown(60);
 
-    msg.textContent =
-      e.message ||
-      "Unable to send OTP.";
-
-  }
-
-}
-
-
-async function verifyAccountOTP(){
-
-  const code =
-    document
-      .getElementById(
-        "otpCode"
-      )
-      .value
-      .trim();
-
-  const msg =
-    document
-      .getElementById(
-        "otpMsg"
-      );
-
-
-  if(
-    !pendingAccount
-  ){
-
-    msg.textContent =
-      "Account setup expired.";
-
-    return;
-
-  }
-
-
-  if(
-    !/^\d{6}$/.test(code)
-  ){
-
-    msg.textContent =
-      "Enter the 6-digit OTP.";
-
-    return;
-
-  }
-
-
-  try{
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .auth
-        .verifyOtp({
-
-          phone:
-            pendingAccount.phone,
-
-          token:code,
-
-          type:"sms"
-
-        });
-
-
-    if(error){
-
-      throw error;
-
-    }
-
-
-    state={
-
-      ...clone(
-        defaultState
-      ),
-
-      name:
-        pendingAccount.name,
-
-      phone:
-        pendingAccount.phone,
-
-      novaId:
-        makeNovaId(),
-
-      loginPin:
-        pendingAccount.loginPin,
-
-      transactionPin:
-        pendingAccount.transactionPin,
-
-      balance:0,
-
-      transactions:[],
-
-      spaces:[],
-
-      cards:[],
-
-      eyeHidden:false
-
-    };
-
-
-    saveState();
-
-
-    localStorage.setItem(
-      CURRENT_USER_KEY,
-      state.novaId
+    toast(
+      "Verification code sent"
     );
 
 
-    const r =
-      userRegistry();
+  }catch(error){
 
+    console.warn(error);
 
-    r[
-      state.novaId
-    ]={
+    msg.textContent=
+      error?.message ||
+      "Could not send OTP";
 
-      name:
-        state.name,
-
-      phone:
-        state.phone,
-
-      balance:0,
-
-      transactions:[]
-
-    };
-
-
-    saveRegistry(r);
-
-
-    localStorage.setItem(
-      AUTH_KEY,
-      "true"
+    toast(
+      "Could not send OTP"
     );
-
 
     pendingAccount=null;
 
+  }finally{
 
-    closeModal(
-      "otpModal"
-    );
+    if(button){
 
+      button.disabled=false;
 
-    enterApp();
+      button.textContent=
+        "Continue with phone OTP";
 
-
-    toast(
-      "NOVA account created"
-    );
-
-
-  }catch(e){
-
-    msg.textContent =
-      e.message ||
-      "OTP verification failed.";
+    }
 
   }
 
 }
 
 
-function startOtpCooldown(
-  seconds
-){
-
-  otpCooldownUntil =
-    Date.now() +
-    (
-      seconds*1000
-    );
-
-}
-
+/* ================================
+   RESEND OTP
+================================ */
 
 async function sendPhoneOTP(){
 
-  if(
-    otpRequestInProgress
-  ){
+  if(otpRequestInProgress){
 
     toast(
       "OTP request already in progress"
@@ -4753,9 +3039,7 @@ async function sendPhoneOTP(){
   }
 
 
-  if(
-    !pendingAccount
-  ){
+  if(!pendingAccount){
 
     toast(
       "No phone verification pending"
@@ -4766,36 +3050,18 @@ async function sendPhoneOTP(){
   }
 
 
-  if(
-    !pendingAccount.phone
-  ){
+  if(Date.now()<otpCooldownUntil){
 
-    toast(
-      "No phone verification pending"
-    );
-
-    return;
-
-  }
-
-
-  if(
-    Date.now() <
-    otpCooldownUntil
-  ){
-
-    const seconds =
+    const seconds=
       Math.ceil(
         (
-          otpCooldownUntil -
+          otpCooldownUntil-
           Date.now()
-        ) / 1000
+        )/1000
       );
 
     toast(
-      "Please wait "+
-      seconds+
-      " seconds"
+      "Please wait "+seconds+" seconds"
     );
 
     return;
@@ -4803,9 +3069,7 @@ async function sendPhoneOTP(){
   }
 
 
-  if(
-    !supabaseClient
-  ){
+  if(!supabaseClient){
 
     toast(
       "Supabase phone authentication is not configured"
@@ -4819,7 +3083,7 @@ async function sendPhoneOTP(){
   otpRequestInProgress=true;
 
 
-  const button =
+  const button=
     document.getElementById(
       "resendOtpBtn"
     );
@@ -4839,19 +3103,13 @@ async function sendPhoneOTP(){
 
     const {
       error
-    } =
-      await supabaseClient
-        .auth
-        .signInWithOtp({
+    }=
+      await supabaseClient.auth.signInWithOtp({
 
-          phone:
-            pendingAccount.phone,
+        phone:
+          pendingAccount.phone
 
-          options:{
-            shouldCreateUser:true
-          }
-
-        });
+      });
 
 
     if(error){
@@ -4862,8 +3120,7 @@ async function sendPhoneOTP(){
       );
 
       toast(
-        "OTP: "+
-        error.message
+        "OTP: "+error.message
       );
 
       return;
@@ -4871,10 +3128,7 @@ async function sendPhoneOTP(){
     }
 
 
-    startOtpCooldown(
-      60
-    );
-
+    startOtpCooldown(60);
 
     toast(
       "New code sent"
@@ -4883,68 +3137,140 @@ async function sendPhoneOTP(){
 
   }catch(error){
 
-    console.warn(
-      error
-    );
+    console.warn(error);
 
     toast(
       "Could not send OTP"
     );
 
-
   }finally{
 
     otpRequestInProgress=false;
-
-
-    if(
-      button &&
-      Date.now() >=
-      otpCooldownUntil
-    ){
-
-      button.disabled=false;
-
-      button.textContent=
-        "Resend code";
-
-    }
 
   }
 
 }
 
 
-function openForgotPin(){
+/* ================================
+   OTP COUNTDOWN
+================================ */
 
-  openModal(
-    "forgotModal"
+function startOtpCooldown(seconds){
+
+  clearInterval(
+    otpCooldownTimer
   );
+
+  otpCooldownUntil=
+    Date.now()+
+    seconds*1000;
+
+
+  const button=
+    document.getElementById(
+      "resendOtpBtn"
+    );
+
+
+  if(!button){
+    return;
+  }
+
+
+  button.disabled=true;
+
+
+  const update=()=>{
+
+    const remaining=
+      Math.ceil(
+        (
+          otpCooldownUntil-
+          Date.now()
+        )/1000
+      );
+
+
+    if(remaining<=0){
+
+      clearInterval(
+        otpCooldownTimer
+      );
+
+      button.disabled=false;
+
+      button.textContent=
+        "Resend code";
+
+      return;
+
+    }
+
+
+    button.textContent=
+      "Resend in "+remaining+"s";
+
+  };
+
+
+  update();
+
+
+  otpCooldownTimer=
+    setInterval(
+      update,
+      250
+    );
 
 }
 
 
-async function startForgotOTP(){
+/* ================================
+   VERIFY ACCOUNT OTP
+================================ */
 
-  const phone =
+async function verifyAccountOTP(){
+
+  if(!pendingAccount){
+
+    toast(
+      "No account verification pending"
+    );
+
+    return;
+
+  }
+
+
+  const code=
     document
-      .getElementById(
-        "forgotPhone"
-      )
+      .getElementById("otpCode")
       .value
       .trim();
 
-  const msg =
-    document
-      .getElementById(
-        "forgotMsg"
-      );
+  const msg=
+    document.getElementById(
+      "otpMsg"
+    );
+
+  const button=
+    document.getElementById(
+      "verifyOtpBtn"
+    );
 
 
-  if(!phone){
+  msg.textContent="";
 
-    msg.textContent =
-      "Enter your phone number.";
+
+  if(!/^\d{6}$/.test(code)){
+
+    msg.textContent=
+      "Enter the 6-digit OTP.";
+
+    toast(
+      "Enter the 6-digit OTP"
+    );
 
     return;
 
@@ -4953,115 +3279,201 @@ async function startForgotOTP(){
 
   if(!supabaseClient){
 
-    msg.textContent =
-      "Supabase is unavailable.";
+    msg.textContent=
+      "Supabase is not configured.";
 
     return;
 
   }
 
 
+  button.disabled=true;
+
+  button.textContent=
+    "Verifying…";
+
+
   try{
 
     const {
+      data,
       error
-    } =
-      await supabaseClient
-        .auth
-        .signInWithOtp({
+    }=
+      await supabaseClient.auth.verifyOtp({
 
-          phone,
+        phone:
+          pendingAccount.phone,
 
-          options:{
-            shouldCreateUser:
-              false
-          }
+        token:code,
 
-        });
+        type:"sms"
+
+      });
 
 
     if(error){
 
-      throw error;
+      console.warn(
+        "OTP verification failed:",
+        error
+      );
+
+      msg.textContent=
+        error.message;
+
+      toast(
+        "OTP: "+error.message
+      );
+
+      return;
 
     }
 
 
-    pendingRecovery={
-      phone
+    /*
+      New account starts with ₦0.
+      It does not inherit the old
+      local demo balance.
+    */
+
+    state={
+      ...defaultState,
+
+      balance:0,
+
+      transactions:[],
+
+      spaces:[],
+
+      cards:[],
+
+      name:
+        pendingAccount.name,
+
+      phone:
+        pendingAccount.phone,
+
+      novaId:
+        pendingAccount.novaId,
+
+      loginPin:
+        pendingAccount.loginPin,
+
+      transactionPin:
+        pendingAccount.transactionPin
+
     };
 
 
+    /*
+      National ID is intentionally
+      not stored in localStorage.
+    */
+
+
+    saveState();
+
+
+    localStorage.setItem(
+      AUTH_KEY,
+      "true"
+    );
+
+
+    localStorage.setItem(
+      USER_KEY,
+      JSON.stringify({
+        name:pendingAccount.name,
+        phone:pendingAccount.phone,
+        novaId:pendingAccount.novaId
+      })
+    );
+
+
+    pendingAccount=null;
+
+
     closeModal(
-      "forgotModal"
+      "otpModal"
     );
 
 
-    document
-      .getElementById(
-        "forgotOtpMsg"
-      )
-      .textContent="";
+    showApp();
 
 
-    openModal(
-      "forgotOtpModal"
+    toast(
+      "NOVA account created"
     );
 
 
-  }catch(e){
+  }catch(error){
 
-    msg.textContent =
-      e.message ||
-      "Recovery OTP could not be sent.";
+    console.warn(error);
+
+    msg.textContent=
+      error?.message ||
+      "Verification failed";
+
+    toast(
+      "Verification failed"
+    );
+
+  }finally{
+
+    button.disabled=false;
+
+    button.textContent=
+      "Verify & create account";
 
   }
 
 }
 
 
-async function finishForgotOTP(){
+/* ================================
+   RECOVERY
+================================ */
 
-  const code =
+async function startRecoveryOTP(){
+
+  const phone=
     document
-      .getElementById(
-        "forgotOtp"
-      )
+      .getElementById("recoveryPhone")
       .value
       .trim();
 
-  const lp =
+  const type=
     document
-      .getElementById(
-        "recoverLoginPin"
-      )
-      .value
-      .trim();
+      .getElementById("recoveryType")
+      .value;
 
-  const tp =
-    document
-      .getElementById(
-        "recoverTxPin"
-      )
-      .value
-      .trim();
-
-  const msg =
-    document
-      .getElementById(
-        "forgotOtpMsg"
-      );
+  const msg=
+    document.getElementById(
+      "recoveryMsg"
+    );
 
 
-  if(
-    !pendingRecovery ||
-    !/^\d{6}$/.test(code) ||
-    !/^\d{4}$/.test(lp) ||
-    !/^\d{4}$/.test(tp)
-  ){
+  msg.textContent="";
 
-    msg.textContent =
-      "Enter valid OTP and 4-digit PINs.";
+
+  if(!phone){
+
+    msg.textContent=
+      "Enter your phone number.";
+
+    toast(
+      "Enter your phone number"
+    );
+
+    return;
+
+  }
+
+
+  if(!supabaseClient){
+
+    msg.textContent=
+      "Phone authentication is not configured.";
 
     return;
 
@@ -5072,31 +3484,167 @@ async function finishForgotOTP(){
 
     const {
       error
-    } =
-      await supabaseClient
-        .auth
-        .verifyOtp({
+    }=
+      await supabaseClient.auth.signInWithOtp({
 
-          phone:
-            pendingRecovery.phone,
+        phone
 
-          token:code,
-
-          type:"sms"
-
-        });
+      });
 
 
     if(error){
 
-      throw error;
+      msg.textContent=
+        error.message;
+
+      toast(
+        "OTP: "+error.message
+      );
+
+      return;
 
     }
 
 
-    state.loginPin=lp;
+    pendingRecovery={
+      phone,
+      type
+    };
 
-    state.transactionPin=tp;
+
+    closeModal(
+      "recoveryModal"
+    );
+
+
+    document
+      .getElementById("recoveryOtp")
+      .value="";
+
+
+    document
+      .getElementById("recoveryNewPin")
+      .value="";
+
+
+    openModal(
+      "recoveryOtpModal"
+    );
+
+
+    toast(
+      "Recovery code sent"
+    );
+
+
+  }catch(error){
+
+    console.warn(error);
+
+    msg.textContent=
+      "Could not send recovery OTP.";
+
+  }
+
+}
+
+
+async function finishRecovery(){
+
+  if(!pendingRecovery){
+
+    toast(
+      "No recovery request pending"
+    );
+
+    return;
+
+  }
+
+
+  const otp=
+    document
+      .getElementById("recoveryOtp")
+      .value
+      .trim();
+
+  const newPin=
+    document
+      .getElementById("recoveryNewPin")
+      .value
+      .trim();
+
+  const msg=
+    document.getElementById(
+      "recoveryOtpMsg"
+    );
+
+
+  msg.textContent="";
+
+
+  if(!/^\d{6}$/.test(otp)){
+
+    msg.textContent=
+      "Enter the 6-digit OTP.";
+
+    return;
+
+  }
+
+
+  if(!/^\d{4}$/.test(newPin)){
+
+    msg.textContent=
+      "PIN must be exactly 4 digits.";
+
+    return;
+
+  }
+
+
+  try{
+
+    const {
+      error
+    }=
+      await supabaseClient.auth.verifyOtp({
+
+        phone:
+          pendingRecovery.phone,
+
+        token:otp,
+
+        type:"sms"
+
+      });
+
+
+    if(error){
+
+      msg.textContent=
+        error.message;
+
+      return;
+
+    }
+
+
+    if(
+      pendingRecovery.type===
+      "login"
+    ){
+
+      state.loginPin=
+        newPin;
+
+    }else{
+
+      state.transactionPin=
+        newPin;
+
+    }
+
 
     saveState();
 
@@ -5105,159 +3653,1524 @@ async function finishForgotOTP(){
 
 
     closeModal(
-      "forgotOtpModal"
+      "recoveryOtpModal"
     );
 
 
     toast(
-      "PINs updated"
+      "PIN updated successfully"
     );
 
 
-  }catch(e){
+  }catch(error){
 
-    msg.textContent =
-      e.message ||
-      "Recovery failed.";
+    console.warn(error);
+
+    msg.textContent=
+      "Could not update PIN.";
 
   }
 
 }
 
 
-function changePins(){
+/* ================================
+   BALANCE
+================================ */
 
-  const a =
-    document
-      .getElementById(
-        "oldLoginPin"
-      )
-      .value;
+function toggleBalance(){
 
-  const b =
-    document
-      .getElementById(
-        "newLoginPin2"
-      )
-      .value;
+  const hidden=
+    localStorage.getItem(
+      BALANCE_EYE_KEY
+    )==="hidden";
 
-  const c =
-    document
-      .getElementById(
-        "oldTxPin"
-      )
-      .value;
 
-  const d =
-    document
-      .getElementById(
-        "newTxPin2"
-      )
-      .value;
+  if(hidden){
 
-  const msg =
-    document
-      .getElementById(
-        "securityMsg"
-      );
+    localStorage.setItem(
+      BALANCE_EYE_KEY,
+      "visible"
+    );
 
+  }else{
+
+    localStorage.setItem(
+      BALANCE_EYE_KEY,
+      "hidden"
+    );
+
+  }
+
+
+  renderBalance();
+
+}
+
+
+function renderBalance(){
+
+  const amount=
+    document.getElementById(
+      "balanceAmount"
+    );
+
+  const eye=
+    document.getElementById(
+      "balanceEye"
+    );
+
+
+  if(!amount){
+    return;
+  }
+
+
+  const hidden=
+    localStorage.getItem(
+      BALANCE_EYE_KEY
+    )==="hidden";
+
+
+  amount.textContent=
+    hidden
+      ? "••••••••"
+      : money(state.balance);
+
+
+  if(eye){
+
+    eye.textContent=
+      hidden
+        ? "◌"
+        : "◉";
+
+  }
+
+}
+
+
+/* ================================
+   RENDER
+================================ */
+
+function renderAll(){
 
   if(
-    a!==String(
-      state.loginPin
-    ) ||
-    c!==String(
-      state.transactionPin
-    )
+    document
+      .getElementById("app")
+      .classList
+      .contains("hidden")
   ){
+    return;
+  }
 
-    msg.textContent =
-      "Current PIN is incorrect.";
+
+  renderBalance();
+
+  renderProfile();
+
+  renderHomeTransactions();
+
+  renderActivity();
+
+  renderCards();
+
+  renderSpaces();
+
+}
+
+
+function renderProfile(){
+
+  const name=
+    document.getElementById(
+      "homeName"
+    );
+
+  const profileName=
+    document.getElementById(
+      "profileName"
+    );
+
+  const profileId=
+    document.getElementById(
+      "profileId"
+    );
+
+  const avatar=
+    document.getElementById(
+      "avatar"
+    );
+
+  const meta=
+    document.getElementById(
+      "accountMeta"
+    );
+
+
+  if(name){
+
+    name.textContent=
+      state.name;
+
+  }
+
+
+  if(profileName){
+
+    profileName.textContent=
+      state.name;
+
+  }
+
+
+  if(profileId){
+
+    profileId.textContent=
+      state.novaId;
+
+  }
+
+
+  if(avatar){
+
+    avatar.textContent=
+      state.name
+        .charAt(0)
+        .toUpperCase();
+
+  }
+
+
+  if(meta){
+
+    meta.textContent=
+      state.novaId;
+
+  }
+
+}
+
+
+function transactionIcon(tx){
+
+  if(tx.type==="income"){
+    return "↓";
+  }
+
+  return "↑";
+
+}
+
+
+function renderHomeTransactions(){
+
+  const container=
+    document.getElementById(
+      "homeTransactions"
+    );
+
+
+  if(!container){
+    return;
+  }
+
+
+  const list=
+    state.transactions
+      .slice(0,5);
+
+
+  if(!list.length){
+
+    container.innerHTML=
+      `
+      <div class="tx">
+        <div class="txInfo">
+          <div class="txName">
+            No transactions yet
+          </div>
+          <div class="txDate">
+            Your activity will appear here
+          </div>
+        </div>
+      </div>
+      `;
 
     return;
 
   }
 
 
-  if(
-    !/^\d{4}$/.test(b) ||
-    !/^\d{4}$/.test(d)
-  ){
+  container.innerHTML=
+    list
+      .map(transactionHTML)
+      .join("");
 
-    msg.textContent =
-      "New PINs must be 4 digits.";
+}
 
+
+function transactionHTML(tx){
+
+  const amount=
+    safeNumber(
+      tx.amount,
+      0
+    );
+
+
+  const positive=
+    amount>=0;
+
+
+  return `
+    <div class="tx">
+
+      <div class="txIcon">
+        ${transactionIcon(tx)}
+      </div>
+
+      <div class="txInfo">
+
+        <div class="txName">
+          ${escapeHTML(tx.name)}
+        </div>
+
+        <div class="txDate">
+          ${escapeHTML(tx.date)}
+        </div>
+
+      </div>
+
+      <div class="txAmount ${positive?"income":"expense"}">
+
+        ${positive?"+":""}${money(amount)}
+
+      </div>
+
+    </div>
+  `;
+
+}
+
+
+function renderActivity(){
+
+  const container=
+    document.getElementById(
+      "activityTransactions"
+    );
+
+
+  if(!container){
     return;
-
   }
 
 
-  state.loginPin=b;
-
-  state.transactionPin=d;
-
-  saveState();
-
-
-  [
-    "oldLoginPin",
-    "newLoginPin2",
-    "oldTxPin",
-    "newTxPin2"
-  ]
-  .forEach(
-    id=>
+  const search=
+    (
       document
-        .getElementById(id)
-        .value=""
-  );
+        .getElementById("activitySearch")
+        ?.value ||
+      ""
+    )
+      .toLowerCase();
+
+
+  let list=
+    state.transactions
+      .filter(tx=>{
+
+        if(
+          activeFilter!=="all" &&
+          tx.type!==activeFilter
+        ){
+          return false;
+        }
+
+        return String(
+          tx.name
+        )
+          .toLowerCase()
+          .includes(search);
+
+      });
+
+
+  if(!list.length){
+
+    container.innerHTML=
+      `
+      <div class="tx">
+        <div class="txInfo">
+          <div class="txName">
+            No matching activity
+          </div>
+        </div>
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  container.innerHTML=
+    list
+      .map(transactionHTML)
+      .join("");
+
+}
+
+
+function setFilter(filter,button){
+
+  activeFilter=filter;
+
+
+  document
+    .querySelectorAll(".filter")
+    .forEach(
+      b=>b.classList.remove("active")
+    );
+
+
+  button.classList.add("active");
+
+
+  renderActivity();
+
+}
+
+
+/* ================================
+   CARDS
+================================ */
+
+function renderCards(){
+
+  const container=
+    document.getElementById(
+      "savedCards"
+    );
+
+
+  if(!container){
+    return;
+  }
+
+
+  if(!state.cards.length){
+
+    container.innerHTML=
+      `
+      <div class="tx">
+        <div class="txInfo">
+          <div class="txName">
+            No saved cards
+          </div>
+          <div class="txDate">
+            Add a bank card to see it here.
+          </div>
+        </div>
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  container.innerHTML=
+    state.cards
+      .map(
+        (card,index)=>`
+
+        <div class="savedCard">
+
+          <div class="miniCard"></div>
+
+          <div class="savedInfo">
+
+            <div class="savedName">
+              ${escapeHTML(
+                card.nickname ||
+                "Bank card"
+              )}
+            </div>
+
+            <div class="savedMeta">
+              •••• ${escapeHTML(card.last4)}
+              · ${escapeHTML(card.expiry)}
+              · ${escapeHTML(card.holder)}
+            </div>
+
+          </div>
+
+          ${
+            card.isDefault
+              ? `<div class="defaultBadge">DEFAULT</div>`
+              : ""
+          }
+
+          <button
+            class="close"
+            onclick="removeCard(${index})">
+            ×
+          </button>
+
+        </div>
+
+        `
+      )
+      .join("");
+
+}
+
+
+function saveCard(){
+
+  const holder=
+    document
+      .getElementById("cardHolder")
+      .value
+      .trim();
+
+  const number=
+    document
+      .getElementById("cardNumberInput")
+      .value
+      .trim();
+
+  const expiry=
+    document
+      .getElementById("cardExpiry")
+      .value
+      .trim();
+
+  const cvv=
+    document
+      .getElementById("cardCVV")
+      .value
+      .trim();
+
+  const nickname=
+    document
+      .getElementById("cardNickname")
+      .value
+      .trim();
+
+  const msg=
+    document.getElementById(
+      "cardMsg"
+    );
 
 
   msg.textContent="";
 
 
+  if(!holder){
+
+    msg.textContent=
+      "Enter the cardholder name.";
+
+    return;
+
+  }
+
+
+  if(!luhn(number)){
+
+    msg.textContent=
+      "Enter a valid card number.";
+
+    return;
+
+  }
+
+
+  if(!/^\d{2}\/\d{2}$/.test(expiry)){
+
+    msg.textContent=
+      "Expiry must be MM/YY.";
+
+    return;
+
+  }
+
+
+  if(!/^\d{3,4}$/.test(cvv)){
+
+    msg.textContent=
+      "Enter a valid CVV.";
+
+    return;
+
+  }
+
+
+  /*
+    IMPORTANT:
+    Full card number and CVV
+    are never saved.
+  */
+
+  const metadata={
+
+    holder,
+
+    last4:
+      formatLast4(number),
+
+    expiry,
+
+    nickname:
+      nickname ||
+      "Bank card",
+
+    isDefault:
+      state.cards.length===0
+
+  };
+
+
+  state.cards.forEach(
+    card=>{
+      if(metadata.isDefault){
+        card.isDefault=false;
+      }
+    }
+  );
+
+
+  state.cards.push(
+    metadata
+  );
+
+
+  saveState();
+
+
+  document
+    .getElementById("cardHolder")
+    .value="";
+
+  document
+    .getElementById("cardNumberInput")
+    .value="";
+
+  document
+    .getElementById("cardExpiry")
+    .value="";
+
+  document
+    .getElementById("cardCVV")
+    .value="";
+
+  document
+    .getElementById("cardNickname")
+    .value="";
+
+
   closeModal(
-    "securityModal"
+    "cardModal"
   );
 
 
   toast(
-    "PINs changed"
+    "Card saved securely as metadata"
   );
 
 }
 
 
-async function onlineSignIn(){
+function removeCard(index){
 
-  const email =
+  if(
+    !confirm(
+      "Remove this saved card?"
+    )
+  ){
+    return;
+  }
+
+
+  const wasDefault=
+    state.cards[index]?.isDefault;
+
+
+  state.cards.splice(
+    index,
+    1
+  );
+
+
+  if(
+    wasDefault &&
+    state.cards.length
+  ){
+
+    state.cards[0].isDefault=true;
+
+  }
+
+
+  saveState();
+
+
+  toast(
+    "Card removed"
+  );
+
+}
+
+
+/* ================================
+   SPACES
+================================ */
+
+function renderSpaces(){
+
+  const container=
+    document.getElementById(
+      "spacesList"
+    );
+
+
+  if(!container){
+    return;
+  }
+
+
+  if(!state.spaces.length){
+
+    container.innerHTML=
+      `
+      <div class="tx">
+        <div class="txInfo">
+          <div class="txName">
+            No spaces yet
+          </div>
+          <div class="txDate">
+            Create savings goals in your NOVA account.
+          </div>
+        </div>
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  container.innerHTML=
+    state.spaces
+      .map(
+        space=>{
+
+          const amount=
+            safeNumber(
+              space.amount,
+              0
+            );
+
+          const target=
+            safeNumber(
+              space.target,
+              0
+            );
+
+          const percent=
+            target>0
+              ? Math.min(
+                  100,
+                  Math.round(
+                    amount/
+                    target*
+                    100
+                  )
+                )
+              : 0;
+
+
+          return `
+            <div class="space">
+
+              <div class="spaceTop">
+
+                <div class="spaceName">
+                  ${escapeHTML(space.name)}
+                </div>
+
+                <div class="spaceAmount">
+                  ${money(amount)}
+                </div>
+
+              </div>
+
+              <div class="progress">
+
+                <div
+                  class="progressBar"
+                  style="width:${percent}%">
+                </div>
+
+              </div>
+
+              <div class="spaceBottom">
+
+                <span>
+                  ${percent}% complete
+                </span>
+
+                <span>
+                  Target ${money(target)}
+                </span>
+
+              </div>
+
+            </div>
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+/* ================================
+   SEND
+================================ */
+
+function prepareSend(){
+
+  const recipient=
+    document
+      .getElementById("sendRecipient")
+      .value
+      .trim()
+      .toUpperCase();
+
+  const amount=
+    safeNumber(
+      document
+        .getElementById("sendAmount")
+        .value,
+      0
+    );
+
+  const msg=
+    document.getElementById(
+      "sendMsg"
+    );
+
+
+  msg.textContent="";
+
+
+  if(!recipient){
+
+    msg.textContent=
+      "Enter a NOVA ID.";
+
+    return;
+
+  }
+
+
+  if(
+    recipient===
+    state.novaId
+  ){
+
+    msg.textContent=
+      "You cannot send money to yourself.";
+
+    return;
+
+  }
+
+
+  if(amount<=0){
+
+    msg.textContent=
+      "Enter a valid amount.";
+
+    return;
+
+  }
+
+
+  if(amount>state.balance){
+
+    msg.textContent=
+      "Insufficient balance.";
+
+    return;
+
+  }
+
+
+  pendingTransfer={
+    recipient,
+    amount
+  };
+
+
+  closeModal(
+    "sendModal"
+  );
+
+
+  document
+    .getElementById(
+      "transactionPinInput"
+    )
+    .value="";
+
+
+  document
+    .getElementById(
+      "transactionPinMsg"
+    )
+    .textContent="";
+
+
+  openModal(
+    "transactionPinModal"
+  );
+
+}
+
+
+function confirmSend(){
+
+  if(!pendingTransfer){
+
+    toast(
+      "No transfer pending"
+    );
+
+    return;
+
+  }
+
+
+  const pin=
     document
       .getElementById(
-        "onlineEmail"
+        "transactionPinInput"
       )
       .value
       .trim();
 
-  const password =
-    document
-      .getElementById(
-        "onlinePassword"
-      )
-      .value;
-
-  const msg =
-    document
-      .getElementById(
-        "onlineMsg"
-      );
+  const msg=
+    document.getElementById(
+      "transactionPinMsg"
+    );
 
 
   if(
-    !email ||
-    !password
+    pin!==state.transactionPin
   ){
 
-    msg.textContent =
+    msg.textContent=
+      "Incorrect transaction PIN.";
+
+    return;
+
+  }
+
+
+  const amount=
+    pendingTransfer.amount;
+
+
+  state.balance-=
+    amount;
+
+
+  state.transactions.unshift({
+
+    name:
+      "Transfer to "+
+      pendingTransfer.recipient,
+
+    date:
+      new Date().toLocaleString(
+        "en-NG",
+        {
+          month:"short",
+          day:"numeric",
+          hour:"2-digit",
+          minute:"2-digit"
+        }
+      ),
+
+    amount:
+      -amount,
+
+    type:"expense"
+
+  });
+
+
+  saveState();
+
+
+  pendingTransfer=null;
+
+
+  closeModal(
+    "transactionPinModal"
+  );
+
+
+  toast(
+    "Transfer complete"
+  );
+
+}
+
+
+/* ================================
+   REQUEST
+================================ */
+
+function requestMoney(){
+
+  const from=
+    document
+      .getElementById("requestFrom")
+      .value
+      .trim();
+
+  const amount=
+    safeNumber(
+      document
+        .getElementById("requestAmount")
+        .value,
+      0
+    );
+
+
+  if(!from){
+
+    toast(
+      "Enter a NOVA ID"
+    );
+
+    return;
+
+  }
+
+
+  if(amount<=0){
+
+    toast(
+      "Enter a valid amount"
+    );
+
+    return;
+
+  }
+
+
+  closeModal(
+    "requestModal"
+  );
+
+
+  toast(
+    "Money request created"
+  );
+
+}
+
+
+/* ================================
+   ADD MONEY
+================================ */
+
+function addMoney(){
+
+  const amount=
+    safeNumber(
+      document
+        .getElementById("addMoneyAmount")
+        .value,
+      0
+    );
+
+
+  if(amount<=0){
+
+    toast(
+      "Enter a valid amount"
+    );
+
+    return;
+
+  }
+
+
+  /*
+    Demo only.
+    A real app would use a
+    payment processor/tokenized
+    funding source.
+  */
+
+
+  state.balance+=amount;
+
+
+  state.transactions.unshift({
+
+    name:"Money added",
+
+    date:"Just now",
+
+    amount,
+
+    type:"income"
+
+  });
+
+
+  saveState();
+
+
+  document
+    .getElementById(
+      "addMoneyAmount"
+    )
+    .value="";
+
+
+  closeModal(
+    "addMoneyModal"
+  );
+
+
+  toast(
+    "Money added in demo mode"
+  );
+
+}
+
+
+/* ================================
+   QR
+================================ */
+
+function openQRModal(){
+
+  const qr=
+    document.getElementById(
+      "qrCanvas"
+    );
+
+  qr.innerHTML="";
+
+
+  document
+    .getElementById(
+      "myNovaId"
+    )
+    .textContent=
+      state.novaId;
+
+
+  if(
+    typeof QRCode==="undefined"
+  ){
+
+    toast(
+      "QR library unavailable"
+    );
+
+    return;
+
+  }
+
+
+  new QRCode(
+    qr,
+    {
+      text:
+        "NOVA:"+state.novaId,
+
+      width:210,
+
+      height:210,
+
+      correctLevel:
+        QRCode.CorrectLevel.M
+    }
+  );
+
+
+  openModal(
+    "qrModal"
+  );
+
+}
+
+
+/* ================================
+   SCANNER
+================================ */
+
+async function openScanner(){
+
+  closeModal(
+    "sendModal"
+  );
+
+  openModal(
+    "scannerModal"
+  );
+
+
+  const video=
+    document.getElementById(
+      "scannerVideo"
+    );
+
+
+  try{
+
+    scannerStream=
+      await navigator.mediaDevices.getUserMedia({
+
+        video:{
+          facingMode:{
+            ideal:"environment"
+          }
+        }
+
+      });
+
+
+    video.srcObject=
+      scannerStream;
+
+
+    if(
+      "BarcodeDetector"
+      in window
+    ){
+
+      const detector=
+        new BarcodeDetector({
+          formats:["qr_code"]
+        });
+
+
+      scannerTimer=
+        setInterval(
+          async()=>{
+
+            if(
+              video.readyState<
+              2
+            ){
+              return;
+            }
+
+
+            try{
+
+              const codes=
+                await detector.detect(
+                  video
+                );
+
+
+              if(
+                codes.length
+              ){
+
+                handleScannedQR(
+                  codes[0].rawValue
+                );
+
+              }
+
+            }catch(e){
+
+              console.warn(
+                "QR scan",
+                e
+              );
+
+            }
+
+          },
+          500
+        );
+
+    }else{
+
+      toast(
+        "QR scanning unavailable — use manual NOVA ID"
+      );
+
+    }
+
+  }catch(error){
+
+    console.warn(error);
+
+    toast(
+      "Camera access unavailable"
+    );
+
+  }
+
+}
+
+
+function closeScanner(){
+
+  clearInterval(
+    scannerTimer
+  );
+
+  scannerTimer=null;
+
+
+  if(scannerStream){
+
+    scannerStream
+      .getTracks()
+      .forEach(
+        track=>track.stop()
+      );
+
+    scannerStream=null;
+
+  }
+
+
+  closeModal(
+    "scannerModal"
+  );
+
+}
+
+
+function handleScannedQR(value){
+
+  if(
+    !String(value)
+      .startsWith("NOVA:")
+  ){
+
+    toast(
+      "Invalid NOVA QR"
+    );
+
+    return;
+
+  }
+
+
+  const novaId=
+    String(value)
+      .replace(
+        /^NOVA:/,
+        ""
+      )
+      .trim()
+      .toUpperCase();
+
+
+  closeScanner();
+
+
+  document
+    .getElementById(
+      "sendRecipient"
+    )
+    .value=
+      novaId;
+
+
+  openModal(
+    "sendModal"
+  );
+
+
+  toast(
+    "Recipient loaded"
+  );
+
+}
+
+
+function manualNovaId(){
+
+  closeScanner();
+
+
+  const id=
+    prompt(
+      "Enter NOVA ID"
+    );
+
+
+  if(!id){
+    return;
+  }
+
+
+  document
+    .getElementById(
+      "sendRecipient"
+    )
+    .value=
+      id
+        .trim()
+        .toUpperCase();
+
+
+  openModal(
+    "sendModal"
+  );
+
+}
+
+
+/* ================================
+   PIN CHANGE
+================================ */
+
+function changePIN(type){
+
+  const label=
+    type==="login"
+      ? "login PIN"
+      : "transaction PIN";
+
+
+  const oldPin=
+    prompt(
+      "Enter your current "+label
+    );
+
+
+  if(
+    oldPin===null
+  ){
+    return;
+  }
+
+
+  const expected=
+    type==="login"
+      ? state.loginPin
+      : state.transactionPin;
+
+
+  if(oldPin!==expected){
+
+    toast(
+      "Incorrect current PIN"
+    );
+
+    return;
+
+  }
+
+
+  const newPin=
+    prompt(
+      "Enter your new 4-digit "+label
+    );
+
+
+  if(
+    !/^\d{4}$/.test(
+      String(newPin||"")
+    )
+  ){
+
+    toast(
+      "PIN must be exactly 4 digits"
+    );
+
+    return;
+
+  }
+
+
+  if(type==="login"){
+
+    state.loginPin=
+      newPin;
+
+  }else{
+
+    state.transactionPin=
+      newPin;
+
+  }
+
+
+  saveState();
+
+
+  toast(
+    label+" changed"
+  );
+
+}
+
+
+/* ================================
+   ONLINE SUPABASE
+================================ */
+
+async function onlineSignIn(){
+
+  const email=
+    document
+      .getElementById("onlineEmail")
+      .value
+      .trim();
+
+  const password=
+    document
+      .getElementById("onlinePassword")
+      .value;
+
+
+  const msg=
+    document.getElementById(
+      "onlineMsg"
+    );
+
+
+  msg.textContent="";
+
+
+  if(!supabaseClient){
+
+    msg.textContent=
+      "Supabase is not configured.";
+
+    return;
+
+  }
+
+
+  if(!email||!password){
+
+    msg.textContent=
       "Enter email and password.";
 
     return;
@@ -5267,32 +5180,36 @@ async function onlineSignIn(){
 
   try{
 
-    const {
-      error
-    } =
-      await supabaseClient
-        .auth
-        .signInWithPassword({
+    let result=
+      await supabaseClient.auth.signInWithPassword({
+
+        email,
+        password
+
+      });
+
+
+    if(result.error){
+
+      result=
+        await supabaseClient.auth.signUp({
+
           email,
           password
+
         });
-
-
-    if(error){
-
-      throw error;
 
     }
 
 
-    msg.textContent =
-      "Connected.";
+    if(result.error){
 
-    msg.className =
-      "modalMsg success";
+      msg.textContent=
+        result.error.message;
 
+      return;
 
-    updateStatus();
+    }
 
 
     toast(
@@ -5300,10 +5217,19 @@ async function onlineSignIn(){
     );
 
 
-  }catch(e){
+    closeModal(
+      "onlineModal"
+    );
 
-    msg.textContent =
-      e.message ||
+
+    updateOnlineStatus();
+
+
+  }catch(error){
+
+    console.warn(error);
+
+    msg.textContent=
       "Online sign-in failed.";
 
   }
@@ -5311,122 +5237,35 @@ async function onlineSignIn(){
 }
 
 
-async function onlineSignUp(){
+async function updateOnlineStatus(){
 
-  const email =
-    document
-      .getElementById(
-        "onlineEmail"
-      )
-      .value
-      .trim();
+  const status=
+    document.getElementById(
+      "onlineStatus"
+    );
 
-  const password =
-    document
-      .getElementById(
-        "onlinePassword"
-      )
-      .value;
-
-  const msg =
-    document
-      .getElementById(
-        "onlineMsg"
-      );
+  const text=
+    document.getElementById(
+      "statusText"
+    );
 
 
   if(
-    !email ||
-    password.length<6
+    !status ||
+    !text
   ){
-
-    msg.textContent =
-      "Use an email and a password of at least 6 characters.";
-
     return;
-
   }
 
 
-  try{
+  if(!supabaseClient){
 
-    const {
-      error
-    } =
-      await supabaseClient
-        .auth
-        .signUp({
-
-          email,
-
-          password,
-
-          data:{
-
-            name:
-              state.name,
-
-            nova_id:
-              state.novaId
-
-          }
-
-        });
-
-
-    if(error){
-
-      throw error;
-
-    }
-
-
-    msg.textContent =
-      "Check your email if confirmation is enabled.";
-
-    msg.className =
-      "modalMsg success";
-
-
-    updateStatus();
-
-
-  }catch(e){
-
-    msg.textContent =
-      e.message ||
-      "Online account creation failed.";
-
-  }
-
-}
-
-
-async function updateStatus(){
-
-  const dot =
-    document
-      .getElementById(
-        "statusDot"
-      );
-
-  const text =
-    document
-      .getElementById(
-        "statusText"
-      );
-
-
-  if(
-    !supabaseClient
-  ){
-
-    dot.classList.remove(
+    status.classList.remove(
       "online"
     );
 
-    text.textContent =
-      "Local mode";
+    text.textContent=
+      "Offline";
 
     return;
 
@@ -5437,42 +5276,37 @@ async function updateStatus(){
 
     const {
       data
-    } =
-      await supabaseClient
-        .auth
-        .getSession();
+    }=
+      await supabaseClient.auth.getSession();
 
 
-    if(
-      data.session
-    ){
+    if(data?.session){
 
-      dot.classList.add(
+      status.classList.add(
         "online"
       );
 
-      text.textContent =
+      text.textContent=
         "Online";
 
     }else{
 
-      dot.classList.remove(
+      status.classList.remove(
         "online"
       );
 
-      text.textContent =
-        "Local mode";
+      text.textContent=
+        "Local";
 
     }
 
-
   }catch(e){
 
-    dot.classList.remove(
+    status.classList.remove(
       "online"
     );
 
-    text.textContent =
+    text.textContent=
       "Offline";
 
   }
@@ -5480,75 +5314,356 @@ async function updateStatus(){
 }
 
 
-if(
-  supabaseClient
-){
+/* ================================
+   NAVIGATION
+================================ */
 
-  supabaseClient
-    .auth
-    .onAuthStateChange(
-      ()=>
-        updateStatus()
+function showPage(pageId,button){
+
+  const pages=[
+    "homePage",
+    "activityPage",
+    "cardsPage",
+    "spacesPage",
+    "profilePage"
+  ];
+
+
+  pages.forEach(
+    id=>{
+
+      document
+        .getElementById(id)
+        .classList.toggle(
+          "hidden",
+          id!==pageId
+        );
+
+    }
+  );
+
+
+  document
+    .querySelectorAll(".navBtn")
+    .forEach(
+      b=>b.classList.remove("active")
+    );
+
+
+  if(button){
+
+    button.classList.add(
+      "active"
+    );
+
+  }
+
+
+  renderAll();
+
+}
+
+
+/* ================================
+   LOGOUT
+================================ */
+
+async function logout(){
+
+  localStorage.removeItem(
+    AUTH_KEY
+  );
+
+
+  /*
+    State is intentionally retained
+    locally for this prototype so the
+    same demo account can log back in.
+  */
+
+
+  if(supabaseClient){
+
+    try{
+
+      await supabaseClient.auth.signOut();
+
+    }catch(e){
+
+      console.warn(e);
+
+    }
+
+  }
+
+
+  showLogin();
+
+
+  toast(
+    "Logged out"
+  );
+
+}
+
+
+/* ================================
+   ESCAPE
+================================ */
+
+function escapeHTML(value){
+
+  return String(
+    value??""
+  )
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
     );
 
 }
 
 
-function init(){
+/* ================================
+   SUPABASE TRANSACTIONS
+================================ */
 
-  const savedEye =
-    localStorage.getItem(
-      EYE_KEY
+async function saveTransactionOnline(
+  transaction
+){
+
+  if(!supabaseClient){
+    return;
+  }
+
+
+  try{
+
+    const {
+      data:{
+        user
+      }
+    }=
+      await supabaseClient.auth.getUser();
+
+
+    if(!user){
+      return;
+    }
+
+
+    await supabaseClient
+      .from("transactions")
+      .insert({
+
+        user_id:user.id,
+
+        name:
+          transaction.name,
+
+        amount:
+          transaction.amount,
+
+        type:
+          transaction.type,
+
+        date:
+          transaction.date
+
+      });
+
+  }catch(error){
+
+    console.warn(
+      "Online transaction save failed",
+      error
     );
-
-
-  if(
-    savedEye!==null
-  ){
-
-    state.eyeHidden =
-      savedEye==="1";
 
   }
 
+}
+
+
+async function syncSupabase(){
+
+  if(!supabaseClient){
+    return;
+  }
+
+
+  try{
+
+    const {
+      data:{
+        user
+      }
+    }=
+      await supabaseClient.auth.getUser();
+
+
+    if(!user){
+      return;
+    }
+
+
+    const {
+      data,
+      error
+    }=
+      await supabaseClient
+        .from("transactions")
+        .select("*")
+        .eq(
+          "user_id",
+          user.id
+        )
+        .order(
+          "created_at",
+          {
+            ascending:false
+          }
+        );
+
+
+    if(error){
+
+      console.warn(
+        "Supabase sync failed",
+        error
+      );
+
+      return;
+
+    }
+
+
+    if(
+      Array.isArray(data) &&
+      data.length
+    ){
+
+      state.transactions=
+        data.map(
+          row=>({
+
+            name:
+              row.name,
+
+            amount:
+              safeNumber(
+                row.amount,
+                0
+              ),
+
+            type:
+              row.type,
+
+            date:
+              row.date ||
+              row.created_at
+
+          })
+        );
+
+
+      saveState();
+
+    }
+
+  }catch(error){
+
+    console.warn(
+      error
+    );
+
+  }
+
+}
+
+
+/* ================================
+   INIT
+================================ */
+
+function ensureIdentity(){
+
+  if(!state.novaId){
+
+    state.novaId=
+      makeNovaId();
+
+    saveState();
+
+  }
+
+}
+
+
+async function init(){
+
+  loadState();
+
+  normalizeState();
 
   ensureIdentity();
 
-  renderDots();
+  checkAuth();
+
+  updateOnlineStatus();
 
 
-  if(
-    localStorage.getItem(
-      AUTH_KEY
-    )==="true"
-  ){
+  if(supabaseClient){
 
-    enterApp();
-
-  }else{
-
-    document
-      .getElementById(
-        "loginScreen"
-      )
-      .classList
-      .remove("hidden");
+    supabaseClient.auth.onAuthStateChange(
+      ()=>{
+        updateOnlineStatus();
+      }
+    );
 
   }
 
+
+  /*
+    Register service worker.
+  */
 
   if(
     "serviceWorker"
     in navigator
   ){
 
-    navigator.serviceWorker
-      .register(
-        "./sw.js?v=27"
-      )
-      .catch(
-        ()=>{}
+    try{
+
+      await navigator
+        .serviceWorker
+        .register(
+          "./sw.js?v=27"
+        );
+
+    }catch(error){
+
+      console.warn(
+        "Service worker failed",
+        error
       );
+
+    }
 
   }
 
